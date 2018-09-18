@@ -15,4 +15,13 @@ describe('Collapse', () => {
       expect(wrapper.children().text()).toEqual(null);
     });
   });
+
+  describe('`dataHook` prop', () => {
+    it('should be passed to children', () => {
+      const wrapper = mount(
+        <Collapse dataHook="I'm hooked!" children={<div>text</div>}/>
+      );
+      expect(wrapper.children().prop('data-hook')).toEqual('I\'m hooked!');
+    });
+  });
 });

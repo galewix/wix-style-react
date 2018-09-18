@@ -2,15 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactCollapse from 'react-collapse';
 
-const Collapse = ({children, open}) => (
-  <ReactCollapse isOpened={open} children={children}/>
+const Collapse = ({children, open, dataHook}) => (
+  <ReactCollapse data-hook={dataHook} isOpened={open} children={children}/>
 );
 
 Collapse.displayName = 'Collapse';
 
 Collapse.propTypes = {
   children: PropTypes.node,
-  open: PropTypes.bool
+  open: PropTypes.bool,
+  dataHook: PropTypes.string
 };
 
 Collapse.defaultProps = {
