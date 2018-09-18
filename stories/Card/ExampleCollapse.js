@@ -8,6 +8,7 @@ import FormField from 'wix-style-react/FormField';
 import Input from 'wix-style-react/Input';
 import Button from 'wix-style-react/Button';
 import TextLink from 'wix-style-react/TextLink';
+import Tooltip from 'wix-style-react/Tooltip';
 
 export default class extends React.Component {
   state = {
@@ -52,15 +53,21 @@ export default class extends React.Component {
                   title="Card with collapsable content #2"
                   withoutDivider={!secondCardOpen}
                   suffix={
-                    <TextLink
-                      onClick={() =>
-                        this.setState(({secondCardOpen}) => ({
-                          secondCardOpen: !secondCardOpen
-                        }))
-                      }
+                    <Tooltip
+                      content={`Click me to ${
+                        secondCardOpen ? 'squeeze' : 'expand'
+                      }!`}
                       >
-                      {secondCardOpen ? 'Close' : 'Open'}
-                    </TextLink>
+                      <TextLink
+                        onClick={() =>
+                          this.setState(({secondCardOpen}) => ({
+                            secondCardOpen: !secondCardOpen
+                          }))
+                        }
+                        >
+                        {secondCardOpen ? 'Close' : 'Open'}
+                      </TextLink>
+                    </Tooltip>
                   }
                   />
 

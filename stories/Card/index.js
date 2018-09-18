@@ -33,7 +33,7 @@ storiesOf('2. Layout', module).add('Card', () => (
     </CodeExample>
 
     <CodeExample
-      title="Cards with collapsable content"
+      title="Cards with <Collapse/> component"
       code={ExampleCollapseRaw}
       >
       <ExampleCollapse/>

@@ -54,21 +54,4 @@ export default () =>
   Can be used in between `Card.Content`s for visual separation. Accepts no props
 </details>
 
-
-<details>
-  <summary>`Card.CollapsedHeader`</summary>
-
-  | propName                | propType            | defaultValue | isRequired | description                             |
-  | ---                     | ---                 | ---          | ---        | ---                                     |
-  | title                   | string              | -            | +          | The title of the card                   |
-  | subtitle                | string              | -            | -          | The subtitle of the card                |
-  | toggleSwitch            | 'button' / 'switch' | 'switch'     | -          | The style of the collapsed card toggle  |
-  | withoutDivider          | bool                | false        | -          | Whether to show divider or not          |
-  | collapsed               | bool                | false        | -          | True when the card should be collapsed  |
-  | onCollapsedChange       | func                | -            | -          | Called with collapse status on change   |
-  | controlled <sup>*</sup> | bool                | false        | -          | Converts the component to be controlled |
-
-  > * When `controlled` is true, `collapsed` will change only via `collapsed` prop.
-</details>
-
 ---
