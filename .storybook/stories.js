@@ -27,7 +27,6 @@ import '../stories/StatsWidget'; // 2.7 StatsWidget
 import '../stories/Grid';
 import '../stories/Card';
 
-
 // 3. Inputs
 import '../stories/TextField'; // 3.1 Text Field
 import '../stories/Input'; // 3.1 + Input
@@ -117,6 +116,7 @@ import '../stories/Highlighter.story.js'; // Highlighter
 import '../stories/FormField.story.js';
 import '../stories/Layout/index.story.js';
 import '../stories/Layout';
+import '../stories/Collapse.story';
 
 //WIP
 import '../stories/DragAndDrop/DragAndDrop.js';
