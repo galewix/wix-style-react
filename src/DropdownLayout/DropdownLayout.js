@@ -124,6 +124,12 @@ class DropdownLayout extends WixComponent {
     this.options.scrollTop = (newHovered - 2) * 35;
   }
 
+  /**
+   * Handle keydown events for the DropdownLayout, mostly for accessibility
+   *
+   * @param {SyntheticEvent} event - The keydown event triggered by React
+   * @returns {boolean} - Whether the event was handled by the component
+   */
   _onKeyDown(event) {
     if (!this.props.visible || this.props.isComposing) {
       return false;
