@@ -68,17 +68,6 @@ class Dropdown extends InputWithOptions {
     this.setState({value: this.props.valueParser(option), selectedId: option.id});
     super._onSelect(option);
   }
-
-  _onFocus() {
-    if (this.props.disabled) {
-      return;
-    }
-    this._focused = true;
-    this.setState({isEditing: false});
-    if (this.props.onFocus) {
-      this.props.onFocus();
-    }
-  }
 }
 
 Dropdown.propTypes = InputWithOptions.propTypes;

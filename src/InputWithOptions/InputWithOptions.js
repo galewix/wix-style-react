@@ -17,21 +17,24 @@ class InputWithOptions extends WixComponent {
 
   /**
    * An array of key codes that act as manual submit. Will be used within
-   * onKeyDown(event). The key codes are the values of {KeyboardEvent.key}.
+   * onKeyDown(event).
+   *
+   * @returns {KeyboardEvent.key[]}
    */
   getManualSubmitKeys() {
-    return [
-      'Tab',
-      ...(!this.isReadOnly ? ['Enter'] : [])
-    ];
+    return ['Tab', 'Enter'];
   }
 
   /**
-   * An array of key codes that should open the dropdown when in readOnly mode.
-   * Will be used within onKeyDown(event). The key codes are the values of {KeyboardEvent.key}.
+   * Returns a list of keys that should cause the DropdownLayout to be opened.
+   *
+   * @param {Object} options
+   * @returns {KeyboardEvent.key[]}
    */
-  getOpenKeys() {
-    return ['Enter', 'Spacebar', ' ', 'ArrowDown'];
+  getKeysForOpening() {
+    return this.isReadOnly ?
+      ['Enter', 'Spacebar', ' ', 'ArrowDown'] :
+      ['ArrowDown'];
   }
 
   constructor(props) {
@@ -258,32 +261,29 @@ class InputWithOptions extends WixComponent {
       this.setState({isEditing: true});
     }
 
-    // We'll always delegate if we're in readOnly mode
     const shouldDelegate = this.isReadOnly || !['Spacebar', ' '].includes(event.key);
+    const shouldOpenDropdown = this.getKeysForOpening().includes(event.key);
+
+    if (shouldOpenDropdown) {
+      this.showOptions();
+      event.preventDefault();
+    }
 
     if (shouldDelegate) {
 
       // Delegate event and get result
       const isHandledByDropdownLayout = this.dropdownLayout._onKeyDown(event);
 
-      if (!isHandledByDropdownLayout) {
-
-        if (this.readOnly) {
-
-          // For readOnly mode, we want to show the dropdown for specific keys
-          // only. Closing the dropdown should be handled by the DropdownLayout
-          // itself.
-          if (this.getOpenKeys().includes(event.key)) {
-            this.showOptions();
-            event.preventDefault();
-          }
-
-        // For editing mode, we want to *submit* only for specific keys.
-        // Otherwise, we'll show the dropdown and won't call preventDefault
-        // so the event will delegate to the Input.
-        } else if (this.getManualSubmitKeys().includes(event.key)) {
+      // For editing mode, we want to *submit* only for specific keys.
+      // Otherwise, we'll show the dropdown and won't call preventDefault
+      // so the event will delegate to the Input.
+      if (!isHandledByDropdownLayout && !this.isReadOnly) {
+        if (this.getManualSubmitKeys().includes(event.key)) {
           this._onManuallyInput(this.state.inputValue);
         } else {
+          // TODO: only show the option when the input value has changed.
+          // Currently, is also shows it when pressing keys like Shift, Alt,
+          // Cmd, etc.
           this.showOptions();
         }
       }
