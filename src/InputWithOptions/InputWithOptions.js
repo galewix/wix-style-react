@@ -28,7 +28,6 @@ class InputWithOptions extends WixComponent {
   /**
    * Returns a list of keys that should cause the DropdownLayout to be opened.
    *
-   * @param {Object} options
    * @returns {KeyboardEvent.key[]}
    */
   getKeysForOpening() {
