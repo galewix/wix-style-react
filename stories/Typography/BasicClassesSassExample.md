@@ -18,7 +18,7 @@ export default () => (
 > MyStyles.scss
 
 ```scss
-@import 'node_modules/wix-style-react/dist/src/Typography/TypographyV5.scss';
+@import 'node_modules/wix-style-react/dist/src/Typography/Typography.scss';
 
 .myHeading {
   @extend .h1;

@@ -24,6 +24,7 @@ const propsToClassNames = props => {
     [`weight${capitalize(props.weight)}`]: !!props.weight,
     [`skin${capitalize(props.skin)}`]: !!props.skin,
     link: !!props.link,
+    disabled: !!props.disabled,
     light: !!props.light,
     secondary: !!props.secondary
   };
@@ -67,14 +68,16 @@ TextSizeWeightExample.propTypes = {
 };
 
 const TextColorExample = props => {
-  const boolLabel = val => val === undefined ? `[false]` : val ? 'true' : 'false';
+  const boolLabel = val => val === undefined ? `-` : val ? 'true' : 'false';
   const link = boolLabel(props.link);
+  const disabled = boolLabel(props.disabled);
   const light = boolLabel(props.light);
   const secondary = boolLabel(props.secondary);
   return (
     <tr>
       <td>{props.skin ? props.skin : `[${DEFAULT_SKIN}]`}</td>
       <td>{link}</td>
+      <td>{disabled}</td>
       <td>{light}</td>
       <td>{secondary}</td>
       <td>{propsToClassNames(props).join(' ')}</td>
@@ -93,6 +96,7 @@ const TextColorExample = props => {
 TextColorExample.propTypes = {
   skin: string,
   link: bool,
+  disabled: bool,
   light: bool,
   secondary: bool,
   note: string
@@ -142,6 +146,7 @@ export function renderColorTable() {
         <tr>
           <th>Skin</th>
           <th>Link</th>
+          <th>Disabled</th>
           <th>Light</th>
           <th>Secondary</th>
           <th>Classes</th>
@@ -158,14 +163,31 @@ export function renderColorTable() {
       <TextColorExample skin="premium"/>
 
       <TextColorExample link/>
+      <TextColorExample disabled/>
       <TextColorExample light/>
       <TextColorExample secondary/>
       <TextColorExample secondary light/>
 
       {/* skin takes precedence */}
-      <TextColorExample skin="success" link note="skin takes precedence"/>
-      <TextColorExample skin="success" light note="skin takes precedence"/>
-      <TextColorExample skin="success" secondary note="skin takes precedence"/>
+      <TextColorExample skin="standard" link note="default skin class is explicitly set"/>
+      <TextColorExample skin="standard" disabled note="default skin class is explicitly set"/>
+      <TextColorExample skin="standard" light note="default skin class is explicitly set"/>
+      <TextColorExample skin="standard" secondary note="default skin class is explicitly set"/>
+
+      <TextColorExample skin="error" link note="boolean flags have no affect on non standard skin"/>
+      <TextColorExample skin="error" disabled note="boolean flags have no affect on non standard skin"/>
+      <TextColorExample skin="error" light note="boolean flags have no affect on non standard skin"/>
+      <TextColorExample skin="error" secondary note="boolean flags have no affect on non standard skin"/>
+
+      <TextColorExample skin="success" link note="boolean flags have no affect on non standard skin"/>
+      <TextColorExample skin="success" disabled note="boolean flags have no affect on non standard skin"/>
+      <TextColorExample skin="success" light note="boolean flags have no affect on non standard skin"/>
+      <TextColorExample skin="success" secondary note="boolean flags have no affect on non standard skin"/>
+
+      <TextColorExample skin="premium" link note="boolean flags have no affect on non standard skin"/>
+      <TextColorExample skin="premium" disabled note="boolean flags have no affect on non standard skin"/>
+      <TextColorExample skin="premium" light note="boolean flags have no affect on non standard skin"/>
+      <TextColorExample skin="premium" secondary note="boolean flags have no affect on non standard skin"/>
     </table>
   );
 }

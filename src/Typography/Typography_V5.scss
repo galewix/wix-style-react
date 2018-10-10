@@ -1,6 +1,9 @@
-@import '../common.scss'; // TODO: take only fonts & colors
+@import '../colors.scss';
+@import '../fonts.scss';
 @import '../typography-helpers.scss';
 
+/* NEW TYPOGRAPHY - START */
+/* New Typography is overwriting h1, h2,... classes */
 /* HEADING */
 .h1 {
   @include Heading($tagName: h1);
@@ -110,15 +113,23 @@
     @include TextFontFamily($weight: bold, $size: medium);
   }
 
-  &.link {
+  &.link,
+  &.link.skinStandard {
     color: $B10;
   }
 
-  &.light {
+  &.disabled,
+  &.disabled.skinStandard {
+    color: $D55;
+  }
+
+  &.light,
+  &.light.skinStandard {
     color: $D80;
   }
 
-  &.secondary {
+  &.secondary,
+  &.secondary.skinStandard {
     color: $D20;
   }
 
@@ -143,8 +154,4 @@
     color: $P10;
   }
 }
-
-
-
-
 
