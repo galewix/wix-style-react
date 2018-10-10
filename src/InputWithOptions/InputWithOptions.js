@@ -25,17 +25,6 @@ class InputWithOptions extends WixComponent {
     return ['Tab', 'Enter'];
   }
 
-  /**
-   * Returns a list of keys that should cause the DropdownLayout to be opened.
-   *
-   * @returns {KeyboardEvent.key[]}
-   */
-  getKeysForOpening() {
-    return this.isReadOnly ?
-      ['Enter', 'Spacebar', ' ', 'ArrowDown'] :
-      ['ArrowDown'];
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -176,6 +165,41 @@ class InputWithOptions extends WixComponent {
     return readOnly;
   }
 
+  /**
+   * Determine if the provided key should cause the dropdown to be opened.
+   *
+   * @param {KeyboardEvent.key}
+   * @returns {boolean}
+   */
+  shouldOpenDropdown(key) {
+    const openKeys = this.isReadOnly ?
+      ['Enter', 'Spacebar', ' ', 'ArrowDown'] :
+      ['ArrowDown'];
+
+    return openKeys.includes(key);
+  }
+
+  /**
+   * Determine if the provided key should delegate the keydown event to the
+   * DropdownLayout.
+   *
+   * @param {KeyboardEvent.key}
+   * @returns {boolean}
+   */
+  shouldDelegateKeyDown(key) {
+    return this.isReadOnly || !['Spacebar', ' '].includes(key);
+  }
+
+  /**
+   * Determine if the provided key should cause manual submit.
+   *
+   * @param {KeyboardEvent.key}
+   * @returns {boolean}
+   */
+  shouldPerformManualSubmit(key) {
+    return this.getManualSubmitKeys().includes(key);
+  }
+
   _onManuallyInput(inputValue = '') {
     if (this.state.isComposing) {
       return;
@@ -214,8 +238,14 @@ class InputWithOptions extends WixComponent {
 
   _onChange(event) {
     this.setState({inputValue: event.target.value});
+
     if (this.props.onChange) {
       this.props.onChange(event);
+    }
+
+    // If the inout value is not empty, should the options
+    if (event.target.value.trim()) {
+      this.showOptions();
     }
   }
 
@@ -256,35 +286,29 @@ class InputWithOptions extends WixComponent {
       return;
     }
 
-    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') {
+    const {key} = event;
+
+    if (key !== 'ArrowDown' && key !== 'ArrowUp') {
       this.setState({isEditing: true});
     }
 
-    const shouldDelegate = this.isReadOnly || !['Spacebar', ' '].includes(event.key);
-    const shouldOpenDropdown = this.getKeysForOpening().includes(event.key);
-
-    if (shouldOpenDropdown) {
+    if (this.shouldOpenDropdown(key)) {
       this.showOptions();
       event.preventDefault();
     }
 
-    if (shouldDelegate) {
+    if (this.shouldDelegateKeyDown(key)) {
 
       // Delegate event and get result
-      const isHandledByDropdownLayout = this.dropdownLayout._onKeyDown(event);
+      const eventWasHandled = this.dropdownLayout._onKeyDown(event);
+
+      if (eventWasHandled || this.isReadOnly) {
+        return;
+      }
 
       // For editing mode, we want to *submit* only for specific keys.
-      // Otherwise, we'll show the dropdown and won't call preventDefault
-      // so the event will delegate to the Input.
-      if (!isHandledByDropdownLayout && !this.isReadOnly) {
-        if (this.getManualSubmitKeys().includes(event.key)) {
-          this._onManuallyInput(this.state.inputValue);
-        } else {
-          // TODO: only show the option when the input value has changed.
-          // Currently, is also shows it when pressing keys like Shift, Alt,
-          // Cmd, etc.
-          this.showOptions();
-        }
+      if (this.shouldPerformManualSubmit(key)) {
+        this._onManuallyInput(this.state.inputValue);
       }
     }
   }

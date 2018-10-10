@@ -146,22 +146,26 @@ const runInputWithOptionsTest = driverFactory => {
       });
     });
 
-    it('should show DropdownLayout on any key press', () => {
+    it('should show DropdownLayout only on specific keys', () => {
       const {driver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options}/>);
       driver.pressAnyKey();
-      expect(dropdownLayoutDriver.isShown()).toBeTruthy();
+      expect(dropdownLayoutDriver.isShown()).toBeFalsy();
     });
 
     it('should show DropdownLayout on down key', () => {
       const {driver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options}/>);
-      driver.pressUpKey();
+      driver.pressDownKey();
       expect(dropdownLayoutDriver.isShown()).toBeTruthy();
     });
 
-    it('should show DropdownLayout on up key', () => {
+    it('should not DropdownLayout on modifier keys', () => {
       const {driver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options}/>);
-      driver.pressDownKey();
-      expect(dropdownLayoutDriver.isShown()).toBeTruthy();
+      driver.pressShiftKey();
+      expect(dropdownLayoutDriver.isShown()).toBeFalsy();
+      driver.pressAltKey();
+      expect(dropdownLayoutDriver.isShown()).toBeFalsy();
+      driver.pressControlKey();
+      expect(dropdownLayoutDriver.isShown()).toBeFalsy();
     });
 
     it('should hide DropdownLayout on enter and esc key press', () => {
@@ -170,8 +174,6 @@ const runInputWithOptionsTest = driverFactory => {
       expect(dropdownLayoutDriver.isShown()).toBeTruthy();
       driver.pressEnterKey();
       expect(dropdownLayoutDriver.isShown()).toBeFalsy();
-      driver.pressUpKey();
-      expect(dropdownLayoutDriver.isShown()).toBeTruthy();
       driver.pressEscKey();
       expect(dropdownLayoutDriver.isShown()).toBeFalsy();
     });
@@ -412,7 +414,7 @@ const runInputWithOptionsTest = driverFactory => {
     });
 
     describe('onKeyDown', () => {
-      it('should bahave normal when external onKeyDown passed', () => {
+      it('should behave normal when external onKeyDown passed', () => {
         const {driver, dropdownLayoutDriver} = createDriver(
           <InputWithOptions options={options} onKeyDown={() => null}/>
         );
@@ -420,8 +422,6 @@ const runInputWithOptionsTest = driverFactory => {
         expect(dropdownLayoutDriver.isShown()).toBeTruthy();
         driver.pressEnterKey();
         expect(dropdownLayoutDriver.isShown()).toBeFalsy();
-        driver.pressUpKey();
-        expect(dropdownLayoutDriver.isShown()).toBeTruthy();
         driver.pressEscKey();
         expect(dropdownLayoutDriver.isShown()).toBeFalsy();
       });

@@ -22,6 +22,9 @@ const inputWithOptionsDriverFactory = ({element, wrapper, component}) => {
     pressSpaceKey: () => inputDriver.keyDown(' '),
     pressTabKey: () => inputDriver.keyDown('Tab'),
     pressEscKey: () => inputDriver.keyDown('Escape'),
+    pressShiftKey: () => inputDriver.keyDown('Shift'),
+    pressAltKey: () => inputDriver.keyDown('Alt'),
+    pressControlKey: () => inputDriver.keyDown('Control'),
     outsideClick: () => document.body.dispatchEvent(new Event('mouseup', {cancelable: true})),
     setProps: props => {
       const ClonedWithProps = React.cloneElement(component, Object.assign({}, component.props, props), ...(component.props.children || []));
