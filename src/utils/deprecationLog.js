@@ -3,7 +3,7 @@ let deprecationLog = function () {};
 
 if (process.env.NODE_ENV !== 'production') {
   const printWarning = msg => {
-    const message = `Warning: ${msg}`;
+    const message = `Wix-Style-React: [WARNING] ${msg}`;
     if (typeof console !== 'undefined') {
       console.warn(message);
     }
