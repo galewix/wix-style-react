@@ -16,6 +16,7 @@ describe('Typography deprecation', () => {
     expect(global.console.warn.mock.calls.length).toEqual(6);
   });
 
+
   it('Should show deprecationLog for old text classes', () => {
     expect(typography.t1).toEqual('t1');
     expect(typography.t2).toEqual('t2');
