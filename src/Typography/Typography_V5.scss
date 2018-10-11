@@ -2,9 +2,9 @@
 @import '../fonts.scss';
 @import '../typography-helpers.scss';
 
-/* NEW TYPOGRAPHY - START */
-/* New Typography is overwriting h1, h2,... classes */
-/* HEADING */
+/* 
+ * HEADING 
+ */
 .h1 {
   @include Heading($tagName: h1);
   &.light {
@@ -47,7 +47,11 @@
   }
 }
 
-/* TEXT */
+/* 
+ *
+ * TEXT 
+ *
+ */
 .text {
   @include Text;
 
