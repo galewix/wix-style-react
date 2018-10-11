@@ -12,6 +12,6 @@ describe('deprecationLog', () => {
 
   it('should log warning in dev mode', () => {
     deprecationLog('Some message');
-    expect(global.console.warn).toBeCalledWith('Warning: Some message');
+    expect(global.console.warn).toBeCalledWith('Wix-Style-React: [WARNING] Some message');
   });
 });
