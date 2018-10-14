@@ -15,6 +15,7 @@ import BasicClassesExampleRaw from '!raw-loader!./BasicClassesExample';
 import BasicClassesSassExampleRaw from '!raw-loader!./BasicClassesSassExample.md';
 
 import TypographyClassesTableRaw from '!raw-loader!./TypographyClassesTable.md';
+import TypographyClassesMigration from '!raw-loader!./TypographyClassesMigration.md';
 
 
 storiesOf(Category.STYLING, module)
@@ -51,16 +52,10 @@ In case the \`<Text/>\` and \`<Heading/>\` components do not suit your need, you
           </div>
         </CodeExample>
 
-        {/* <CodeExample
-          title="Basic Example (Sass)"
-          code={BasicClassesSassExampleRaw}
-          >
-          <div className={styles.codeExample}>
-            <BasicClassesSassExample/>
-          </div>
-        </CodeExample> */}
         <Markdown source={BasicClassesSassExampleRaw}/>
         <Markdown source={TypographyClassesTableRaw}/>
+        <Markdown source={TypographyClassesMigration}/>
+
       </div>
 
     );
