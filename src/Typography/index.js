@@ -12,7 +12,6 @@ const typographyProxy = new Proxy(typography, {
         `Typography class ${prop} is deprecated. Please use new classes described at https://wix-wix-style-react.surge.sh/?selectedKind=Styling&selectedStory=1.2%20Typography%20Classes`,
         prop
         );
-
     }
     return target[prop];
   }
