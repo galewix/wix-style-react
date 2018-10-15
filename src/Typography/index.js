@@ -1,4 +1,4 @@
-import typography from './Typography.scss';
+import typography from './Typography_INTERNAL.scss';
 import deprecationLog from '../utils/deprecationLog';
 
 export * from './Utils';

@@ -1,4 +1,3 @@
-@warn "DeprecationWarning: Typography.scss - The following classes are deprecated and will be removed soon: [h1_1, h2_1,...h*_1], [t1, t2, ...t*], [t1_1, t1_2, ...t1_*, ...t*_*]. Instead, import from 'src/Typography/Typography_new.scss' and use the new classes described here: https://wix-wix-style-react.surge.sh/?selectedKind=Styling&selectedStory=1.2%20Typography%20Classes";
+@warn "DeprecationWarning: Typography.scss is deprecated. Please import from 'src/Typography/heading.scss' or ''src/Typography/text.scss' accordingly, and use the new classes described here: https://wix-wix-style-react.surge.sh/?selectedKind=Styling&selectedStory=1.2%20Typography%20Classes";
 
 @import './Typography_old.scss';
-@import './Typography_new.scss'; // This overrides the h1, h2,... classes with tsimilar implementation
