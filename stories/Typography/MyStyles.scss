@@ -1,4 +1,5 @@
-@import '../../src/Typography/Typography.scss';
+@import '../../src/Typography/heading.scss';
+@import '../../src/Typography/text.scss';
 
 .myHeading {
   @extend .h1;
