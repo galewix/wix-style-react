@@ -6,6 +6,8 @@ import addMonths from 'date-fns/add_months';
 import parse from 'date-fns/parse';
 import startOfMonth from 'date-fns/start_of_month';
 import classNames from 'classnames';
+import deprecationLog from '../utils/deprecationLog';
+import map from 'lodash/map';
 
 import WixComponent from '../BaseComponents/WixComponent';
 import localeUtilsFactory from '../LocaleUtils';
@@ -26,14 +28,20 @@ export default class Calendar extends WixComponent {
   constructor(props) {
     super(props);
 
+    if (props.value) {
+      deprecationLog(
+        'Calendar\'s value prop is deprecated, please use selectedDays instead.'
+      );
+    }
+
     this.state = {
-      month: props.value
+      month: this._getMonth(props)
     };
   }
 
   // TODO: Change to getDerivedStateFromProps with React ^16.0.0
   componentWillReceiveProps(nextProps) {
-    this.setState({month: nextProps.value});
+    this.setState({month: this._getMonth(nextProps)});
   }
 
   _setMonth = month => this.setState({month});
@@ -43,6 +51,21 @@ export default class Calendar extends WixComponent {
     this.props.shouldCloseOnSelect && this.props.onClose();
   };
 
+  _getMonth = props => {
+    const {
+      value,
+      selectedDays
+    } = props;
+
+    if (!selectedDays) {
+      return value;
+    }
+    else {
+      const firstObject = (Array.isArray(selectedDays)) ? selectedDays[0] : selectedDays;
+      return firstObject.from || firstObject.to || firstObject;
+    }
+  }
+
   _createDayPickerProps = () => {
     const {
       locale,
@@ -51,13 +74,16 @@ export default class Calendar extends WixComponent {
       filterDate,
       excludePastDates,
       value: propsValue,
+      selectedDays,
       rtl,
       twoMonths
     } = this.props;
 
-    const month = this.state.month || propsValue || new Date();
+    const month = this.state.month || this._getMonth(this.props) || new Date();
     const localeUtils = localeUtilsFactory(locale);
-
+    const from = (Array.isArray(selectedDays)) ? map(selectedDays, 'from') : (selectedDays || {}).from;
+    const to = (Array.isArray(selectedDays)) ? map(selectedDays, 'to') : (selectedDays || {}).to;
+    
     const captionElement = (
       <DatePickerHead
         {...{
@@ -81,7 +107,7 @@ export default class Calendar extends WixComponent {
         date => !filterDate(date),
       initialMonth: month,
       initialYear: month,
-      selectedDays: parse(propsValue),
+      selectedDays: selectedDays || propsValue,
       month,
       year: month,
       firstDayOfWeek: 1,
@@ -94,7 +120,8 @@ export default class Calendar extends WixComponent {
       captionElement,
       onDayKeyDown: this._handleDayKeyDown,
       numberOfMonths: twoMonths ? 2 : 1,
-      className: twoMonths ? 'DayPicker--TwoMonths' : ''
+      className: twoMonths ? 'DayPicker--TwoMonths' : '',
+      modifiers: {start: from, end: to}
     };
   };
 
@@ -171,8 +198,14 @@ Calendar.propTypes = {
   /** RTL mode */
   rtl: PropTypes.bool,
 
-  /** The selected date */
+  /** (Deprecated) The selected date */
   value: PropTypes.object,
+
+  /** The selected date range */
+  selectedDays: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ]),
 
   /** Display a selectable yearDropdown */
   showYearDropdown: PropTypes.bool,
