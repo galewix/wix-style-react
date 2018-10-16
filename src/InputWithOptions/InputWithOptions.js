@@ -22,7 +22,7 @@ class InputWithOptions extends WixComponent {
    * @returns {KeyboardEvent.key[]}
    */
   getManualSubmitKeys() {
-    return ['Tab', 'Enter'];
+    return ['Enter', 'Tab'];
   }
 
   constructor(props) {

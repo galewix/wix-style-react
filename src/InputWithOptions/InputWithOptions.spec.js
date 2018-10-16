@@ -146,7 +146,7 @@ const runInputWithOptionsTest = driverFactory => {
       });
     });
 
-    it('should show DropdownLayout only on specific keys', () => {
+    it('should not show DropdownLayout when a non whitelisted key is pressed', () => {
       const {driver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options}/>);
       driver.pressAnyKey();
       expect(dropdownLayoutDriver.isShown()).toBeFalsy();
@@ -158,7 +158,7 @@ const runInputWithOptionsTest = driverFactory => {
       expect(dropdownLayoutDriver.isShown()).toBeTruthy();
     });
 
-    it('should not DropdownLayout on modifier keys', () => {
+    it('should not show DropdownLayout on modifier keys', () => {
       const {driver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options}/>);
       driver.pressShiftKey();
       expect(dropdownLayoutDriver.isShown()).toBeFalsy();
