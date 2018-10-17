@@ -1,0 +1,14 @@
+// BasicClassesSassExample.scss
+
+/* You might use `node_modules/wix-style-react/...` instead of `~wix-style-react` depending on your webpack alias configuration */
+@import '~wix-style-react/Typography/heading.scss';
+@import '~wix-style-react/Typography/text.scss';
+
+.myHeading {
+  @extend .h1;
+}
+
+.myText {
+  @extend .text;
+  @extend .sizeSmall;
+}

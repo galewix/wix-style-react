@@ -1,5 +1,7 @@
+// BasicClassesSassExample.js
+
 import React from 'react';
-import styles from './MyStyles.scss';
+import styles from './BasicClassesSassExample.scss';
 
 export default () => (
   <div>
@@ -9,3 +11,4 @@ export default () => (
     </span>
   </div>
 );
+

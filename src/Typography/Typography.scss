@@ -1,3 +1,3 @@
-@warn "DeprecationWarning: Typography.scss is deprecated. Please import from 'src/Typography/heading.scss' or 'src/Typography/text.scss' accordingly, and use the new classes described here: https://wix-wix-style-react.surge.sh/?selectedKind=Styling&selectedStory=1.2%20Typography%20Classes";
+@warn "DeprecationWarning: Typography.scss is deprecated. We recommend using the <Heading/> or <Text/> components. If those are not suitable for your need, then see the new classes described here: https://wix-wix-style-react.surge.sh/?selectedKind=Styling&selectedStory=1.2%20Typography%20Classes. We recommend using the new classes via the 'Typography.js' and if you require a Sass only styling, then you need to import from 'src/Typography/heading.scss' or 'src/Typography/text.scss' accordingly.";
 
 @import './Typography_old.scss';
