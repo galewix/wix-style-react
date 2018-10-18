@@ -15,16 +15,7 @@ const inputWithOptionsDriverFactory = ({element, wrapper, component}) => {
     inputWrapper: () => inputWrapper,
     focus: () => inputDriver.focus(),
     blur: () => dropdownLayoutDriver.mouseClickOutside(),
-    pressDownKey: () => inputDriver.keyDown('ArrowDown'),
-    pressUpKey: () => inputDriver.keyDown('ArrowUp'),
-    pressAnyKey: () => inputDriver.keyDown('Any'),
-    pressEnterKey: () => inputDriver.keyDown('Enter'),
-    pressSpaceKey: () => inputDriver.keyDown(' '),
-    pressTabKey: () => inputDriver.keyDown('Tab'),
-    pressEscKey: () => inputDriver.keyDown('Escape'),
-    pressShiftKey: () => inputDriver.keyDown('Shift'),
-    pressAltKey: () => inputDriver.keyDown('Alt'),
-    pressControlKey: () => inputDriver.keyDown('Control'),
+    pressKey: key => inputDriver.keyDown(key),
     outsideClick: () => document.body.dispatchEvent(new Event('mouseup', {cancelable: true})),
     setProps: props => {
       const ClonedWithProps = React.cloneElement(component, Object.assign({}, component.props, props), ...(component.props.children || []));

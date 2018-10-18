@@ -55,7 +55,7 @@ describe('MultiSelect', () => {
 
   it('should not lose Focus or close the list on selection with a mouse click', () => {
     const {driver, inputDriver, dropdownLayoutDriver} = createDriver(<MultiSelect options={options}/>);
-    driver.pressDownKey();
+    driver.pressKey('ArrowDown');
     dropdownLayoutDriver.clickAtOption(0);
     expect(dropdownLayoutDriver.isShown()).toBeTruthy();
     expect(inputDriver.isFocus());
@@ -64,8 +64,8 @@ describe('MultiSelect', () => {
   it('should not lose Focus or close the list on selection with enter press', () => {
     const {driver, inputDriver, dropdownLayoutDriver} = createDriver(<MultiSelect options={options}/>);
     driver.focus();
-    driver.pressDownKey();
-    driver.pressEnterKey();
+    driver.pressKey('ArrowDown');
+    driver.pressKey('Enter');
     expect(dropdownLayoutDriver.isShown()).toBeTruthy();
     expect(inputDriver.isFocus()).toBeTruthy();
   });
@@ -76,9 +76,9 @@ describe('MultiSelect', () => {
       options={options}
       onSelect={onSelect}
       />);
-    driver.pressDownKey();
-    driver.pressDownKey();
-    driver.pressTabKey();
+    driver.pressKey('ArrowDown');
+    driver.pressKey('ArrowDown');
+    driver.pressKey('Tab');
     expect(onSelect).toBeCalledWith([{id: options[0].id, label: options[0].value}]);
     expect(dropdownLayoutDriver.isShown()).toBeTruthy();
     expect(inputDriver.isFocus()).toBeTruthy();
@@ -93,7 +93,7 @@ describe('MultiSelect', () => {
         onChange={onChange}
         />
     );
-    driver.pressDownKey();
+    driver.pressKey('ArrowDown');
     inputDriver.trigger('keyDown', {key: ','});
     expect(onSelect).toBeCalledWith([{id: options[0].id, label: options[0].value}]);
     expect(onChange).toBeCalledWith({target: {value: ''}});
@@ -126,7 +126,7 @@ describe('MultiSelect', () => {
     it('should call onChange on click-outside if options is open', () => {
       const onChange = jest.fn();
       const {driver} = createDriver(<MultiSelect value={''} onChange={onChange}/>);
-      driver.pressDownKey();
+      driver.pressKey('ArrowDown');
       driver.outsideClick();
       expect(onChange.mock.calls.length).toBe(1);
     });
@@ -148,7 +148,7 @@ describe('MultiSelect', () => {
         onChange={onChange}
         />
     );
-    driver.pressDownKey();
+    driver.pressKey('ArrowDown');
     inputDriver.trigger('keyDown', {key: ';'});
     expect(onSelect).toBeCalledWith([{id: options[0].id, label: options[0].value}]);
     expect(onChange).toBeCalledWith({target: {value: ''}});
@@ -250,7 +250,7 @@ describe('MultiSelect', () => {
 
       driver.focus();
       inputDriver.enterText('custom value');
-      driver.pressEnterKey();
+      driver.pressKey('Enter');
 
       expect(onManuallyInput.mock.calls.length).toBe(1);
     });
@@ -264,7 +264,7 @@ describe('MultiSelect', () => {
 
       driver.focus();
       inputDriver.enterText('custom value');
-      driver.pressCommaKey();
+      driver.pressKey(',');
 
       expect(onManuallyInput.mock.calls.length).toBe(1);
       expect(onManuallyInput.mock.calls[0][0]).toBe('custom value');
@@ -276,7 +276,7 @@ describe('MultiSelect', () => {
 
       driver.focus();
       inputDriver.enterText('custom value');
-      driver.pressCommaKey();
+      driver.pressKey(',');
 
       expect(onManuallyInput.mock.calls.length).toBe(1);
       expect(onManuallyInput.mock.calls[0][0]).toBe('custom value');
@@ -331,7 +331,7 @@ describe('MultiSelect', () => {
   it('should allow to write any text as tag when options are empty', () => {
     const onSelect = jest.fn();
     const {driver} = createDriver(<MultiSelect value="aab" onSelect={onSelect}/>);
-    driver.pressCommaKey();
+    driver.pressKey(',');
     expect(onSelect).toBeCalledWith([{id: 'aab', label: 'aab'}]);
   });
 
@@ -340,7 +340,7 @@ describe('MultiSelect', () => {
     const {driver} = createDriver(
       <MultiSelect value="aab" options={options} onSelect={onSelect}/>
     );
-    driver.pressCommaKey();
+    driver.pressKey(',');
     expect(onSelect).toBeCalledWith([{id: options[0].id, label: options[0].value}]);
   });
 

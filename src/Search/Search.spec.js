@@ -40,7 +40,7 @@ describe('Search', () => {
       );
 
       expect(driver.dropdownLayoutDriver.isShown()).toBe(false);
-      driver.driver.pressDownKey();
+      driver.driver.pressKey('ArrowDown');
       expect(driver.dropdownLayoutDriver.isShown()).toBe(true);
     });
 

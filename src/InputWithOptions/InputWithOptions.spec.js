@@ -52,7 +52,7 @@ const runInputWithOptionsTest = driverFactory => {
               />
           );
 
-          driver.pressDownKey();
+          driver.pressKey('ArrowDown');
           expect(dropdownLayoutDriver.isShown()).toBe(true);
         });
       });
@@ -66,7 +66,7 @@ const runInputWithOptionsTest = driverFactory => {
               />
           );
 
-          driver.pressDownKey();
+          driver.pressKey('ArrowDown');
           expect(dropdownLayoutDriver.isShown()).toBe(false);
         });
 
@@ -80,7 +80,7 @@ const runInputWithOptionsTest = driverFactory => {
           );
 
           expect(dropdownLayoutDriver.isShown()).toBe(false);
-          driver.pressDownKey();
+          driver.pressKey('ArrowDown');
           expect(dropdownLayoutDriver.isShown()).toBe(true);
         });
 
@@ -148,33 +148,33 @@ const runInputWithOptionsTest = driverFactory => {
 
     it('should not show DropdownLayout when a non whitelisted key is pressed', () => {
       const {driver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options}/>);
-      driver.pressAnyKey();
+      driver.pressKey('Any');
       expect(dropdownLayoutDriver.isShown()).toBeFalsy();
     });
 
     it('should show DropdownLayout on down key', () => {
       const {driver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options}/>);
-      driver.pressDownKey();
+      driver.pressKey('ArrowDown');
       expect(dropdownLayoutDriver.isShown()).toBeTruthy();
     });
 
     it('should not show DropdownLayout on modifier keys', () => {
       const {driver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options}/>);
-      driver.pressShiftKey();
+      driver.pressKey('Shift');
       expect(dropdownLayoutDriver.isShown()).toBeFalsy();
-      driver.pressAltKey();
+      driver.pressKey('Alt');
       expect(dropdownLayoutDriver.isShown()).toBeFalsy();
-      driver.pressControlKey();
+      driver.pressKey('Control');
       expect(dropdownLayoutDriver.isShown()).toBeFalsy();
     });
 
     it('should hide DropdownLayout on enter and esc key press', () => {
       const {driver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options}/>);
-      driver.pressDownKey();
+      driver.pressKey('ArrowDown');
       expect(dropdownLayoutDriver.isShown()).toBeTruthy();
-      driver.pressEnterKey();
+      driver.pressKey('Enter');
       expect(dropdownLayoutDriver.isShown()).toBeFalsy();
-      driver.pressEscKey();
+      driver.pressKey('Escape');
       expect(dropdownLayoutDriver.isShown()).toBeFalsy();
     });
 
@@ -185,12 +185,12 @@ const runInputWithOptionsTest = driverFactory => {
       dropdownLayoutDriver.clickAtOption(1);
       driver.outsideClick();
       driver.focus();
-      driver.pressDownKey();
+      driver.pressKey('ArrowDown');
 
       expect(dropdownLayoutDriver.isOptionSelected(1)).toBeTruthy();
       expect(dropdownLayoutDriver.isOptionHovered(1)).toBeTruthy();
 
-      driver.pressDownKey(); // going to skip disabled option at index 2
+      driver.pressKey('ArrowDown'); // going to skip disabled option at index 2
       expect(dropdownLayoutDriver.isOptionHovered(3)).toBeTruthy();
     });
 
@@ -198,7 +198,7 @@ const runInputWithOptionsTest = driverFactory => {
       const onManuallyInput = jest.fn();
       const {driver, inputDriver} = createDriver(<InputWithOptions options={options} onManuallyInput={onManuallyInput}/>);
       inputDriver.enterText('my text      ');
-      driver.pressEnterKey();
+      driver.pressKey('Enter');
       expect(onManuallyInput).toBeCalledWith('my text', undefined);
     });
 
@@ -206,7 +206,7 @@ const runInputWithOptionsTest = driverFactory => {
       const onManuallyInput = jest.fn();
       const {driver, inputDriver} = createDriver(<InputWithOptions options={options} onManuallyInput={onManuallyInput}/>);
       inputDriver.enterText('my text');
-      driver.pressEnterKey();
+      driver.pressKey('Enter');
       expect(onManuallyInput).toBeCalledWith('my text', undefined);
     });
 
@@ -214,7 +214,7 @@ const runInputWithOptionsTest = driverFactory => {
       const onManuallyInput = jest.fn();
       const {driver, inputDriver} = createDriver(<InputWithOptions options={options} onManuallyInput={onManuallyInput}/>);
       inputDriver.enterText('my text');
-      driver.pressTabKey();
+      driver.pressKey('Tab');
       expect(onManuallyInput).toBeCalledWith('my text', undefined);
     });
 
@@ -222,10 +222,10 @@ const runInputWithOptionsTest = driverFactory => {
       const onManuallyInput = jest.fn();
       const {driver, inputDriver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options} onManuallyInput={onManuallyInput}/>);
       inputDriver.focus();
-      driver.pressDownKey();
+      driver.pressKey('ArrowDown');
       expect(inputDriver.isFocus()).toBe(true);
       expect(dropdownLayoutDriver.isShown()).toBe(true);
-      driver.pressTabKey();
+      driver.pressKey('Tab');
       // todo: jest limitation of mimicking native Tab browser behaviour
       // expect(inputDriver.isFocus()).toBe(false);
       expect(dropdownLayoutDriver.isShown()).toBe(false);
@@ -273,9 +273,9 @@ const runInputWithOptionsTest = driverFactory => {
       const {driver, inputDriver, dropdownLayoutDriver} = createDriver(<InputWithOptions options={options} onManuallyInput={onManuallyInput} closeOnSelect={false}/>);
       inputDriver.focus();
       inputDriver.enterText('Option 1');
-      driver.pressDownKey();
+      driver.pressKey('ArrowDown');
       expect(inputDriver.isFocus()).toBe(true);
-      driver.pressTabKey();
+      driver.pressKey('Tab');
       expect(inputDriver.isFocus()).toBe(true);
       expect(dropdownLayoutDriver.isShown()).toBe(true);
     });
@@ -284,7 +284,7 @@ const runInputWithOptionsTest = driverFactory => {
       const onManuallyInput = jest.fn();
       const {driver, inputDriver} = createDriver(<InputWithOptions options={options} onManuallyInput={onManuallyInput}/>);
       inputDriver.enterText('Option 2');
-      driver.pressEnterKey();
+      driver.pressKey('Enter');
       expect(onManuallyInput).toBeCalledWith('Option 2', {id: 1, value: 'Option 2'});
     });
 
@@ -346,10 +346,10 @@ const runInputWithOptionsTest = driverFactory => {
       const onManualInput = jest.fn();
       const {driver, inputDriver} = createDriver(<InputWithOptions options={options} onManuallyInput={onManualInput}/>);
       inputDriver.startComposing();
-      driver.pressEnterKey();
+      driver.pressKey('Enter');
       expect(onManualInput).not.toBeCalled();
       inputDriver.endComposing();
-      driver.pressEnterKey();
+      driver.pressKey('Enter');
       expect(onManualInput).toBeCalled();
     });
 
@@ -413,16 +413,16 @@ const runInputWithOptionsTest = driverFactory => {
       expect(dropdownLayoutDriver.isOptionADivider(4)).toBeTruthy();
     });
 
-    describe('onKeyDown', () => {
-      it('should behave normal when external onKeyDown passed', () => {
+    describe('onKeyArrowDown', () => {
+      it('should behave normal when external onKeyArrowDown passed', () => {
         const {driver, dropdownLayoutDriver} = createDriver(
-          <InputWithOptions options={options} onKeyDown={() => null}/>
+          <InputWithOptions options={options} onKeyArrowDown={() => null}/>
         );
-        driver.pressDownKey();
+        driver.pressKey('ArrowDown');
         expect(dropdownLayoutDriver.isShown()).toBeTruthy();
-        driver.pressEnterKey();
+        driver.pressKey('Enter');
         expect(dropdownLayoutDriver.isShown()).toBeFalsy();
-        driver.pressEscKey();
+        driver.pressKey('Escape');
         expect(dropdownLayoutDriver.isShown()).toBeFalsy();
       });
     });
@@ -431,18 +431,18 @@ const runInputWithOptionsTest = driverFactory => {
       it('should call onSelect on enter key press', () => {
         const onSelect = jest.fn();
         const {driver} = createDriver(<InputWithOptions options={options} onSelect={onSelect}/>);
-        driver.pressDownKey();
-        driver.pressDownKey();
-        driver.pressEnterKey();
+        driver.pressKey('ArrowDown');
+        driver.pressKey('ArrowDown');
+        driver.pressKey('Enter');
         expect(onSelect).toBeCalledWith(options[0]);
       });
 
       it('should call onSelect on tab key press', () => {
         const onSelect = jest.fn();
         const {driver} = createDriver(<InputWithOptions options={options} onSelect={onSelect}/>);
-        driver.pressDownKey();
-        driver.pressDownKey();
-        driver.pressTabKey();
+        driver.pressKey('ArrowDown');
+        driver.pressKey('ArrowDown');
+        driver.pressKey('Tab');
         expect(onSelect).toBeCalledWith(options[0]);
       });
 
@@ -450,8 +450,8 @@ const runInputWithOptionsTest = driverFactory => {
         const onSelect = jest.fn();
         const {driver} = createDriver(<InputWithOptions options={options} onSelect={onSelect}/>);
         driver.focus();
-        driver.pressDownKey();
-        driver.pressSpaceKey();
+        driver.pressKey('ArrowDown');
+        driver.pressKey(' ');
         expect(onSelect).not.toHaveBeenCalled();
       });
 
@@ -461,9 +461,9 @@ const runInputWithOptionsTest = driverFactory => {
           inputAdditionalProps = () => ({readOnly: true})
         }
         const {driver} = createDriver(<ReadOnlyInput options={options} onSelect={onSelect}/>);
-        driver.pressDownKey();
-        driver.pressDownKey();
-        driver.pressSpaceKey();
+        driver.pressKey('ArrowDown');
+        driver.pressKey('ArrowDown');
+        driver.pressKey(' ');
         expect(onSelect).toBeCalledWith(options[0]);
       });
     });

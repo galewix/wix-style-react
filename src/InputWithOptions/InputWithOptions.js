@@ -243,7 +243,7 @@ class InputWithOptions extends WixComponent {
       this.props.onChange(event);
     }
 
-    // If the inout value is not empty, should the options
+    // If the input value is not empty, should show the options
     if (event.target.value.trim()) {
       this.showOptions();
     }
