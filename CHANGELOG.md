@@ -15,8 +15,28 @@ Types of changes:
 
 ## Next
 
+### Changed
+
+- `<Tag/>` - add tiny and medium sizes [#2322](https://github.com/wix/wix-style-react/pull/2322)
+- `<SortableList/>` - Add draggable item to onDragStart and onDragEnd [#2343](https://github.com/wix/wix-style-react/pull/2343)
+
+### Docs
+
+- Add Dropdown Snippet story using FormField [#2276](https://github.com/wix/wix-style-react/pull/2276)
+
+### Added
+
+- `<Table/>` - support column alignments [#2333](https://github.com/wix/wix-style-react/pull/2333)
+
+## 5.6.1 - 2018-10-16
+
 ### Fixed
+
 - `<ModalSelectorLayout/>` - fix broken subtitle line [#2336](https://github.com/wix/wix-style-react/pull/2336)
+
+### Added
+
+- `<BadgeSelect/>` - create new component [#2219](https://github.com/wix/wix-style-react/pull/2219)
 
 ## 5.6.0 - 2018-10-15
 
@@ -33,7 +53,6 @@ Types of changes:
 ### Added
 
 - Typography - Add css typography classes [#2306](https://github.com/wix/wix-style-react/pull/2306)
-- `<BadgeSelect/>` - create new component [#2219](https://github.com/wix/wix-style-react/pull/2219)
 
 ## 5.5.2 - 2018-10-09
 

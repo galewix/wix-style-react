@@ -13,7 +13,13 @@ import {ItemTypes} from './../types';
 const source = {
   beginDrag: ({id, index, containerId, groupName, item, onMoveOut, onDragStart}) => {
     if (onDragStart) {
-      onDragStart();
+      onDragStart({
+        id,
+        index,
+        containerId,
+        groupName,
+        item
+      });
     }
     /** we setup monitor.getItem() snapshot, so we will be always able to get info about item that we drag */
     return {
@@ -29,10 +35,16 @@ const source = {
       }
     };
   },
-  endDrag: ({index, containerId, onDrop, onDragEnd}, monitor) => {
+  endDrag: ({id, index, containerId, groupName, item, onDrop, onDragEnd}, monitor) => {
     /** if drop was called, on drop target and drag is end, then we notify parent about this */
     if (onDragEnd) {
-      onDragEnd();
+      onDragEnd({
+        id,
+        index,
+        containerId,
+        groupName,
+        item
+      });
     }
     if (monitor.getDropResult()) {
       onDrop({

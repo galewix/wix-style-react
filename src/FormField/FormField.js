@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Label from 'wix-style-react/Label';
-import Tooltip from 'wix-style-react/Tooltip';
+import Label from '../Label';
+import Tooltip from '../Tooltip';
 import Text, {SKINS} from '../Text';
 
 import InfoIcon from '../common/InfoIcon';

@@ -1,5 +1,5 @@
 export const storySettings = {
-  kind: '4. Selection',
-  storyName: '4.1 Dropdown',
+  kind: 'Components',
+  storyName: 'Dropdown',
   dataHook: 'story-dropdown'
 };

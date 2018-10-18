@@ -1,7 +1,7 @@
 {
   "name": "wix-style-react",
   "description": "wix-style-react",
-  "version": "5.6.0",
+  "version": "5.6.1",
   "main": "./dist/src/index.js",
   "files": [
     "dist",
@@ -26,9 +26,11 @@
     "test:e2e": "concurrently 'npm run test:e2e-only' 'node scripts/e2e-server.js' --names 'protractor,e2e-server' --success first --kill-others",
     "test:e2e-only": "NODE_ENV=production yoshi test --protractor",
     "copy-public-styles": "cp src/*.scss .",
-    "build": "npm run lint && npm run proxy-wix-ui-icons && npm run copy-public-styles && yoshi build && build-storybook && npm run export-components",
+    "build": "npm run lint && npm run proxy-wix-ui-icons && npm run copy-public-styles && yoshi build && npm run storybook:build && npm run export-components",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
-    "storybook": "start-storybook -p 6006",
+    "storybook:build": "build-storybook -c ./.storybook/config",
+    "storybook": "start-storybook -p 6006 -c ./.storybook/config",
+    "storybook:offline": "start-storybook -p 6006  -c ./.storybook/config-offline -s ./node_modules/react/dist,./node_modules/react-dom/dist",
     "postpublish": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "export-components": "import-path --path src",
     "lint": "yoshi lint",

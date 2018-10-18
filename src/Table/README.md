@@ -17,6 +17,7 @@
 | sortable | bool | false | - | Enables sorting by column |
 | sortDescending | bool | - | - | Pass false - for ascending sort, true - for descending|
 | infoTooltipProps | object | - | - | Props object for [tooltip](https://wix-wix-style-react.surge.sh/?selectedKind=7.%20Tooltips&selectedStory=7.1.%20Tooltip&full=0&addons=0&stories=1&panelRight=0). Note: dataHook, moveBy and children will not be passed to tooltip. |
+| align | oneOf(`start`, `center`, `end`) | - | - | The alignment of the column |
 
 ## Children
 

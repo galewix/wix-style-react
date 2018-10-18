@@ -23,6 +23,9 @@ import ActionCellPrimarySecondaryExampleRaw from '!raw-loader!./ActionCellPrimar
 import {TableEmptyStateExample} from './TableEmptyStateExample';
 import TableEmptyStateExampleRaw from '!raw-loader!./TableEmptyStateExample';
 
+import {TableColumnAlignmentExample} from './TableColumnAlignmentExample';
+import TableColumnAlignmentExampleRaw from '!raw-loader!./TableColumnAlignmentExample';
+
 const data = [
   {firstName: 'Meghan', lastName: 'Bishop'},
   {firstName: 'Sara', lastName: 'Porter'},
@@ -100,6 +103,11 @@ export default {
         <div className={s.example}>
           <CodeExample title="Table with EmptyState" code={TableEmptyStateExampleRaw}>
             <TableEmptyStateExample/>
+          </CodeExample>
+        </div>
+        <div className={s.example}>
+          <CodeExample title="Table with column alignments" code={TableColumnAlignmentExampleRaw}>
+            <TableColumnAlignmentExample/>
           </CodeExample>
         </div>
       </div>

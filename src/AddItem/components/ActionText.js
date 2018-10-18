@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Text from 'wix-style-react/Text';
+import Text from '../../Text';
 import PropTypes from 'prop-types';
 import colors from '../AddItem.scss';
 

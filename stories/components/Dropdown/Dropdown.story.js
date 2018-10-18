@@ -43,7 +43,7 @@ export default {
   storyName: storySettings.storyName,
 
   component: Dropdown,
-  componentPath: '../../src/Dropdown',
+  componentPath: '../../../src/Dropdown',
 
   componentProps: {
     dataHook: storySettings.dataHook,

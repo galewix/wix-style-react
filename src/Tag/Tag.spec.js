@@ -1,22 +1,52 @@
 import React from 'react';
 import Tag from './Tag';
-import tagDriverFactory from './Tag.driver';
+import tagPrivateDriverFactory from './Tag.driver.private';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import {SIZES, WEIGHTS} from '../Text/constants';
 
 describe('Tag', () => {
 
-  const createDriver = createDriverFactory(tagDriverFactory);
+  const createDriver = createDriverFactory(tagPrivateDriverFactory);
   const id = 'myId';
   const label = 'Hey';
 
-  it('should have a default small size', () => {
-    const driver = createDriver(<Tag useOldMargins={false} id={id}>{label}</Tag>);
-    expect(driver.isLarge()).toBeFalsy();
-  });
+  describe('size', () => {
+    it('should have a default small size', () => {
+      const driver = createDriver(<Tag useOldMargins={false} id={id}>{label}</Tag>);
+      expect(driver.isSmall()).toBeTruthy();
+    });
 
-  it('should have a large size', () => {
-    const driver = createDriver(<Tag useOldMargins={false} id={id} size="large">{label}</Tag>);
-    expect(driver.isLarge()).toBeTruthy();
+    it('should have a tiny size', () => {
+      const driver = createDriver(<Tag useOldMargins={false} id={id} size="tiny">{label}</Tag>);
+      expect(driver.isTiny()).toBeTruthy();
+      expect(driver.isCloseButtonSmall()).toBeTruthy();
+      expect(driver.getTextSize()).toBe(SIZES.tiny);
+      expect(driver.getTextWeight()).toBe(WEIGHTS.thin);
+    });
+
+    it('should have a small size', () => {
+      const driver = createDriver(<Tag useOldMargins={false} id={id} size="small">{label}</Tag>);
+      expect(driver.isSmall()).toBeTruthy();
+      expect(driver.isCloseButtonSmall()).toBeTruthy();
+      expect(driver.getTextSize()).toBe(SIZES.small);
+      expect(driver.getTextWeight()).toBe(WEIGHTS.normal);
+    });
+
+    it('should have a medium size', () => {
+      const driver = createDriver(<Tag useOldMargins={false} id={id} size="medium">{label}</Tag>);
+      expect(driver.isMedium()).toBeTruthy();
+      expect(driver.isCloseButtonSmall()).toBeTruthy();
+      expect(driver.getTextSize()).toBe(SIZES.small);
+      expect(driver.getTextWeight()).toBe(WEIGHTS.normal);
+    });
+
+    it('should have a large size', () => {
+      const driver = createDriver(<Tag useOldMargins={false} id={id} size="large">{label}</Tag>);
+      expect(driver.isLarge()).toBeTruthy();
+      expect(driver.isCloseButtonLarge()).toBeTruthy();
+      expect(driver.getTextSize()).toBe(SIZES.medium);
+      expect(driver.getTextWeight()).toBe(WEIGHTS.normal);
+    });
   });
 
   it('should have a label', () => {
@@ -60,6 +90,16 @@ describe('Tag', () => {
 
     driver.click();
     expect(onClick).toBeCalledWith(id);
+  });
+
+  it('should not have pointer cursor when not passed onClick', () => {
+    const driver = createDriver(<Tag useOldMargins={false} id={id}>{label}</Tag>);
+    expect(driver.isClickable()).toBeFalsy();
+  });
+
+  it('should have pointer cursor when passed onClick', () => {
+    const driver = createDriver(<Tag useOldMargins={false} id={id} onClick={jest.fn()}>{label}</Tag>);
+    expect(driver.isClickable()).toBeTruthy();
   });
 
   it('should not display thumb by default', () => {

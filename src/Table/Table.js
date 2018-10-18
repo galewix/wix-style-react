@@ -155,7 +155,8 @@ Table.propTypes = {
     render: PropTypes.func.isRequired,
     sortable: PropTypes.bool,
     infoTooltipProps: PropTypes.shape(Tooltip.propTypes),
-    sortDescending: PropTypes.bool
+    sortDescending: PropTypes.bool,
+    align: PropTypes.oneOf(['start', 'center', 'end'])
   })).isRequired,
   /** A func that gets row data and returns a class(es) to apply to that specific row */
   dynamicRowClass: PropTypes.func,

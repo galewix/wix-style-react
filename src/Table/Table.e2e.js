@@ -32,6 +32,11 @@ describe('Table', () => {
     await scrollToElement(driver.element);
   });
 
+  eyes.it('should render with an columns alignments', async () => {
+    const driver = await init('story-table-column-alignment-example');
+    await scrollToElement(driver.element);
+  });
+
   describe('Action cell', () => {
     describe('Primary action only', () => {
       const createDriver = () => init('story-action-cell-primary-example');
