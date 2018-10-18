@@ -1,0 +1,10 @@
+@import '../../src/Typography/TypographyV5.scss';
+
+.myHeading {
+  @extend .h1;
+}
+
+.myText {
+  @extend .text;
+  @extend .sizeSmall;
+}

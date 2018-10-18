@@ -3,7 +3,7 @@ import autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 import {dropdownTestkitFactory} from '../../testkit/protractor';
 import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
 import {createStoryUrl} from '../../test/utils/storybook-helpers';
-import {storySettings} from '../../stories/Dropdown/storySettings';
+import {storySettings} from '../../stories/components/Dropdown/storySettings';
 
 describe('Dropdown', () => {
   const autoExampleUrl = createStoryUrl({kind: storySettings.kind, story: storySettings.storyName, withExamples: false});

@@ -137,6 +137,12 @@ describe('PageHeader', () => {
     expect(driver.isBackButtonExists()).toBeFalsy();
   });
 
+  it('should have custom className', () => {
+    const pageHeader = <PageHeader title={title} className="myClass"/>;
+    const driver = createDriver(pageHeader);
+    expect(driver.hasClass('myClass')).toBeTruthy();
+  });
+
   describe('should initialize component with render props title', () => {
 
     const altTitle = 'This is a different title';

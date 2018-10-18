@@ -6,7 +6,7 @@
 :import {
   -st-from: "wix-ui-backoffice/dist/src/colors.st.css";
   -st-named: 
-  D10, D20, D50,
+  D10, D20, D40,
   G10, P10, R10, WHITE;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .root:size(medium):secondary:light, .root:size(small):secondary:light, .root:size(tiny):secondary:light {
-  color: value(D50);
+  color: value(D40);
 }
 
 .root:skin(success),

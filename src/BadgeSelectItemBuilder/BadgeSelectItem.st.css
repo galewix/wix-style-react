@@ -1,0 +1,102 @@
+:import {
+  -st-from: "wix-ui-backoffice/dist/src/palette.st.css";
+  -st-named: secondaryText, primaryLightText, danger, success, warning, urgent, general, standard, neutral, mainMutedHover, successMutedHover, dangerMutedHover, backgroundSecondary;
+}
+
+:import {
+  -st-from: "../Text/Text.st.css";
+  -st-default: Text;
+}
+
+:vars {
+  skin: value(general);
+}
+
+.root {
+  -st-states: skin(string);
+  white-space: nowrap;
+  line-height: 24px;
+}
+
+.marker {
+  width: 18px;
+  height: 10px;
+  border-radius: 2px;
+  box-shadow: 0px 0px 0px 2px #ffffff;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: value(skin);
+}
+
+.label {
+  margin: 0 8px;
+}
+
+.label Text {
+  color: inherit;
+}
+
+.root:skin(secondaryText) .marker {
+  background-color: value(secondaryText)
+}
+
+.root:skin(danger) .marker {
+  background-color: value(danger)
+}
+
+.root:skin(standard) .marker {
+  background-color: value(standard)
+}
+
+.root:skin(primaryLightText) .marker {
+  background-color: value(primaryLightText)
+}
+
+.root:skin(success) .marker {
+  background-color: value(success)
+}
+
+.root:skin(warning) .marker {
+  background-color: value(warning)
+}
+
+.root:skin(urgent) .marker {
+  background-color: value(urgent)
+}
+
+.root:skin(general) .marker {
+  background-color: value(general)
+}
+
+.root:skin(neutral) .marker {
+  background-color: value(neutral)
+}
+
+.root:skin(mainMutedHover) .marker {
+  background-color: value(mainMutedHover)
+}
+
+.root:skin(successMutedHover) .marker {
+  background-color: value(successMutedHover)
+}
+
+.root:skin(dangerMutedHover) .marker {
+  background-color: value(dangerMutedHover)
+}
+
+.root:skin(backgroundSecondary) .marker {
+  background-color: value(backgroundSecondary)
+}
+
+.root:skin(neutralStandard) .marker {
+  background-color: value(mainMutedHover)
+}
+
+.root:skin(neutralSuccess) .marker {
+  background-color: value(successMutedHover)
+}
+
+.root:skin(neutralDanger) .marker {
+  background-color: value(dangerMutedHover)
+}

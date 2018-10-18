@@ -1,15 +1,8 @@
 import React from 'react';
 import {mount} from 'enzyme';
 
-import {
-  isTestkitExists,
-  isEnzymeTestkitExists
-} from '../../test/utils/testkit-sanity';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
 import addItemDriverFactory from './AddItem.driver';
-
-import {addItemTestkitFactory} from '../../testkit';
-import {addItemTestkitFactory as enzymeAddItemTestkitFactory} from '../../testkit/enzyme';
 
 const createDriver = createDriverFactory(addItemDriverFactory);
 
@@ -93,24 +86,6 @@ describe('AddItem', () => {
       expect(wrapper.find(`[data-hook*="additem-tooltip"]`).exists()).toEqual(
         false
       );
-    });
-  });
-
-  describe('testkits', () => {
-    it('should exist', () => {
-      expect(isTestkitExists(renderAddItem(), addItemTestkitFactory)).toBe(
-        true
-      );
-    });
-
-    it('should exist for enzyme', () => {
-      expect(
-        isEnzymeTestkitExists(
-          renderAddItem(),
-          enzymeAddItemTestkitFactory,
-          mount
-        )
-      ).toBe(true);
     });
   });
 });

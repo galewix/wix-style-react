@@ -16,9 +16,11 @@ import EllipsisExampleRaw from '!raw-loader!./ExampleEllipsis';
 import H1TagNameExample from './ExampleH1TagName';
 import H1TagNameExampleRaw from '!raw-loader!./ExampleH1TagName';
 
+import {storySettings} from './storySettings';
+
 export default {
-  category: '1. Foundation',
-  storyName: '1.2 Text',
+  category: storySettings.kind,
+  storyName: storySettings.storyName,
   component: Text,
   componentPath: '../../src/Text/Text.js',
 

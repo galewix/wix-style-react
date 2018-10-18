@@ -62,6 +62,10 @@
   font-size: 16px;
   overflow-y: hidden;
   box-sizing: border-box;
+
+  &:hover:not(.hasFocus) {
+    background: $B50;
+  }
 }
 
 .hasMaxHeight {
@@ -86,11 +90,6 @@
   &.error {
     @include FocusBoxError;
   }
-
-}
-
-.hasHover:not(.hasFocus) {
-  background: $B50;
 }
 
 .tagsContainer {
@@ -114,3 +113,4 @@
     }
   }
 }
+

@@ -77,12 +77,12 @@ export default class PageHeader extends WixComponent {
   }
 
   render() {
-    const {breadcrumbs, onBackClicked, title, subtitle, minimized, actionsBar, showBackButton, hasBackgroundImage} = this.props;
+    const {breadcrumbs, onBackClicked, title, subtitle, minimized, actionsBar, showBackButton, hasBackgroundImage, className} = this.props;
     const breadcrumbsExists = !!breadcrumbs;
     const {themedBreadcrumbs} = this.state;
 
     return (
-      <div className={s.headerContainer}>
+      <div className={classNames(s.headerContainer, className)}>
         <div className={s.header}>
           <div>
             {
@@ -135,6 +135,8 @@ PageHeader.propTypes = {
   minimized: PropTypes.bool,
   /** This property is being supplied by the Page component, it's value reflects if the Page has a background image or not */
   hasBackgroundImage: PropTypes.bool,
+  /** A css class to be applied to the component's root element */
+  className: PropTypes.string,
   /** Wix-Style-React Breadcrumbs component */
   breadcrumbs: PropTypes.node,
   /** The main title text */

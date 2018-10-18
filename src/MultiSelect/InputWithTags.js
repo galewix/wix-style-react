@@ -16,10 +16,9 @@ class InputWithTags extends React.Component {
     this.focus = this.focus.bind(this);
     this.blur = this.blur.bind(this);
     this.select = this.select.bind(this);
-    this.handleHover = this.handleHover.bind(this);
     this.renderReorderableTag = this.renderReorderableTag.bind(this);
 
-    this.state = {inputValue: '', inputHasFocus: false, hasHover: false};
+    this.state = {inputValue: '', inputHasFocus: false};
   }
 
   componentDidMount() {
@@ -43,15 +42,6 @@ class InputWithTags extends React.Component {
     });
   }
 
-  handleHover() {
-    const {tags} = this.props;
-    if (!this.state.hasHover && tags.length === 0) {
-      this.setState({hasHover: true});
-    } else {
-      this.setState({hasHover: false});
-    }
-  }
-
   render() {
     const {
       tags,
@@ -66,17 +56,15 @@ class InputWithTags extends React.Component {
       ...inputProps
     } = this.props;
 
-    const {inputHasFocus: hasFocus, hasHover} = this.state;
+    const {inputHasFocus: hasFocus} = this.state;
     const isSelectMode = mode === 'select';
 
     const className = classNames({
       [styles.inputWithTagsContainer]: true,
       [styles.disabled]: disabled,
       [styles.error]: error,
-      [styles.empty]: !tags.length,
       [styles.readOnly]: isSelectMode,
       [styles.hasFocus]: hasFocus,
-      [styles.hasHover]: hasHover,
       [styles.hasMaxHeight]: !isUndefined(this.props.maxHeight) || !isUndefined(this.props.maxNumRows)
     });
 
@@ -109,8 +97,6 @@ class InputWithTags extends React.Component {
         className={className}
         style={{maxHeight}}
         onClick={() => this.handleClick()}
-        onMouseOver={onReorder ? null : this.handleHover}
-        onMouseOut={onReorder ? null : this.handleHover}
         data-hook={this.props.dataHook}
         >
         {onReorder ?

@@ -197,7 +197,7 @@ class Page extends WixComponent {
   }
 
   render() {
-    const {backgroundImageUrl, gradientClassName, children} = this.props;
+    const {backgroundImageUrl, gradientClassName, className, children} = this.props;
     const {minimized} = this.state;
     const hasBackgroundImage = !!backgroundImageUrl;
     const hasGradientClassName = !!gradientClassName && !backgroundImageUrl;
@@ -223,7 +223,7 @@ class Page extends WixComponent {
     };
 
     return (
-      <div className={s.page}>
+      <div className={classNames(s.page, className)}>
         <div
           data-hook="page-fixed-container"
           style={this._fixedContainerStyle()}
@@ -333,6 +333,8 @@ Page.propTypes = {
   maxWidth: PropTypes.number,
   /** Sets padding of the sides of the page */
   sidePadding: PropTypes.number,
+  /** A css class to be applied to the component's root element */
+  className: PropTypes.string,
   /** Header background color class name, allows to add a gradient to the header */
   gradientClassName: PropTypes.string,
   /** If false Gradient will not cover Page.Tail */

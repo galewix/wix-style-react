@@ -2,10 +2,6 @@ import React from 'react';
 import ImageViewer from './ImageViewer';
 import ImageViewerDriverFactory from './ImageViewer.driver';
 import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import {imageViewerTestkitFactory} from '../../testkit';
-import {imageViewerTestkitFactory as enzymeImageViewerTestkitFactory} from '../../testkit/enzyme';
-import {mount} from 'enzyme';
-import ReactTestUtils from 'react-dom/test-utils';
 
 describe('ImageViewer', () => {
   const createDriver = createDriverFactory(ImageViewerDriverFactory);
@@ -195,25 +191,6 @@ describe('ImageViewer', () => {
         driver = createDriver(<ImageViewer {...props}/>);
         expect(await driver.getErrorTooltipContent()).toEqual(props.errorMessage);
       });
-    });
-  });
-
-  describe('testkit', () => {
-    it('should exist', () => {
-      const div = document.createElement('div');
-      const dataHook = 'myDataHook';
-      const wrapper = div.appendChild(ReactTestUtils.renderIntoDocument(<div><ImageViewer imageUrl="" dataHook={dataHook}/></div>));
-      const imageViewerTestkit = imageViewerTestkitFactory({wrapper, dataHook});
-      expect(imageViewerTestkit.exists()).toBeTruthy();
-    });
-  });
-
-  describe('enzyme testkit', () => {
-    it('should exist', () => {
-      const dataHook = 'myDataHook';
-      const wrapper = mount(<ImageViewer dataHook={dataHook}/>);
-      const imageViewerTestkit = enzymeImageViewerTestkitFactory({wrapper, dataHook});
-      expect(imageViewerTestkit.exists()).toBeTruthy();
     });
   });
 });

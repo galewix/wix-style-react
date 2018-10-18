@@ -34,15 +34,17 @@ $rowShadow: inset 0 1px 0 0 $D70;
   padding-top: 9px;
   padding-bottom: 9px;
   height: 24px;
-  text-align: left;
-  text-align: start; // not supported in IE11 & Edge; 'left' as fallback
   color: $D10;
   font-weight: normal;
   box-shadow: $headerShadow;
 
   .th-container {
-    display: flex;
-    align-items: center;
+
+    &.withNodes {
+      display: flex;
+      align-items: center;
+    }
+
     .infoTooltipWrapper {
       margin-left: 6px;
     }
@@ -128,4 +130,18 @@ $rowShadow: inset 0 1px 0 0 $D70;
       box-shadow: $rowShadow;
     }
   }
+}
+
+.alignStart {
+  text-align: left;
+  text-align: start; // not supported in IE11 & Edge; 'left' as fallback
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.alignEnd {
+  text-align: right;
+  text-align: end; // not supported in IE11 & Edge; 'right' as fallback
 }

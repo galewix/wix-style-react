@@ -3,7 +3,30 @@ import {oneOf, bool, string, any} from 'prop-types';
 import style from './Text.st.css';
 import deprecationLog from '../utils/deprecationLog';
 import omit from 'lodash/omit';
-import {SKINS, SIZES, WEIGHTS} from './constants';
+
+/*
+ * Temporary fix: SIZES, SKINS, WEIGHTS constants are copied here from constants.js
+ * in order to have AutoDocs able to parse them.
+ * See this issue: https://github.com/wix/wix-ui/issues/784
+ */
+export const SIZES = {
+  tiny: 'tiny',
+  small: 'small',
+  medium: 'medium'
+};
+
+export const SKINS = {
+  standard: 'standard',
+  error: 'error',
+  success: 'success',
+  premium: 'premium'
+};
+
+export const WEIGHTS = {
+  thin: 'thin',
+  normal: 'normal',
+  bold: 'bold'
+};
 
 const Text = ({size, secondary, skin, light, bold, weight, tagName, children, ...rest}) => {
   if (bold !== undefined) {

@@ -6,14 +6,14 @@ module.exports = (config, env, defaultConfig) => {
   const newConfig = wixStorybookConfig(defaultConfig);
 
   return merge(newConfig, {
-    context: path.resolve(__dirname, '../src'),
+    context: path.resolve(__dirname, '../../src'),
     externals: {
       react: 'React',
       'react-dom': 'ReactDOM'
     },
     resolve: {
       alias: {
-        'wix-style-react': path.resolve(__dirname, '../src')
+        'wix-style-react': path.resolve(__dirname, '../../src')
       },
     },
     module: {

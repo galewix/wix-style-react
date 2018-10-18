@@ -29,7 +29,6 @@ const runButtonWithOptionsTest = driverFactory => {
         <ButtonWithOptions.Button {...props}>
           Test
         </ButtonWithOptions.Button>
-
         {optionsArray}
       </ButtonWithOptions>
     );

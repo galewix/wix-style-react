@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {buttonTestkitFactory} from 'wix-style-react/dist/testkit';
+import {buttonTestkitFactory} from '../../testkit';
 
 import addItemDriverFactory from '../AddItem/AddItem.driver';
 import tooltipDriverFactory from '../Tooltip/Tooltip.driver';

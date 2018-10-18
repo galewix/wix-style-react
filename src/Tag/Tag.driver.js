@@ -3,6 +3,7 @@ import {isClassExists} from '../../test/utils';
 
 import {testkitFactoryCreator} from 'wix-ui-test-utils/vanilla';
 import buttonDriverFactory from '../Backoffice/Button/Button.driver';
+import {dataHooks} from './Tag.helpers';
 
 const buttonTestkitFactory = testkitFactoryCreator(buttonDriverFactory);
 
@@ -12,7 +13,7 @@ const getContentWithoutThumb = element => element.querySelector('span');
 const getRemoveButtonDriver = element => {
   return buttonTestkitFactory({
     wrapper: element,
-    dataHook: 'remove-button'
+    dataHook: dataHooks.removeButton
   });
 };
 
@@ -20,6 +21,9 @@ const tagDriverFactory = ({element}) => {
 
   return {
     exists: () => !!element,
+    isTiny: () => isClassExists(element, 'tinySize'),
+    isSmall: () => isClassExists(element, 'smallSize'),
+    isMedium: () => isClassExists(element, 'mediumSize'),
     isLarge: () => isClassExists(element, 'largeSize'),
     isStandardTheme: () => isClassExists(element, 'standardTheme'),
     isWarningTheme: () => isClassExists(element, 'warningTheme'),

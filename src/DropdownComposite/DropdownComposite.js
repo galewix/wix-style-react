@@ -5,6 +5,10 @@ import Label from '../Label';
 import Dropdown from '../Dropdown';
 import InputAreaWithLabelComposite from '../Composite/InputAreaWithLabelComposite/InputAreaWithLabelComposite';
 
+import deprecationLog from '../utils/deprecationLog';
+
+deprecationLog(`Using "DropdownComposite" is deprecated. Please use "FormField".`);
+
 const DropdownComposite = ({children, ...props}) => (
   <InputAreaWithLabelComposite {...props}>
     {children}

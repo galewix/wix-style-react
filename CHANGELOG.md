@@ -17,9 +17,57 @@ Types of changes:
 
 ### Changed
 
+- `<Tag/>` - add tiny and medium sizes [#2322](https://github.com/wix/wix-style-react/pull/2322)
+- `<SortableList/>` - Add draggable item to onDragStart and onDragEnd [#2343](https://github.com/wix/wix-style-react/pull/2343)
+
+### Docs
+
+- Add Dropdown Snippet story using FormField [#2276](https://github.com/wix/wix-style-react/pull/2276)
+
+### Added
+
+- `<Table/>` - support column alignments [#2333](https://github.com/wix/wix-style-react/pull/2333)
+
+## 5.6.1 - 2018-10-16
+
+### Fixed
+
+- `<ModalSelectorLayout/>` - fix broken subtitle line [#2336](https://github.com/wix/wix-style-react/pull/2336)
+
+### Added
+
+- `<BadgeSelect/>` - create new component [#2219](https://github.com/wix/wix-style-react/pull/2219)
+
+## 5.6.0 - 2018-10-15
+
+### Fixed
+
+- `<DropdownLayout/>` - replace `deep-eql` dependency (IE11 support) [#2326](https://github.com/wix/wix-style-react/pull/2326)
+- `<InputWithTags/>` replace `hasHover` state with native css [#2294](https://github.com/wix/wix-style-react/pull/2294)
+
+### Changed
+
+- `<Text/>` - Update secondary+light color from D50 to D40 [#2312](https://github.com/wix/wix-style-react/pull/2312)
+- Typography - Add UX story (move Text and Heading under Components) [#2309](https://github.com/wix/wix-style-react/pull/2309/)
+
+### Added
+
+- Typography - Add css typography classes [#2306](https://github.com/wix/wix-style-react/pull/2306)
+
+## 5.5.2 - 2018-10-09
+
+### Fixed
+
+- Text - Story - fix story autodocs [#2307](https://github.com/wix/wix-style-react/pull/2307)
+
+## 5.5.1 - 2018-10-09
+
+### Changed
+
 - Typography - Update typography of `<Loader/>`, `<Table/>` [#2268](https://github.com/wix/wix-style-react/pull/2268)
 - Typography - Update typography of `<Tabs/>`, `<PopoverMenu/>`, `<EditableSelector/>` [#2299](https://github.com/wix/wix-style-react/pull/2299)
 - `<InputWithOptions/>` - Do not open options when focused, but rather when clicked [#2280](https://github.com/wix/wix-style-react/pull/2280)
+- `<Page/>`,`<PageHeader/>` - Added className prop [#2284](https://github.com/wix/wix-style-react/pull/2284)
 
 ### Fixed
 - `<DatePicker/>` Move z-index prop to the correct element in css [#2286](https://github.com/wix/wix-style-react/pull/2286)

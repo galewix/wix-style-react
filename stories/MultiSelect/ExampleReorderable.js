@@ -49,6 +49,7 @@ class ExampleReorderable extends React.Component {
       <div>
         <div className={styles.main}>
           <MultiSelect
+            dataHook="multi-select-reorderable"
             tags={this.state.tags}
             onSelect={this.handleOnSelect}
             onRemoveTag={this.handleOnRemoveTag}

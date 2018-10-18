@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import MessageBoxFunctionalLayout from 'wix-style-react/MessageBox/MessageBoxFunctionalLayout';
+import {MessageBoxFunctionalLayout} from 'wix-style-react/MessageBox';
 import {Button} from 'wix-style-react/Backoffice';
 import Modal from 'wix-style-react/Modal';
 

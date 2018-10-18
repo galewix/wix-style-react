@@ -222,6 +222,9 @@ export const draggableTestkitFactory = enzymeTestkitFactoryCreator(draggableDriv
 import sortableListDriverFactory from '../src/SortableList/SortableList.driver';
 export const sortableListTestkitFactory = enzymeTestkitFactoryCreator(sortableListDriverFactory);
 
+import badgeSelectDriverFactory from '../src/BadgeSelect/BadgeSelect.driver';
+export const badgeSelectTestkitFactory = enzymeTestkitFactoryCreator(badgeSelectDriverFactory);
+
 // wix-ui-backoffice proxy
 
 export {

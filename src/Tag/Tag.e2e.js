@@ -16,16 +16,14 @@ describe('Tag', () => {
     return autoExampleDriver.remount();
   });
 
-  eyes.it('should render', async () => {
-    await waitForVisibilityOf(tagDriver.element(), 'Cannot find <Tag/>');
-    await eyes.checkWindow('small size');
-    autoExampleDriver.setProps({removable: false});
-    await eyes.checkWindow('small size: without remove button');
-    autoExampleDriver.remount();
-    autoExampleDriver.setProps({size: 'large'});
-    await eyes.checkWindow('large size');
-    autoExampleDriver.setProps({removable: false});
-    await eyes.checkWindow('large size: without remove button');
+  ['tiny', 'small', 'medium', 'large'].forEach(size => {
+    eyes.it(`should render ${size} size properly`, async () => {
+      await waitForVisibilityOf(tagDriver.element(), 'Cannot find <Tag/>');
+      autoExampleDriver.setProps({size});
+      await eyes.checkWindow(`${size} size`);
+      autoExampleDriver.setProps({removable: false});
+      await eyes.checkWindow(`${size} size: without remove button`);
+    });
   });
 
   eyes.it('should render themes', async () => {

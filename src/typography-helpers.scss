@@ -53,6 +53,10 @@ $typography_headers: (
 /* Text */
 /*------*/
 
+$DEFAULT_SIZE: medium;
+$DEFAULT_WEIGHT: thin;
+$DEFAULT_SKIN: standard;
+
 /* SIZE AND FONT-FAMILY */
 $typography_textSize: (
   tiny: (12px, 15px),
@@ -60,7 +64,7 @@ $typography_textSize: (
   medium: (16px, 24px)
 );
 
-@mixin TextSize($size: medium) {
+@mixin TextSize($size: $DEFAULT_SIZE) {
   @if map-has-key($typography_textSize, $size) {
     font-size: nth(map-get($typography_textSize, $size), 1);
     line-height: nth(map-get($typography_textSize, $size), 2);
@@ -75,7 +79,7 @@ $typography_textFontFamily: (
   medium: (bold: $FontMedium, normal: $FontRoman,  thin: $FontLight), 
 );
 
-@mixin TextFontFamily($size: medium, $weight: thin) {
+@mixin TextFontFamily($size: $DEFAULT_SIZE, $weight: $DEFAULT_WEIGHT) {
   @if map-has-key($typography_textFontFamily, $size) {
     $weights: map-get($typography_textFontFamily, $size);
     @if map-has-key($weights, $weight) {
@@ -88,13 +92,13 @@ $typography_textFontFamily: (
   }
 }
 
-@mixin TextSizeAndFontFamily($size: medium, $weight: thin) {
+@mixin TextSizeAndFontFamily($size: $DEFAULT_SIZE, $weight: $DEFAULT_WEIGHT) {
   @include TextFontFamily($size: $size, $weight: $weight);
   @include TextSize($size: $size);
 }
 
 /* COLORS */
-@function getTextColor($light: false, $secondary: false, $skin: standard, $link: false) {
+@function getTextColor($light: false, $secondary: false, $skin: $DEFAULT_SKIN, $link: false) {
   @if $skin == success {
     @return $G10;
   } @else if $skin == error {
@@ -114,7 +118,7 @@ $typography_textFontFamily: (
   }
 }
 
-@mixin TextColor($light: false, $secondary: false, $skin: standard, $link: false) {
+@mixin TextColor($light: false, $secondary: false, $skin: $DEFAULT_SKIN, $link: false) {
   color: getTextColor(
     $light: $light,
     $secondary: $secondary,
@@ -124,11 +128,11 @@ $typography_textFontFamily: (
 
 /* TEXT */
 @mixin Text(
-  $size: medium,
-  $weight: thin,
+  $size: $DEFAULT_SIZE,
+  $weight: $DEFAULT_WEIGHT,
   $light: false,
   $secondary: false,
-  $skin: standard,
+  $skin: $DEFAULT_SKIN,
   $link: false
   ) {
   @include TextSizeAndFontFamily($size: $size,$weight: $weight);

@@ -52,6 +52,7 @@ export {default as PopoverMenu} from './PopoverMenu';
 export {default as FullTextView} from './FullTextView';
 export {default as PopoverMenuItem} from './PopoverMenuItem';
 export {default as Badge} from './Badge';
+export {default as BadgeSelect} from './BadgeSelect';
 export {default as EditableSelector} from './EditableSelector';
 export {default as StatsWidget} from './StatsWidget';
 export {default as AutoCompleteComposite} from './AutoCompleteComposite';

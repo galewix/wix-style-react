@@ -42,6 +42,13 @@ describe('Page', () => {
     });
   });
 
+  describe('customClassName', () => {
+    it('should have custom className', () => {
+      const driver = createDriver(renderPageWithProps({className: 'myClass'}));
+      expect(driver.hasClass('myClass')).toBeTruthy();
+    });
+  });
+
   describe('gradientClassName', () => {
     it('should initialize component with gradient class name', () => {
       const driver = createDriver(renderPageWithProps({gradientClassName: 'class'}));
@@ -176,5 +183,3 @@ describe('Page', () => {
     });
   });
 });
-
-

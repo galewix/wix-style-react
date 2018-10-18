@@ -9,9 +9,11 @@ import EllipsisExampleRaw from '!raw-loader!./ExampleEllipsis';
 import TypographyExample from './ExampleTypography';
 import TypographyExampleRaw from '!raw-loader!./ExampleTypography';
 
+import {storySettings} from './storySettings';
+
 export default {
-  category: '1. Foundation',
-  storyName: '1.3 Heading',
+  category: storySettings.kind,
+  storyName: storySettings.storyName,
   component: Heading,
   componentPath: '../../src/Heading/Heading.js',
 

@@ -20,6 +20,8 @@
   flex: 1 1 auto;
   overflow: hidden;
   margin-left: 12px;
+  display: flex;
+  flex-flow: column;
 }
 
 .image {
