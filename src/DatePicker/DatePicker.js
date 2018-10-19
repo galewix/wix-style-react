@@ -38,7 +38,8 @@ export default class DatePicker extends WixComponent {
     dateFormat: 'MM/DD/YYYY',
     filterDate: () => true,
     rtl: false,
-    width: 150
+    width: 150,
+    zIndex: 1
   };
 
   constructor(props) {
@@ -191,7 +192,8 @@ export default class DatePicker extends WixComponent {
       width,
       calendarDataHook,
       twoMonths,
-      locale
+      locale,
+      zIndex
     } = this.props;
 
     const {isOpen, value} = this.state;
@@ -219,7 +221,7 @@ export default class DatePicker extends WixComponent {
         <div
           ref={this._setCalendarRef}
           data-hook={calendarDataHook}
-          className={styles.calendarRoot}
+          style={zIndex}
           >
           {isOpen && <Calendar className={styles.datePickerCalendar} {...calendarProps}/>}
         </div>
@@ -293,5 +295,8 @@ DatePicker.propTypes = {
   errorMessage: PropTypes.node,
 
   /** set desired width of DatePicker input */
-  width: PropTypes.number
+  width: PropTypes.number,
+
+  /** set desired z-index of DatePicker popover */
+  zIndex: PropTypes.number
 };

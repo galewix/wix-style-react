@@ -4,10 +4,6 @@
   display: inline-block;
 }
 
-.calendar-root {
-  z-index: 1;
-}
-
 .date-picker-calendar {
   :global .DayPicker {
     @include popoverTheme;
