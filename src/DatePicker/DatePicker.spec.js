@@ -12,6 +12,7 @@ import DatePicker from './DatePicker';
 import {rangePolyfill, requestAnimationFramePolyfill} from '../../testkit/polyfills';
 
 import isLocale from 'date-fns/locale/is';
+import {format} from 'date-fns';
 
 const noop = () => {};
 
@@ -485,6 +486,20 @@ describe('DatePicker', () => {
       );
 
       expect(inputDriver.getValue()).toBe('2017/10/02');
+    });
+
+    it('should display correct string in case if format set as a function', () => {
+      const date = new Date(2017, 9, 2);
+      const {inputDriver} = createDriver(
+        <DatePicker
+          onChange={noop}
+          locale="fr"
+          dateFormat={date => format(date, 'YYYY MMM DD')}
+          value={date}
+          />
+      );
+
+      expect(inputDriver.getValue()).toBe('2017 Oct 02');
     });
   });
 
