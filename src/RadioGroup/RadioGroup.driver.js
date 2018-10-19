@@ -19,6 +19,7 @@ const radioGroupDriverFactory = ({element, wrapper, component}) => {
     getRadioAtIndex: index => radios[index],
     getSelectedValue: () => selectedRadio() ? selectedRadio().childNodes[0].value : null,
     // TODO: We should deprecate getClassOfLabelAt(). Css tests should be in e2e tests.
+    isRadioDisabled: index => radioButtons[index].disabled,
     getClassOfLabelAt: index => labels[index].className,
     isVerticalDisplay: () => isClassExists(element, 'vertical'),
     isHorizontalDisplay: () => isClassExists(element, 'horizontal'),

@@ -25,6 +25,16 @@ describe('RadioGroup', () => {
     expect(driver.getRadioValueAt(0)).toBe('1');
   });
 
+  it('should return true if a radio button is disabled and false otherwise', () => {
+    const disabledRadios = [1, 2];
+    const driver = createDriver(elementToRender({disabledRadios}));
+    expect(driver.isRadioDisabled(0)).toBe(true);
+    expect(driver.isRadioDisabled(1)).toBe(true);
+    expect(driver.isRadioDisabled(2)).toBe(false);
+    expect(driver.isRadioDisabled(3)).toBe(false);
+  });
+
+
   it('should check the option that matches the initial value', () => {
     const value = 2;
     const driver = createDriver(elementToRender({value}));
