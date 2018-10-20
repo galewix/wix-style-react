@@ -24,6 +24,16 @@ const exampleChildren = [
   }
 ];
 
+const exampleOptions = [
+  {
+    label: 'none disabled',
+    value: []
+  }, {
+    label: 'with disabled options',
+    value: [1, 2]
+  }
+];
+
 export const NUM_OF_BUTTONS_IN_EXAMPLE = exampleChildren[0].value.length;
 
 export default {
@@ -42,6 +52,7 @@ export default {
   }),
 
   exampleProps: {
+    disabledRadios: exampleOptions,
     children: exampleChildren,
     onChange: value => value
   }
