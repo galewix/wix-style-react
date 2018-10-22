@@ -60,7 +60,7 @@ describe('RadioGroup', () => {
     eyes.it('should show focus styles when navigated by keyboard', async () => {
       await waitForVisibilityOf(radioGroupDriver.element(), 'Cannot find RadioGroup');
         // TODO: replace with forEachAsync
-      for (let index = 0; index < ; index++) {
+      for (let index = 0; index < NUM_OF_BUTTONS_IN_EXAMPLE; index++) {
         const driver = flattenInternalDriver(groupDriver.getButtonDriver(index));
         await expectNotFocused(`button ${index} - before`, driver);
         await pressTab();
