@@ -6,12 +6,15 @@ import styles from './InputArea.scss';
 const inputAreaDriverFactory = ({element, wrapper, component}) => {
   const textAreaElement = element && element.childNodes[0];
   const textArea = element.querySelector('textarea');
+  const [name, type] = [textArea.getAttribute('name'), textArea.getAttribute('type')];
   const counterSelector = '[data-hook="counter"]';
   return {
     trigger: (trigger, event) => ReactTestUtils.Simulate[trigger](textArea, event),
     focus: () => textArea.focus(),
-    enterText: text => ReactTestUtils.Simulate.change(textArea, {target: {value: text}}),
+    enterText: text => ReactTestUtils.Simulate.change(textArea, {target: {name, type, value: text}}),
     getValue: () => textArea.value,
+    getName: () => name,
+    getType: () => type,
     getPlaceholder: () => textArea.placeholder,
     getDefaultValue: () => textArea.defaultValue,
     getRowsCount: () => textArea.rows,

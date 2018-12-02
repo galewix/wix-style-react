@@ -26,6 +26,28 @@ describe('InputArea', () => {
     });
   });
 
+  describe('name attribute', () => {
+    it('should pass down to the wrapped input', () => {
+      const props = {
+        name: 'hello'
+      };
+
+      const driver = createDriver(<InputAreaForTesting {...props}/>);
+      expect(driver.getName()).toEqual(props.name);
+    });
+  });
+
+  describe('type attribute', () => {
+    it('should pass down to the wrapped input', () => {
+      const props = {
+        type: 'hello'
+      };
+
+      const driver = createDriver(<InputAreaForTesting {...props}/>);
+      expect(driver.getType()).toEqual(props.type);
+    });
+  });
+
   describe('defaultValue attribute', () => {
     it('should pass down to the wrapped input', () => {
       const defaultValue = 'hello';
