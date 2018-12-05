@@ -14,6 +14,20 @@ describe('InputArea', () => {
 
   const InputAreaForTesting = props => (<InputArea {...props} dataHook="textarea-div"/>);
 
+  describe('enterText driver method', () => {
+    it('passes the name and value attribute', () => {
+      const onChangeMock = jest.fn();
+      const props = {
+        name: 'gal',
+        onChange: onChangeMock
+      };
+      const driver = createDriver(<InputAreaForTesting {...props}/>);
+      driver.enterText('some text');
+      const eventTarget = onChangeMock.mock.calls[0][0].target;
+      expect(eventTarget).toEqual({name: 'gal', value: 'some text'});
+    });
+  });
+
   describe('value attribute', () => {
     it('should pass down to the wrapped input', () => {
       const props = {
@@ -34,17 +48,6 @@ describe('InputArea', () => {
 
       const driver = createDriver(<InputAreaForTesting {...props}/>);
       expect(driver.getName()).toEqual(props.name);
-    });
-  });
-
-  describe('type attribute', () => {
-    it('should pass down to the wrapped input', () => {
-      const props = {
-        type: 'hello'
-      };
-
-      const driver = createDriver(<InputAreaForTesting {...props}/>);
-      expect(driver.getType()).toEqual(props.type);
     });
   });
 

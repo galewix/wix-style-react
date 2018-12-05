@@ -12,7 +12,6 @@
 | enterText | string | - | applied text to the element |
 | getValue | - | string | get the element default text |
 | getName | - | string | get the native textarea's name attribute |
-| getType | - | string | get the native textarea's type attribute |
 | getDefaultValue | - | string | get the element text |
 | getRowsCount | - | number | get the max number of rows (define the height of the element) |
 | getMaxLength | - | number | get max number of characters |

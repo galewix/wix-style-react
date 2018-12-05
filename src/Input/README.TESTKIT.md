@@ -14,6 +14,8 @@
 | clickSuffix | - | - | when suffix is visible, this will click it |
 | enterText | string | - | applied text to the input |
 | clearText | - | - | clears input |
+| getName | - | string | get the native input name attribute |
+| getType | - | string | get the native input type attribute |
 | getValue | - | string | get the input text |
 | getPlaceholder | - | string | get the placeholder text |
 | getReadOnly | - | boolean | true if the input is read only |
@@ -21,7 +23,6 @@
 | getAriaControls | - | string | get the component aria-controls |
 | getAriaDescribedby | - | string | get the component aria-describedby |
 | getAutocomplete | - | string | get the autocomplete attribute of the component |
-| getType | - | string | get the input type |
 | hasPrefix | - | boolean | true if the input have a prefix |
 | hasSuffix | - | boolean | true if the input have a suffix |
 | hasError | - | boolean | true if the input present an error |
