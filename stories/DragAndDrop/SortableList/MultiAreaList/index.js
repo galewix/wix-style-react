@@ -18,9 +18,12 @@ ${MultiAreaListScssRaw}
 
 export default () => (
   <div>
-    <Markdown source={MultiAreaListReadme}/>
-    <CodeExample title="Sortable List - D&D between columns" code={MultiAreaListRawCombined}>
-      <MultiAreaList/>
+    <Markdown source={MultiAreaListReadme} />
+    <CodeExample
+      title="Sortable List - D&D between columns"
+      code={MultiAreaListRawCombined}
+    >
+      <MultiAreaList />
     </CodeExample>
   </div>
 );

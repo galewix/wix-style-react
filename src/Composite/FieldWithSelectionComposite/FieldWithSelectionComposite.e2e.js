@@ -1,46 +1,66 @@
 import eyes from 'eyes.it';
-import {fieldWithSelectionCompositeTestkitFactory} from '../../../testkit/protractor';
-import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {getStoryUrl} from '../../../test/utils/storybook-helpers';
+import { fieldWithSelectionCompositeTestkitFactory } from '../../../testkit/protractor';
+import { waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import { getStoryUrl } from '../../../test/utils/storybook-helpers';
 import settings from '../../../stories/FieldWithSelectionComposite/StorySettings';
 import inputDriverFactory from '../../Input/Input.protractor.driver';
 import checkboxDriverFactory from '../../Checkbox/Checkbox.protractor.driver';
 import dropdownDriverFactory from '../../Dropdown/Dropdown.protractor.driver';
 
 const fieldWithSelectionCompositeTestkitE2EFactory = driver => {
-
   const inputDriver = () => inputDriverFactory(driver.getInput());
-  const checkboxDriver = () => checkboxDriverFactory(driver.element().$(`[data-hook="${settings.dataHookCheckbox}"]`));
+  const checkboxDriver = () =>
+    checkboxDriverFactory(
+      driver.element().$(`[data-hook="${settings.dataHookCheckbox}"]`),
+    );
   const dropdownDriver = () => dropdownDriverFactory(driver.getSelection());
 
-  return ({
+  return {
     ...driver,
     checkboxType: {
       isFocusedFirst: () => inputDriver().isFocused(),
       isFocusedLast: () => checkboxDriver().isFocused(),
       clickFirst: () => inputDriver().click(),
-      clickLast: () => checkboxDriver().click()
+      clickLast: () => checkboxDriver().click(),
     },
     dropdownType: {
       isFocusedFirst: () => inputDriver().isFocused(),
       isFocusedLast: () => dropdownDriver().isFocused(),
       clickFirst: () => inputDriver().click(),
-      clickLast: () => dropdownDriver().click()
-    }
-  });
+      clickLast: () => dropdownDriver().click(),
+    },
+  };
 };
 
 describe('FieldWithSelectionComposite', () => {
   const storyUrl = getStoryUrl(settings.kind, settings.storyName);
 
-  const driverCheckbox = fieldWithSelectionCompositeTestkitE2EFactory(fieldWithSelectionCompositeTestkitFactory({dataHook: settings.dataHookExampleCheckbox}));
-  const driverDropdown = fieldWithSelectionCompositeTestkitE2EFactory(fieldWithSelectionCompositeTestkitFactory({dataHook: settings.dataHookExampleDropdown}));
-  const pressTab = () => browser.actions().sendKeys(protractor.Key.TAB).perform();
+  const driverCheckbox = fieldWithSelectionCompositeTestkitE2EFactory(
+    fieldWithSelectionCompositeTestkitFactory({
+      dataHook: settings.dataHookExampleCheckbox,
+    }),
+  );
+  const driverDropdown = fieldWithSelectionCompositeTestkitE2EFactory(
+    fieldWithSelectionCompositeTestkitFactory({
+      dataHook: settings.dataHookExampleDropdown,
+    }),
+  );
+  const pressTab = () =>
+    browser
+      .actions()
+      .sendKeys(protractor.Key.TAB)
+      .perform();
 
   beforeAll(async () => {
     await browser.get(storyUrl);
-    await waitForVisibilityOf(driverCheckbox.element(), 'Cannot find FieldWithSelectionComposite - checkbox');
-    await waitForVisibilityOf(driverDropdown.element(), 'Cannot find FieldWithSelectionComposite - dropdown');
+    await waitForVisibilityOf(
+      driverCheckbox.element(),
+      'Cannot find FieldWithSelectionComposite - checkbox',
+    );
+    await waitForVisibilityOf(
+      driverDropdown.element(),
+      'Cannot find FieldWithSelectionComposite - dropdown',
+    );
   });
 
   describe('Checkbox type', () => {
@@ -84,4 +104,3 @@ describe('FieldWithSelectionComposite', () => {
     });
   });
 });
-

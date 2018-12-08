@@ -12,67 +12,56 @@ export default class DropdownPicker extends React.Component {
     caption: PropTypes.node,
     options: PropTypes.array,
     onChange: PropTypes.func,
-    selectedId: PropTypes.number
+    selectedId: PropTypes.number,
   };
 
   constructor(props) {
     super(props);
     this.stopAllEventsThatCanOpenModalInSameEventLoop = false;
     this.state = {
-      isOpen: false
+      isOpen: false,
     };
   }
 
   onClose = () => {
     this.setState({
-      isOpen: false
+      isOpen: false,
     });
     this.stopAllEventsThatCanOpenModalInSameEventLoop = true;
     setTimeout(() => {
       // for next event loop we allow them
       this.stopAllEventsThatCanOpenModalInSameEventLoop = false;
     });
-  }
+  };
 
   onSelect = data => {
     this.props.onChange(data);
     this.onClose();
-  }
+  };
 
   toggleDropdown = () => {
     if (!this.stopAllEventsThatCanOpenModalInSameEventLoop) {
       this.setState({
-        isOpen: !this.state.isOpen
+        isOpen: !this.state.isOpen,
       });
     }
-  }
+  };
 
   render() {
-    const {
-      caption,
-      options,
-      dataHook,
-      selectedId
-    } = this.props;
+    const { caption, options, dataHook, selectedId } = this.props;
 
-    const {isOpen} = this.state;
+    const { isOpen } = this.state;
 
     return (
-      <div
-        data-hook={dataHook}
-        className={styles.root}
-        >
-        <div
-          className={styles.button}
-          onClick={this.toggleDropdown}
-          >
+      <div data-hook={dataHook} className={styles.root}>
+        <div className={styles.button} onClick={this.toggleDropdown}>
           <Text dataHook={`${dataHook}-button`}>{caption}</Text>
           <div className={styles.icon}>
-            <ChevronDown/>
+            <ChevronDown />
           </div>
         </div>
 
-        { isOpen &&
+        {isOpen && (
           <div className={styles.dropdown}>
             <DropdownLayout
               dataHook={`${dataHook}-menu`}
@@ -83,9 +72,9 @@ export default class DropdownPicker extends React.Component {
               onClickOutside={this.onClose}
               closeOnSelect
               selectedId={selectedId}
-              />
+            />
           </div>
-        }
+        )}
       </div>
     );
   }

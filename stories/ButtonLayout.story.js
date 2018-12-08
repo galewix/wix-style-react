@@ -2,15 +2,16 @@ import React from 'react';
 
 import ButtonLayout from 'wix-style-react/ButtonLayout';
 
-const children =
-  (<a
+const children = (
+  <a
     href="http://www.wix.com"
     target="_blank"
     rel="noopener noreferrer"
-    style={{textDecoration: 'inherit'}}
-    >
+    style={{ textDecoration: 'inherit' }}
+  >
     Link Like Button
-  </a>);
+  </a>
+);
 
 export default {
   category: '5. Buttons',
@@ -20,10 +21,13 @@ export default {
   componentProps: {
     children,
     theme: 'fullblue',
-    height: 'medium'
+    height: 'medium',
   },
 
   exampleProps: {
-    children: [{label: 'anchor element', value: children}, {label: 'text in span', value: <span>text in span</span>}]
-  }
+    children: [
+      { label: 'anchor element', value: children },
+      { label: 'text in span', value: <span>text in span</span> },
+    ],
+  },
 };

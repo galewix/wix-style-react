@@ -1,5 +1,5 @@
 import React from 'react';
-import {object, bool, func} from 'prop-types';
+import { object, bool, func } from 'prop-types';
 
 import WixComponent from '../BaseComponents/WixComponent';
 import Tabs from '../Tabs';
@@ -12,23 +12,22 @@ const RGB = 'RGB';
 const HSB = 'HSB';
 
 const tabs = [
-  {id: HEX, title: HEX},
-  {id: RGB, title: RGB},
-  {id: HSB, title: HSB}
+  { id: HEX, title: HEX },
+  { id: RGB, title: RGB },
+  { id: HSB, title: HSB },
 ];
 
 export default class ColorPickerConverter extends WixComponent {
-
   static propTypes = {
     current: object.isRequired,
     showConverter: bool.isRequired,
     showInput: bool.isRequired,
-    onChange: func.isRequired
-  }
+    onChange: func.isRequired,
+  };
 
   state = {
-    activeTab: HEX
-  }
+    activeTab: HEX,
+  };
 
   constructor(props) {
     super(props);
@@ -36,17 +35,22 @@ export default class ColorPickerConverter extends WixComponent {
   }
 
   render() {
-    const {current, showConverter, showInput} = this.props;
+    const { current, showConverter, showInput } = this.props;
 
     if (!showConverter && !showInput) {
       return null;
     }
 
     if (!showConverter) {
-      return <ColorPickerConverterHex current={current} onChange={this.props.onChange}/>;
+      return (
+        <ColorPickerConverterHex
+          current={current}
+          onChange={this.props.onChange}
+        />
+      );
     }
 
-    const {activeTab} = this.state;
+    const { activeTab } = this.state;
 
     return (
       <div>
@@ -56,16 +60,30 @@ export default class ColorPickerConverter extends WixComponent {
           activeId={activeTab}
           type="uniformFull"
           onClick={this.changeTab}
+        />
+        {activeTab === HEX && (
+          <ColorPickerConverterHex
+            current={current}
+            onChange={this.props.onChange}
           />
-        {activeTab === HEX && <ColorPickerConverterHex current={current} onChange={this.props.onChange}/>}
-        {activeTab === RGB && <ColorPickerConverterRgb current={current} onChange={this.props.onChange}/>}
-        {activeTab === HSB && <ColorPickerConverterHsb current={current} onChange={this.props.onChange}/>}
+        )}
+        {activeTab === RGB && (
+          <ColorPickerConverterRgb
+            current={current}
+            onChange={this.props.onChange}
+          />
+        )}
+        {activeTab === HSB && (
+          <ColorPickerConverterHsb
+            current={current}
+            onChange={this.props.onChange}
+          />
+        )}
       </div>
     );
   }
 
-  changeTab({id}) {
-    this.setState({activeTab: id});
+  changeTab({ id }) {
+    this.setState({ activeTab: id });
   }
-
 }

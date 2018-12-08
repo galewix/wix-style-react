@@ -6,37 +6,48 @@ export default component => {
     element: () => component,
     exists: () => !!component,
 
-    handleTooltipValue: async ({index}) => {
-      await actions.hoverHandle({index});
+    handleTooltipValue: async ({ index }) => {
+      await actions.hoverHandle({ index });
       const tooltip = component.$('.slider-tooltip');
       const tooltipText = await tooltip.getText();
-      await actions.unHoverHandle({index});
+      await actions.unHoverHandle({ index });
       return Number(tooltipText);
     },
 
     isHandleTooltipDisplayed: async () => {
-      const toolTipDisplayWrap = await component.$$('.slider-tooltip').isDisplayed();
+      const toolTipDisplayWrap = await component
+        .$$('.slider-tooltip')
+        .isDisplayed();
       return Boolean(toolTipDisplayWrap[0]);
     },
 
-    hoverHandle: async ({index}) => {
-      await actions.unHoverHandle({index});
+    hoverHandle: async ({ index }) => {
+      await actions.unHoverHandle({ index });
 
       const handle = sliderHandle(index);
-      await browser.actions().mouseMove(handle).perform();
+      await browser
+        .actions()
+        .mouseMove(handle)
+        .perform();
     },
 
-    dragHandle: async ({index, offset}) => {
+    dragHandle: async ({ index, offset }) => {
       const ONE_DOT_MOVEMENT = 64;
       const handle = sliderHandle(index);
 
-      await browser.actions()
-        .dragAndDrop(handle, {x: offset * ONE_DOT_MOVEMENT, y: 0}).perform();
+      await browser
+        .actions()
+        .dragAndDrop(handle, { x: offset * ONE_DOT_MOVEMENT, y: 0 })
+        .perform();
     },
-    unHoverHandle: async ({index}) => {
+    unHoverHandle: async ({ index }) => {
       const handle = sliderHandle(index);
-      await browser.actions().mouseMove(handle).mouseMove({x: -100, y: -100}).perform();
-    }
+      await browser
+        .actions()
+        .mouseMove(handle)
+        .mouseMove({ x: -100, y: -100 })
+        .perform();
+    },
   };
 
   return actions;

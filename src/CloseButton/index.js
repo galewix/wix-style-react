@@ -1,1 +1,1 @@
-export {default} from './CloseButton.js';
+export { default } from './CloseButton.js';

@@ -1,7 +1,7 @@
 const inputDriverFactory = component => ({
   enterText: text => component.clear().sendKeys(text),
   getText: () => component.getAttribute('value'),
-  element: () => component
+  element: () => component,
 });
 
 export default inputDriverFactory;

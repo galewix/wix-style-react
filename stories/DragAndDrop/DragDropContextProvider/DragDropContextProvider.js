@@ -4,6 +4,6 @@ import DragDropContextProvider from './DragDropContextProvider.md';
 
 export default () => (
   <div>
-    <Markdown source={DragDropContextProvider}/>
+    <Markdown source={DragDropContextProvider} />
   </div>
 );

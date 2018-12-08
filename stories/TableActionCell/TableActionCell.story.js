@@ -2,7 +2,7 @@
 import React from 'react';
 import CodeExample from 'wix-storybook-utils/CodeExample';
 
-import {storySettings} from './storySettings';
+import { storySettings } from './storySettings';
 import style from './TableActionCell.story.st.css';
 
 import TableActionCell from '../../src/TableActionCell';
@@ -19,6 +19,9 @@ import PrimarySecondaryExampleRaw from '!raw-loader!./examples/PrimarySecondaryE
 import PrimarySecondaryHiddenExample from './examples/PrimarySecondaryHiddenExample';
 import PrimarySecondaryHiddenExampleRaw from '!raw-loader!./examples/PrimarySecondaryHiddenExample';
 
+import PopoverMenuPropsExample from './examples/PopoverMenuPropsExample';
+import PopoverMenuPropsExampleRaw from '!raw-loader!./examples/PopoverMenuPropsExample';
+
 import AlwaysVisibleSecondaryExample from './examples/AlwaysVisibleSecondaryExample';
 import AlwaysVisibleSecondaryExampleRaw from '!raw-loader!./examples/AlwaysVisibleSecondaryExample';
 
@@ -34,30 +37,46 @@ import PrimarySecondaryRTLExampleRaw from '!raw-loader!./examples/PrimarySeconda
 import DisabledSecondaryExample from './examples/DisabledSecondaryExample';
 import DisabledSecondaryExampleRaw from '!raw-loader!./examples/DisabledSecondaryExample';
 
-import {Star, Download, Duplicate, Print} from 'wix-style-react/new-icons';
+import { Star, Download, Duplicate, Print } from 'wix-style-react/new-icons';
 
 const primaryActionOptions1 = {
   text: 'Details',
   theme: 'fullblue',
-  onClick: () => console.log('Details action called!')
+  onClick: () => console.log('Details action called!'),
 };
 
 const primaryActionOptions2 = {
   ...primaryActionOptions1,
-  theme: 'whiteblue'
+  theme: 'whiteblue',
 };
 
 const secondaryActionsOption = [
-  {text: 'Star', icon: <Star/>, onClick: () => console.log('Star action called!')},
-  {text: 'Download', icon: <Download/>, onClick: () => console.log('Download action called!')},
-  {text: 'Duplicate', icon: <Duplicate/>, onClick: () => console.log('Duplicate action called!')},
-  {text: 'Print', icon: <Print/>, onClick: () => console.log('Print action called!')}
+  {
+    text: 'Star',
+    icon: <Star />,
+    onClick: () => console.log('Star action called!'),
+  },
+  {
+    text: 'Download',
+    icon: <Download />,
+    onClick: () => console.log('Download action called!'),
+  },
+  {
+    text: 'Duplicate',
+    icon: <Duplicate />,
+    onClick: () => console.log('Duplicate action called!'),
+  },
+  {
+    text: 'Print',
+    icon: <Print />,
+    onClick: () => console.log('Print action called!'),
+  },
 ];
 
 const ExampleComponent = props => (
   <div {...style('root', {}, props)}>
     <tr className={style.exampleRow}>
-      <TableActionCell {...props}/>
+      <TableActionCell {...props} />
     </tr>
   </div>
 );
@@ -77,76 +96,106 @@ export default {
     primaryAction: primaryActionOptions1,
     secondaryActions: secondaryActionsOption,
     numOfVisibleSecondaryActions: 2,
-    alwaysShowSecondaryActions: true
+    alwaysShowSecondaryActions: true,
   },
 
   exampleProps: {
     primaryAction: [
-      {label: 'No primary action', value: null},
-      {label: 'Blue primary action', value: primaryActionOptions1},
-      {label: 'White primary action', value: primaryActionOptions2}
+      { label: 'No primary action', value: null },
+      { label: 'Blue primary action', value: primaryActionOptions1 },
+      { label: 'White primary action', value: primaryActionOptions2 },
     ],
     secondaryActions: [
-      {label: 'No secondary actions', value: []},
-      {label: '4 secondary actions', value: secondaryActionsOption}
-    ]
+      { label: 'No secondary actions', value: [] },
+      { label: '4 secondary actions', value: secondaryActionsOption },
+    ],
   },
 
   examples: (
     <div {...style('root')}>
       <div className={style.example}>
         <CodeExample title="Blue primary action" code={PrimaryBlueExampleRaw}>
-          <PrimaryBlueExample/>
+          <PrimaryBlueExample />
         </CodeExample>
       </div>
 
       <div className={style.example}>
         <CodeExample title="White primary action" code={PrimaryWhiteExampleRaw}>
-          <PrimaryWhiteExample/>
+          <PrimaryWhiteExample />
         </CodeExample>
       </div>
 
       <div className={style.example}>
-        <CodeExample title="Primary action and secondary actions" code={PrimarySecondaryExampleRaw}>
-          <PrimarySecondaryExample/>
+        <CodeExample
+          title="Primary action and secondary actions"
+          code={PrimarySecondaryExampleRaw}
+        >
+          <PrimarySecondaryExample />
         </CodeExample>
       </div>
 
       <div className={style.example}>
-        <CodeExample title="Primary action and hidden secondary action" code={PrimarySecondaryHiddenExampleRaw}>
-          <PrimarySecondaryHiddenExample/>
+        <CodeExample
+          title="Primary action and hidden secondary action"
+          code={PrimarySecondaryHiddenExampleRaw}
+        >
+          <PrimarySecondaryHiddenExample />
         </CodeExample>
       </div>
 
       <div className={style.example}>
-        <CodeExample title="Always visible secondary actions" code={AlwaysVisibleSecondaryExampleRaw}>
-          <AlwaysVisibleSecondaryExample/>
+        <CodeExample
+          title="With custom PopoverMenu props"
+          code={PopoverMenuPropsExampleRaw}
+        >
+          <PopoverMenuPropsExample />
         </CodeExample>
       </div>
 
       <div className={style.example}>
-        <CodeExample title="Only secondary actions" code={OnlySecondaryExampleRaw}>
-          <OnlySecondaryExample/>
+        <CodeExample
+          title="Always visible secondary actions"
+          code={AlwaysVisibleSecondaryExampleRaw}
+        >
+          <AlwaysVisibleSecondaryExample />
         </CodeExample>
       </div>
 
       <div className={style.example}>
-        <CodeExample title="Only visible secondary actions" code={OnlyVisibleSecondaryExampleRaw}>
-          <OnlyVisibleSecondaryExample/>
+        <CodeExample
+          title="Only secondary actions"
+          code={OnlySecondaryExampleRaw}
+        >
+          <OnlySecondaryExample />
         </CodeExample>
       </div>
 
       <div className={style.example}>
-        <CodeExample title="Primary and secondary actions with RTL" code={PrimarySecondaryRTLExampleRaw}>
-          <PrimarySecondaryRTLExample/>
+        <CodeExample
+          title="Only visible secondary actions"
+          code={OnlyVisibleSecondaryExampleRaw}
+        >
+          <OnlyVisibleSecondaryExample />
         </CodeExample>
       </div>
 
       <div className={style.example}>
-        <CodeExample title="Disabled secondary actions" code={DisabledSecondaryExampleRaw}>
-          <DisabledSecondaryExample/>
+        <CodeExample
+          title="Primary and secondary actions with RTL"
+          code={PrimarySecondaryRTLExampleRaw}
+        >
+          <PrimarySecondaryRTLExample />
+        </CodeExample>
+      </div>
+
+      <div className={style.example}>
+        <CodeExample
+          title="Disabled secondary actions"
+          code={DisabledSecondaryExampleRaw}
+        >
+          <DisabledSecondaryExample />
         </CodeExample>
       </div>
     </div>
-  )
+  ),
 };

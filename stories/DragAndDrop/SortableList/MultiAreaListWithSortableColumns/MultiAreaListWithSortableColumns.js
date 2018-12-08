@@ -10,7 +10,7 @@ const generateStateForContainer = (length, startIndex) => {
   for (let i = 0; i < length; i++) {
     res.push({
       id: 'item-new' + (startIndex + i),
-      text: `Drag object ${startIndex + i}`
+      text: `Drag object ${startIndex + i}`,
     });
   }
   return res;
@@ -26,38 +26,54 @@ export default class MultiAreaListWithSortableColumns extends React.Component {
     columns: [
       {
         id: 'multiArea1',
-        items: generateStateForContainer(4, 1)
+        items: generateStateForContainer(4, 1),
       },
       {
         id: 'multiArea2',
-        items: generateStateForContainer(4, 5)
-      }
-    ]
-  }
-
-  handleDropCell = ({removedIndex, addedIndex, removedFromContainerId, addedToContainerId, payload}) => {
-    const nextState = copy(this.state);
-    nextState.columns.find(li => li.id === removedFromContainerId).items.splice(removedIndex, 1);
-    nextState.columns.find(li => li.id === addedToContainerId).items.splice(addedIndex, 0, payload);
-
-    this.setState({...nextState});
+        items: generateStateForContainer(4, 5),
+      },
+    ],
   };
 
-  handleDropColumn = ({removedIndex, addedIndex, payload}) => {
+  handleDropCell = ({
+    removedIndex,
+    addedIndex,
+    removedFromContainerId,
+    addedToContainerId,
+    payload,
+  }) => {
+    const nextState = copy(this.state);
+    nextState.columns
+      .find(li => li.id === removedFromContainerId)
+      .items.splice(removedIndex, 1);
+    nextState.columns
+      .find(li => li.id === addedToContainerId)
+      .items.splice(addedIndex, 0, payload);
+
+    this.setState({ ...nextState });
+  };
+
+  handleDropColumn = ({ removedIndex, addedIndex, payload }) => {
     const nextState = copy(this.state);
     nextState.columns.splice(removedIndex, 1);
     nextState.columns.splice(addedIndex, 0, payload);
 
-    this.setState({...nextState});
+    this.setState({ ...nextState });
   };
 
-  renderCell = ({isPlaceholder, isPreview, id, item, previewStyles}) => {
+  renderCell = ({ isPlaceholder, isPreview, id, item, previewStyles }) => {
     const classes = classNames(
       {
-        [classNames(defaultDndStyles.itemPlaceholder, styles.itemPlaceholder)]: isPlaceholder,
-        [classNames(defaultDndStyles.itemPreview, styles.itemPreview)]: isPreview
+        [classNames(
+          defaultDndStyles.itemPlaceholder,
+          styles.itemPlaceholder,
+        )]: isPlaceholder,
+        [classNames(
+          defaultDndStyles.itemPreview,
+          styles.itemPreview,
+        )]: isPreview,
       },
-      classNames(defaultDndStyles.item, styles.item)
+      classNames(defaultDndStyles.item, styles.item),
     );
 
     return (
@@ -67,13 +83,19 @@ export default class MultiAreaListWithSortableColumns extends React.Component {
     );
   };
 
-  renderColumn = ({isPlaceholder, isPreview, item, id, previewStyles}) => {
+  renderColumn = ({ isPlaceholder, isPreview, item, id, previewStyles }) => {
     const classes = classNames(
       {
-        [classNames(defaultDndStyles.itemPlaceholder, styles.columnPlaceholder)]: isPlaceholder,
-        [classNames(defaultDndStyles.itemPreview, styles.columnItemPreview)]: isPreview
+        [classNames(
+          defaultDndStyles.itemPlaceholder,
+          styles.columnPlaceholder,
+        )]: isPlaceholder,
+        [classNames(
+          defaultDndStyles.itemPreview,
+          styles.columnItemPreview,
+        )]: isPreview,
       },
-      classNames(defaultDndStyles.item, styles.columnItem)
+      classNames(defaultDndStyles.item, styles.columnItem),
     );
 
     return (
@@ -87,10 +109,10 @@ export default class MultiAreaListWithSortableColumns extends React.Component {
           items={item.items}
           renderItem={this.renderCell}
           onDrop={this.handleDropCell}
-          />
+        />
       </div>
     );
-  }
+  };
 
   render() {
     return (
@@ -104,7 +126,7 @@ export default class MultiAreaListWithSortableColumns extends React.Component {
             items={this.state.columns}
             renderItem={this.renderColumn}
             onDrop={this.handleDropColumn}
-            />
+          />
         </div>
       </DragDropContextProvider>
     );

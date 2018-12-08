@@ -1,11 +1,11 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import { shallow } from 'enzyme';
 
-import TextLabel from './';
+import TextLabel from '.';
 
 describe('TextLabel', () => {
   it('should render children', () => {
-    const wrapper = shallow(<TextLabel children={'covfefe'}/>);
+    const wrapper = shallow(<TextLabel children={'covfefe'} />);
     expect(wrapper.contains('covfefe')).toBe(true);
   });
 

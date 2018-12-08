@@ -1,13 +1,13 @@
 import React from 'react';
 import textDriverFactory from './Text.driver';
-import Text from './';
-import {SIZES, SKINS, WEIGHTS} from './constants';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-import {isTestkitExists} from 'wix-ui-test-utils/vanilla';
-import {textTestkitFactory} from '../../testkit';
-import {textTestkitFactory as enzymeTextTestkitFactory} from '../../testkit/enzyme';
-import {mount} from 'enzyme';
+import Text from '.';
+import { SIZES, SKINS, WEIGHTS } from './constants';
+import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
+import { isEnzymeTestkitExists } from 'wix-ui-test-utils/enzyme';
+import { isTestkitExists } from 'wix-ui-test-utils/vanilla';
+import { textTestkitFactory } from '../../testkit';
+import { textTestkitFactory as enzymeTextTestkitFactory } from '../../testkit/enzyme';
+import { mount } from 'enzyme';
 
 describe('Text', () => {
   const createDriver = createDriverFactory(textDriverFactory);
@@ -79,7 +79,11 @@ describe('Text', () => {
 
     [SKINS.error, SKINS.success, SKINS.premium].forEach(skin => {
       it(`should be dark when skin is ${skin}`, () => {
-        const wrapper = createDriver(<Text skin={skin} light>Hello</Text>);
+        const wrapper = createDriver(
+          <Text skin={skin} light>
+            Hello
+          </Text>,
+        );
         expect(wrapper.isLight()).toBe(false);
       });
     });
@@ -87,13 +91,21 @@ describe('Text', () => {
 
   describe('testkit', () => {
     it('should exist', () => {
-      expect(isTestkitExists(<Text>Hello World</Text>, textTestkitFactory)).toBe(true);
+      expect(
+        isTestkitExists(<Text>Hello World</Text>, textTestkitFactory),
+      ).toBe(true);
     });
   });
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Text>Hello World</Text>, enzymeTextTestkitFactory, mount)).toBe(true);
+      expect(
+        isEnzymeTestkitExists(
+          <Text>Hello World</Text>,
+          enzymeTextTestkitFactory,
+          mount,
+        ),
+      ).toBe(true);
     });
   });
 });

@@ -10,16 +10,20 @@ const arrowDirectionToPlacement = {
   top: 'bottom',
   bottom: 'top',
   left: 'right',
-  right: 'left'
+  right: 'left',
 };
 
-const tooltipDriverFactory = ({element, wrapper}) => {
+const tooltipDriverFactory = ({ element, wrapper }) => {
   const bodyOrWrapper = {
-    querySelector: query => (document.body.querySelector(query) || (wrapper.querySelector && wrapper.querySelector(query))),
+    querySelector: query =>
+      document.body.querySelector(query) ||
+      (wrapper.querySelector && wrapper.querySelector(query)),
     querySelectorAll: query => {
       const documentResult = document.body.querySelectorAll(query);
-      return documentResult.length > 0 ? documentResult : (wrapper.querySelectorAll && wrapper.querySelectorAll(query));
-    }
+      return documentResult.length > 0
+        ? documentResult
+        : wrapper.querySelectorAll && wrapper.querySelectorAll(query);
+    },
   };
   const getTooltipContent = () => bodyOrWrapper.querySelector('.tooltip');
   const mouseEnter = () => ReactTestUtils.Simulate.mouseEnter(element);
@@ -44,27 +48,33 @@ const tooltipDriverFactory = ({element, wrapper}) => {
     hasDarkTheme: () => !!bodyOrWrapper.querySelector('.dark'),
     hasLightTheme: () => !!bodyOrWrapper.querySelector('.light'),
     hasAnimationClass: () => !!bodyOrWrapper.querySelector('.fadeIn'),
-    hasArrow: () => !!bodyOrWrapper.querySelector('[data-hook="tooltip-arrow"]'),
+    hasArrow: () =>
+      !!bodyOrWrapper.querySelector('[data-hook="tooltip-arrow"]'),
     getTooltipWrapper: getTooltipContent,
     getChildren: () => element.innerHTML,
     getPlacement: () => {
-      const arrowDirection = last(bodyOrWrapper.querySelectorAll('[data-hook="tooltip-arrow"]')).className.split(' ')[2];
+      const arrowDirection = last(
+        bodyOrWrapper.querySelectorAll('[data-hook="tooltip-arrow"]'),
+      ).className.split(' ')[2];
       return arrowDirectionToPlacement[arrowDirection];
     },
     getContent,
-    hoverAndGetContent: ({timeout = 1000, interval = 50} = {}) => {
+    hoverAndGetContent: ({ timeout = 1000, interval = 50 } = {}) => {
       mouseEnter();
-      return eventually(() => {
-        if (!isShown()) {
-          throw 'Tooltip not visible';
-        }
-        const content = getContent();
-        mouseLeave();
-        return content;
-      }, {
-        timeout,
-        interval
-      });
+      return eventually(
+        () => {
+          if (!isShown()) {
+            throw 'Tooltip not visible';
+          }
+          const content = getContent();
+          mouseLeave();
+          return content;
+        },
+        {
+          timeout,
+          interval,
+        },
+      );
     },
     getMaxWidth: () => {
       const content = getTooltipContent();
@@ -87,8 +97,13 @@ const tooltipDriverFactory = ({element, wrapper}) => {
       return values.padding;
     },
     setProps: props => {
-      ReactDOM.render(<div ref={r => element = r}><Tooltip {...props}/></div>, wrapper);
-    }
+      ReactDOM.render(
+        <div ref={r => (element = r)}>
+          <Tooltip {...props} />
+        </div>,
+        wrapper,
+      );
+    },
   };
 };
 

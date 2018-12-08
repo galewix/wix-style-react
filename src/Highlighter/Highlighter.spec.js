@@ -1,22 +1,24 @@
 import React from 'react';
 import Highlighter from './Highlighter';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
 import highlighterDriverFactory from './Highlighter.driver';
-import {isTestkitExists, isEnzymeTestkitExists} from '../../test/utils/testkit-sanity';
-import {highlighterTestkitFactory} from '../../testkit/index';
-import {highlighterTestkitFactory as enzymeHighlighterTestkitFactory} from '../../testkit/enzyme';
-import {mount} from 'enzyme';
+import {
+  isTestkitExists,
+  isEnzymeTestkitExists,
+} from '../../test/utils/testkit-sanity';
+import { highlighterTestkitFactory } from '../../testkit/index';
+import { highlighterTestkitFactory as enzymeHighlighterTestkitFactory } from '../../testkit/enzyme';
+import { mount } from 'enzyme';
 
 describe('Highlighter', () => {
   const createDriver = createDriverFactory(highlighterDriverFactory);
 
   it('should show highlighted text', () => {
-    const expectedResult = '<span><strong>Opt</strong><span>ion 1</span></span>';
+    const expectedResult =
+      '<span><strong>Opt</strong><span>ion 1</span></span>';
 
     const wrapper = createDriver(
-      <Highlighter match="Opt">
-        Option 1
-      </Highlighter>
+      <Highlighter match="Opt">Option 1</Highlighter>,
     );
 
     expect(wrapper.html()).toEqual(expectedResult);
@@ -28,7 +30,7 @@ describe('Highlighter', () => {
     const wrapper = createDriver(
       <Highlighter match="Opt">
         <div>Option 1</div>
-      </Highlighter>
+      </Highlighter>,
     );
 
     expect(wrapper.html()).toEqual(expectedResult);
@@ -42,7 +44,7 @@ describe('Highlighter', () => {
         <span>
           <span>Option</span>
         </span>
-      </Highlighter>
+      </Highlighter>,
     );
 
     expect(wrapper.html()).toEqual(expectedResult);
@@ -59,7 +61,7 @@ describe('Highlighter', () => {
         <div>
           <span>Option 2</span>
         </div>
-      </Highlighter>
+      </Highlighter>,
     );
 
     expect(wrapper.html()).toEqual(expectedResult);
@@ -74,7 +76,7 @@ describe('Highlighter', () => {
         <div>
           <span>Option 1</span>
         </div>
-      </Highlighter>
+      </Highlighter>,
     );
 
     expect(wrapper.html()).toEqual(expectedResult);
@@ -86,7 +88,7 @@ describe('Highlighter', () => {
     const wrapper = createDriver(
       <Highlighter match="p">
         <aside>Optionp</aside>
-      </Highlighter>
+      </Highlighter>,
     );
 
     expect(wrapper.html()).toEqual(expectedResult);
@@ -98,7 +100,7 @@ describe('Highlighter', () => {
     const wrapper = createDriver(
       <Highlighter match="p">
         <aside>OptionP</aside>
-      </Highlighter>
+      </Highlighter>,
     );
 
     expect(wrapper.html()).toEqual(expectedResult);
@@ -111,9 +113,9 @@ describe('Highlighter', () => {
       <Highlighter match="p">
         <div className="option-class">
           <div>Arizona</div>
-          <div className="some-class"/>
+          <div className="some-class" />
         </div>
-      </Highlighter>
+      </Highlighter>,
     );
 
     expect(wrapper.html()).toEqual(expectedResult);
@@ -131,10 +133,10 @@ describe('Highlighter', () => {
             </span>
           </div>
           <div className="some-class">
-            <div className="some-class-2"/>
+            <div className="some-class-2" />
           </div>
         </div>
-      </Highlighter>
+      </Highlighter>,
     );
 
     expect(wrapper.html()).toEqual(expectedResult);
@@ -142,14 +144,21 @@ describe('Highlighter', () => {
 
   describe('testkit', () => {
     it('should exist', () => {
-      expect(isTestkitExists(<Highlighter/>, highlighterTestkitFactory)).toBe(true);
+      expect(isTestkitExists(<Highlighter />, highlighterTestkitFactory)).toBe(
+        true,
+      );
     });
   });
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      expect(isEnzymeTestkitExists(<Highlighter/>, enzymeHighlighterTestkitFactory, mount)).toBe(true);
+      expect(
+        isEnzymeTestkitExists(
+          <Highlighter />,
+          enzymeHighlighterTestkitFactory,
+          mount,
+        ),
+      ).toBe(true);
     });
   });
-
 });

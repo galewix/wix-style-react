@@ -4,9 +4,12 @@ import inputWithOptionsDriverFactory from '../InputWithOptions/InputWithOptions.
 import tagDriverFactory from '../Tag/Tag.driver';
 import ReactDOM from 'react-dom';
 
-const multiSelectDriverFactory = ({element, wrapper, component}) => {
-
-  const {driver, inputDriver, dropdownLayoutDriver} = inputWithOptionsDriverFactory({element, wrapper});
+const multiSelectDriverFactory = ({ element, wrapper, component }) => {
+  const {
+    driver,
+    inputDriver,
+    dropdownLayoutDriver,
+  } = inputWithOptionsDriverFactory({ element, wrapper });
 
   const inputWrapper = driver.inputWrapper().childNodes[0];
 
@@ -20,14 +23,25 @@ const multiSelectDriverFactory = ({element, wrapper, component}) => {
     numberOfTags: () => tags.length,
     getTagLabelAt: index => tags[index].textContent,
     pressCommaKey: () => inputDriver.keyDown(','),
-    getTagDriverByTagId: tagId => tagDriverFactory({element: tags.find(tag => tag.id === tagId), wrapper}),
+    getTagDriverByTagId: tagId =>
+      tagDriverFactory({
+        element: tags.find(tag => tag.id === tagId),
+        wrapper,
+      }),
     setProps: props => {
-      const ClonedWithProps = React.cloneElement(component, Object.assign({}, component.props, props), ...(component.props.children || []));
-      ReactDOM.render(<div ref={r => element = r}>{ClonedWithProps}</div>, wrapper);
-    }
+      const ClonedWithProps = React.cloneElement(
+        component,
+        Object.assign({}, component.props, props),
+        ...(component.props.children || []),
+      );
+      ReactDOM.render(
+        <div ref={r => (element = r)}>{ClonedWithProps}</div>,
+        wrapper,
+      );
+    },
   });
 
-  return {driver: multiSelectDriver, inputDriver, dropdownLayoutDriver};
+  return { driver: multiSelectDriver, inputDriver, dropdownLayoutDriver };
 };
 
 export default multiSelectDriverFactory;

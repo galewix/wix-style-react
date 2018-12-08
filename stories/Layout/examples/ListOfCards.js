@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from 'wix-style-react/Card';
-import {Layout, Cell} from 'wix-style-react/Layout';
+import { Layout, Cell } from 'wix-style-react/Layout';
 import styles from '../styles.scss';
 
 export default () => (
@@ -18,9 +18,10 @@ export default () => (
 function card() {
   return (
     <Card>
-      <Card.Header title="Card"/>
+      <Card.Header title="Card" />
       <Card.Content>
-        <div style={{height: '150px'}}/>
+        <div style={{ height: '150px' }} />
       </Card.Content>
-    </Card>);
+    </Card>
+  );
 }

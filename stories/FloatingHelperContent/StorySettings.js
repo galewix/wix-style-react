@@ -8,6 +8,6 @@ export const storySettings = {
     'example-title-body-action',
     'example-body-action',
     'example-title-body-action-premium',
-    'example-title-body-action-image'
-  ]
+    'example-title-body-action-image',
+  ],
 };

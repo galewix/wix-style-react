@@ -1,5 +1,5 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 
 import Markdown from 'wix-storybook-utils/Markdown';
 import TabbedView from 'wix-storybook-utils/TabbedView';
@@ -10,17 +10,16 @@ import Readme from './README.md';
 import Example from './Example';
 import ExampleRaw from '!raw-loader!./Example';
 
-storiesOf('WIP/Builders', module)
-  .add('BadgeSelectItemBuilder', () => (
-    <TabbedView tabs={['Usage']}>
-      <div>
-        <Markdown source={Readme}/>
+storiesOf('WIP/Builders', module).add('BadgeSelectItemBuilder', () => (
+  <TabbedView tabs={['Usage']}>
+    <div>
+      <Markdown source={Readme} />
 
-        <CodeExample title="Standard" code={ExampleRaw}>
-          <Example/>
-        </CodeExample>
+      <CodeExample title="Standard" code={ExampleRaw}>
+        <Example />
+      </CodeExample>
 
-        <div style={{paddingTop: '230px'}}/>
-      </div>
-    </TabbedView>
-  ));
+      <div style={{ paddingTop: '230px' }} />
+    </div>
+  </TabbedView>
+));

@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
-import {ThemeOptions} from '../BaseComponents/TextLinkLayout/TextLinkLayout';
+import { ThemeOptions } from '../BaseComponents/TextLinkLayout/TextLinkLayout';
 import textLinkLayoutDriverFactory from '../BaseComponents/TextLinkLayout/TextLinkLayout.driver';
 
-const textLinkDriverFactory = ({element, wrapper, component}) => {
+const textLinkDriverFactory = ({ element, wrapper, component }) => {
   const textLinkLayoutElement = element ? element.children[0] : null;
-  const textLinkLayoutDriver = textLinkLayoutElement ?
-    textLinkLayoutDriverFactory({element: textLinkLayoutElement}) :
-    {};
+  const textLinkLayoutDriver = textLinkLayoutElement
+    ? textLinkLayoutDriverFactory({ element: textLinkLayoutElement })
+    : {};
 
   return {
     ...textLinkLayoutDriver,
@@ -29,9 +29,16 @@ const textLinkDriverFactory = ({element, wrapper, component}) => {
     getTarget: () => element.target,
     getRel: () => element.rel,
     setProps: props => {
-      const ClonedWithProps = React.cloneElement(component, Object.assign({}, component.props, props), ...(component.props.children || []));
-      ReactDOM.render(<div ref={r => element = r}>{ClonedWithProps}</div>, wrapper);
-    }
+      const ClonedWithProps = React.cloneElement(
+        component,
+        Object.assign({}, component.props, props),
+        ...(component.props.children || []),
+      );
+      ReactDOM.render(
+        <div ref={r => (element = r)}>{ClonedWithProps}</div>,
+        wrapper,
+      );
+    },
   };
 };
 

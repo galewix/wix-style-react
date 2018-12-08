@@ -3,15 +3,17 @@ import ReactTestUtils from 'react-dom/test-utils';
 import ReactDOM from 'react-dom';
 import styles from './InputArea.scss';
 
-const inputAreaDriverFactory = ({element, wrapper, component}) => {
+const inputAreaDriverFactory = ({ element, wrapper, component }) => {
   const textAreaElement = element && element.childNodes[0];
   const textArea = element.querySelector('textarea');
   const name = textArea.getAttribute('name');
   const counterSelector = '[data-hook="counter"]';
   return {
-    trigger: (trigger, event) => ReactTestUtils.Simulate[trigger](textArea, event),
+    trigger: (trigger, event) =>
+      ReactTestUtils.Simulate[trigger](textArea, event),
     focus: () => textArea.focus(),
-    enterText: text => ReactTestUtils.Simulate.change(textArea, {target: {name, value: text}}),
+    enterText: text => 
+      ReactTestUtils.Simulate.change(textArea, {target: {name, value: text}}),
     getValue: () => textArea.value,
     getName: () => name,
     getPlaceholder: () => textArea.placeholder,
@@ -23,11 +25,13 @@ const inputAreaDriverFactory = ({element, wrapper, component}) => {
     getResizable: () => textAreaElement.classList.contains(styles.resizable),
     getHasCounter: () => !!element.querySelectorAll(counterSelector).length,
     getCounterValue: () => element.querySelector(counterSelector).textContent,
-    hasExclamation: () => element.querySelectorAll(`.${styles.exclamation}`).length === 1,
+    hasExclamation: () =>
+      element.querySelectorAll(`.${styles.exclamation}`).length === 1,
     hasError: () => textAreaElement.classList.contains(styles.hasError),
     isFocusedStyle: () => textAreaElement.classList.contains(styles.hasFocus),
     isHoveredStyle: () => textAreaElement.classList.contains(styles.hasHover),
-    isOfStyle: style => textAreaElement.classList.contains(styles[`theme-${style}`]),
+    isOfStyle: style =>
+      textAreaElement.classList.contains(styles[`theme-${style}`]),
     isFocus: () => document.activeElement === textArea,
     exists: () => !!textArea,
     getStyle: () => textArea.style,
@@ -37,9 +41,16 @@ const inputAreaDriverFactory = ({element, wrapper, component}) => {
     getTooltipDataHook: () => 'inputArea-tooltip',
     getTooltipElement: () => element,
     setProps: props => {
-      const ClonedWithProps = React.cloneElement(component, Object.assign({}, component.props, props), ...(component.props.children || []));
-      ReactDOM.render(<div ref={r => element = r}>{ClonedWithProps}</div>, wrapper);
-    }
+      const ClonedWithProps = React.cloneElement(
+        component,
+        Object.assign({}, component.props, props),
+        ...(component.props.children || []),
+      );
+      ReactDOM.render(
+        <div ref={r => (element = r)}>{ClonedWithProps}</div>,
+        wrapper,
+      );
+    },
   };
 };
 

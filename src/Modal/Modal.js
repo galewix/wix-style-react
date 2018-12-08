@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import classnames from 'classnames';
 import styles from './Modal.scss';
-import {colors, flexPositions, positions} from './ModalConstants';
+import { colors, flexPositions, positions } from './ModalConstants';
 import WixComponent from '../BaseComponents/WixComponent';
-import X from './../new-icons/X';
+import X from '../new-icons/X';
 
 const CHILDREN_WRAPPER_DIV_ID = 'modal-children-container';
 
@@ -28,7 +28,7 @@ class Modal extends WixComponent {
     maxHeight: PropTypes.string,
     height: PropTypes.string,
     overlayPosition: PropTypes.oneOf(Object.keys(positions)),
-    parentSelector: PropTypes.func
+    parentSelector: PropTypes.func,
   };
 
   static defaultProps = {
@@ -44,7 +44,7 @@ class Modal extends WixComponent {
     scrollableContent: false,
     height: '100%',
     maxHeight: 'auto',
-    overlayPosition: 'fixed'
+    overlayPosition: 'fixed',
   };
 
   render() {
@@ -67,10 +67,10 @@ class Modal extends WixComponent {
       children,
       appElement,
       overlayPosition,
-      parentSelector
+      parentSelector,
     } = this.props;
 
-    let {maxHeight} = this.props;
+    let { maxHeight } = this.props;
     const justifyContent = flexPositions[horizontalPosition];
     const alignItems = flexPositions[verticalPosition];
 
@@ -90,7 +90,7 @@ class Modal extends WixComponent {
         display: 'flex',
         justifyContent,
         alignItems,
-        overflowY: scrollable ? 'auto' : 'hidden'
+        overflowY: scrollable ? 'auto' : 'hidden',
       },
       content: {
         // Overriding defaults
@@ -107,13 +107,13 @@ class Modal extends WixComponent {
         // Overriding defaults - END
         backgroundColor: 'transparent',
         marginBottom: '0px',
-        position: 'relative'
-      }
+        position: 'relative',
+      },
     };
 
     const modalClasses = `${styles.modal} ${styles[theme]}`;
     const portalClassName = classnames(styles.portal, {
-      [styles.portalNonScrollable]: !scrollable
+      [styles.portalNonScrollable]: !scrollable,
     });
 
     if (appElement) {
@@ -135,13 +135,13 @@ class Modal extends WixComponent {
           contentLabel={contentLabel}
           closeTimeoutMS={closeTimeoutMS}
           parentSelector={parentSelector}
-          >
+        >
           {isOpen && shouldDisplayCloseButton && this.renderCloseButton()}
           <div
             id={CHILDREN_WRAPPER_DIV_ID}
             className={styles.childrenContainer}
             onClick={this.handleOverlayClick}
-            >
+          >
             {children}
           </div>
         </ReactModal>
@@ -150,8 +150,11 @@ class Modal extends WixComponent {
   }
 
   handleOverlayClick = event => {
-    const {shouldCloseOnOverlayClick, onRequestClose} = this.props;
-    if (shouldCloseOnOverlayClick && event.target.id === CHILDREN_WRAPPER_DIV_ID) {
+    const { shouldCloseOnOverlayClick, onRequestClose } = this.props;
+    if (
+      shouldCloseOnOverlayClick &&
+      event.target.id === CHILDREN_WRAPPER_DIV_ID
+    ) {
       onRequestClose();
     }
   };
@@ -162,8 +165,8 @@ class Modal extends WixComponent {
         onClick={this.props.onRequestClose}
         className={styles.closeButton}
         data-hook="modal-close-button"
-        >
-        <X size="18px"/>
+      >
+        <X size="18px" />
       </div>
     );
   };

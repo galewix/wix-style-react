@@ -15,7 +15,7 @@ const install = () => {
   }
 
   if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = function (callback) {
+    window.requestAnimationFrame = function(callback) {
       const currTime = new Date().getTime();
       const timeToCall = Math.max(0, 16 - (currTime - lastTime));
       const id = window.setTimeout(() => {
@@ -27,13 +27,15 @@ const install = () => {
   }
 
   if (!window.cancelAnimationFrame) {
-    window.cancelAnimationFrame = function (id) {
+    window.cancelAnimationFrame = function(id) {
       clearTimeout(id);
     };
   }
 
-  global.requestAnimationFrame = global.requestAnimationFrame || window.requestAnimationFrame;
-  global.cancelAnimationFrame = global.cancelAnimationFrame || window.cancelAnimationFrame;
+  global.requestAnimationFrame =
+    global.requestAnimationFrame || window.requestAnimationFrame;
+  global.cancelAnimationFrame =
+    global.cancelAnimationFrame || window.cancelAnimationFrame;
 };
 
-export default {install, uninstall};
+export default { install, uninstall };

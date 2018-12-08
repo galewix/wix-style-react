@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 import MultiSelectComposite from '../../src/MultiSelectComposite';
 import MultiSelect from '../../src/MultiSelect';
 import Label from '../../src/Label';
-import {options, valueParser} from '../MultiSelect/ExampleStandard';
+import { options, valueParser } from '../MultiSelect/ExampleStandard';
 
 export default class Form extends Component {
   static propTypes = {
@@ -14,7 +14,7 @@ export default class Form extends Component {
     label: PropTypes.object,
     input: PropTypes.object,
     required: PropTypes.bool,
-    info: PropTypes.string
+    info: PropTypes.string,
   };
 
   componentDidUpdate(props) {
@@ -25,33 +25,47 @@ export default class Form extends Component {
     this.props.onChange(reactElementToJSXString(this.getComponent()));
   }
 
-
   constructor(props) {
     super(props);
 
     this.state = {
       tags: [],
       options,
-      inputValue: ''
+      inputValue: '',
     };
   }
 
-  getValue = option => typeof option.value === 'string' ? option.value : option.value.props.children[0].props.children;
+  getValue = option =>
+    typeof option.value === 'string'
+      ? option.value
+      : option.value.props.children[0].props.children;
 
-  handleOnSelect = tags => Array.isArray(tags) ?
-    this.setState({tags: [...this.state.tags, ...tags]}) :
-    this.setState({tags: [...this.state.tags, tags]});
+  handleOnSelect = tags =>
+    Array.isArray(tags)
+      ? this.setState({ tags: [...this.state.tags, ...tags] })
+      : this.setState({ tags: [...this.state.tags, tags] });
 
-  handleOnRemoveTag = tagId => this.setState({tags: this.state.tags.filter(currTag => currTag.id !== tagId)});
+  handleOnRemoveTag = tagId =>
+    this.setState({
+      tags: this.state.tags.filter(currTag => currTag.id !== tagId),
+    });
 
-  handleOnChange = event => this.setState({inputValue: event.target.value});
+  handleOnChange = event => this.setState({ inputValue: event.target.value });
 
-  predicate = option => this.getValue(option).toLowerCase().includes(this.state.inputValue.toLowerCase());
+  predicate = option =>
+    this.getValue(option)
+      .toLowerCase()
+      .includes(this.state.inputValue.toLowerCase());
 
   getComponent() {
     return (
-      <MultiSelectComposite required={this.props.required} info={this.props.info}>
-        {this.props.withLabel ? <Label for="firstName" {...this.props.label}/> : null}
+      <MultiSelectComposite
+        required={this.props.required}
+        info={this.props.info}
+      >
+        {this.props.withLabel ? (
+          <Label for="firstName" {...this.props.label} />
+        ) : null}
         <MultiSelect
           tags={this.state.tags}
           onSelect={this.handleOnSelect}
@@ -62,7 +76,7 @@ export default class Form extends Component {
           value={this.state.inputValue}
           predicate={this.predicate}
           valueParser={valueParser}
-          />
+        />
       </MultiSelectComposite>
     );
   }

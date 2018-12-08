@@ -35,59 +35,55 @@ Components to be used within \`wix-style-react/Modal\`:
 `;
 
 const layoutStyles = {
-  margin: '0 30px'
+  margin: '0 30px',
 };
 
 export default () => (
   <TabbedView tabs={['Usage', 'API', 'TestKits']}>
     <div>
-      <Markdown source={introduction}/>
+      <Markdown source={introduction} />
       <div style={layoutStyles}>
         <CodeExample
           title="Standard"
           code={StandardAlertRaw}
-          children={<StandardAlert/>}
-          />
+          children={<StandardAlert />}
+        />
         <CodeExample
           title="Secondary Action"
           code={SecondaryAlertRaw}
-          children={<SecondaryAlert/>}
-          />
+          children={<SecondaryAlert />}
+        />
         <CodeExample
           title="Footnote"
           code={FootNoteAlertRaw}
-          children={<FootNoteAlert/>}
-          />
+          children={<FootNoteAlert />}
+        />
         <CodeExample
           title="With EmptyState"
           code={EmptyStateAlertRaw}
-          children={<EmptyStateAlert/>}
-          />
+          children={<EmptyStateAlert />}
+        />
         <CodeExample
           title="Scrollable"
           code={ScrollableAlertRaw}
-          children={<ScrollableAlert/>}
-          />
-        <CodeExample
-          title="With image"
-          code={ImageRaw}
-          children={<Image/>}
-          />
+          children={<ScrollableAlert />}
+        />
+        <CodeExample title="With image" code={ImageRaw} children={<Image />} />
         <CodeExample
           title="With Actions"
           code={ActionsAlertRaw}
-          children={<ActionsAlert/>}
-          />
+          children={<ActionsAlert />}
+        />
         <CodeExample
           title="With Image And Actions"
           code={ImageWithSideActionRaw}
-          children={<ImageWithSideAction/>}
-          />
+          children={<ImageWithSideAction />}
+        />
       </div>
     </div>
 
-    <Markdown source={Readme}/>
+    <Markdown source={Readme} />
 
-    <Markdown source={ReadmeTestKit}/>
+    <Markdown source={ReadmeTestKit} />
   </TabbedView>
 );

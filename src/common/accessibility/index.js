@@ -1,1 +1,1 @@
-export {pickAccessibilityProps} from './pickAccessibilityProps';
+export { pickAccessibilityProps } from './pickAccessibilityProps';

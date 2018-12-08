@@ -6,12 +6,12 @@ class YearMonthsCalendarExample extends React.Component {
     super(props);
     this.state = {
       date: new Date('2017/05/01'),
-      excludePastDates: true
+      excludePastDates: true,
     };
   }
 
   onChange(date) {
-    this.setState({date});
+    this.setState({ date });
   }
 
   render() {
@@ -21,9 +21,9 @@ class YearMonthsCalendarExample extends React.Component {
         showYearDropdown
         onChange={date => this.onChange(date)}
         value={this.state.date}
-        />
+      />
     );
   }
 }
 
-export default () => <YearMonthsCalendarExample/>;
+export default () => <YearMonthsCalendarExample />;

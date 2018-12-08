@@ -1,11 +1,13 @@
 import eyes from 'eyes.it';
-import {datePickerTestkitFactory} from '../../testkit/protractor';
-import {getStoryUrl} from '../../test/utils/storybook-helpers';
+import { datePickerTestkitFactory } from '../../testkit/protractor';
+import { getStoryUrl } from '../../test/utils/storybook-helpers';
 import autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 
 describe('DatePicker', () => {
   const storyUrl = getStoryUrl('3. Inputs', '3.6 DatePicker');
-  const {inputDriver, calendarDriver} = datePickerTestkitFactory({dataHook: 'storybook-datepicker'});
+  const { inputDriver, calendarDriver } = datePickerTestkitFactory({
+    dataHook: 'storybook-datepicker',
+  });
 
   beforeAll(async () => {
     await browser.get(storyUrl);
@@ -16,32 +18,39 @@ describe('DatePicker', () => {
   });
 
   eyes.it('should not open calendar when disabled', async () => {
-    await autoExampleDriver.setProps({disabled: true});
+    await autoExampleDriver.setProps({ disabled: true });
     await inputDriver.click();
 
     expect(await calendarDriver.exists()).toBe(false);
   });
 
-  eyes.it('should not close calendar on selecting date with click when shouldCloseOnSelect prop set to false', async () => {
-    await autoExampleDriver.setProps({shouldCloseOnSelect: false});
-    await inputDriver.click();
+  eyes.it(
+    'should not close calendar on selecting date with click when shouldCloseOnSelect prop set to false',
+    async () => {
+      await autoExampleDriver.setProps({ shouldCloseOnSelect: false });
+      await inputDriver.click();
 
-    await calendarDriver.clickOnNthAvailableDay(10);
+      await calendarDriver.clickOnNthAvailableDay(10);
 
-    expect(await calendarDriver.exists()).toBe(true);
-    expect(await calendarDriver.isVisible()).toBe(true);
-  });
+      expect(await calendarDriver.exists()).toBe(true);
+      expect(await calendarDriver.isVisible()).toBe(true);
+    },
+  );
 
   describe('default', () => {
     eyes.it('should show inputDriver', async () => {
       expect(await inputDriver.isVisible()).toBe(true);
     });
 
-    eyes.it('should open calendar when click on inputDriver', async () => {
-      await inputDriver.click();
-      expect(await calendarDriver.exists()).toBe(true);
-      expect(await calendarDriver.isVisible()).toBe(true);
-    }, {version: '<Input/> - On text click - select all'});
+    eyes.it(
+      'should open calendar when click on inputDriver',
+      async () => {
+        await inputDriver.click();
+        expect(await calendarDriver.exists()).toBe(true);
+        expect(await calendarDriver.isVisible()).toBe(true);
+      },
+      { version: '<Input/> - On text click - select all' },
+    );
 
     eyes.it('should close calendar on selecting date with click', async () => {
       await inputDriver.click();
@@ -49,13 +58,17 @@ describe('DatePicker', () => {
       expect(await calendarDriver.exists()).toBe(false);
     });
 
-    eyes.it('should close calendar on Escape key', async () => {
-      await inputDriver.click();
-      expect(await calendarDriver.exists()).toBe(true);
+    eyes.it(
+      'should close calendar on Escape key',
+      async () => {
+        await inputDriver.click();
+        expect(await calendarDriver.exists()).toBe(true);
 
-      await calendarDriver.pressEscKey();
-      expect(await calendarDriver.exists()).toBe(false);
-    }, {version: '<Input/> - On text click - select all'});
+        await calendarDriver.pressEscKey();
+        expect(await calendarDriver.exists()).toBe(false);
+      },
+      { version: '<Input/> - On text click - select all' },
+    );
 
     eyes.it('should close calendar on Tab key', async () => {
       await inputDriver.click();
@@ -65,16 +78,20 @@ describe('DatePicker', () => {
       expect(await calendarDriver.exists()).toBe(false);
     });
 
-    eyes.it('should not change date', async () => {
-      await autoExampleDriver.setProps({value: new Date('2017/05/01')});
-      await inputDriver.click();
-      await calendarDriver.pressEnterKey();
+    eyes.it(
+      'should not change date',
+      async () => {
+        await autoExampleDriver.setProps({ value: new Date('2017/05/01') });
+        await inputDriver.click();
+        await calendarDriver.pressEnterKey();
 
-      expect(await inputDriver.getValue()).toBe('2017/05/01');
-    }, {version: '<Input/> - On text click - select all'});
+        expect(await inputDriver.getValue()).toBe('2017/05/01');
+      },
+      { version: '<Input/> - On text click - select all' },
+    );
 
     eyes.it('should select next day date', async () => {
-      await autoExampleDriver.setProps({value: new Date('2017/05/01')});
+      await autoExampleDriver.setProps({ value: new Date('2017/05/01') });
       await inputDriver.click();
       await calendarDriver.pressArrowRightKey();
       await calendarDriver.pressEnterKey();
@@ -84,12 +101,13 @@ describe('DatePicker', () => {
   });
 
   describe('with year and month dropdown', () => {
-    beforeEach(async () =>
-      await autoExampleDriver.setProps({
-        showYearDropdown: true,
-        showMonthDropdown: true,
-        value: new Date('2017/05/01')
-      })
+    beforeEach(
+      async () =>
+        await autoExampleDriver.setProps({
+          showYearDropdown: true,
+          showMonthDropdown: true,
+          value: new Date('2017/05/01'),
+        }),
     );
 
     eyes.it('should be scrolled to current year', async () => {

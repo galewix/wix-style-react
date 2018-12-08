@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import WixComponent from '../../BaseComponents/WixComponent';
 
 import styles from '../RadioGroup.scss';
-import {withFocusable, focusableStates} from '../../common/Focusable';
+import { withFocusable, focusableStates } from '../../common/Focusable';
 import Text from '../../Text';
 
 class RadioButton extends WixComponent {
@@ -25,13 +25,13 @@ class RadioButton extends WixComponent {
     lineHeight: PropTypes.string,
 
     /** optional node to be rendered under label. Clicking it will not trigger `onChange` */
-    content: PropTypes.node
+    content: PropTypes.node,
   };
 
   static defaultProps = {
     vAlign: 'center',
     type: 'default',
-    content: null
+    content: null,
   };
 
   constructor(props) {
@@ -40,24 +40,19 @@ class RadioButton extends WixComponent {
   }
 
   renderButton() {
-    const {
-      checked,
-      disabled,
-      onChange,
-      value,
-      icon,
-      children
-    } = this.props;
+    const { checked, disabled, onChange, value, icon, children } = this.props;
 
     return (
       <button
         type="button"
-        className={classnames(styles.radioButton, {[styles.checked]: checked})}
+        className={classnames(styles.radioButton, {
+          [styles.checked]: checked,
+        })}
         checked={checked}
         disabled={disabled}
         id={this.id}
-        onClick={() => (!checked && !disabled) ? onChange(value) : null}
-        >
+        onClick={() => (!checked && !disabled ? onChange(value) : null)}
+      >
         {icon && <span>{icon}</span>}
         {children && <span>{children}</span>}
       </button>
@@ -75,24 +70,21 @@ class RadioButton extends WixComponent {
       onChange,
       style,
       vAlign,
-      value
+      value,
     } = this.props;
 
     return (
       <div
-        className={classnames(
-          styles.radioWrapper,
-          {
-            [styles.disabled]: disabled,
-            [styles.checked]: checked
-          }
-        )}
+        className={classnames(styles.radioWrapper, {
+          [styles.disabled]: disabled,
+          [styles.checked]: checked,
+        })}
         style={style}
         tabIndex={disabled ? null : 0}
         onFocus={this.props.focusableOnFocus}
         onBlur={this.props.focusableOnBlur}
         {...focusableStates(this.props)}
-        >
+      >
         <input
           type="radio"
           name={name}
@@ -100,61 +92,55 @@ class RadioButton extends WixComponent {
           id={this.id}
           checked={checked}
           disabled={disabled}
-          onChange={() => (!checked && !disabled) ? onChange(value) : null}
-          />
+          onChange={() => (!checked && !disabled ? onChange(value) : null)}
+        />
 
         <label
           data-hook="radio-label"
-          style={{lineHeight}}
+          style={{ lineHeight }}
           htmlFor={this.id}
-          className={
-            classnames(
-              {
-                [styles.vcenter]: vAlign === 'center',
-                [styles.vtop]: vAlign === 'top'
-              }
-            )
-          }
-          >
+          className={classnames({
+            [styles.vcenter]: vAlign === 'center',
+            [styles.vtop]: vAlign === 'top',
+          })}
+        >
           <div
-            style={{height: lineHeight}}
+            style={{ height: lineHeight }}
             className={styles.radioButtonWrapper}
             data-hook="radiobutton-radio"
-            >
-            <div className={classnames(styles.radio, {[styles.radioButtonChecked]: checked})}/>
+          >
+            <div
+              className={classnames(styles.radio, {
+                [styles.radioButtonChecked]: checked,
+              })}
+            />
           </div>
 
-          { children &&
-          <Text
-            className={styles.children}
-            data-hook="radiobutton-children"
-            tagName="div"
-            size="medium"
-            weight="thin"
-            secondary
-            light={disabled}
+          {children && (
+            <Text
+              className={styles.children}
+              data-hook="radiobutton-children"
+              tagName="div"
+              size="medium"
+              weight="thin"
+              secondary
+              light={disabled}
             >
-            {children}
-          </Text>
-          }
+              {children}
+            </Text>
+          )}
         </label>
 
-        { content &&
-          <div data-hook="radio-button-content">
-            {content}
-          </div>
-        }
+        {content && <div data-hook="radio-button-content">{content}</div>}
       </div>
     );
   }
 
-
   render() {
-    return this.props.type === 'button' ?
-      this.renderButton() :
-      this.renderRadio();
+    return this.props.type === 'button'
+      ? this.renderButton()
+      : this.renderRadio();
   }
 }
 
 export default withFocusable(RadioButton);
-

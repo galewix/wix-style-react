@@ -7,15 +7,15 @@ const style = {
   padding: '0 5px 0',
   width: '200px',
   lineHeight: '22px',
-  marginBottom: '200px'
+  marginBottom: '200px',
 };
 
 const options = [
-  {id: 0, value: 'First option', v: 'F'},
-  {id: 1, value: <div style={{color: 'red'}}>test</div>, v: 'S'},
-  {id: 2, value: 'Third option', v: 'T', disabled: true},
-  {id: 3, value: 'Fifth option', v: 'Fi'},
-  {id: 4, value: 'Fourth option', v: 'Fo'}
+  { id: 0, value: 'First option', v: 'F' },
+  { id: 1, value: <div style={{ color: 'red' }}>test</div>, v: 'S' },
+  { id: 2, value: 'Third option', v: 'T', disabled: true },
+  { id: 3, value: 'Fifth option', v: 'Fi' },
+  { id: 4, value: 'Fourth option', v: 'Fo' },
 ];
 
 // text -> value
@@ -24,7 +24,7 @@ const options = [
 class ControlledAutoComplete extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: '', suggestions: options};
+    this.state = { value: '', suggestions: options };
     this.onChange = this.onChange.bind(this);
     this.onSet = this.onSet.bind(this);
     this.onBlur = this.onBlur.bind(this);
@@ -49,7 +49,7 @@ class ControlledAutoComplete extends React.Component {
         onChange={this.onChange}
         onEscapePressed={this.onEscapePressed}
         onKeyDown={this.onKeyDown}
-        />
+      />
     );
   }
 
@@ -60,7 +60,13 @@ class ControlledAutoComplete extends React.Component {
     console.log('>> Change!', e.target.value);
     const value = e.target.value;
     this.setState({
-      suggestions: options.filter(o => o.value.toString().toLowerCase().indexOf(value.toLowerCase()) > -1)
+      suggestions: options.filter(
+        o =>
+          o.value
+            .toString()
+            .toLowerCase()
+            .indexOf(value.toLowerCase()) > -1,
+      ),
     });
   }
 
@@ -87,11 +93,10 @@ class ControlledAutoComplete extends React.Component {
   onKeyDown(e) {
     console.log('>> Key down:', e, e.keyCode);
   }
-
 }
 
-export default () =>
+export default () => (
   <div style={style}>
-    <ControlledAutoComplete/>
-  </div>;
-
+    <ControlledAutoComplete />
+  </div>
+);

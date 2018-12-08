@@ -1,1 +1,1 @@
-export {default} from './Range.js';
+export { default } from './Range.js';

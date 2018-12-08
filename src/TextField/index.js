@@ -1,1 +1,1 @@
-export {default} from './TextField.js';
+export { default } from './TextField.js';

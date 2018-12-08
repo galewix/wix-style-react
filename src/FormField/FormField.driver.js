@@ -1,6 +1,6 @@
 import tooltipDriverFactory from '../Tooltip/Tooltip.driver';
 
-const formFieldDriver = ({wrapper, element}) => {
+const formFieldDriver = ({ wrapper, element }) => {
   const byHook = hook => element.querySelector(`[data-hook*="${hook}"]`);
   const charactersCounter = () => byHook('formfield-counter');
 
@@ -22,7 +22,11 @@ const formFieldDriver = ({wrapper, element}) => {
       }
       return false;
     },
-    getInfoContent: () => tooltipDriverFactory({wrapper, element: byHook('formfield-infotooltip')}).hoverAndGetContent()
+    getInfoContent: () =>
+      tooltipDriverFactory({
+        wrapper,
+        element: byHook('formfield-infotooltip'),
+      }).hoverAndGetContent(),
   };
 };
 

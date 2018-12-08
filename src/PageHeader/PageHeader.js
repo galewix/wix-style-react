@@ -7,59 +7,77 @@ import ChevronLeft from 'wix-ui-icons-common/ChevronLeft';
 import Breadcrumbs from '../Breadcrumbs';
 import Text from '../Text';
 import Heading from '../Heading';
-import {Animator} from 'wix-animations';
+import { Animator } from 'wix-animations';
 import Button from '../Button';
 
 const animateComponent = (show, useEnterDelay, content) => {
-  return useEnterDelay ?
-    <Animator show={show} opacity timing="medium" delay={{enter: 100}}>
+  return useEnterDelay ? (
+    <Animator show={show} opacity timing="medium" delay={{ enter: 100 }}>
       {content}
-    </Animator> :
+    </Animator>
+  ) : (
     <Animator show={show} opacity timing="medium">
       {content}
-    </Animator>;
+    </Animator>
+  );
 };
 
-const isDarkTheme = (hasBackgroundImage, minimized) => !minimized && hasBackgroundImage;
+const isDarkTheme = (hasBackgroundImage, minimized) =>
+  !minimized && hasBackgroundImage;
 
-const getBreadcrumbsTheme = (hasBackgroundImage, minimized) => isDarkTheme(hasBackgroundImage, minimized) ? 'onDarkBackground' : 'onGrayBackground';
+const getBreadcrumbsTheme = (hasBackgroundImage, minimized) =>
+  isDarkTheme(hasBackgroundImage, minimized)
+    ? 'onDarkBackground'
+    : 'onGrayBackground';
 
-const getTitle = (title, minimized) => typeof title === 'function' ? title(minimized) : title;
+const getTitle = (title, minimized) =>
+  typeof title === 'function' ? title(minimized) : title;
 
-const generateDefaultBreadcrumbs = (title, hasBackgroundImage, minimized) =>
+const generateDefaultBreadcrumbs = (title, hasBackgroundImage, minimized) => (
   <Breadcrumbs
-    items={[{id: '1', value: getTitle(title, minimized)}]}
+    items={[{ id: '1', value: getTitle(title, minimized) }]}
     activeId="1"
     size="medium"
     theme={getBreadcrumbsTheme(hasBackgroundImage, minimized)}
     onClick={() => {}}
-    />;
+  />
+);
 
-const generateThemedBreadcrumbs = (breadcrumbs, title, hasBackgroundImage, minimized) => {
+const generateThemedBreadcrumbs = (
+  breadcrumbs,
+  title,
+  hasBackgroundImage,
+  minimized,
+) => {
   if (breadcrumbs) {
-    return React.cloneElement(breadcrumbs, {theme: getBreadcrumbsTheme(hasBackgroundImage, minimized)});
+    return React.cloneElement(breadcrumbs, {
+      theme: getBreadcrumbsTheme(hasBackgroundImage, minimized),
+    });
   }
 
   return generateDefaultBreadcrumbs(title, hasBackgroundImage, minimized);
 };
 
-
-
 /**
-  * A header that sticks at the top of the container which minimizes on scroll
-  */
+ * A header that sticks at the top of the container which minimizes on scroll
+ */
 export default class PageHeader extends WixComponent {
   constructor(props) {
     super(props);
 
-    const {breadcrumbs, title, hasBackgroundImage, minimized} = props;
+    const { breadcrumbs, title, hasBackgroundImage, minimized } = props;
     this.state = {
-      themedBreadcrumbs: generateThemedBreadcrumbs(breadcrumbs, title, hasBackgroundImage, minimized)
+      themedBreadcrumbs: generateThemedBreadcrumbs(
+        breadcrumbs,
+        title,
+        hasBackgroundImage,
+        minimized,
+      ),
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    const {breadcrumbs, title, hasBackgroundImage, minimized} = this.props;
+    const { breadcrumbs, title, hasBackgroundImage, minimized } = this.props;
     const newBreadcrumbs = nextProps.breadcrumbs;
     const newTitle = nextProps.title;
     const newHasBackgroundImage = nextProps.hasBackgroundImage;
@@ -69,60 +87,119 @@ export default class PageHeader extends WixComponent {
       breadcrumbs !== newBreadcrumbs ||
       title !== newTitle ||
       hasBackgroundImage !== newHasBackgroundImage ||
-      minimized !== newMinimized) {
-
-      const themedBreadcrumbs = generateThemedBreadcrumbs(newBreadcrumbs, newTitle, newHasBackgroundImage, newMinimized);
-      this.setState({themedBreadcrumbs});
+      minimized !== newMinimized
+    ) {
+      const themedBreadcrumbs = generateThemedBreadcrumbs(
+        newBreadcrumbs,
+        newTitle,
+        newHasBackgroundImage,
+        newMinimized,
+      );
+      this.setState({ themedBreadcrumbs });
     }
   }
 
   render() {
-    const {breadcrumbs, onBackClicked, title, subtitle, minimized, actionsBar, showBackButton, hasBackgroundImage, className} = this.props;
+    const {
+      breadcrumbs,
+      onBackClicked,
+      title,
+      subtitle,
+      minimized,
+      actionsBar,
+      showBackButton,
+      hasBackgroundImage,
+      className,
+    } = this.props;
     const breadcrumbsExists = !!breadcrumbs;
-    const {themedBreadcrumbs} = this.state;
+    const { themedBreadcrumbs } = this.state;
 
     return (
       <div className={classNames(s.headerContainer, className)}>
         <div className={s.header}>
           <div>
-            {
-              animateComponent(breadcrumbsExists || minimized, !breadcrumbsExists,
-                <div className={classNames(s.breadcrumbsContainer, {[s.absolute]: !breadcrumbsExists, [s.minimized]: minimized})} data-hook="page-header-breadcrumbs">
-                  {themedBreadcrumbs}
-                </div>)
-            }
+            {animateComponent(
+              breadcrumbsExists || minimized,
+              !breadcrumbsExists,
+              <div
+                className={classNames(s.breadcrumbsContainer, {
+                  [s.absolute]: !breadcrumbsExists,
+                  [s.minimized]: minimized,
+                })}
+                data-hook="page-header-breadcrumbs"
+              >
+                {themedBreadcrumbs}
+              </div>,
+            )}
           </div>
-          <div className={classNames(s.titleContainer, {[s.minimized]: minimized})}>
-            {
-              showBackButton && onBackClicked && animateComponent(!minimized, !breadcrumbsExists,
-                <div className={classNames(s.backButton, {[s.minimized]: minimized, [s.darkTheme]: isDarkTheme(hasBackgroundImage, minimized)})} data-hook="page-header-backbutton">
+          <div
+            className={classNames(s.titleContainer, {
+              [s.minimized]: minimized,
+            })}
+          >
+            {showBackButton &&
+              onBackClicked &&
+              animateComponent(
+                !minimized,
+                !breadcrumbsExists,
+                <div
+                  className={classNames(s.backButton, {
+                    [s.minimized]: minimized,
+                    [s.darkTheme]: isDarkTheme(hasBackgroundImage, minimized),
+                  })}
+                  data-hook="page-header-backbutton"
+                >
                   <Button onClick={onBackClicked} theme="icon-white">
-                    <ChevronLeft className={s.backButtonIcon}/>
+                    <ChevronLeft className={s.backButtonIcon} />
                   </Button>
-                </div>)
-            }
+                </div>,
+              )}
             <div className={s.titleColumn}>
-              {
-                title && animateComponent(!minimized, !breadcrumbsExists,
-                  <div className={classNames(s.title, {[s.minimized]: minimized})} data-hook="page-header-title">
-                    <Heading light={isDarkTheme(hasBackgroundImage, minimized)}>{getTitle(title, minimized)}</Heading>
-                  </div>)
-              }
-              {
-                subtitle && animateComponent(!minimized, !breadcrumbsExists,
-                  <div className={classNames({[s.minimized]: minimized})} data-hook="page-header-subtitle">
-                    <Text light={isDarkTheme(hasBackgroundImage, minimized)} secondary={!isDarkTheme(hasBackgroundImage, minimized)}>{subtitle}</Text>
-                  </div>)
-              }
+              {title &&
+                animateComponent(
+                  !minimized,
+                  !breadcrumbsExists,
+                  <div
+                    className={classNames(s.title, {
+                      [s.minimized]: minimized,
+                    })}
+                    data-hook="page-header-title"
+                  >
+                    <Heading light={isDarkTheme(hasBackgroundImage, minimized)}>
+                      {getTitle(title, minimized)}
+                    </Heading>
+                  </div>,
+                )}
+              {subtitle &&
+                animateComponent(
+                  !minimized,
+                  !breadcrumbsExists,
+                  <div
+                    className={classNames({ [s.minimized]: minimized })}
+                    data-hook="page-header-subtitle"
+                  >
+                    <Text
+                      light={isDarkTheme(hasBackgroundImage, minimized)}
+                      secondary={!isDarkTheme(hasBackgroundImage, minimized)}
+                    >
+                      {subtitle}
+                    </Text>
+                  </div>,
+                )}
             </div>
           </div>
         </div>
-        {
-          actionsBar &&
-            <div className={classNames(s.actionsBar, {[s.minimized]: minimized, [s.withBreadcrumbs]: breadcrumbsExists})} data-hook="page-header-actionbar">
-              {React.cloneElement(actionsBar, {minimized, hasBackgroundImage})}
-            </div>
-        }
+        {actionsBar && (
+          <div
+            className={classNames(s.actionsBar, {
+              [s.minimized]: minimized,
+              [s.withBreadcrumbs]: breadcrumbsExists,
+            })}
+            data-hook="page-header-actionbar"
+          >
+            {React.cloneElement(actionsBar, { minimized, hasBackgroundImage })}
+          </div>
+        )}
       </div>
     );
   }
@@ -140,10 +217,7 @@ PageHeader.propTypes = {
   /** Wix-Style-React Breadcrumbs component */
   breadcrumbs: PropTypes.node,
   /** The main title text */
-  title: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.func
-  ]),
+  title: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   /** The subtitle text */
   subtitle: PropTypes.node,
   /** Should show a back button */
@@ -151,9 +225,9 @@ PageHeader.propTypes = {
   /** The callback when back button is clicked */
   onBackClicked: PropTypes.func,
   /** A placeholder for a component that can contain actions / anything else */
-  actionsBar: PropTypes.node
+  actionsBar: PropTypes.node,
 };
 
 PageHeader.defaultProps = {
-  minimized: false
+  minimized: false,
 };

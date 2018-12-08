@@ -1,1 +1,1 @@
-export {default} from './EditableSelector.js';
+export { default } from './EditableSelector.js';

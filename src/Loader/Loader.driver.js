@@ -1,13 +1,14 @@
-import {findByHook, resolveIn, isClassExists} from '../../test/utils';
+import { findByHook, resolveIn, isClassExists } from '../../test/utils';
 import tooltipDriverFactory from '../Tooltip/Tooltip.driver';
 
-const getTextElement = element => element.querySelector(`[data-hook="loader-text"]`);
+const getTextElement = element =>
+  element.querySelector(`[data-hook="loader-text"]`);
 
-const loaderDriverFactory = ({element}) => {
+const loaderDriverFactory = ({ element }) => {
   return {
     component: () => element,
     exists: () => !!element,
-    getColor: () => isClassExists(element, 'blue') ? 'blue' : 'white',
+    getColor: () => (isClassExists(element, 'blue') ? 'blue' : 'white'),
     getText: () => getTextElement(element).textContent,
     hasText: () => !!getTextElement(element),
     isLarge: () => isClassExists(element, 'large'),
@@ -19,13 +20,12 @@ const loaderDriverFactory = ({element}) => {
     isSuccess: () => isClassExists(element, 'success'),
     getStatusMessage: () => {
       const tooltipDriver = tooltipDriverFactory({
-        element: findByHook(element, 'loader-tooltip')
+        element: findByHook(element, 'loader-tooltip'),
       });
 
       tooltipDriver.mouseEnter();
-      return resolveIn(500)
-        .then(() => tooltipDriver.getContent());
-    }
+      return resolveIn(500).then(() => tooltipDriver.getContent());
+    },
   };
 };
 

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Tooltip from '../Tooltip';
 import RichTextAreaLinkForm from './RichTextAreaLinkForm';
@@ -6,21 +6,19 @@ import RichTextAreaButton from './RichTextAreaButton';
 
 class RichTextAreaLinkButton extends Component {
   state = {
-    isFormVisible: false
+    isFormVisible: false,
   };
 
   toggleForm = () => {
-    this.state.isFormVisible ?
-      this.hideForm() :
-      this.showForm();
+    this.state.isFormVisible ? this.hideForm() : this.showForm();
   };
 
   showForm = () => {
-    this.setState({isFormVisible: true});
+    this.setState({ isFormVisible: true });
   };
 
   hideForm = () => {
-    this.setState({isFormVisible: false});
+    this.setState({ isFormVisible: false });
   };
 
   handleFormSubmit = linkData => {
@@ -34,12 +32,12 @@ class RichTextAreaLinkButton extends Component {
       onSubmit={this.handleFormSubmit}
       onCancel={this.hideForm}
       isTextInputVisible={isSelectionExpanded}
-      />
+    />
   );
 
   render() {
-    const {isFormVisible} = this.state;
-    const {isActive, onClick, isSelectionExpanded} = this.props;
+    const { isFormVisible } = this.state;
+    const { isActive, onClick, isSelectionExpanded } = this.props;
 
     return (
       <Tooltip
@@ -52,18 +50,18 @@ class RichTextAreaLinkButton extends Component {
         showTrigger="custom"
         hideTrigger="custom"
         hideDelay={0}
-        moveBy={{x: 2, y: 0}}
+        moveBy={{ x: 2, y: 0 }}
         active={isFormVisible}
         onClickOutside={this.hideForm}
         maxWidth="240px"
-        >
+      >
         <RichTextAreaButton
           disabled={this.props.disabled}
           onClick={isActive ? onClick : this.toggleForm}
           type="link"
           isActive={isActive}
           isTooltipDisabled={isFormVisible}
-          />
+        />
       </Tooltip>
     );
   }
@@ -74,7 +72,7 @@ RichTextAreaLinkButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   isActive: PropTypes.bool,
   disabled: PropTypes.bool,
-  isSelectionExpanded: PropTypes.bool
+  isSelectionExpanded: PropTypes.bool,
 };
 
 export default RichTextAreaLinkButton;

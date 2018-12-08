@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 import Button from '../../Button';
 
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
 
-import {withFocusable, focusableStates} from './FocusableHOC';
+import { withFocusable, focusableStates } from './FocusableHOC';
 
-const focusableDriver = ({element, eventTrigger}) => ({
+const focusableDriver = ({ element, eventTrigger }) => ({
   focus: () => eventTrigger.focus(element),
   blur: () => eventTrigger.blur(element),
   hasFocusState: () => !!element.getAttribute('data-focus'),
-  hasFocusVisibleState: () => !!element.getAttribute('data-focus-visible')
+  hasFocusVisibleState: () => !!element.getAttribute('data-focus-visible'),
 });
 
 describe('FocusableHOC', () => {
-  const render = Comp => mount(Comp, {attachTo: document.createElement('div')});
+  const render = Comp =>
+    mount(Comp, { attachTo: document.createElement('div') });
 
   // Pure component without state
   class PureChildComponent extends React.PureComponent {
@@ -26,8 +27,8 @@ describe('FocusableHOC', () => {
     }
 
     static propTypes = {
-      id: PropTypes.string
-    }
+      id: PropTypes.string,
+    };
 
     static staticVariable = 'staticVariable';
 
@@ -43,19 +44,25 @@ describe('FocusableHOC', () => {
       return this.id;
     }
     render() {
-      return (<div
-        onFocus={this.props.focusableOnFocus} // eslint-disable-line react/prop-types
-        onBlur={this.props.focusableOnBlur} // eslint-disable-line react/prop-types
-        {...focusableStates(this.props)}
+      return (
+        <div
+          onFocus={this.props.focusableOnFocus} // eslint-disable-line react/prop-types
+          onBlur={this.props.focusableOnBlur} // eslint-disable-line react/prop-types
+          {...focusableStates(this.props)}
         >
-        Hello
-      </div>);
+          Hello
+        </div>
+      );
     }
   }
 
-  const pureChildDriverFactory = ({element, eventTrigger}) => {
+  const pureChildDriverFactory = ({ element, eventTrigger }) => {
     return {
-      ...focusableDriver({element, getFocusableElement: () => element, eventTrigger})
+      ...focusableDriver({
+        element,
+        getFocusableElement: () => element,
+        eventTrigger,
+      }),
     };
   };
 
@@ -63,7 +70,7 @@ describe('FocusableHOC', () => {
 
   describe('Pure component HOC', () => {
     it('should render the wrapped component', () => {
-      const wrapper = render(<WithFocusableComp/>);
+      const wrapper = render(<WithFocusableComp />);
       expect(wrapper.children().instance()).toBeInstanceOf(PureChildComponent);
     });
 
@@ -77,7 +84,7 @@ describe('FocusableHOC', () => {
       });
 
       it('should hoist prototype methods from child to HOC and bind them', () => {
-        const wrapper = render(<WithFocusableComp id="some_id"/>);
+        const wrapper = render(<WithFocusableComp id="some_id" />);
         expect(wrapper.instance().unboundMethod()).toEqual('unboundMethod');
         expect(wrapper.instance().boundMethod()).toEqual('some_id');
       });
@@ -89,9 +96,12 @@ describe('FocusableHOC', () => {
 
     const createDriver = Component => {
       const driver = driverFactory(Component);
-      const fireMouseDown = () => window.dispatchEvent(new window.Event('mousedown'));
-      const fireMouseUp = () => window.dispatchEvent(new window.Event('mouseup'));
-      const fireKeyDown = () => window.dispatchEvent(new window.Event('keydown'));
+      const fireMouseDown = () =>
+        window.dispatchEvent(new window.Event('mousedown'));
+      const fireMouseUp = () =>
+        window.dispatchEvent(new window.Event('mouseup'));
+      const fireKeyDown = () =>
+        window.dispatchEvent(new window.Event('keydown'));
       const fireKeyUp = () => window.dispatchEvent(new window.Event('keyup'));
       const tabOut = () => {
         fireKeyDown();
@@ -117,26 +127,35 @@ describe('FocusableHOC', () => {
         fireKeyUp,
         tabOut,
         tabIn,
-        click
+        click,
       };
     };
 
     const expectKeyboardFocused = (driver, msg) => {
       const prefix = msg ? `${msg} - ` : '';
       expect(driver.hasFocusState()).toBe(true, `${prefix}hasFocusState`);
-      expect(driver.hasFocusVisibleState()).toBe(true, `${prefix}hasFocusVisibleState`);
+      expect(driver.hasFocusVisibleState()).toBe(
+        true,
+        `${prefix}hasFocusVisibleState`,
+      );
     };
 
     const expectNotFocused = (driver, msg) => {
       const prefix = msg ? `${msg} - ` : '';
       expect(driver.hasFocusState()).toBe(false, `${prefix}hasFocusState`);
-      expect(driver.hasFocusVisibleState()).toBe(false, `${prefix}hasFocusVisibleState`);
+      expect(driver.hasFocusVisibleState()).toBe(
+        false,
+        `${prefix}hasFocusVisibleState`,
+      );
     };
 
     const expectMouseFocused = (driver, msg) => {
       const prefix = msg ? `${msg} - ` : '';
       expect(driver.hasFocusState()).toBe(true, `${prefix}hasFocusState`);
-      expect(driver.hasFocusVisibleState()).toBe(false, `${prefix}hasFocusVisibleState`);
+      expect(driver.hasFocusVisibleState()).toBe(
+        false,
+        `${prefix}hasFocusVisibleState`,
+      );
     };
 
     let WithFocusableComp2;
@@ -151,13 +170,13 @@ describe('FocusableHOC', () => {
     });
 
     it('should not have focus nor focus-visible [given] initial render', () => {
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       expectNotFocused(driver);
     });
 
     it('should have focus and focus-visible [when] focused programatically', () => {
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.focus();
       // Default input is keyboard
@@ -165,7 +184,7 @@ describe('FocusableHOC', () => {
     });
 
     it('should have focus and focus-visible [when] tabbed in', () => {
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.tabIn();
       expectKeyboardFocused(driver, 'after focus');
@@ -174,7 +193,7 @@ describe('FocusableHOC', () => {
     it('should have focus and focus-visible [when] tabbed in withot keyDown', () => {
       // This test case checks a scenario when the focus is on the browser's
       // url input, and we press tab. The keyDown is not fired.
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.focus();
       driver.fireKeyUp();
@@ -182,7 +201,7 @@ describe('FocusableHOC', () => {
     });
 
     it('should not have focus nor focus-visible [when] blured programatically [given] keyboard focused', () => {
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.tabIn();
       expectKeyboardFocused(driver, 'after focus');
@@ -192,7 +211,7 @@ describe('FocusableHOC', () => {
     });
 
     it('should have focus but not focus-visible [when] clicked', () => {
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.click();
       expectMouseFocused(driver, 'after click');
@@ -202,7 +221,7 @@ describe('FocusableHOC', () => {
       // This test must be here , after a test which finishes with the input method = mouse.
       // this test is only to test that we are reseting the FocusableHOC global state proparely,
       // usin the jest.resetModules() call.
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.focus();
       expectKeyboardFocused(driver, 'after click');
@@ -213,7 +232,7 @@ describe('FocusableHOC', () => {
      * is was set to `mouse`.
      */
     it('should have focus and focus-visible [when] focused [given] mouseDown and blur', () => {
-      const driver = createDriver(<WithFocusableComp2/>);
+      const driver = createDriver(<WithFocusableComp2 />);
 
       driver.click();
       expectMouseFocused(driver, 'after click');
@@ -226,7 +245,7 @@ describe('FocusableHOC', () => {
     });
 
     it('should not be focused [when] tabbed out [given] focused by mouse', () => {
-      const driver = createDriver(<WithFocusableComp/>);
+      const driver = createDriver(<WithFocusableComp />);
 
       driver.click();
       expectMouseFocused(driver, 'after click');
@@ -236,7 +255,7 @@ describe('FocusableHOC', () => {
     });
 
     it('should have focus and focus-visible, when: any keyboard key pressed [given] focused by mouse', () => {
-      const driver = createDriver(<WithFocusableComp/>);
+      const driver = createDriver(<WithFocusableComp />);
 
       driver.click();
       expectMouseFocused(driver, 'after click');
@@ -248,11 +267,11 @@ describe('FocusableHOC', () => {
 
   describe('regressions', () => {
     class ButtonWithDisabledState extends React.Component {
-      state = {disabled: false}
+      state = { disabled: false };
 
       handleButtonClick = () => {
-        this.setState({disabled: true});
-      }
+        this.setState({ disabled: true });
+      };
 
       render() {
         return (
@@ -261,20 +280,20 @@ describe('FocusableHOC', () => {
               dataHook="disabled-button"
               disabled={this.state.disabled}
               onClick={this.handleButtonClick}
-              >
+            >
               click me
             </Button>
             <input
               placeholder="click the button and type here"
-              onChange={() => this.setState({disabled: false})}
-              />
+              onChange={() => this.setState({ disabled: false })}
+            />
           </div>
         );
       }
     }
 
     it('ISSUE-1721: Fix focusable button in disabled state', () => {
-      const component = mount(<ButtonWithDisabledState/>);
+      const component = mount(<ButtonWithDisabledState />);
       const button = component.find('button');
       const input = component.find('input');
 
@@ -293,7 +312,7 @@ describe('FocusableHOC', () => {
       expect(button.getDOMNode().attributes['data-focus']).toBeFalsy();
 
       /* input change, after that should be disabled === false */
-      input.simulate('change', {target: {value: '123'}});
+      input.simulate('change', { target: { value: '123' } });
       expect(button.getDOMNode().disabled).toBeFalsy();
 
       /* bug was here, after input change, button should become unfocused */

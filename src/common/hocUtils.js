@@ -18,4 +18,5 @@ export const getDisplayName = Component => {
 export const wrapDisplayName = (BaseComponent, hocName) =>
   `${hocName}(${getDisplayName(BaseComponent)})`;
 
-export const isStatelessComponent = Component => !(Component.prototype && Component.prototype.render);
+export const isStatelessComponent = Component =>
+  !(Component.prototype && Component.prototype.render);

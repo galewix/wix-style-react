@@ -1,18 +1,21 @@
 import React from 'react';
 import eyes from 'eyes.it';
 import autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
-import {getStoryUrl, waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {textLinkTestkitFactory} from '../../testkit/protractor';
+import { getStoryUrl, waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import { textLinkTestkitFactory } from '../../testkit/protractor';
 
 const storyUrl = getStoryUrl('5. Buttons', '5.8 Text Link');
-const driver = textLinkTestkitFactory({dataHook: 'storybook-textlink'});
+const driver = textLinkTestkitFactory({ dataHook: 'storybook-textlink' });
 
 describe('TextLink', () => {
   beforeAll(() => browser.get(storyUrl));
 
   beforeEach(async () => {
     await autoExampleDriver.reset();
-    await waitForVisibilityOf(driver.element(), 'Cannot find TextLink component');
+    await waitForVisibilityOf(
+      driver.element(),
+      'Cannot find TextLink component',
+    );
   });
 
   eyes.it('should render', async () => {
@@ -26,7 +29,7 @@ describe('TextLink', () => {
   eyes.it('should render prefix & sufix', async () => {
     await autoExampleDriver.setProps({
       prefixIcon: <div>prefix</div>,
-      suffixIcon: <div>suffix</div>
+      suffixIcon: <div>suffix</div>,
     });
 
     expect(await driver.isPrefixIconExists()).toBe(true);
@@ -36,7 +39,8 @@ describe('TextLink', () => {
   eyes.it('should render properly with ellipsis', async () => {
     await autoExampleDriver.setProps({
       ellipsis: true,
-      children: 'This is a very long text, very long text indeed. What can we possibly write to make this text long enough?'
+      children:
+        'This is a very long text, very long text indeed. What can we possibly write to make this text long enough?',
     });
   });
 
@@ -45,7 +49,8 @@ describe('TextLink', () => {
       prefixIcon: <div>P</div>,
       suffixIcon: <div>S</div>,
       ellipsis: true,
-      children: 'This is a very long text, very long text indeed. What can we possibly write to make this text long enough?'
+      children:
+        'This is a very long text, very long text indeed. What can we possibly write to make this text long enough?',
     });
   });
 });

@@ -5,7 +5,7 @@ import Button from 'wix-style-react/Button';
 
 import Breadcrumbs from '../Page/Breadcrumbs';
 import './PageHeader.scss';
-import {storySettings} from './storySettings';
+import { storySettings } from './storySettings';
 
 export default {
   category: storySettings.category,
@@ -16,13 +16,13 @@ export default {
   componentProps: {
     onBackClicked: () => {},
     title: 'Page Header',
-    dataHook: 'story-page-header'
+    dataHook: 'story-page-header',
   },
 
   exampleProps: {
-    breadcrumbs: [{label: 'Breadcrumbs', value: Breadcrumbs}],
+    breadcrumbs: [{ label: 'Breadcrumbs', value: Breadcrumbs }],
     actionsBar: [
-      {label: 'Button', value: <Button>Action</Button>},
+      { label: 'Button', value: <Button>Action</Button> },
       {
         label: 'Two buttons',
         value: (
@@ -30,8 +30,8 @@ export default {
             <Button>Button #1</Button>
             <Button>Button #2</Button>
           </div>
-        )
-      }
-    ]
-  }
+        ),
+      },
+    ],
+  },
 };

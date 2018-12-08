@@ -20,23 +20,23 @@ export default class Calendar extends WixComponent {
     filterDate: () => true,
     shouldCloseOnSelect: true,
     rtl: false,
-    onClose: () => {}
+    onClose: () => {},
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      month: props.value
+      month: props.value,
     };
   }
 
   // TODO: Change to getDerivedStateFromProps with React ^16.0.0
   componentWillReceiveProps(nextProps) {
-    this.setState({month: nextProps.value});
+    this.setState({ month: nextProps.value });
   }
 
-  _setMonth = month => this.setState({month});
+  _setMonth = month => this.setState({ month });
 
   _handleDayClick = (value, modifiers = {}) => {
     this.props.onChange(value, modifiers);
@@ -52,7 +52,7 @@ export default class Calendar extends WixComponent {
       excludePastDates,
       value: propsValue,
       rtl,
-      twoMonths
+      twoMonths,
     } = this.props;
 
     const month = this.state.month || propsValue || new Date();
@@ -70,15 +70,15 @@ export default class Calendar extends WixComponent {
           onLeftArrowClick: () =>
             this._setMonth(startOfMonth(addMonths(month, -1))),
           onRightArrowClick: () =>
-            this._setMonth(startOfMonth(addMonths(month, 1)))
+            this._setMonth(startOfMonth(addMonths(month, 1))),
         }}
-        />
+      />
     );
 
     return {
-      disabledDays: excludePastDates ?
-        {before: new Date()} :
-        date => !filterDate(date),
+      disabledDays: excludePastDates
+        ? { before: new Date() }
+        : date => !filterDate(date),
       initialMonth: month,
       initialYear: month,
       selectedDays: parse(propsValue),
@@ -94,7 +94,7 @@ export default class Calendar extends WixComponent {
       captionElement,
       onDayKeyDown: this._handleDayKeyDown,
       numberOfMonths: twoMonths ? 2 : 1,
-      className: twoMonths ? 'DayPicker--TwoMonths' : ''
+      className: twoMonths ? 'DayPicker--TwoMonths' : '',
     };
   };
 
@@ -109,14 +109,14 @@ export default class Calendar extends WixComponent {
     27: this.props.onClose,
 
     // tab
-    9: this.props.onClose
+    9: this.props.onClose,
   };
 
   _focusSelectedDay = dayPickerRef => {
     if (dayPickerRef) {
       this.dayPickerRef = dayPickerRef;
       const selectedDay = this.dayPickerRef.dayPicker.querySelector(
-        '.DayPicker-Day--selected'
+        '.DayPicker-Day--selected',
       );
 
       if (selectedDay) {
@@ -128,7 +128,7 @@ export default class Calendar extends WixComponent {
 
   _handleDayKeyDown = () => {
     const unfocusedDay = this.dayPickerRef.dayPicker.querySelector(
-      '.DayPicker-Day--unfocused'
+      '.DayPicker-Day--unfocused',
     );
 
     if (unfocusedDay) {
@@ -142,7 +142,7 @@ export default class Calendar extends WixComponent {
         <DayPicker
           ref={this._focusSelectedDay}
           {...this._createDayPickerProps()}
-          />
+        />
       </div>
     );
   }
@@ -200,11 +200,11 @@ Calendar.propTypes = {
       'sv',
       'no',
       'nl',
-      'da'
+      'da',
     ]),
     PropTypes.shape({
       distanceInWords: PropTypes.object,
-      format: PropTypes.object
-    })
-  ])
+      format: PropTypes.object,
+    }),
+  ]),
 };

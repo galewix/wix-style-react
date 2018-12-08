@@ -1,1 +1,1 @@
-export {default} from './InputWithOptions.js';
+export { default } from './InputWithOptions.js';

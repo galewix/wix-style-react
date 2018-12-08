@@ -1,1 +1,1 @@
-export {default} from './ModalSelectorLayout';
+export { default } from './ModalSelectorLayout';

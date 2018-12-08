@@ -1,17 +1,17 @@
 import React from 'react';
 import linkHeaderDriverFactory from './LinkHeader.driver';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
 import LinkHeader from './LinkHeader';
 import {
   linkHeaderTestkitFactory,
-  textLinkTestkitFactory
+  textLinkTestkitFactory,
 } from '../../../testkit';
-import {linkHeaderTestkitFactory as enzymeLinkHeaderTestkitFactory} from '../../../testkit/enzyme';
-import {mount} from 'enzyme';
+import { linkHeaderTestkitFactory as enzymeLinkHeaderTestkitFactory } from '../../../testkit/enzyme';
+import { mount } from 'enzyme';
 
 import {
   isTestkitExists,
-  isEnzymeTestkitExists
+  isEnzymeTestkitExists,
 } from '../../../test/utils/testkit-sanity';
 
 describe('LinkHeader', () => {
@@ -23,7 +23,7 @@ describe('LinkHeader', () => {
         linkTitle="Wix"
         linkTo="http://www.wix.com/"
         title="Header Title"
-        />
+      />,
     );
     expect(driver.title()).toBe('Header Title');
   });
@@ -35,7 +35,7 @@ describe('LinkHeader', () => {
         linkTo="http://www.wix.com/"
         title="Header Title"
         subtitle="Header Subtitle"
-        />
+      />,
     );
     expect(driver.subtitle()).toBe('Header Subtitle');
   });
@@ -47,11 +47,11 @@ describe('LinkHeader', () => {
         linkTo="http://www.wix.com/"
         title="Header Title"
         subtitle="Header Subtitle"
-        />
+      />,
     );
     const textLinkDriverTestkit = textLinkTestkitFactory({
       wrapper: driver.element(),
-      dataHook: driver.linkDataHook()
+      dataHook: driver.linkDataHook(),
     });
     expect(textLinkDriverTestkit.getContent()).toBe('Wix');
   });
@@ -64,9 +64,9 @@ describe('LinkHeader', () => {
             linkTitle="Wix"
             linkTo="http://www.wix.com/"
             title="Header Title"
-            />,
-          linkHeaderTestkitFactory
-        )
+          />,
+          linkHeaderTestkitFactory,
+        ),
       ).toBe(true);
     });
 
@@ -77,10 +77,10 @@ describe('LinkHeader', () => {
             linkTitle="Wix"
             linkTo="http://www.wix.com/"
             title="Header Title"
-            />,
+          />,
           enzymeLinkHeaderTestkitFactory,
-          mount
-        )
+          mount,
+        ),
       ).toBe(true);
     });
   });

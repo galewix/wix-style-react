@@ -1,5 +1,5 @@
 import React from 'react';
-import {Simulate, renderIntoDocument} from 'react-dom/test-utils';
+import { Simulate, renderIntoDocument } from 'react-dom/test-utils';
 
 import Ticker from '../Ticker';
 
@@ -12,14 +12,19 @@ export const tickerDriverFactory = component => {
     clickUp: () => Simulate.click(handlers.getUp()),
     clickDown: () => Simulate.click(handlers.getDown()),
     isUpDisabled: () => handlers.getUp().classList.contains(styles.disabled),
-    isDownDisabled: () => handlers.getDown().classList.contains(styles.disabled),
-    exists: () => !!component
+    isDownDisabled: () =>
+      handlers.getDown().classList.contains(styles.disabled),
+    exists: () => !!component,
   };
   return handlers;
 };
 
 export const componentFactory = (props = {}) =>
-  renderIntoDocument(<div><Ticker {...props}/></div>).childNodes[0];
+  renderIntoDocument(
+    <div>
+      <Ticker {...props} />
+    </div>,
+  ).childNodes[0];
 
-export const tickerTestkitFactory = ({wrapper}) =>
+export const tickerTestkitFactory = ({ wrapper }) =>
   tickerDriverFactory(wrapper.querySelector('[data-hook=ticker]'));

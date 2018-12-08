@@ -1,28 +1,42 @@
 import React from 'react';
-import {Table, ToolbarContextPropTypes} from 'wix-style-react/Table';
+import { Table, ToolbarContextPropTypes } from 'wix-style-react/Table';
 import {
   TableToolbar,
   ItemGroup,
   Item,
   Title,
-  SelectedCount
+  SelectedCount,
 } from 'wix-style-react/TableToolbar';
 
 import TableActionCell from 'wix-style-react/TableActionCell';
 import Card from 'wix-style-react/Card';
-import {Star, Download, Duplicate, Print} from 'wix-style-react/new-icons';
+import { Star, Download, Duplicate, Print } from 'wix-style-react/new-icons';
 
 const baseData = [
-  {name: 'Apple Towels', SKU: '111222', price: '$2.00', inventory: 'In stock'},
-  {name: 'Cyan Towels', SKU: '222333', price: '$2.00', inventory: 'In stock'},
-  {name: 'Marble Slippers', SKU: '333444', price: '$14.00', inventory: 'In stock'},
-  {name: 'Red Slippers', SKU: '444555', price: '$14.00', inventory: 'Out of stock'}
+  {
+    name: 'Apple Towels',
+    SKU: '111222',
+    price: '$2.00',
+    inventory: 'In stock',
+  },
+  { name: 'Cyan Towels', SKU: '222333', price: '$2.00', inventory: 'In stock' },
+  {
+    name: 'Marble Slippers',
+    SKU: '333444',
+    price: '$14.00',
+    inventory: 'In stock',
+  },
+  {
+    name: 'Red Slippers',
+    SKU: '444555',
+    price: '$14.00',
+    inventory: 'Out of stock',
+  },
 ];
 
 const primaryAction = rowData => window.alert(`Editing ${rowData.name}`);
 
 export class ActionCellPrimarySecondaryExample extends React.Component {
-
   render() {
     return (
       <Card>
@@ -33,10 +47,30 @@ export class ActionCellPrimarySecondaryExample extends React.Component {
           showSelection
           onRowClick={primaryAction}
           columns={[
-            {title: 'Name', render: row => <span>{row.name}</span>, width: '20%', minWidth: '150px'},
-            {title: 'SKU', render: row => <span>{row.SKU}</span>, width: '10%', minWidth: '100px'},
-            {title: 'Price', render: row => <span>{row.price}</span>, width: '10%', minWidth: '100px'},
-            {title: 'Inventory', render: row => <span>{row.inventory}</span>, width: '20%', minWidth: '100px'},
+            {
+              title: 'Name',
+              render: row => <span>{row.name}</span>,
+              width: '20%',
+              minWidth: '150px',
+            },
+            {
+              title: 'SKU',
+              render: row => <span>{row.SKU}</span>,
+              width: '10%',
+              minWidth: '100px',
+            },
+            {
+              title: 'Price',
+              render: row => <span>{row.price}</span>,
+              width: '10%',
+              minWidth: '100px',
+            },
+            {
+              title: 'Inventory',
+              render: row => <span>{row.inventory}</span>,
+              width: '20%',
+              minWidth: '100px',
+            },
             {
               title: '',
               width: '40%',
@@ -46,29 +80,49 @@ export class ActionCellPrimarySecondaryExample extends React.Component {
                   primaryAction={{
                     text: 'Edit',
                     theme: 'fullblue',
-                    onActionTrigger: () => primaryAction(rowData)
+                    onActionTrigger: () => primaryAction(rowData),
                   }}
                   secondaryActions={[
-                    {text: 'Star', icon: <Star/>, onClick: () => window.alert(`Starring ${rowData.name}`)},
-                    {text: 'Download', icon: <Download/>, onClick: () => window.alert(`Downloading ${rowData.name}`)},
-                    {text: 'Duplicate', icon: <Duplicate/>, onClick: () => window.alert(`Duplicating ${(rowData.name)}`)},
-                    {text: 'Print', icon: <Print/>, onClick: () => window.alert(`Printing ${rowData.name}`)}
+                    {
+                      text: 'Star',
+                      icon: <Star />,
+                      onClick: () => window.alert(`Starring ${rowData.name}`),
+                    },
+                    {
+                      text: 'Download',
+                      icon: <Download />,
+                      onClick: () =>
+                        window.alert(`Downloading ${rowData.name}`),
+                    },
+                    {
+                      text: 'Duplicate',
+                      icon: <Duplicate />,
+                      onClick: () =>
+                        window.alert(`Duplicating ${rowData.name}`),
+                    },
+                    {
+                      text: 'Print',
+                      icon: <Print />,
+                      onClick: () => window.alert(`Printing ${rowData.name}`),
+                    },
                   ]}
                   numOfVisibleSecondaryActions={2}
                   alwaysShowSecondaryActions={false}
-                  />
+                />
+              ),
+            },
+          ]}
+        >
+          <Table.ToolbarContainer>
+            {selectionContext =>
+              selectionContext.selectedCount === 0 ? (
+                <MainToolbar />
+              ) : (
+                <BulkActionsToolbar {...selectionContext} />
               )
             }
-          ]}
-          >
-          <Table.ToolbarContainer>
-            { selectionContext =>
-               selectionContext.selectedCount === 0 ?
-                 <MainToolbar/> :
-                 <BulkActionsToolbar {...selectionContext}/>
-            }
           </Table.ToolbarContainer>
-          <Table.Content/>
+          <Table.Content />
         </Table>
       </Card>
     );

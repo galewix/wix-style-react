@@ -1,1 +1,1 @@
-export {default} from './ButtonLayout.js';
+export { default } from './ButtonLayout.js';

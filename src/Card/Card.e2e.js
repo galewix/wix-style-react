@@ -1,10 +1,13 @@
 import eyes from 'eyes.it';
-import {waitForVisibilityOf, scrollToElement} from 'wix-ui-test-utils/protractor';
-import {createStoryUrl} from '../../test/utils/storybook-helpers';
+import {
+  waitForVisibilityOf,
+  scrollToElement,
+} from 'wix-ui-test-utils/protractor';
+import { createStoryUrl } from '../../test/utils/storybook-helpers';
 
 describe('Card and Grid', () => {
   const byDataHook = dataHook => $(`[data-hook="${dataHook}"]`);
-  const storyUrl = createStoryUrl({kind: '2. Layout', story: 'Card'});
+  const storyUrl = createStoryUrl({ kind: '2. Layout', story: 'Card' });
 
   eyes.it('should not break design', async () => {
     const dataHook = 'card-example-basic';

@@ -1,6 +1,6 @@
 import ReactTestUtils from 'react-dom/test-utils';
 
-const TextLinkDriverFactory = ({element}) => {
+const TextLinkDriverFactory = ({ element }) => {
   return {
     exists: () => !!element,
     click: () => {
@@ -10,7 +10,7 @@ const TextLinkDriverFactory = ({element}) => {
         element.simulate('click');
       }
     },
-    getTextContent: () => element.textContent
+    getTextContent: () => element.textContent,
   };
 };
 

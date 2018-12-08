@@ -7,11 +7,12 @@ import ExampleStandard from './ExampleStandard';
 import ExampleStandardRaw from '!raw-loader!./ExampleStandard';
 
 const exampleImageUrl = [
-  {label: 'No Image', value: ''},
+  { label: 'No Image', value: '' },
   {
     label: 'Image',
-    value: 'https://static.wixstatic.com/media/c78d05b79ede429fb77c9d8ec4443b93.jpg/v1/fit/w_375,h_375/c78d05b79ede429fb77c9d8ec4443b93.jpg'
-  }
+    value:
+      'https://static.wixstatic.com/media/c78d05b79ede429fb77c9d8ec4443b93.jpg/v1/fit/w_375,h_375/c78d05b79ede429fb77c9d8ec4443b93.jpg',
+  },
 ];
 
 export default {
@@ -23,7 +24,7 @@ export default {
 
   componentProps: {
     dataHook: 'story-image-viewer',
-    imageUrl: exampleImageUrl[0].value
+    imageUrl: exampleImageUrl[0].value,
   },
 
   exampleProps: {
@@ -31,12 +32,12 @@ export default {
     onAddImage: () => 'onAddImage',
     onUpdateImage: () => 'onUpdateImage',
     onRemoveImage: () => 'onRemoveImage',
-    tooltipProps: [{label: 'from left', value: {placement: 'left'}}]
+    tooltipProps: [{ label: 'from left', value: { placement: 'left' } }],
   },
 
   examples: (
     <CodeExample title="Standard" code={ExampleStandardRaw}>
-      <ExampleStandard/>
+      <ExampleStandard />
     </CodeExample>
-  )
+  ),
 };

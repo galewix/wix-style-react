@@ -12,7 +12,5 @@ const renderIcon = name => {
 };
 
 export default () => {
-  return (<div className={s.iconList}>
-    {Object.keys(Icons).map(renderIcon)}
-  </div>);
+  return <div className={s.iconList}>{Object.keys(Icons).map(renderIcon)}</div>;
 };

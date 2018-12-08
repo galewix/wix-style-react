@@ -6,6 +6,6 @@ import Styles from './Styles.md';
 
 export default () => (
   <div>
-    <Markdown source={Styles}/>
+    <Markdown source={Styles} />
   </div>
 );

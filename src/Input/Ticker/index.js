@@ -1,1 +1,1 @@
-export {default} from './Ticker.js';
+export { default } from './Ticker.js';

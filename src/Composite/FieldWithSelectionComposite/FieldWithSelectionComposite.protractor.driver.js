@@ -5,7 +5,7 @@ const FieldWithSelectionCompositeDriverFactory = component => {
     getLabel: () => component.find('label'),
     getInput: () => inputWrappers.all(by.xpath('./div')).first(),
     getSelection: () => inputWrappers.all(by.xpath('./div')).last(),
-    element: () => component
+    element: () => component,
   };
 };
 

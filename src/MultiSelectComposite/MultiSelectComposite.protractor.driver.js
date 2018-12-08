@@ -6,7 +6,7 @@ const multiSelectCompositeDriverFactory = component => {
 
   return {
     ...inputAreaWithLabelCompositeDriverFactory(component),
-    ...multiSelectDriverFactory(multiSelect)
+    ...multiSelectDriverFactory(multiSelect),
   };
 };
 

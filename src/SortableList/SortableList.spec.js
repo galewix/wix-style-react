@@ -1,28 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 
 import TestBackend from '../DragDropContextProvider/TestBackend';
 import DragDropContextProvider from '../DragDropContextProvider';
-import Modal from './../Modal';
-import Tooltip from './../Tooltip';
-import Button from './../Button';
+import Modal from '../Modal';
+import Tooltip from '../Tooltip';
+import Button from '../Button';
 
-import {sortableListTestkitFactory} from '../../testkit';
-import {sortableListTestkitFactory as enzymeSortableListTestkitFactory} from '../../testkit/enzyme';
+import { sortableListTestkitFactory } from '../../testkit';
+import { sortableListTestkitFactory as enzymeSortableListTestkitFactory } from '../../testkit/enzyme';
 
 import privateSortableListDriver from './SortableList.driver.private';
 
 import SortableList from './SortableList';
 
 describe('SortableList', () => {
-
   it('should exists', () => {
     const dataHook = 'sortable-list';
-    const items = [{id: '1', text: 'item 1'}, {id: '2', text: 'item 2'}];
+    const items = [{ id: '1', text: 'item 1' }, { id: '2', text: 'item 2' }];
     const onDrop = jest.fn();
-    const renderItem = ({item}) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
+    const renderItem = ({ item }) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
 
     const wrapper = ReactTestUtils.renderIntoDocument(
       <DragDropContextProvider backend={TestBackend}>
@@ -33,21 +32,20 @@ describe('SortableList', () => {
           items={items}
           renderItem={renderItem}
           onDrop={onDrop}
-          />
-      </DragDropContextProvider>
+        />
+      </DragDropContextProvider>,
     );
-    const driver = sortableListTestkitFactory({wrapper, dataHook});
+    const driver = sortableListTestkitFactory({ wrapper, dataHook });
     expect(driver.exists()).toBeTruthy();
   });
 
   it('should call onDragStart and onDragEnd', () => {
-
     const dataHook = 'sortable-list';
-    const items = [{id: '1', text: 'item 1'}, {id: '2', text: 'item 2'}];
+    const items = [{ id: '1', text: 'item 1' }, { id: '2', text: 'item 2' }];
     const onDrop = jest.fn();
     const onDragStart = jest.fn();
     const onDragEnd = jest.fn();
-    const renderItem = ({item}) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
+    const renderItem = ({ item }) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
 
     const wrapper = ReactTestUtils.renderIntoDocument(
       <DragDropContextProvider backend={TestBackend}>
@@ -61,11 +59,14 @@ describe('SortableList', () => {
           onDrop={onDrop}
           onDragStart={onDragStart}
           onDragEnd={onDragEnd}
-          />
-      </DragDropContextProvider>
+        />
+      </DragDropContextProvider>,
     );
 
-    const privateDriver = privateSortableListDriver({wrapper, element: ReactDOM.findDOMNode(wrapper)});
+    const privateDriver = privateSortableListDriver({
+      wrapper,
+      element: ReactDOM.findDOMNode(wrapper),
+    });
 
     privateDriver.beginDrag('1');
     privateDriver.endDrag();
@@ -75,23 +76,23 @@ describe('SortableList', () => {
       groupName: 'group',
       id: '1',
       index: 0,
-      item: {id: '1', text: 'item 1'}
+      item: { id: '1', text: 'item 1' },
     });
     expect(onDragEnd).toBeCalledWith({
       containerId: 'sortable-list',
       groupName: 'group',
       id: '1',
       index: 0,
-      item: {id: '1', text: 'item 1'}
+      item: { id: '1', text: 'item 1' },
     });
     expect(onDrop).not.toBeCalled();
   });
 
   it('should call onDrop', () => {
     const dataHook = 'sortable-list';
-    const items = [{id: '1', text: 'item 1'}, {id: '2', text: 'item 2'}];
+    const items = [{ id: '1', text: 'item 1' }, { id: '2', text: 'item 2' }];
     const onDrop = jest.fn();
-    const renderItem = ({item}) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
+    const renderItem = ({ item }) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
 
     const wrapper = ReactTestUtils.renderIntoDocument(
       <DragDropContextProvider backend={TestBackend}>
@@ -102,27 +103,27 @@ describe('SortableList', () => {
           items={items}
           renderItem={renderItem}
           onDrop={onDrop}
-          />
-      </DragDropContextProvider>
+        />
+      </DragDropContextProvider>,
     );
-    const driver = sortableListTestkitFactory({wrapper, dataHook});
+    const driver = sortableListTestkitFactory({ wrapper, dataHook });
 
-    driver.reorder({removedId: '1', addedId: '2'});
+    driver.reorder({ removedId: '1', addedId: '2' });
 
     expect(onDrop).toBeCalledWith({
       addedIndex: 1,
       addedToContainerId: 'sortable-list',
-      payload: {id: '1', text: 'item 1'},
+      payload: { id: '1', text: 'item 1' },
       removedFromContainerId: 'sortable-list',
-      removedIndex: 0
+      removedIndex: 0,
     });
   });
 
   it('should call onDrop(with portal)', () => {
     const dataHook = 'sortable-list';
-    const items = [{id: '1', text: 'item 1'}, {id: '2', text: 'item 2'}];
+    const items = [{ id: '1', text: 'item 1' }, { id: '2', text: 'item 2' }];
     const onDrop = jest.fn();
-    const renderItem = ({item}) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
+    const renderItem = ({ item }) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
 
     const wrapper = ReactTestUtils.renderIntoDocument(
       <DragDropContextProvider backend={TestBackend}>
@@ -134,27 +135,27 @@ describe('SortableList', () => {
           items={items}
           renderItem={renderItem}
           onDrop={onDrop}
-          />
-      </DragDropContextProvider>
+        />
+      </DragDropContextProvider>,
     );
-    const driver = sortableListTestkitFactory({wrapper, dataHook});
+    const driver = sortableListTestkitFactory({ wrapper, dataHook });
 
-    driver.reorder({removedId: '1', addedId: '2'});
+    driver.reorder({ removedId: '1', addedId: '2' });
 
     expect(onDrop).toBeCalledWith({
       addedIndex: 1,
       addedToContainerId: 'sortable-list',
-      payload: {id: '1', text: 'item 1'},
+      payload: { id: '1', text: 'item 1' },
       removedFromContainerId: 'sortable-list',
-      removedIndex: 0
+      removedIndex: 0,
     });
   });
 
   it('should call onDrop(inside of the modal)', () => {
     const dataHook = 'sortable-list';
-    const items = [{id: '1', text: 'item 1'}, {id: '2', text: 'item 2'}];
+    const items = [{ id: '1', text: 'item 1' }, { id: '2', text: 'item 2' }];
     const onDrop = jest.fn();
-    const renderItem = ({item}) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
+    const renderItem = ({ item }) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
 
     const wrapper = ReactTestUtils.renderIntoDocument(
       <DragDropContextProvider backend={TestBackend}>
@@ -166,28 +167,28 @@ describe('SortableList', () => {
             items={items}
             renderItem={renderItem}
             onDrop={onDrop}
-            />
+          />
         </Modal>
-      </DragDropContextProvider>
+      </DragDropContextProvider>,
     );
-    const driver = sortableListTestkitFactory({wrapper, dataHook});
+    const driver = sortableListTestkitFactory({ wrapper, dataHook });
 
-    driver.reorder({removedId: '1', addedId: '2'});
+    driver.reorder({ removedId: '1', addedId: '2' });
 
     expect(onDrop).toBeCalledWith({
       addedIndex: 1,
       addedToContainerId: 'sortable-list',
-      payload: {id: '1', text: 'item 1'},
+      payload: { id: '1', text: 'item 1' },
       removedFromContainerId: 'sortable-list',
-      removedIndex: 0
+      removedIndex: 0,
     });
   });
 
   it('should call onDrop(inside of the tooltip)', done => {
     const dataHook = 'sortable-list';
-    const items = [{id: '1', text: 'item 1'}, {id: '2', text: 'item 2'}];
+    const items = [{ id: '1', text: 'item 1' }, { id: '2', text: 'item 2' }];
     const onDrop = jest.fn();
-    const renderItem = ({item}) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
+    const renderItem = ({ item }) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
 
     const wrapper = ReactTestUtils.renderIntoDocument(
       <DragDropContextProvider backend={TestBackend}>
@@ -202,25 +203,23 @@ describe('SortableList', () => {
               items={items}
               renderItem={renderItem}
               onDrop={onDrop}
-              />
+            />
           }
-          >
-          <Button>
-            Click me
-          </Button>
+        >
+          <Button>Click me</Button>
         </Tooltip>
-      </DragDropContextProvider>
+      </DragDropContextProvider>,
     );
-    const driver = sortableListTestkitFactory({wrapper, dataHook});
+    const driver = sortableListTestkitFactory({ wrapper, dataHook });
     setTimeout(() => {
-      driver.reorder({removedId: '1', addedId: '2'});
+      driver.reorder({ removedId: '1', addedId: '2' });
 
       expect(onDrop).toBeCalledWith({
         addedIndex: 1,
         addedToContainerId: 'sortable-list',
-        payload: {id: '1', text: 'item 1'},
+        payload: { id: '1', text: 'item 1' },
         removedFromContainerId: 'sortable-list',
-        removedIndex: 0
+        removedIndex: 0,
       });
       done();
     }, 100);
@@ -228,9 +227,9 @@ describe('SortableList', () => {
 
   it('should call onDrop(inside of the tooltip with portal)', done => {
     const dataHook = 'sortable-list-inside-of-a-tooltip';
-    const items = [{id: '1', text: 'item 1'}, {id: '2', text: 'item 2'}];
+    const items = [{ id: '1', text: 'item 1' }, { id: '2', text: 'item 2' }];
     const onDrop = jest.fn();
-    const renderItem = ({item}) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
+    const renderItem = ({ item }) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
 
     const wrapper = ReactTestUtils.renderIntoDocument(
       <DragDropContextProvider backend={TestBackend}>
@@ -246,24 +245,22 @@ describe('SortableList', () => {
               items={items}
               renderItem={renderItem}
               onDrop={onDrop}
-              />
+            />
           }
-          >
-          <Button>
-            Click me
-          </Button>
+        >
+          <Button>Click me</Button>
         </Tooltip>
-      </DragDropContextProvider>
+      </DragDropContextProvider>,
     );
-    const driver = sortableListTestkitFactory({wrapper, dataHook});
+    const driver = sortableListTestkitFactory({ wrapper, dataHook });
     setTimeout(() => {
-      driver.reorder({removedId: '1', addedId: '2'});
+      driver.reorder({ removedId: '1', addedId: '2' });
       expect(onDrop).toBeCalledWith({
         addedIndex: 1,
         addedToContainerId: 'sortable-list',
-        payload: {id: '1', text: 'item 1'},
+        payload: { id: '1', text: 'item 1' },
         removedFromContainerId: 'sortable-list',
-        removedIndex: 0
+        removedIndex: 0,
       });
       done();
     }, 100);
@@ -271,9 +268,9 @@ describe('SortableList', () => {
 
   it('should call onDrop(inside of the modal with nested DragDropContextProvider)', () => {
     const dataHook = 'sortable-list';
-    const items = [{id: '1', text: 'item 1'}, {id: '2', text: 'item 2'}];
+    const items = [{ id: '1', text: 'item 1' }, { id: '2', text: 'item 2' }];
     const onDrop = jest.fn();
-    const renderItem = ({item}) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
+    const renderItem = ({ item }) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
 
     const wrapper = ReactTestUtils.renderIntoDocument(
       <Modal isOpen contentLabel="">
@@ -285,19 +282,19 @@ describe('SortableList', () => {
             items={items}
             renderItem={renderItem}
             onDrop={onDrop}
-            />
+          />
         </DragDropContextProvider>
-      </Modal>
+      </Modal>,
     );
-    const driver = sortableListTestkitFactory({wrapper, dataHook});
-    driver.reorder({removedId: '1', addedId: '2'});
+    const driver = sortableListTestkitFactory({ wrapper, dataHook });
+    driver.reorder({ removedId: '1', addedId: '2' });
 
     expect(onDrop).toBeCalledWith({
       addedIndex: 1,
       addedToContainerId: 'sortable-list',
-      payload: {id: '1', text: 'item 1'},
+      payload: { id: '1', text: 'item 1' },
       removedFromContainerId: 'sortable-list',
-      removedIndex: 0
+      removedIndex: 0,
     });
   });
 });
@@ -305,9 +302,9 @@ describe('SortableList', () => {
 describe('Enzyme: SortableList', () => {
   it('should call onDrop', () => {
     const dataHook = 'sortable-list';
-    const items = [{id: '1', text: 'item 1'}, {id: '2', text: 'item 2'}];
+    const items = [{ id: '1', text: 'item 1' }, { id: '2', text: 'item 2' }];
     const onDrop = jest.fn();
-    const renderItem = ({item}) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
+    const renderItem = ({ item }) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
 
     const wrapper = mount(
       <DragDropContextProvider backend={TestBackend}>
@@ -318,29 +315,31 @@ describe('Enzyme: SortableList', () => {
           items={items}
           renderItem={renderItem}
           onDrop={onDrop}
-          />
-      </DragDropContextProvider>
+        />
+      </DragDropContextProvider>,
     );
-    const driver = enzymeSortableListTestkitFactory({wrapper, dataHook});
+    const driver = enzymeSortableListTestkitFactory({ wrapper, dataHook });
 
-    driver.reorder({removedId: '1', addedId: '2'});
+    driver.reorder({ removedId: '1', addedId: '2' });
 
     expect(onDrop).toBeCalledWith({
       addedIndex: 1,
       addedToContainerId: 'sortable-list',
-      payload: {id: '1', text: 'item 1'},
+      payload: { id: '1', text: 'item 1' },
       removedFromContainerId: 'sortable-list',
-      removedIndex: 0
+      removedIndex: 0,
     });
   });
 
   it('should call onDrop when drag between columns', () => {
     const dataHook = 'sortable-list';
-    const items = [{id: '1', text: 'item 1'}, {id: '2', text: 'item 2'}];
-    const items2 = [{id: '11', text: 'item 11'}, {id: '21', text: 'item 21'}];
+    const items = [{ id: '1', text: 'item 1' }, { id: '2', text: 'item 2' }];
+    const items2 = [
+      { id: '11', text: 'item 11' },
+      { id: '21', text: 'item 21' },
+    ];
     const onDrop = jest.fn();
-    const renderItem = ({item}) => <div key={item.id}>{item.text}</div>; // eslint-disable-line react/prop-types
-
+    const renderItem = ({ item }) => <div key={item.id}>{item.text}</div>; // eslint-disable-line react/prop-types
 
     class MyComponent extends React.Component {
       render() {
@@ -354,7 +353,7 @@ describe('Enzyme: SortableList', () => {
               items={items}
               renderItem={renderItem}
               onDrop={onDrop}
-              />
+            />
             <SortableList
               contentClassName="cl"
               dataHook={dataHook}
@@ -363,7 +362,7 @@ describe('Enzyme: SortableList', () => {
               items={items2}
               renderItem={renderItem}
               onDrop={onDrop}
-              />
+            />
           </div>
         );
       }
@@ -371,29 +370,34 @@ describe('Enzyme: SortableList', () => {
 
     const wrapper = mount(
       <DragDropContextProvider backend={TestBackend}>
-        <MyComponent/>
-      </DragDropContextProvider>
+        <MyComponent />
+      </DragDropContextProvider>,
     );
-    const driver = enzymeSortableListTestkitFactory({wrapper, dataHook});
+    const driver = enzymeSortableListTestkitFactory({ wrapper, dataHook });
 
-    driver.reorder({removedId: '1', addedId: '21'});
+    driver.reorder({ removedId: '1', addedId: '21' });
 
     expect(onDrop).toBeCalledWith({
       addedIndex: 1,
       addedToContainerId: 'sortable-list-2',
-      payload: {id: '1', text: 'item 1'},
+      payload: { id: '1', text: 'item 1' },
       removedFromContainerId: 'sortable-list-1',
-      removedIndex: 0
+      removedIndex: 0,
     });
   });
 
   it('should call onDrop when drag&drop columns', () => {
     const dataHook = 'sortable-list';
-    const items = [{id: '1', text: 'item 1'}, {id: '2', text: 'item 2'}];
-    const items2 = [{id: '11', text: 'item 11'}, {id: '21', text: 'item 21'}];
+    const items = [{ id: '1', text: 'item 1' }, { id: '2', text: 'item 2' }];
+    const items2 = [
+      { id: '11', text: 'item 11' },
+      { id: '21', text: 'item 21' },
+    ];
     const onDrop = jest.fn();
-    const renderItem = ({item}) => <div key={item.id}>{item.text}</div>; // eslint-disable-line react/prop-types
-    const renderColumn = ({item}) => ( // eslint-disable-line react/prop-types
+    const renderItem = ({ item }) => <div key={item.id}>{item.text}</div>; // eslint-disable-line react/prop-types
+    const renderColumn = (
+      { item }, // eslint-disable-line react/prop-types
+    ) => (
       <div key={item.id}>
         <SortableList
           contentClassName="cl"
@@ -402,7 +406,7 @@ describe('Enzyme: SortableList', () => {
           items={items2}
           renderItem={renderItem}
           onDrop={onDrop}
-          />
+        />
       </div>
     );
 
@@ -418,7 +422,7 @@ describe('Enzyme: SortableList', () => {
               items={items}
               renderItem={renderColumn}
               onDrop={onDrop}
-              />
+            />
           </div>
         );
       }
@@ -426,27 +430,27 @@ describe('Enzyme: SortableList', () => {
 
     const wrapper = mount(
       <DragDropContextProvider backend={TestBackend}>
-        <MyComponent/>
-      </DragDropContextProvider>
+        <MyComponent />
+      </DragDropContextProvider>,
     );
-    const driver = enzymeSortableListTestkitFactory({wrapper, dataHook});
+    const driver = enzymeSortableListTestkitFactory({ wrapper, dataHook });
 
-    driver.reorder({removedId: '1', addedId: '2'});
+    driver.reorder({ removedId: '1', addedId: '2' });
 
     expect(onDrop).toBeCalledWith({
       addedIndex: 1,
       addedToContainerId: 'sortable-list-1',
-      payload: {id: '1', text: 'item 1'},
+      payload: { id: '1', text: 'item 1' },
       removedFromContainerId: 'sortable-list-1',
-      removedIndex: 0
+      removedIndex: 0,
     });
   });
 
   it('should call onDrop(with portal)', () => {
     const dataHook = 'sortable-list';
-    const items = [{id: '1', text: 'item 1'}, {id: '2', text: 'item 2'}];
+    const items = [{ id: '1', text: 'item 1' }, { id: '2', text: 'item 2' }];
     const onDrop = jest.fn();
-    const renderItem = ({item}) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
+    const renderItem = ({ item }) => <div>{item.text}</div>; // eslint-disable-line react/prop-types
 
     const wrapper = mount(
       <DragDropContextProvider backend={TestBackend}>
@@ -458,19 +462,19 @@ describe('Enzyme: SortableList', () => {
           items={items}
           renderItem={renderItem}
           onDrop={onDrop}
-          />
-      </DragDropContextProvider>
+        />
+      </DragDropContextProvider>,
     );
-    const driver = enzymeSortableListTestkitFactory({wrapper, dataHook});
+    const driver = enzymeSortableListTestkitFactory({ wrapper, dataHook });
 
-    driver.reorder({removedId: '1', addedId: '2'});
+    driver.reorder({ removedId: '1', addedId: '2' });
 
     expect(onDrop).toBeCalledWith({
       addedIndex: 1,
       addedToContainerId: 'sortable-list',
-      payload: {id: '1', text: 'item 1'},
+      payload: { id: '1', text: 'item 1' },
       removedFromContainerId: 'sortable-list',
-      removedIndex: 0
+      removedIndex: 0,
     });
   });
 });

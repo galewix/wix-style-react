@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import styles from './TooltipContent.scss';
 
 class TooltipContent extends Component {
-
   static propTypes = {
     /** className for tooltip content  */
     contentClassName: PropTypes.string,
@@ -77,7 +76,7 @@ class TooltipContent extends Component {
     showImmediately: PropTypes.bool,
 
     /** Show an arrow shape */
-    showArrow: PropTypes.bool
+    showArrow: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -86,11 +85,10 @@ class TooltipContent extends Component {
     maxWidth: '204px',
     size: 'normal',
     textAlign: 'center',
-    showArrow: true
+    showArrow: true,
   };
 
   render() {
-
     const {
       children,
       contentClassName,
@@ -109,29 +107,57 @@ class TooltipContent extends Component {
       color,
       lineHeight,
       showImmediately,
-      showArrow
+      showArrow,
     } = this.props;
 
     return (
-      <div className={styles.root} style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        <div className={classnames({[styles.fadeIn]: !showImmediately})}>
-          <div className={classnames({[styles[`bounce-${arrowPlacement}`]]: bounce})}>
-            <div ref={ref => this.tooltip = ref} className={classnames(styles.tooltip, styles[theme], styles[size], contentClassName)} style={{maxWidth, minWidth, textAlign, padding, lineHeight, color}}>
+      <div
+        className={styles.root}
+        style={style}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <div className={classnames({ [styles.fadeIn]: !showImmediately })}>
+          <div
+            className={classnames({
+              [styles[`bounce-${arrowPlacement}`]]: bounce,
+            })}
+          >
+            <div
+              ref={ref => (this.tooltip = ref)}
+              className={classnames(
+                styles.tooltip,
+                styles[theme],
+                styles[size],
+                contentClassName,
+              )}
+              style={{
+                maxWidth,
+                minWidth,
+                textAlign,
+                padding,
+                lineHeight,
+                color,
+              }}
+            >
               <div data-hook="tooltip-content">{children}</div>
             </div>
             {showArrow && (
               <div
                 data-hook="tooltip-arrow"
-                className={classnames(styles.arrow, styles[theme], styles[arrowPlacement])}
+                className={classnames(
+                  styles.arrow,
+                  styles[theme],
+                  styles[arrowPlacement],
+                )}
                 style={arrowStyle}
-                />
+              />
             )}
           </div>
         </div>
       </div>
     );
   }
-
 }
 
 export default TooltipContent;

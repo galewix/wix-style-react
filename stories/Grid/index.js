@@ -1,5 +1,5 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 import Markdown from 'wix-storybook-utils/Markdown';
 import CodeExample from 'wix-storybook-utils/CodeExample';
 
@@ -17,25 +17,30 @@ import ExampleAutoAdjustedRowRaw from '!raw-loader!./ExampleAutoAdjustedRow';
 
 import GridReadme from '../../src/Grid/README.md';
 
-storiesOf('2. Layout', module)
-  .add('Grid', () => (
-    <div>
-      <Markdown source={GridReadme}/>
+storiesOf('2. Layout', module).add('Grid', () => (
+  <div>
+    <Markdown source={GridReadme} />
 
-      <CodeExample title="Basic Example" code={ExampleBasicGridRaw}>
-        <ExampleBasicGrid/>
-      </CodeExample>
+    <CodeExample title="Basic Example" code={ExampleBasicGridRaw}>
+      <ExampleBasicGrid />
+    </CodeExample>
 
-      <CodeExample title="Example with Card" code={ExampleGridStandardRaw}>
-        <ExampleGridStandard/>
-      </CodeExample>
+    <CodeExample title="Example with Card" code={ExampleGridStandardRaw}>
+      <ExampleGridStandard />
+    </CodeExample>
 
-      <CodeExample title="Grid with equal height columns" code={ExampleRowWithEqualHeightRaw}>
-        <ExampleRowWithEqualHeight/>
-      </CodeExample>
+    <CodeExample
+      title="Grid with equal height columns"
+      code={ExampleRowWithEqualHeightRaw}
+    >
+      <ExampleRowWithEqualHeight />
+    </CodeExample>
 
-      <CodeExample title="Grid with auto adjusted columns" code={ExampleAutoAdjustedRowRaw}>
-        <ExampleAutoAdjustedRow/>
-      </CodeExample>
-    </div>
-  ));
+    <CodeExample
+      title="Grid with auto adjusted columns"
+      code={ExampleAutoAdjustedRowRaw}
+    >
+      <ExampleAutoAdjustedRow />
+    </CodeExample>
+  </div>
+));

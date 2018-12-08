@@ -1,6 +1,6 @@
-import {findDOMNode} from 'react-dom';
+import { findDOMNode } from 'react-dom';
 
-export const dragCoordinates = ({monitor, component}) => {
+export const dragCoordinates = ({ monitor, component }) => {
   const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
 
   // Get vertical middle
@@ -14,6 +14,11 @@ export const dragCoordinates = ({monitor, component}) => {
   const hoverClientY = clientOffset.y - hoverBoundingRect.top;
   const hoverClientX = clientOffset.x - hoverBoundingRect.left;
 
-  return {hoverMiddleY, clientOffset, hoverClientY, hoverMiddleX, hoverClientX};
+  return {
+    hoverMiddleY,
+    clientOffset,
+    hoverClientY,
+    hoverMiddleX,
+    hoverClientX,
+  };
 };
-

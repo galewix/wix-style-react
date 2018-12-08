@@ -1,1 +1,1 @@
-export {default} from './Highlighter.js';
+export { default } from './Highlighter.js';

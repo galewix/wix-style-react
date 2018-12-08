@@ -1,0 +1,14 @@
+.thumb {
+  width: 18px;
+  height: 18px;
+  background-color: green;
+  float: left;
+  border-radius: 50%;
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70px;
+}

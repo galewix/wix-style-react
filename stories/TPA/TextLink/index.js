@@ -1,5 +1,5 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 import Markdown from 'wix-storybook-utils/Markdown';
 import TabbedView from 'wix-storybook-utils/TabbedView';
 import CodeExample from 'wix-storybook-utils/CodeExample';
@@ -14,17 +14,17 @@ import ReadmeTestKit from '../../../src/TPA/TextLink/README.TESTKIT.md';
 
 storiesOf('TPA', module)
   .addDecorator(WixStyleDecorator)
-  .add('TextLink', () =>
+  .add('TextLink', () => (
     <TabbedView tabs={['API', 'TestKits']}>
       <div>
-        <Markdown source={Readme}/>
+        <Markdown source={Readme} />
         <CodeExample title={'Example'} code={ExampleRaw}>
-          <Example/>
+          <Example />
         </CodeExample>
         <CodeExample title={'Customized example'} code={CustomExampleRaw}>
-          <CustomExample/>
+          <CustomExample />
         </CodeExample>
       </div>
-      <Markdown source={ReadmeTestKit}/>
+      <Markdown source={ReadmeTestKit} />
     </TabbedView>
-  );
+  ));

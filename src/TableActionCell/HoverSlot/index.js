@@ -1,1 +1,1 @@
-export {default} from './HoverSlot.js';
+export { default } from './HoverSlot.js';

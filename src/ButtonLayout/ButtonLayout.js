@@ -1,30 +1,40 @@
 import React from 'react';
-import {any, bool, oneOf, string} from 'prop-types';
+import { any, bool, oneOf, string } from 'prop-types';
 import classNames from 'classnames';
 import styles from './ButtonLayout.scss';
 
 /**
-  * General Buttons
-  */
+ * General Buttons
+ */
 const ButtonLayout = props => {
-  const {theme, hover, active, disabled, height, children, matchParent, className: extendingClassName} = props;
+  const {
+    theme,
+    hover,
+    active,
+    disabled,
+    height,
+    children,
+    matchParent,
+    className: extendingClassName,
+  } = props;
 
-  const className = classNames({
-    [styles.button]: true,
-    [styles[theme]]: true,
-    [styles.hover]: hover,
-    [styles.active]: active,
-    [styles.disabled]: disabled,
-    [styles[`height${height}`]]: height !== 'medium'
-  }, children.props.className, extendingClassName);
-
-  const _style = Object.assign({},
-    children.props.style,
+  const className = classNames(
     {
-      height,
-      display: 'inline-block'
-    }
+      [styles.button]: true,
+      [styles[theme]]: true,
+      [styles.hover]: hover,
+      [styles.active]: active,
+      [styles.disabled]: disabled,
+      [styles[`height${height}`]]: height !== 'medium',
+    },
+    children.props.className,
+    extendingClassName,
   );
+
+  const _style = Object.assign({}, children.props.style, {
+    height,
+    display: 'inline-block',
+  });
 
   if (matchParent) {
     _style.width = '100%';
@@ -33,10 +43,8 @@ const ButtonLayout = props => {
   if (React.Children.count(children) === 1) {
     return React.cloneElement(
       children,
-      {className, style: _style},
-      <div className={styles.inner}>
-        {children.props.children}
-      </div>
+      { className, style: _style },
+      <div className={styles.inner}>{children.props.children}</div>,
     );
   }
 };
@@ -44,7 +52,7 @@ const ButtonLayout = props => {
 ButtonLayout.defaultProps = {
   height: 'medium',
   theme: 'fullblue',
-  type: 'button'
+  type: 'button',
 };
 
 ButtonLayout.propTypes = {
@@ -88,10 +96,10 @@ ButtonLayout.propTypes = {
     'icon-whitesecondary',
     'no-border',
     'dark-no-border',
-    'outlined'
+    'outlined',
   ]),
 
-  type: oneOf(['button', 'submit', 'reset'])
+  type: oneOf(['button', 'submit', 'reset']),
 };
 
 ButtonLayout.displayName = 'ButtonLayout';

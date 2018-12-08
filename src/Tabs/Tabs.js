@@ -1,5 +1,4 @@
 import React from 'react';
-import omit from 'omit';
 import PropTypes from 'prop-types';
 
 import WixComponent from '../BaseComponents/WixComponent';
@@ -9,28 +8,31 @@ import classNames from 'classnames';
 import * as TabPropTypes from './core/constants/tab-prop-types';
 import styles from './Tabs.scss';
 
-
 class Tabs extends WixComponent {
-
   static defaultProps = {
-    hasDivider: true
-  }
+    hasDivider: true,
+  };
+
+  getTabItemsProps = () => {
+    /* eslint-disable no-unused-vars */
+    const { sideContent, ...tabItemsProps } = this.props;
+    return tabItemsProps;
+  };
 
   render() {
-    const {sideContent, hasDivider} = this.props;
-    const tabItemsProps = omit(['sideContent'], this.props);
+    const { sideContent, hasDivider } = this.props;
+    const tabItemsProps = this.getTabItemsProps();
     const className = classNames(styles.container, {
-      [styles.hasDivider]: hasDivider
+      [styles.hasDivider]: hasDivider,
     });
 
     return (
       <div className={className}>
-        <TabItems {...tabItemsProps}/>
-        <SideContent content={sideContent}/>
+        <TabItems {...tabItemsProps} />
+        <SideContent content={sideContent} />
       </div>
     );
   }
-
 }
 
 Tabs.propTypes = {
@@ -42,7 +44,7 @@ Tabs.propTypes = {
   type: TabPropTypes.type,
   sideContent: TabPropTypes.sideContent,
   width: TabPropTypes.width,
-  onClick: TabPropTypes.onClick
+  onClick: TabPropTypes.onClick,
 };
 
 export default Tabs;

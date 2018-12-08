@@ -1,1 +1,1 @@
-export {default} from './FullTextView.js';
+export { default } from './FullTextView.js';

@@ -1,7 +1,6 @@
 const pageHeaderDriverFactory = component => {
-
   return {
-    element: () => component
+    element: () => component,
   };
 };
 

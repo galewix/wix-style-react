@@ -1,1 +1,1 @@
-export {default} from './CircularProgressBar.js';
+export { default } from './CircularProgressBar.js';

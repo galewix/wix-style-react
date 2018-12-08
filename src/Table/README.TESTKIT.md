@@ -86,6 +86,58 @@
   expect(testkit.getRowsCount()).toBe(5);
 ```
 
+> Unit Testing Example - Table in Page
+```javascript
+import React from 'react';
+import {tableTestkitFactory} from 'wix-style-react/dist/testkit';
+/***************
+ enzyme example
+***************/
+
+const dataHook = 'myDataHook';
+const wrapper = mount(
+  <Table
+    withWrapper={false}
+    data={tableData}
+    showSelection
+  >
+    <Page>
+      <Page.Header title="My Table Title" />
+      <Page.FixedContent>
+        <Card>
+          <Table.ToolbarContainer/>
+          <Table.Titlebar dataHook="test-table-titlebar"/>
+        </Card>
+      </Page.FixedContent>
+      <Page.Content>
+        <Card>
+          <Table.Content
+            titleBarVisible={false}
+            dataHook="test-table-content"
+          />
+        </Card>
+      </Page.Content>
+    </Page>
+  </Table>
+);
+
+const titlebarDriver = enzymeTableTestkitFactory({
+  wrapper,
+  dataHook: 'test-table-titlebar',
+});
+
+const contentDriver = enzymeTableTestkitFactory({
+  wrapper,
+  dataHook: 'test-table-content',
+});
+
+
+//Do tests
+expect(titlebarDriver.getBulkSelectionCheckboxDriver().isChecked()).toBeTruthy();
+expect(contentDriver.getRowsCount()).toBe(defaultProps.data.length);
+expect(contentDriver.isRowSelected(0)).toBeTruthy();
+```
+
 
 > E2E example
 ```javascript

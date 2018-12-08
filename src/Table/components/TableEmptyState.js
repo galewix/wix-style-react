@@ -5,18 +5,16 @@ import style from '../Table.st.css';
 
 export const TableEmptyState = props => (
   <div className={style.emptyStateContainer}>
-    <EmptyState
-      {...props}
-      />
+    <EmptyState {...props} />
   </div>
 );
 
 TableEmptyState.displayName = 'Table.EmptyState';
 
 TableEmptyState.propTypes = {
-  ...EmptyState.propTypes
+  ...EmptyState.propTypes,
 };
 
 TableEmptyState.defaultProps = {
-  ...EmptyState.defaultProps
+  ...EmptyState.defaultProps,
 };

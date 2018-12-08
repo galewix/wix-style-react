@@ -1,0 +1,25 @@
+@import '../common';
+@import '../mixins';
+
+$minimum-modal-margin: 48px;
+
+.container {
+  box-shadow: $Shadow40;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100% - #{$minimum-modal-margin * 2});
+  max-width: calc(100% - #{$minimum-modal-margin * 2});
+}
+
+.fullscreen-container {
+  height: calc(100% - #{$minimum-modal-margin * 2});
+  width: calc(100% - #{$minimum-modal-margin * 2});
+}
+
+.content {
+  flex: 1;
+
+  @include default-scroll-bar;
+  overflow-y: auto;
+}

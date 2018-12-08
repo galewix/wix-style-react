@@ -15,14 +15,24 @@ function tpaStyleInjector(Component, styles) {
           const style = document.createElement('style');
           style.setAttribute('wix-style', '');
           style.setAttribute(styleSheetId, true);
-          style.innerText = styles.toString().replace(/"{{/g, '{{').replace(/}}"/g, '}}');
+          style.innerText = styles
+            .toString()
+            .replace(/"{{/g, '{{')
+            .replace(/}}"/g, '}}');
           document.head.insertBefore(style, document.head.firstChild);
         }
       }
     }
 
     render() {
-      return <Component {...this.props} injectedStyles={(styles && styles.locals) ? Object.assign({}, styles.locals) : {}}/>;
+      return (
+        <Component
+          {...this.props}
+          injectedStyles={
+            styles && styles.locals ? Object.assign({}, styles.locals) : {}
+          }
+        />
+      );
     }
   }
 

@@ -1,1 +1,1 @@
-export {default} from './CollapsedHeader';
+export { default } from './CollapsedHeader';

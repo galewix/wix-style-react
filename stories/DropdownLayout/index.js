@@ -1,5 +1,5 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 import Markdown from 'wix-storybook-utils/Markdown';
 import TabbedView from 'wix-storybook-utils/TabbedView';
 import CodeExample from 'wix-storybook-utils/CodeExample';
@@ -25,56 +25,55 @@ import ExampleControlledRawWithButtons from '!raw-loader!./ExampleControlledWith
 import ExampleControlledInContainer from './ExampleControlledInContainer';
 import ExampleControlledInContainerRaw from '!raw-loader!./ExampleControlledInContainer';
 
-import ExampleTheme from './ExampleTheme';
-import ExampleThemeRaw from '!raw-loader!./ExampleTheme';
-
-storiesOf('11. Pickers and Selectors', module)
-  .add('11.1 DropdownLayout', () => (
+storiesOf('11. Pickers and Selectors', module).add(
+  '11.1 DropdownLayout',
+  () => (
     <TabbedView tabs={['API', 'Testkit']}>
       <div>
-        <Markdown source={Readme}/>
+        <Markdown source={Readme} />
 
         <h1>Usage examples</h1>
 
         <CodeExample title="Standard" code={ExampleStandardRaw}>
-          <ExampleStandard/>
+          <ExampleStandard />
         </CodeExample>
 
-        <div style={{paddingTop: '230px'}}/>
+        <div style={{ paddingTop: '230px' }} />
 
         <CodeExample title="Many options" code={ExampleManyOptionsRaw}>
-          <ExampleManyOptions/>
+          <ExampleManyOptions />
         </CodeExample>
 
-        <div style={{paddingTop: '251px'}}/>
+        <div style={{ paddingTop: '251px' }} />
 
         <CodeExample title="React elements" code={ExampleReactElementRaw}>
-          <ExampleReactElement/>
+          <ExampleReactElement />
         </CodeExample>
 
-        <div style={{paddingTop: '143px'}}/>
-
-        <CodeExample title="With theme" code={ExampleThemeRaw}>
-          <ExampleTheme/>
-        </CodeExample>
-
-        <div style={{paddingTop: '230px'}}/>
+        <div style={{ paddingTop: '143px' }} />
 
         <CodeExample title="Controlled" code={ExampleControlledRaw}>
-          <ExampleControlled/>
+          <ExampleControlled />
         </CodeExample>
 
-        <CodeExample title="With custom container styles" code={ExampleControlledInContainerRaw}>
-          <ExampleControlledInContainer/>
+        <CodeExample
+          title="With custom container styles"
+          code={ExampleControlledInContainerRaw}
+        >
+          <ExampleControlledInContainer />
         </CodeExample>
 
-        <CodeExample title="Controlled with buttons" code={ExampleControlledRawWithButtons}>
-          <ExampleControlledWithButtons/>
+        <CodeExample
+          title="Controlled with buttons"
+          code={ExampleControlledRawWithButtons}
+        >
+          <ExampleControlledWithButtons />
         </CodeExample>
 
-        <div style={{paddingTop: '230px'}}/>
+        <div style={{ paddingTop: '230px' }} />
       </div>
 
-      <Markdown source={ReadmeTestkit}/>
+      <Markdown source={ReadmeTestkit} />
     </TabbedView>
-  ));
+  ),
+);

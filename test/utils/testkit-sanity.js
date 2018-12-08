@@ -1,2 +1,5 @@
-export {isEnzymeTestkitExists} from 'wix-ui-test-utils/enzyme';
-export {isTestkitExists} from 'wix-ui-test-utils/vanilla';
+export {
+  isEnzymeTestkitExists,
+  isUniEnzymeTestkitExists,
+} from 'wix-ui-test-utils/enzyme';
+export { isTestkitExists, isUniTestkitExists } from 'wix-ui-test-utils/vanilla';

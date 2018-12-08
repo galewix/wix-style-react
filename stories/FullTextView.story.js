@@ -8,12 +8,12 @@ export default {
 
   componentProps: {
     children: 'Very long fancy and hardly fitting tab',
-    maxWidth: '172px'
+    maxWidth: '172px',
   },
 
   exampleProps: {
     onChange: ev => ev.hex(),
     onCancel: () => 'Cancelled',
-    onConfirm: () => 'Confirmed'
-  }
+    onConfirm: () => 'Confirmed',
+  },
 };

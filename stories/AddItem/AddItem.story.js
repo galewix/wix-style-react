@@ -18,9 +18,9 @@ import WithinExampleRaw from '!raw-loader!./Examples/WithinExample';
 
 import AddImageExample from './Examples/AddImageExample';
 import AddImageExampleRaw from '!raw-loader!./Examples/AddImageExample';
-import {Container, Col, Row} from '../../src/Grid';
+import { Container, Col, Row } from '../../src/Grid';
 
-import {storySettings} from './storySettings';
+import { storySettings } from './storySettings';
 
 const Cards = (
   <Container>
@@ -29,9 +29,11 @@ const Cards = (
         <CodeExample
           title="Add item as a vertical card"
           code={VerticalExampleRaw}
+        >
+          <div
+            style={{ width: '400px', padding: '30px', background: '#F0F4F7' }}
           >
-          <div style={{width: '400px', padding: '30px', background: '#F0F4F7'}}>
-            <VerticalExample/>
+            <VerticalExample />
           </div>
         </CodeExample>
       </Col>
@@ -39,9 +41,9 @@ const Cards = (
         <CodeExample
           title="Add item without action text"
           code={WithoutActionExampleRaw}
-          >
-          <div style={{padding: '30px', background: '#F0F4F7'}}>
-            <WithoutActionExample/>
+        >
+          <div style={{ padding: '30px', background: '#F0F4F7' }}>
+            <WithoutActionExample />
           </div>
         </CodeExample>
       </Col>
@@ -51,7 +53,7 @@ const Cards = (
 
 const Breakpoints = (
   <CodeExample title="Breakpoints" code={BreakpointsExampleRaw}>
-    <BreakpointsExample/>
+    <BreakpointsExample />
   </CodeExample>
 );
 
@@ -60,15 +62,15 @@ const Within = (
     <Row>
       <Col span={6}>
         <CodeExample title="Add item within a card" code={WithinExampleRaw}>
-          <div style={{padding: '30px', background: '#F0F4F7'}}>
-            <WithinExample/>
+          <div style={{ padding: '30px', background: '#F0F4F7' }}>
+            <WithinExample />
           </div>
         </CodeExample>
       </Col>
       <Col span={6}>
         <CodeExample title="Add image placeholder" code={AddImageExampleRaw}>
-          <div style={{padding: '30px', background: '#F0F4F7'}}>
-            <AddImageExample/>
+          <div style={{ padding: '30px', background: '#F0F4F7' }}>
+            <AddImageExample />
           </div>
         </CodeExample>
       </Col>
@@ -79,12 +81,12 @@ const Within = (
 const childrenExamples = [
   {
     label: 'String',
-    value: 'Add New Item'
+    value: 'Add New Item',
   },
   {
     label: 'Component',
-    value: <Text>Add New Item</Text>
-  }
+    value: <Text>Add New Item</Text>,
+  },
 ];
 
 export default {
@@ -97,12 +99,12 @@ export default {
     theme: 'dashes',
     dataHook: storySettings.dataHook,
     children: childrenExamples[0].value,
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   exampleProps: {
-    children: childrenExamples
+    children: childrenExamples,
   },
 
-  examples: [Cards, Within, Breakpoints]
+  examples: [Cards, Within, Breakpoints],
 };

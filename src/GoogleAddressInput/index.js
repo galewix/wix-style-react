@@ -1,2 +1,1 @@
-export {default, GoogleAddressInputHandler} from './GoogleAddressInput.js';
-
+export { default, GoogleAddressInputHandler } from './GoogleAddressInput.js';

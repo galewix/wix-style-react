@@ -1,12 +1,13 @@
 import floatingTabItemDriverFactory from '../FloatingTabItem/FloatingTabItem.driver';
 import buttonDriverFactory from '../Button/Button.driver';
 
-const floatingTabsDriverFactory = ({element}) => {
+const floatingTabsDriverFactory = ({ element }) => {
   const containers = Array.from(element.childNodes).map(container => {
-    return floatingTabItemDriverFactory({element: container});
+    return floatingTabItemDriverFactory({ element: container });
   });
 
-  const getButtonById = id => element.querySelector(`[data-hook="floating-tab-item-button-${id}"]`);
+  const getButtonById = id =>
+    element.querySelector(`[data-hook="floating-tab-item-button-${id}"]`);
 
   return {
     exists: () => !!element,
@@ -31,7 +32,7 @@ const floatingTabsDriverFactory = ({element}) => {
       const button = getButtonById(id);
 
       if (button) {
-        const buttonFactory = buttonDriverFactory({element: button});
+        const buttonFactory = buttonDriverFactory({ element: button });
         return buttonFactory.hasTheme('fill');
       }
       return undefined;
@@ -40,7 +41,7 @@ const floatingTabsDriverFactory = ({element}) => {
       const button = getButtonById(id);
 
       if (button) {
-        const buttonFactory = buttonDriverFactory({element: button});
+        const buttonFactory = buttonDriverFactory({ element: button });
         return buttonFactory.hasClass(className);
       }
       return undefined;
@@ -48,10 +49,10 @@ const floatingTabsDriverFactory = ({element}) => {
     clickButtonById: id => {
       const button = getButtonById(id);
       if (button) {
-        const buttonFactory = buttonDriverFactory({element: button});
+        const buttonFactory = buttonDriverFactory({ element: button });
         return buttonFactory.click();
       }
-    }
+    },
   };
 };
 

@@ -1,9 +1,8 @@
-const floatingTabItemDriverFactory = ({element}) => {
-
+const floatingTabItemDriverFactory = ({ element }) => {
   return {
     exists: () => !!element,
     isActive: () => element.getAttribute('class') === 'active',
-    content: () => element.textContent
+    content: () => element.textContent,
   };
 };
 

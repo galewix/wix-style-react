@@ -11,6 +11,6 @@ export default {
     dataHook: 'storybook-loader',
     status: 'loading',
     statusMessage: 'some message here',
-    text: ''
-  }
+    text: '',
+  },
 };

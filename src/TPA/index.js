@@ -3,9 +3,4 @@ import TextLink from './TextLink';
 import FloatingTabs from './FloatingTabs';
 import FloatingTabItem from './FloatingTabItem';
 
-export {
-  Button,
-  FloatingTabs,
-  FloatingTabItem,
-  TextLink
-};
+export { Button, FloatingTabs, FloatingTabItem, TextLink };

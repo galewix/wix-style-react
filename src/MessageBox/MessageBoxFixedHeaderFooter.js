@@ -4,7 +4,6 @@ import * as styles from './MessageBoxFixedHeaderFooter.scss';
 import WixComponent from '../BaseComponents/WixComponent';
 
 class MessageBoxFixedHeaderFooter extends WixComponent {
-
   render() {
     const {
       children,
@@ -12,29 +11,27 @@ class MessageBoxFixedHeaderFooter extends WixComponent {
       prefixContent,
       suffixContent,
       footer,
-      header
+      header,
     } = this.props;
 
-    const customHeader = header && <div className={styles.header}>
-      {header}
-    </div>;
-    const customPrefixContent = prefixContent && <div className={styles['prefix-content']}>
-      {prefixContent}
-    </div>;
-    const customSuffixContent = suffixContent && <div className={styles['prefix-content']}>
-      {suffixContent}
-    </div>;
-    const customFooter = footer && <div className={styles.footer}>
-      {footer}
-    </div>;
+    const customHeader = header && (
+      <div className={styles.header}>{header}</div>
+    );
+    const customPrefixContent = prefixContent && (
+      <div className={styles['prefix-content']}>{prefixContent}</div>
+    );
+    const customSuffixContent = suffixContent && (
+      <div className={styles['prefix-content']}>{suffixContent}</div>
+    );
+    const customFooter = footer && (
+      <div className={styles.footer}>{footer}</div>
+    );
 
     return (
-      <div className={styles.content} style={{width}}>
+      <div className={styles.content} style={{ width }}>
         {customHeader}
         {customPrefixContent}
-        <div className={styles.body}>
-          {children}
-        </div>
+        <div className={styles.body}>{children}</div>
         {customSuffixContent}
         {customFooter}
       </div>
@@ -48,11 +45,11 @@ MessageBoxFixedHeaderFooter.propTypes = {
   header: PropTypes.node,
   children: PropTypes.any,
   prefixContent: PropTypes.node,
-  suffixContent: PropTypes.node
+  suffixContent: PropTypes.node,
 };
 
 MessageBoxFixedHeaderFooter.defaultProps = {
-  width: '600px'
+  width: '600px',
 };
 
 export default MessageBoxFixedHeaderFooter;

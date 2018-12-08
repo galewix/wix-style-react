@@ -1,8 +1,8 @@
-import {StylableDOMUtil} from '@stylable/dom-test-kit';
+import { StylableDOMUtil } from '@stylable/dom-test-kit';
 import style from './Text.st.css';
 import deprecationLog from '../utils/deprecationLog';
 
-const textDriverFactory = ({element}) => {
+const textDriverFactory = ({ element }) => {
   const stylableDOMUtil = new StylableDOMUtil(style);
 
   return {
@@ -17,9 +17,11 @@ const textDriverFactory = ({element}) => {
 
     // Deprecated
     isBold: () => {
-      deprecationLog('Text testkit method "isBold" is deprecated, use "getWeight" method instead');
+      deprecationLog(
+        'Text testkit method "isBold" is deprecated, use "getWeight" method instead',
+      );
       return stylableDOMUtil.hasStyleState(element, 'bold');
-    }
+    },
   };
 };
 

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 import Tooltip from 'wix-style-react/Tooltip';
@@ -6,7 +6,6 @@ import Button from 'wix-style-react/Button';
 import TooltipForEyesOnly from './TooltipForEyesOnly';
 
 export class Template extends Component {
-
   static propTypes = {
     padding: PropTypes.any,
     onChange: PropTypes.func.isRequired,
@@ -24,7 +23,7 @@ export class Template extends Component {
     shouldUpdatePosition: Tooltip.propTypes.shouldUpdatePosition,
     showImmediately: Tooltip.propTypes.showImmediately,
     moveBy: Tooltip.propTypes.moveBy,
-    showArrow: Tooltip.propTypes.showArrow
+    showArrow: Tooltip.propTypes.showArrow,
   };
 
   componentDidUpdate(props) {
@@ -37,7 +36,7 @@ export class Template extends Component {
 
   getExampleCode() {
     return reactElementToJSXString(this.getComponent(), {
-      showDefaultProps: false
+      showDefaultProps: false,
     });
   }
 
@@ -61,7 +60,7 @@ export class Template extends Component {
         showImmediately={this.props.showImmediately}
         moveBy={this.props.moveBy}
         showArrow={this.props.showArrow}
-        >
+      >
         {this.getTooltipTarget()}
       </Tooltip>
     );
@@ -70,13 +69,9 @@ export class Template extends Component {
   getTooltipTarget() {
     switch (this.props.type) {
       case 'tooltip':
-        return (
-          <div>Hover me to see the tooltip</div>
-        );
+        return <div>Hover me to see the tooltip</div>;
       case 'popover':
-        return (
-          <Button type="button">Click Me</Button>
-        );
+        return <Button type="button">Click Me</Button>;
       default:
     }
   }
@@ -85,11 +80,10 @@ export class Template extends Component {
     return (
       <div>
         {this.getComponent()}
-        <TooltipForEyesOnly/>
+        <TooltipForEyesOnly />
       </div>
     );
   }
 }
 
 export default Template;
-

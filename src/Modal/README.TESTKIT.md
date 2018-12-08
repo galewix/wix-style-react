@@ -17,17 +17,14 @@
 
 ## Usage Example
 
-> Unit testing example
+> Unit testing example - enzyme
 
 ```javascript
-  import React from 'react';
-  import {modalTestkitFactory} from 'wix-style-react/dist/testkit';
-  import {modalTestkitFactory as enzymeModalTestkitFactory} from 'wix-style-react/dist/testkit/enzyme';
+import React from 'react';
+import eventually from 'wix-eventually';
+import {modalTestkitFactory as enzymeModalTestkitFactory} from 'wix-style-react/dist/testkit/enzyme';
 
-  /***************
-   enzyme example
-  ***************/
-
+it('should do something', async ()=> {
   const dataHook = 'myDataHook';
   const wrapper = mount(<div/><Modal {...props} dataHook={dataHook}/></div>);
   const testkit = enzymeModalTestkitFactory({wrapper, dataHook});
@@ -35,10 +32,21 @@
   //Do tests
   expect(testkit.isOpen()).toBeFalsy();
 
-  /**********************
-   ReactTestUtils example
-  **********************/
+  // Cleanup
+  wrapper.unmount();
+  await eventually(() => !testkit.isOpen() || Promise.reject());
+});
+```
 
+> Unit testing example - vanilla
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import eventually from 'wix-eventually';
+import {modalTestkitFactory} from 'wix-style-react/dist/testkit';
+
+it('should do something', async ()=> {
   const div = document.createElement('div');
   const dataHook = 'myDataHook';
   const wrapper = div.appendChild(
@@ -48,4 +56,9 @@
 
   //Do tests
   expect(testkit.exists()).toBeTruthy();
+
+  // Cleanup
+  ReactDOM.unmountComponentAtNode(wrapper);
+  await eventually(() => !testkit.isOpen() || Promise.reject());
+});
 ```

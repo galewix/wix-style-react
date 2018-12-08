@@ -1,5 +1,5 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 
 import Markdown from 'wix-storybook-utils/Markdown';
 import AutoDocs from 'wix-storybook-utils/AutoDocs';
@@ -20,33 +20,35 @@ import ExampleCustomContentRaw from '!raw-loader!./ExampleCustomContent';
 import ExampleMove from './ExampleMove';
 import ExampleMoveRaw from '!raw-loader!./ExampleMove';
 
-storiesOf('Core', module)
-  .add('Tooltip', () => (
-    <TabbedView tabs={['API', 'TestKits']}>
-      <div>
-        <AutoDocs source={TooltipSource}/>
+storiesOf('Core', module).add('Tooltip', () => (
+  <TabbedView tabs={['API', 'TestKits']}>
+    <div>
+      <AutoDocs source={TooltipSource} />
 
-        <CodeExample title="Tooltip Placement" code={ExamplePlacementRaw}>
-          <ExamplePlacement/>
-        </CodeExample>
+      <CodeExample title="Tooltip Placement" code={ExamplePlacementRaw}>
+        <ExamplePlacement />
+      </CodeExample>
 
-        <CodeExample title="Tooltip Bounce" code={ExampleBounceRaw}>
-          <ExampleBounce/>
-        </CodeExample>
+      <CodeExample title="Tooltip Bounce" code={ExampleBounceRaw}>
+        <ExampleBounce />
+      </CodeExample>
 
-        <CodeExample title="Tooltip Theme" code={ExampleThemeRaw}>
-          <ExampleTheme/>
-        </CodeExample>
+      <CodeExample title="Tooltip Theme" code={ExampleThemeRaw}>
+        <ExampleTheme />
+      </CodeExample>
 
-        <CodeExample title="Tooltip Custom Content" code={ExampleCustomContentRaw}>
-          <ExampleCustomContent/>
-        </CodeExample>
+      <CodeExample
+        title="Tooltip Custom Content"
+        code={ExampleCustomContentRaw}
+      >
+        <ExampleCustomContent />
+      </CodeExample>
 
-        <CodeExample title="Custom tooltip adjustment" code={ExampleMoveRaw}>
-          <ExampleMove/>
-        </CodeExample>
-      </div>
+      <CodeExample title="Custom tooltip adjustment" code={ExampleMoveRaw}>
+        <ExampleMove />
+      </CodeExample>
+    </div>
 
-      <Markdown source={ReadmeTestKit}/>
-    </TabbedView>
-  ));
+    <Markdown source={ReadmeTestKit} />
+  </TabbedView>
+));

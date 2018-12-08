@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 import Close from 'wix-style-react/new-icons/X';
-import {ButtonWithOptions} from '../../src/index';
+import { ButtonWithOptions } from '../../src/index';
 
 export class Form extends Component {
-
   componentDidUpdate(props) {
     props.onChange(reactElementToJSXString(this.getComponent()));
   }
@@ -19,7 +18,11 @@ export class Form extends Component {
     if (this.props.height === 'large') {
       iconSize = '8px';
     }
-    if (['close-standard', 'close-dark', 'close-transparent'].indexOf(this.props.theme) < 0) {
+    if (
+      ['close-standard', 'close-dark', 'close-transparent'].indexOf(
+        this.props.theme,
+      ) < 0
+    ) {
       iconSize = '12px';
     }
 
@@ -34,16 +37,19 @@ export class Form extends Component {
 
     return (
       <ButtonWithOptions {...this.props}>
-        <ButtonWithOptions.Button
-          {...this.props}
-          {...icons}
-          >
-          {this.props.iconOnly ? <Close size={iconSize}/> : this.props.text}
+        <ButtonWithOptions.Button {...this.props} {...icons}>
+          {this.props.iconOnly ? <Close size={iconSize} /> : this.props.text}
         </ButtonWithOptions.Button>
         <ButtonWithOptions.Option id="1">Option 1</ButtonWithOptions.Option>
         <ButtonWithOptions.Option id="2">Option 2</ButtonWithOptions.Option>
-        <ButtonWithOptions.Option id="3" disabled>Option 3</ButtonWithOptions.Option>
-        <ButtonWithOptions.Option id="4"><span><Close size={iconSize}/> Option 4</span></ButtonWithOptions.Option>
+        <ButtonWithOptions.Option id="3" disabled>
+          Option 3
+        </ButtonWithOptions.Option>
+        <ButtonWithOptions.Option id="4">
+          <span>
+            <Close size={iconSize} /> Option 4
+          </span>
+        </ButtonWithOptions.Option>
         <ButtonWithOptions.Option id="5">Option 5</ButtonWithOptions.Option>
       </ButtonWithOptions>
     );
@@ -64,8 +70,7 @@ Form.propTypes = {
   prefixIcon: PropTypes.node,
   suffixIcon: PropTypes.node,
   dropdownTheme: PropTypes.string,
-  withArrow: PropTypes.bool
+  withArrow: PropTypes.bool,
 };
 
 export default Form;
-

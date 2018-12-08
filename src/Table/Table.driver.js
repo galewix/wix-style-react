@@ -1,17 +1,28 @@
 import dataTableDriverFactory from '../DataTable/DataTable.driver';
 import checkboxDriverFactory from '../Checkbox/Checkbox.driver';
 
-const tableDriverFactory = ({element, wrapper, component, eventTrigger}) => {
-  const dataTableDriver = dataTableDriverFactory({element, wrapper, component});
-  const getTitlebar = () => element.querySelector('[data-hook="table-title-bar"]');
-  const getRowCheckboxDriver = index => checkboxDriverFactory({
-    element: dataTableDriver.getCell(index, 0).querySelector('[data-hook="row-select"]'),
-    eventTrigger
+const tableDriverFactory = ({ element, wrapper, component, eventTrigger }) => {
+  const dataTableDriver = dataTableDriverFactory({
+    element,
+    wrapper,
+    component,
   });
-  const getBulkSelectionCheckboxDriver = () => checkboxDriverFactory({
-    element: dataTableDriver.getHeaderCell(0).querySelector('[data-hook="table-select"]'),
-    eventTrigger
-  });
+  const getTitlebar = () =>
+    element.querySelector('[data-hook="table-title-bar"]');
+  const getRowCheckboxDriver = index =>
+    checkboxDriverFactory({
+      element: dataTableDriver
+        .getCell(index, 0)
+        .querySelector('[data-hook="row-select"]'),
+      eventTrigger,
+    });
+  const getBulkSelectionCheckboxDriver = () =>
+    checkboxDriverFactory({
+      element: dataTableDriver
+        .getHeaderCell(0)
+        .querySelector('[data-hook="table-select"]'),
+      eventTrigger,
+    });
 
   const isBulkSelectionChecked = () => {
     const checkboxDriver = getBulkSelectionCheckboxDriver();
@@ -52,9 +63,8 @@ const tableDriverFactory = ({element, wrapper, component, eventTrigger}) => {
       }
     },
     /** Get title-bar (column titles) */
-    getTitlebar
+    getTitlebar,
   };
 };
 
 export default tableDriverFactory;
-

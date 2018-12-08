@@ -1,9 +1,9 @@
 import React from 'react';
 import WixComponent from '../../../BaseComponents/WixComponent';
 import PropTypes from 'prop-types';
-import {DropTarget} from 'react-dnd';
+import { DropTarget } from 'react-dnd';
 
-import {ItemTypes} from './../types';
+import { ItemTypes } from '../types';
 
 /* eslint-disable new-cap */
 
@@ -19,15 +19,19 @@ const target = {
     */
     return {
       containerId: props.containerId,
-      index: props.index
+      index: props.index,
     };
   },
   hover(props, monitor, component) {
     const monitorItem = monitor.getItem();
     const dragIndex = monitorItem.index; // position of item that we drag
     const hoverIndex = props.index; // position of item that we hover(want to put draggable item on it)
-    const isSameGroup = props.groupName && monitorItem.groupName && props.groupName === monitorItem.groupName; // check that items from same group
-    const isSameContainer = props.containerId === monitorItem.realTime.containerId; // check that items from same container
+    const isSameGroup =
+      props.groupName &&
+      monitorItem.groupName &&
+      props.groupName === monitorItem.groupName; // check that items from same group
+    const isSameContainer =
+      props.containerId === monitorItem.realTime.containerId; // check that items from same container
     /** in case that item not in same group and not from same container - do nothing */
     if (!isSameContainer && !isSameGroup) {
       return;
@@ -57,15 +61,15 @@ const target = {
     */
     props.onHover(dragIndex, hoverIndex, {
       id: monitorItem.id,
-      item: monitorItem.originalItem
+      item: monitorItem.originalItem,
     });
     /** set new index for item */
     monitorItem.index = hoverIndex;
-  }
+  },
 };
 
 const collect = connect => ({
-  connectDropTarget: connect.dropTarget()
+  connectDropTarget: connect.dropTarget(),
 });
 
 @DropTarget(ItemTypes.DRAGGABLE, target, collect)
@@ -85,7 +89,7 @@ DraggableTarget.propTypes = {
   groupName: PropTypes.string,
   index: PropTypes.number,
   onMoveOut: PropTypes.func,
-  onHover: PropTypes.func
+  onHover: PropTypes.func,
 };
 
 export default DraggableTarget;

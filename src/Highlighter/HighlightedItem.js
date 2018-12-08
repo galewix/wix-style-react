@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 import escapeRegExp from 'lodash/escapeRegExp';
 
 class HighlightedItem extends WixComponent {
-
   static propTypes = {
     match: PropTypes.string,
-    caseSensitive: PropTypes.bool
+    caseSensitive: PropTypes.bool,
   };
 
   renderElement() {
-    const {children, match} = this.props;
+    const { children, match } = this.props;
 
     if (match) {
       const matchRegExp = this.getMatchRegExp();
@@ -23,7 +22,7 @@ class HighlightedItem extends WixComponent {
   }
 
   getMatchRegExp() {
-    const {match, caseSensitive} = this.props;
+    const { match, caseSensitive } = this.props;
     return new RegExp(escapeRegExp(match), caseSensitive ? '' : 'i');
   }
 
@@ -33,7 +32,7 @@ class HighlightedItem extends WixComponent {
     if (matches) {
       return {
         first: matches.index,
-        last: matches.index + matches[0].length
+        last: matches.index + matches[0].length,
       };
     }
   }
@@ -48,7 +47,9 @@ class HighlightedItem extends WixComponent {
 
     while (children) {
       if (!matchRegExp.test(children)) {
-        processedChildren.push(this.renderPlain(children, this.getMatchReactKey(matchIndex++)));
+        processedChildren.push(
+          this.renderPlain(children, this.getMatchReactKey(matchIndex++)),
+        );
         return processedChildren;
       }
 
@@ -56,13 +57,17 @@ class HighlightedItem extends WixComponent {
       const nonMatch = children.slice(0, boundaries.first);
 
       if (nonMatch) {
-        processedChildren.push(this.renderPlain(nonMatch, this.getMatchReactKey(matchIndex++)));
+        processedChildren.push(
+          this.renderPlain(nonMatch, this.getMatchReactKey(matchIndex++)),
+        );
       }
 
       const match = children.slice(boundaries.first, boundaries.last);
 
       if (match) {
-        processedChildren.push(this.renderHighlight(match, this.getMatchReactKey(matchIndex++)));
+        processedChildren.push(
+          this.renderHighlight(match, this.getMatchReactKey(matchIndex++)),
+        );
       }
 
       children = children.slice(boundaries.last);
@@ -76,15 +81,11 @@ class HighlightedItem extends WixComponent {
   }
 
   renderHighlight(matchString, key) {
-    return React.createElement('strong', {key}, matchString);
+    return React.createElement('strong', { key }, matchString);
   }
 
   render() {
-    return (
-      <span>
-        { this.renderElement() }
-      </span>
-    );
+    return <span>{this.renderElement()}</span>;
   }
 }
 

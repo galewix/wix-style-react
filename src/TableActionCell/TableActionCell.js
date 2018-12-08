@@ -10,7 +10,7 @@ import PopoverMenuItem from '../PopoverMenuItem';
 import ChevronRight from '../new-icons/ChevronRight';
 
 /* eslint-disable react/prop-types */
-function renderPrimaryAction({text, theme, onClick}) {
+function renderPrimaryAction({ text, theme, onClick }) {
   return (
     <Button
       theme={theme}
@@ -20,7 +20,7 @@ function renderPrimaryAction({text, theme, onClick}) {
         // Making sure we don't also trigger onRowClick
         event.stopPropagation();
       }}
-      >
+    >
       {text}
     </Button>
   );
@@ -28,13 +28,13 @@ function renderPrimaryAction({text, theme, onClick}) {
 /* eslint-enable react/prop-types */
 
 function renderVisibleActions(actions) {
-  return actions.map(({text, icon, onClick}, index) => (
+  return actions.map(({ text, icon, onClick }, index) => (
     <Tooltip
       key={index}
       dataHook="table-action-cell-visible-action-tooltip"
       content={text}
       theme="dark"
-      >
+    >
       <Button
         theme="icon-greybackground"
         onClick={event => {
@@ -42,17 +42,22 @@ function renderVisibleActions(actions) {
           event.stopPropagation();
         }}
         withNewIcons
-        >
+      >
         {icon}
       </Button>
     </Tooltip>
   ));
 }
 
-function renderHiddenActions(actions) {
+function renderHiddenActions(actions, popoverMenuProps) {
   return (
-    <PopoverMenu buttonTheme="icon-greybackground" dataHook="table-action-cell-popover-menu" appendToParent>
-      {actions.map(({text, icon, onClick, disabled}, index) => (
+    <PopoverMenu
+      buttonTheme="icon-greybackground"
+      dataHook="table-action-cell-popover-menu"
+      appendToParent
+      {...popoverMenuProps}
+    >
+      {actions.map(({ text, icon, onClick, disabled }, index) => (
         <PopoverMenuItem
           key={index}
           dataHook="table-action-cell-popover-menu-item"
@@ -60,7 +65,7 @@ function renderHiddenActions(actions) {
           onClick={() => onClick()}
           text={text}
           disabled={disabled}
-          />
+        />
       ))}
     </PopoverMenu>
   );
@@ -69,7 +74,7 @@ function renderHiddenActions(actions) {
 function renderPlaceholder() {
   return (
     <Button theme="icon-white" withNewIcons>
-      <ChevronRight/>
+      <ChevronRight />
     </Button>
   );
 }
@@ -80,37 +85,50 @@ const TableActionCell = props => {
     primaryAction,
     secondaryActions,
     numOfVisibleSecondaryActions,
-    alwaysShowSecondaryActions
+    alwaysShowSecondaryActions,
+    popoverMenuProps,
   } = props;
 
-  const visibleActions = secondaryActions.slice(0, numOfVisibleSecondaryActions);
+  const visibleActions = secondaryActions.slice(
+    0,
+    numOfVisibleSecondaryActions,
+  );
   const hiddenActions = secondaryActions.slice(numOfVisibleSecondaryActions);
 
   return (
     <span data-hook={dataHook} {...style('root', {}, props)}>
-
       {primaryAction && (
-        <HoverSlot display="onHover" data-hook="table-action-cell-primary-action">
+        <HoverSlot
+          display="onHover"
+          data-hook="table-action-cell-primary-action"
+        >
           {renderPrimaryAction(primaryAction)}
         </HoverSlot>
       )}
 
       {visibleActions.length > 0 && (
-        <HoverSlot display={alwaysShowSecondaryActions ? 'always' : 'onHover'} data-hook="table-action-cell-visible-actions">
+        <HoverSlot
+          display={alwaysShowSecondaryActions ? 'always' : 'onHover'}
+          data-hook="table-action-cell-visible-actions"
+        >
           {renderVisibleActions(visibleActions)}
         </HoverSlot>
       )}
 
       {hiddenActions.length > 0 && (
-        <div onClick={e => e.stopPropagation()}>
+        <div onClick={e => e.stopPropagation()} className={style.popoverMenu}>
           <HoverSlot display="always">
-            {renderHiddenActions(hiddenActions)}
+            {renderHiddenActions(hiddenActions, popoverMenuProps)}
           </HoverSlot>
         </div>
       )}
 
-      {(primaryAction && !(secondaryActions || []).length) && (
-        <HoverSlot display="notOnHover" className={style.placeholderIcon} data-hook="table-action-cell-placeholder">
+      {primaryAction && !(secondaryActions || []).length && (
+        <HoverSlot
+          display="notOnHover"
+          className={style.placeholderIcon}
+          data-hook="table-action-cell-placeholder"
+        >
           {renderPlaceholder()}
         </HoverSlot>
       )}
@@ -132,7 +150,7 @@ TableActionCell.propTypes = {
   primaryAction: PropTypes.shape({
     text: PropTypes.string.isRequired,
     theme: PropTypes.oneOf(['whiteblue', 'fullblue']),
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
   }),
 
   /**
@@ -142,25 +160,30 @@ TableActionCell.propTypes = {
    * signature is `onClick(rowData, rowNum)`.
    * `disabled` is an optional prop for the secondary action to be disabled
    */
-  secondaryActions: PropTypes.arrayOf(PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    icon: PropTypes.node.isRequired,
-    onClick: PropTypes.func.isRequired,
-    disabled: PropTypes.bool
-  })),
+  secondaryActions: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      icon: PropTypes.node.isRequired,
+      onClick: PropTypes.func.isRequired,
+      disabled: PropTypes.bool,
+    }),
+  ),
 
-   /** The number of secondary actions to show outside the PopoverMenu */
+  /** The number of secondary actions to show outside the PopoverMenu */
   numOfVisibleSecondaryActions: PropTypes.number,
 
-   /** Whether to show the secondary action also when not hovering the row */
-  alwaysShowSecondaryActions: PropTypes.bool
+  /** Whether to show the secondary action also when not hovering the row */
+  alwaysShowSecondaryActions: PropTypes.bool,
+
+  /** Props being passed to the secondary actions' <PopoverMenu/> */
+  popoverMenuProps: PropTypes.shape(PopoverMenu.propTypes),
 };
 
 TableActionCell.defaultProps = {
   primaryAction: null,
   secondaryActions: [],
   numOfVisibleSecondaryActions: 0,
-  alwaysShowSecondaryActions: false
+  alwaysShowSecondaryActions: false,
 };
 
 export default TableActionCell;

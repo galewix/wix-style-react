@@ -1,0 +1,110 @@
+@import '../colors.scss';
+@import '../fonts.scss';
+@import '../typography-helpers.scss';
+
+.text {
+  @include Text;
+
+  /* SIZE */
+  &.sizeMedium {
+    @include TextSize($size: medium);
+  }
+
+  &.sizeSmall {
+    @include TextSize($size: small);
+  }
+
+  &.sizeTiny {
+    @include TextSize($size: tiny);
+  }
+
+  /* Font Family */
+  &.weightThin {
+    @include TextFontFamily($weight: thin);
+  }
+
+  &.weightNormal {
+    @include TextFontFamily($weight: normal);
+  }
+
+  &.weightBold {
+    @include TextFontFamily($weight: bold);
+  }
+
+  &.weightThin.sizeTiny {
+    @include TextFontFamily($weight: thin, $size: tiny);
+  }
+
+  &.weightNormal.sizeTiny {
+    @include TextFontFamily($weight: normal, $size: tiny);
+  }
+
+  &.weightBold.sizeTiny {
+    @include TextFontFamily($weight: bold, $size: tiny);
+  }
+
+  &.weightThin.sizeSmall {
+    @include TextFontFamily($weight: thin, $size: small);
+  }
+
+  &.weightNormal.sizeSmall {
+    @include TextFontFamily($weight: normal, $size: small);
+  }
+
+  &.weightBold.sizeSmall {
+    @include TextFontFamily($weight: bold, $size: small);
+  }
+
+  &.weightThin.sizeMedium {
+    @include TextFontFamily($weight: thin, $size: medium);
+  }
+
+  &.weightNormal.sizeMedium {
+    @include TextFontFamily($weight: normal, $size: medium);
+  }
+
+  &.weightBold.sizeMedium {
+    @include TextFontFamily($weight: bold, $size: medium);
+  }
+
+  &.link,
+  &.link.skinStandard {
+    color: $B10;
+  }
+
+  &.disabled,
+  &.disabled.skinStandard {
+    color: $D55;
+  }
+
+  &.light,
+  &.light.skinStandard {
+    color: $D80;
+  }
+
+  &.secondary,
+  &.secondary.skinStandard {
+    color: $D20;
+  }
+
+  &.secondary.light {
+    color: $D40;
+  }
+
+  /* Skin is last so it has priority over light, link and secondary */
+  &.skinStandard {
+    color: $D10;
+  }
+
+  &.skinSuccess {
+    color: $G10;
+  }
+
+  &.skinError {
+    color: $R10;
+  }
+
+  &.skinPremium {
+    color: $P10;
+  }
+}

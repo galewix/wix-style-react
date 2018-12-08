@@ -1,4 +1,4 @@
-## Heading Classes
+### Heading Classes
 
 - Each cell in the table is a class name.
 - Classes are devided into column by their semantics
@@ -12,7 +12,7 @@
 | `h5` |         |
 | `h6` |         |
 
-## Text Classes
+### Text Classes
 
 | Default | Size | Weight | On Dark | Secondary | Skin | Link | Disabled |
 |---------|------|--------|---------|-----------|------|------|----------|

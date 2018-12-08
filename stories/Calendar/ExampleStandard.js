@@ -8,16 +8,18 @@ class ControlledCalendarExample extends React.Component {
     super(props);
     this.state = {
       date: new Date('2017/05/01'),
-      excludePastDates: true
+      excludePastDates: true,
     };
   }
 
   onChange(date) {
-    this.setState({date});
+    this.setState({ date });
   }
 
   toggleExclude() {
-    this.setState(({excludePastDates}) => ({excludePastDates: !excludePastDates}));
+    this.setState(({ excludePastDates }) => ({
+      excludePastDates: !excludePastDates,
+    }));
   }
 
   render() {
@@ -27,12 +29,12 @@ class ControlledCalendarExample extends React.Component {
           excludePastDates={this.state.excludePastDates}
           onChange={date => this.onChange(date)}
           value={this.state.date}
-          />
-        <div style={{display: 'flex'}}>
+        />
+        <div style={{ display: 'flex' }}>
           <ToggleSwitch
             checked={this.state.excludePastDates}
             onChange={() => this.toggleExclude()}
-            />
+          />
           <Label>Exclude Past Days</Label>
         </div>
       </div>
@@ -40,4 +42,4 @@ class ControlledCalendarExample extends React.Component {
   }
 }
 
-export default () => <ControlledCalendarExample/>;
+export default () => <ControlledCalendarExample />;

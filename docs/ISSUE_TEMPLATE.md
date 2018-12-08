@@ -19,6 +19,5 @@ It will be extremely helpful if you could create a simple reproducible example h
 -->
 
 ### Severity
-- [ ] Critical
-- [ ] Major
-- [ ] Low
+<!--- Try to reflect how sever the issue is in general. Pick the most relevant one -->
+Critical / Major / Low

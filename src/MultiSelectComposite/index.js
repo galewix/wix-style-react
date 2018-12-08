@@ -1,1 +1,1 @@
-export {default} from './MultiSelectComposite.js';
+export { default } from './MultiSelectComposite.js';

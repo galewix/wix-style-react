@@ -1,1 +1,1 @@
-export {default} from '../SideMenu/DrillView';
+export { default } from '../SideMenu/DrillView';

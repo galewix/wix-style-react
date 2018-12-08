@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Layout, Cell} from 'wix-style-react/Layout';
+import { Layout, Cell } from 'wix-style-react/Layout';
 import Card from 'wix-style-react/Card';
 import FormField from 'wix-style-react/FormField';
 import Input from 'wix-style-react/Input';
@@ -15,12 +15,12 @@ import styles from '../styles.scss';
 export default () => (
   <div className={styles.exampleContainer}>
     <Layout>
-      { /* Big area, the main content */ }
+      {/* Big area, the main content */}
       <Cell span={8}>
         <Layout>
           <Cell>
             <Card>
-              <Card.Header title="Various Inputs"/>
+              <Card.Header title="Various Inputs" />
               <Card.Content>
                 <Layout>
                   <Cell>{field('Your Best Joke:', InputArea)}</Cell>
@@ -37,31 +37,35 @@ export default () => (
                 {divider()}
 
                 <Layout gap="10">
-                  <Cell span={3} vertical><Text>Home Address:</Text></Cell>
-                  <Cell span={9} vertical>{field('')}</Cell>
+                  <Cell span={3} vertical>
+                    <Text>Home Address:</Text>
+                  </Cell>
+                  <Cell span={9} vertical>
+                    {field('')}
+                  </Cell>
                 </Layout>
 
                 {divider()}
 
                 <Layout gap="10">
-                  <Cell><Text>Get In Touch</Text></Cell>
-                  { ['Name', 'Email', 'Phone No.'].map(label =>
+                  <Cell>
+                    <Text>Get In Touch</Text>
+                  </Cell>
+                  {['Name', 'Email', 'Phone No.'].map(label => (
                     <Cell
                       key={label}
                       span={4}
                       vertical
-                      children={<Input placeholder={label}/>}
-                      />
-                  ) }
+                      children={<Input placeholder={label} />}
+                    />
+                  ))}
                 </Layout>
 
                 {divider()}
 
                 <Layout>
                   <Cell span={8} vertical>
-                    <Checkbox>
-                      I Accept to Decline
-                    </Checkbox>
+                    <Checkbox>I Accept to Decline</Checkbox>
                   </Cell>
 
                   <Cell span={4}>
@@ -72,40 +76,35 @@ export default () => (
             </Card>
           </Cell>
 
-          {
-            ['left', 'right'].map(direction =>
-              <Cell span={6} key={direction}>
-                {card(`something on the ${direction}`, 'Anything goes')}
-              </Cell>
-            )
-          }
+          {['left', 'right'].map(direction => (
+            <Cell span={6} key={direction}>
+              {card(`something on the ${direction}`, 'Anything goes')}
+            </Cell>
+          ))}
 
-          { ['left', 'middle', 'right'].map(direction =>
+          {['left', 'middle', 'right'].map(direction => (
             <Cell span={4} key={direction}>
               {card(`something on the ${direction}`, 'Anything goes')}
             </Cell>
-          ) }
-
+          ))}
         </Layout>
       </Cell>
 
-      { /* sidebar */ }
+      {/* sidebar */}
       <Cell span={4}>
         <Card>
-          <Card.Header title="Additional Info"/>
+          <Card.Header title="Additional Info" />
           <Card.Content>
-            <Text>
-              {'No need for <Layout> for just column'}
-            </Text>
+            <Text>{'No need for <Layout> for just column'}</Text>
 
             {divider()}
 
             <RadioGroup>
-              { 'Mixing and matching components is easy!'.split(' ').map(word =>
-                <RadioGroup.Button key={word}>
-                  {word}
-                </RadioGroup.Button>
-              ) }
+              {'Mixing and matching components is easy!'
+                .split(' ')
+                .map(word => (
+                  <RadioGroup.Button key={word}>{word}</RadioGroup.Button>
+                ))}
             </RadioGroup>
 
             {divider()}
@@ -119,24 +118,18 @@ export default () => (
 );
 
 function field(label, component = Input) {
-  return (
-    <FormField label={label}>
-      {React.createElement(component)}
-    </FormField>
-  );
+  return <FormField label={label}>{React.createElement(component)}</FormField>;
 }
 
 function divider() {
-  return (
-    <div style={{height: 30}}/>
-  );
+  return <div style={{ height: 30 }} />;
 }
 
 function card(title, children) {
   return (
     <Card>
-      <Card.Header title={title}/>
-      <Card.Content children={children}/>
+      <Card.Header title={title} />
+      <Card.Content children={children} />
     </Card>
   );
 }

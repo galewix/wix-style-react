@@ -1,8 +1,8 @@
 import inputAreaWithLabelCompositeDriverFactory from '../Composite/InputAreaWithLabelComposite/InputAreaWithLabelComposite.driver';
 
-const RichTextAreaCompositeDriverFactory = ({element, wrapper}) => {
+const RichTextAreaCompositeDriverFactory = ({ element, wrapper }) => {
   return {
-    ...inputAreaWithLabelCompositeDriverFactory({element, wrapper})
+    ...inputAreaWithLabelCompositeDriverFactory({ element, wrapper }),
   };
 };
 

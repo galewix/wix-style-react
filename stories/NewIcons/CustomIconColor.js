@@ -6,8 +6,8 @@ export default () => {
   return (
     <div className={s.iconList}>
       <div className={s.singleIconView}>
-        <Duplicate style={{color: 'blue'}}/>
-        <Duplicate className={s.customIconColorDuplicate}/>
+        <Duplicate style={{ color: 'blue' }} />
+        <Duplicate className={s.customIconColorDuplicate} />
       </div>
     </div>
   );

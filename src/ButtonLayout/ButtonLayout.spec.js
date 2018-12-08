@@ -1,13 +1,11 @@
 import React from 'react';
 import ButtonLayout from './ButtonLayout';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
 import buttonDriverFactory from './ButtonLayout.driver';
 
 const someDivWithLayout = (props = {}) => (
   <ButtonLayout {...props}>
-    <div>
-      abc
-    </div>
+    <div>abc</div>
   </ButtonLayout>
 );
 
@@ -25,10 +23,8 @@ describe('ButtonLayout', () => {
     const href = 'http://www.wix.com';
     const driver = createDriver(
       <ButtonLayout>
-        <a href={href}>
-          abc
-        </a>
-      </ButtonLayout>
+        <a href={href}>abc</a>
+      </ButtonLayout>,
     );
 
     expect(driver.exists()).toEqual(true);
@@ -38,10 +34,8 @@ describe('ButtonLayout', () => {
   it('should have custom className', () => {
     const driver = createDriver(
       <ButtonLayout className="myClass">
-        <div>
-          abc
-        </div>
-      </ButtonLayout>
+        <div>abc</div>
+      </ButtonLayout>,
     );
 
     expect(driver.doesComponentHasClass('myClass')).toBeTruthy();
@@ -50,10 +44,8 @@ describe('ButtonLayout', () => {
   it('should extend existing className of the element', () => {
     const driver = createDriver(
       <ButtonLayout>
-        <div className="myClass">
-          abc
-        </div>
-      </ButtonLayout>
+        <div className="myClass">abc</div>
+      </ButtonLayout>,
     );
 
     expect(driver.exists()).toEqual(true);
@@ -63,10 +55,8 @@ describe('ButtonLayout', () => {
   it('should extend existing inline style of the element', () => {
     const driver = createDriver(
       <ButtonLayout>
-        <div style={{color: 'red'}}>
-          abc
-        </div>
-      </ButtonLayout>
+        <div style={{ color: 'red' }}>abc</div>
+      </ButtonLayout>,
     );
 
     expect(driver.exists()).toEqual(true);
@@ -74,15 +64,11 @@ describe('ButtonLayout', () => {
   });
 
   it('should wrap a custom component with ButtonLayout', () => {
-    const CustomComponent = props => (
-      <div {...props}>
-        abc
-      </div>
-    );
+    const CustomComponent = props => <div {...props}>abc</div>;
     const driver = createDriver(
       <ButtonLayout>
-        <CustomComponent/>
-      </ButtonLayout>
+        <CustomComponent />
+      </ButtonLayout>,
     );
 
     expect(driver.exists()).toEqual(true);
@@ -93,12 +79,14 @@ describe('ButtonLayout', () => {
     const driver = createDriver(someDivWithLayout());
 
     expect(driver.exists()).toEqual(true);
-    expect(driver.getComponentAttribute('style')).toContain('display: inline-block;');
+    expect(driver.getComponentAttribute('style')).toContain(
+      'display: inline-block;',
+    );
   });
 
   describe('class', () => {
     it('should get disabled class', () => {
-      const driver = createDriver(someDivWithLayout({disabled: true}));
+      const driver = createDriver(someDivWithLayout({ disabled: true }));
 
       expect(driver.doesComponentHasClass('disabled')).toBeTruthy();
     });
@@ -111,27 +99,27 @@ describe('ButtonLayout', () => {
 
     it('should get "small" height class', () => {
       const height = 'small';
-      const driver = createDriver(someDivWithLayout({height}));
+      const driver = createDriver(someDivWithLayout({ height }));
 
       expect(driver.doesComponentHasClass(`heightsmall`)).toBeTruthy();
     });
 
     it('should get "large" height class', () => {
       const height = 'large';
-      const driver = createDriver(someDivWithLayout({height}));
+      const driver = createDriver(someDivWithLayout({ height }));
 
       expect(driver.doesComponentHasClass(`heightlarge`)).toBe(true);
     });
 
     it('should get custom style', () => {
       const theme = 'emptyblue';
-      const driver = createDriver(someDivWithLayout({theme}));
+      const driver = createDriver(someDivWithLayout({ theme }));
 
       expect(driver.doesComponentHasClass(theme)).toBeTruthy();
     });
 
     it('should get "hover" class', () => {
-      const driver = createDriver(someDivWithLayout({hover: true}));
+      const driver = createDriver(someDivWithLayout({ hover: true }));
 
       expect(driver.doesComponentHasClass('hover')).toBeTruthy();
     });

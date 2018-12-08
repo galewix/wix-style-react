@@ -2,7 +2,7 @@ const buttonDriverFactory = component => ({
   click: () => component.click(),
   getButtonTextContent: () => component.getText(),
   isButtonDisabled: () => !!component.getAttribute('disabled'),
-  element: () => component
+  element: () => component,
 });
 
 export default buttonDriverFactory;

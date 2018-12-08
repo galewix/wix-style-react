@@ -1,1 +1,1 @@
-export {default} from './FloatingHelperContent';
+export { default } from './FloatingHelperContent';

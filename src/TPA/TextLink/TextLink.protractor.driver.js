@@ -2,7 +2,7 @@ const TextLinkDriverFactory = component => ({
   exists: () => !!component,
   click: () => component.click(),
   getTextContent: () => component.getText(),
-  element: () => component
+  element: () => component,
 });
 
 export default TextLinkDriverFactory;

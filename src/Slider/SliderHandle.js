@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './SliderHandle.scss';
 
@@ -8,7 +8,7 @@ export default class SliderHandle extends Component {
 
     this.state = {
       showTooltip: false,
-      dragging: false
+      dragging: false,
     };
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
@@ -27,12 +27,12 @@ export default class SliderHandle extends Component {
 
   handleMouseUp() {
     this.toggleTooltip(false);
-    this.setState({dragging: false});
+    this.setState({ dragging: false });
   }
 
   handleMouseDown() {
     this.toggleTooltip(true);
-    this.setState({dragging: true});
+    this.setState({ dragging: true });
   }
 
   handleMouseEnter() {
@@ -46,8 +46,8 @@ export default class SliderHandle extends Component {
   }
 
   toggleTooltip(showTooltip) {
-    const {displayTooltip} = this.props;
-    this.setState({showTooltip: displayTooltip && showTooltip});
+    const { displayTooltip } = this.props;
+    this.setState({ showTooltip: displayTooltip && showTooltip });
   }
 
   render() {
@@ -58,13 +58,12 @@ export default class SliderHandle extends Component {
         onMouseDown={this.handleMouseDown}
         onMouseUp={this.handleMouseUp}
         className="slider-handle"
-        style={{left: `${this.props.offset}%`}}
-        >
-        {this.state.showTooltip &&
-          <div className="slider-tooltip">
-            {this.props.value}
-          </div>}
-        <div className="slider-handle-inner"/>
+        style={{ left: `${this.props.offset}%` }}
+      >
+        {this.state.showTooltip && (
+          <div className="slider-tooltip">{this.props.value}</div>
+        )}
+        <div className="slider-handle-inner" />
       </div>
     );
   }
@@ -73,9 +72,9 @@ export default class SliderHandle extends Component {
 SliderHandle.propTypes = {
   displayTooltip: PropTypes.bool,
   offset: PropTypes.number,
-  value: PropTypes.number
+  value: PropTypes.number,
 };
 
 SliderHandle.defaultProps = {
-  displayTooltip: true
+  displayTooltip: true,
 };

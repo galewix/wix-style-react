@@ -1,1 +1,1 @@
-export {default} from './FloatingHelperContent.story';
+export { default } from './FloatingHelperContent.story';

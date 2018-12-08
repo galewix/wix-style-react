@@ -13,12 +13,10 @@ export default () => (
     hideTrigger="click"
     shouldCloseOnClickOutside
     maxWidth="300px"
-    content={(
-      <Calendar value={new Date()} onChange={() => {}}/>
-    )}
-    >
+    content={<Calendar value={new Date()} onChange={() => {}} />}
+  >
     <Button theme="icon-standard">
-      <DateIcon/>
+      <DateIcon />
     </Button>
   </Tooltip>
 );

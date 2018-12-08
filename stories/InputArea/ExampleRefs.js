@@ -18,18 +18,21 @@ class CommandsExample extends React.Component {
 
     return (
       <div>
-        <div style={{width: '400px'}}>
-          <InputArea ref="inputtest"/>
+        <div style={{ width: '400px' }}>
+          <InputArea ref="inputtest" />
         </div>
         <TextButton onClick={handleClick1}>Focus</TextButton>
-        <TextButton onClick={handleClick2}>Focus &amp; blur 1 second later</TextButton>
+        <TextButton onClick={handleClick2}>
+          Focus &amp; blur 1 second later
+        </TextButton>
         <TextButton onClick={handleClick3}>Select text</TextButton>
       </div>
     );
   }
 }
 
-export default () =>
+export default () => (
   <div>
-    <CommandsExample/>
-  </div>;
+    <CommandsExample />
+  </div>
+);

@@ -9,9 +9,10 @@ wix-style-react
 |  |__ComponentName
 |  |    index.js                              # entry file for the component
 |  |    ComponentName.js                      # the actual component
-|  |    ComponentName.scss                  # the component stylesheet
+|  |    ComponentName.scss                    # the component stylesheet
 |  |    ComponentName.spec.js                 # component tests
 |  |    ComponentName.driver.js               # vanilla js public driver to abstract common actions
+|  |    COMPONENT-SPEC.md                     # Component specification
 |  |    ComponentName.e2e.js                  # browser testing
 |  |    ComponentName.protractor.driver.js    # protractor public driver to abstract common actions
 |  |    README.md                             # (optional) additional information of the component
@@ -52,6 +53,20 @@ wix-style-react
 ### index.story.js
 1. The documentation of every component. It uses the `.story` convention in order to apply automated documentation tool.
 1. Read the [Component Documentation section](./DOCUMENTING_COMPONENTS.md) for more information.
+
+### COMPONENT-SPEC.md
+
+This documents purpose is for planning the implementation of a new component.
+It is not a place for documentation (for consumers).
+Component specification, may include:
+
+- Reference to UX spec
+- Props API definitions
+- Styling API definitions
+- Detailed behavior definitions
+- Implementation details
+
+See this [COMPONENT-SPEC-TEMPLATE](./COMPONENT-SPEC-EXAMPLE.md)
 
 ## Component Essentials
 Each component has also an "entry" in a few common files.

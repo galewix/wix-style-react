@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import AutoCompleteCompositeExample from './AutoCompleteCompositeTemplate';
@@ -10,18 +10,17 @@ import RadioGroup from '../../src/RadioGroup';
 import styles from './ExampleStandard.scss';
 
 const options = [
-  {id: 1, value: 'First Option'},
-  {id: 2, value: 'Second Option'},
-  {id: 3, value: 'Third Option'},
-  {id: 4, value: 'Fourth Option'},
-  {id: 4, value: 'Fifth Option'}
+  { id: 1, value: 'First Option' },
+  { id: 2, value: 'Second Option' },
+  { id: 3, value: 'Third Option' },
+  { id: 4, value: 'Fourth Option' },
+  { id: 4, value: 'Fifth Option' },
 ];
 
 class ExampleStandard extends Component {
-
   static propTypes = {
-    onChange: PropTypes.func
-  }
+    onChange: PropTypes.func,
+  };
 
   state = {
     withLabel: true,
@@ -32,20 +31,21 @@ class ExampleStandard extends Component {
     suffixTicker: false,
     label: {
       appearance: 'T1.1',
-      children: 'First name'
+      children: 'First name',
     },
     autoComplete: {
       size: 'normal',
       placeholder: 'Please start typing...',
-      options
-    }
-  }
+      options,
+    },
+  };
 
   setComponentState(componentName, obj) {
     this.setState(prevState => {
-      prevState[componentName] = {...this.state[componentName], ...obj};
-      Object.keys(prevState[componentName])
-        .forEach(k => !prevState[componentName][k] && delete prevState[componentName][k]);
+      prevState[componentName] = { ...this.state[componentName], ...obj };
+      Object.keys(prevState[componentName]).forEach(
+        k => !prevState[componentName][k] && delete prevState[componentName][k],
+      );
       return prevState;
     });
   }
@@ -58,20 +58,21 @@ class ExampleStandard extends Component {
         this.setComponentState('input', {
           [name]: (
             <Input.Group>
-              <Input.Unit value={unit}/>
-              <Input.Ticker onUp={() => {}} onDown={() => {}}/>
+              <Input.Unit value={unit} />
+              <Input.Ticker onUp={() => {}} onDown={() => {}} />
             </Input.Group>
-          )});
+          ),
+        });
       } else if (unit) {
         this.setComponentState('input', {
-          [name]: <Input.Unit value={unit}/>
+          [name]: <Input.Unit value={unit} />,
         });
       } else if (ticker) {
         this.setComponentState('input', {
-          [name]: <Input.Ticker onUp={() => {}} onDown={() => {}}/>
+          [name]: <Input.Ticker onUp={() => {}} onDown={() => {}} />,
         });
       } else {
-        this.setComponentState('input', {[name]: null});
+        this.setComponentState('input', { [name]: null });
       }
     });
   }
@@ -86,13 +87,18 @@ class ExampleStandard extends Component {
               <Input
                 size="small"
                 value={this.state.label.children}
-                onChange={e => this.setComponentState('label', {children: e.target.value})}
-                />&nbsp;
+                onChange={e =>
+                  this.setComponentState('label', { children: e.target.value })
+                }
+              />
+              &nbsp;
               <ToggleSwitch
                 size="small"
                 checked={this.state.withLabel}
-                onChange={() => this.setState({withLabel: !this.state.withLabel})}
-                />
+                onChange={() =>
+                  this.setState({ withLabel: !this.state.withLabel })
+                }
+              />
             </div>
           </div>
           <div className={styles.option}>
@@ -101,8 +107,12 @@ class ExampleStandard extends Component {
               <Input
                 size="small"
                 value={this.state.autoComplete.placeholder}
-                onChange={e => this.setComponentState('autoComplete', {placeholder: e.target.value})}
-                />
+                onChange={e =>
+                  this.setComponentState('autoComplete', {
+                    placeholder: e.target.value,
+                  })
+                }
+              />
             </div>
           </div>
           <div className={styles.option}>
@@ -111,8 +121,10 @@ class ExampleStandard extends Component {
               <RadioGroup
                 display="horizontal"
                 value={this.state.autoComplete.size}
-                onChange={size => this.setComponentState('autoComplete', {size})}
-                >
+                onChange={size =>
+                  this.setComponentState('autoComplete', { size })
+                }
+              >
                 <RadioGroup.Radio value="small">Small</RadioGroup.Radio>
                 <RadioGroup.Radio value="normal">Normal</RadioGroup.Radio>
                 <RadioGroup.Radio value="large">Large</RadioGroup.Radio>
@@ -121,7 +133,10 @@ class ExampleStandard extends Component {
           </div>
         </div>
         <div className={styles.output}>
-          <AutoCompleteCompositeExample {...this.state} onChange={this.props.onChange}/>
+          <AutoCompleteCompositeExample
+            {...this.state}
+            onChange={this.props.onChange}
+          />
         </div>
       </from>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
-import {Portal} from 'react-portal';
+import { Portal } from 'react-portal';
 import PropTypes from 'prop-types';
-import {DragLayer} from 'react-dnd';
+import { DragLayer } from 'react-dnd';
 
 /* eslint-disable new-cap */
 
@@ -10,7 +10,7 @@ const layerStyles = {
   pointerEvents: 'none',
   zIndex: 100,
   left: 0,
-  top: 0
+  top: 0,
 };
 
 let dragPreviewRef = null;
@@ -20,7 +20,8 @@ const onOffsetChange = monitor => {
     return;
   }
 
-  const offset = monitor.getSourceClientOffset() || monitor.getInitialClientOffset();
+  const offset =
+    monitor.getSourceClientOffset() || monitor.getInitialClientOffset();
   if (!offset) {
     return;
   }
@@ -32,36 +33,34 @@ const onOffsetChange = monitor => {
 
 class CustomDragLayer extends React.Component {
   shouldRenderLayer = (props = this.props) => {
-    const {id, item, itemType, draggedType, isDragging} = props;
+    const { id, item, itemType, draggedType, isDragging } = props;
     return isDragging && id === item.id && itemType === draggedType;
   };
 
   renderPreview = () => {
-    const {offsetOfHandle} = this.props;
-    const styles = Object.assign({}, layerStyles, {left: -offsetOfHandle.x, top: -offsetOfHandle.y});
+    const { offsetOfHandle } = this.props;
+    const styles = Object.assign({}, layerStyles, {
+      left: -offsetOfHandle.x,
+      top: -offsetOfHandle.y,
+    });
     return (
-      <div
-        style={styles}
-        ref={node => dragPreviewRef = node}
-        >
+      <div style={styles} ref={node => (dragPreviewRef = node)}>
         {this.props.renderPreview({})}
       </div>
     );
-  }
+  };
 
   renderPreviewInPortal = () => {
-    return (
-      <Portal>
-        {this.renderPreview()}
-      </Portal>
-    );
-  }
+    return <Portal>{this.renderPreview()}</Portal>;
+  };
 
   render() {
     if (!this.shouldRenderLayer()) {
       return null;
     }
-    return this.props.usePortal ? this.renderPreviewInPortal() : this.renderPreview();
+    return this.props.usePortal
+      ? this.renderPreviewInPortal()
+      : this.renderPreview();
   }
 }
 
@@ -73,7 +72,7 @@ CustomDragLayer.propTypes = {
   isDragging: PropTypes.bool,
   renderPreview: PropTypes.func,
   usePortal: PropTypes.bool,
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default DragLayer((monitor, props) => {
@@ -82,6 +81,6 @@ export default DragLayer((monitor, props) => {
     offsetOfHandle: props.offsetOfHandle,
     item: monitor.getItem(),
     itemType: monitor.getItemType(),
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
   };
 })(CustomDragLayer);

@@ -1,9 +1,10 @@
 import React from 'react';
-import {node, bool} from 'prop-types';
+import { node, bool } from 'prop-types';
 import NavigationLinkLayout from '../core/navigation/LinkLayout';
+
 class Link extends React.Component {
   render() {
-    const {children, isActive, ...rest} = this.props;
+    const { children, isActive, ...rest } = this.props;
 
     return (
       <NavigationLinkLayout isActive={isActive} {...rest}>
@@ -14,12 +15,12 @@ class Link extends React.Component {
 }
 
 Link.defaultProps = {
-  isActive: false
+  isActive: false,
 };
 
 Link.propTypes = {
   children: node.isRequired,
-  isActive: bool
+  isActive: bool,
 };
 
 export default Link;

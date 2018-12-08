@@ -18,9 +18,12 @@ ${MultiAreaListWithSortableColumnsScssRaw}
 
 export default () => (
   <div>
-    <Markdown source={MultiAreaListWithSortableColumnsReadme}/>
-    <CodeExample title="Sortable List - Draggable columns" code={MultiAreaListWithSortableColumnsRawCombined}>
-      <MultiAreaListWithSortableColumns/>
+    <Markdown source={MultiAreaListWithSortableColumnsReadme} />
+    <CodeExample
+      title="Sortable List - Draggable columns"
+      code={MultiAreaListWithSortableColumnsRawCombined}
+    >
+      <MultiAreaListWithSortableColumns />
     </CodeExample>
   </div>
 );

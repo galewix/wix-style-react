@@ -10,9 +10,9 @@ const Example = () => (
       primaryAction={{
         text: 'Edit',
         theme: 'fullblue',
-        onClick: () => window.alert('Primary action was triggered!')
+        onClick: () => window.alert('Primary action was triggered!'),
       }}
-      />
+    />
   </div>
 );
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {bool, node, string} from 'prop-types';
+import { bool, node, string } from 'prop-types';
 import classNames from 'classnames';
 
 import Content from './Content';
@@ -11,28 +11,26 @@ import CollapsedHeader from './CollapsedHeader';
 
 import styles from './Card.scss';
 
-const Card = ({stretchVertically, children, dataHook}) =>
+const Card = ({ stretchVertically, children, dataHook }) => (
   <div
-    className={classNames(
-      styles.card,
-      {
-        [styles.stretchVertically]: stretchVertically
-      }
-    )}
+    className={classNames(styles.card, {
+      [styles.stretchVertically]: stretchVertically,
+    })}
     children={children}
     data-hook={dataHook}
-    />;
+  />
+);
 
 Card.displayName = 'Card';
 
 Card.propTypes = {
   children: node,
   stretchVertically: bool,
-  dataHook: string
+  dataHook: string,
 };
 
 Card.defaultProps = {
-  stretchVertically: false
+  stretchVertically: false,
 };
 
 Card.Content = Content;

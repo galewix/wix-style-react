@@ -1,1 +1,1 @@
-export {default} from 'react-dnd-test-backend';
+export { default } from 'react-dnd-test-backend';

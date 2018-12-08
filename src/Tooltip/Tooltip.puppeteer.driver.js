@@ -7,7 +7,7 @@ const tooltipDriverFactory = async (component, page) => {
       });
       const content = await page.$('[data-hook="tooltip-content"]');
       return page.evaluate(_content => _content.innerText, content);
-    }
+    },
   };
 };
 

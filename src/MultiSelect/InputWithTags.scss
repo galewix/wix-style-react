@@ -114,3 +114,9 @@
   }
 }
 
+@include withRTL() {
+  .tag {
+    margin-left: 0px;
+    margin-right: 7px;
+  }
+}

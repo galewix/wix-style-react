@@ -1,5 +1,5 @@
 import React from 'react';
-import times from 'lodash/times';
+import times from '../src/utils/operators/times';
 
 import ModalSelectorLayout from 'wix-style-react/ModalSelectorLayout';
 import Button from 'wix-style-react/Button';
@@ -11,7 +11,9 @@ const ITEMS = times(50, i => ({
   subtitle: `Subtitle ${i}`,
   extraText: `Extra Text ${i}`,
   disabled: !(i % 2),
-  image: <img width="100%" height="100%" src="http://via.placeholder.com/100x100"/>
+  image: (
+    <img width="100%" height="100%" src="http://via.placeholder.com/100x100" />
+  ),
 }));
 
 export default {
@@ -23,8 +25,8 @@ export default {
   componentProps: setState => ({
     dataHook: 'storybook-modal-selector-layout',
     height: '540px',
-    onClose: () => setState({isOpen: false}),
-    onCancel: () => setState({isOpen: false}),
+    onClose: () => setState({ isOpen: false }),
+    onCancel: () => setState({ isOpen: false }),
     itemsPerPage: 4,
     imageSize: 'large',
     withSearch: true,
@@ -32,27 +34,24 @@ export default {
     dataSource: (searchQuery, offset, limit) =>
       new Promise(resolve =>
         setTimeout(() => {
-          const filtered = ITEMS
-            .filter(({title}) => title.toLowerCase().startsWith(searchQuery.toLowerCase()));
+          const filtered = ITEMS.filter(({ title }) =>
+            title.toLowerCase().startsWith(searchQuery.toLowerCase()),
+          );
 
           resolve({
             items: filtered.slice(offset, offset + limit),
-            totalCount: filtered.length
+            totalCount: filtered.length,
           });
-        }, 2000)
-      )
+        }, 2000),
+      ),
   }),
 
   exampleProps: {
     onOk: data => {
       const isArray = Array.isArray(data);
-      const view = i => ({id: i.id, title: i.title, subtitle: i.substitle});
+      const view = i => ({ id: i.id, title: i.title, subtitle: i.substitle });
 
-      return JSON.stringify(
-        isArray ?
-          data.map(view) :
-          view(data)
-      );
+      return JSON.stringify(isArray ? data.map(view) : view(data));
     },
 
     onCancel: () => 'canceled',
@@ -60,20 +59,28 @@ export default {
     title: [
       {
         label: 'default title',
-        value: ModalSelectorLayout.defaultProps.title
+        value: ModalSelectorLayout.defaultProps.title,
       },
       {
         label: 'BOLD title',
-        value: <Text key={0} bold>BOLD title</Text>
-      }
+        value: (
+          <Text key={0} bold>
+            BOLD title
+          </Text>
+        ),
+      },
     ],
 
     subtitle: [
-      {label: 'simple text', value: 'A list of items go below'},
+      { label: 'simple text', value: 'A list of items go below' },
       {
         label: 'component with button',
-        value: <span key={0}>Some text and a <Button>button</Button></span>
-      }
-    ]
-  }
+        value: (
+          <span key={0}>
+            Some text and a <Button>button</Button>
+          </span>
+        ),
+      },
+    ],
+  },
 };

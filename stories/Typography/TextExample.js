@@ -1,5 +1,5 @@
 import React from 'react';
-import {string, bool} from 'prop-types';
+import { string, bool } from 'prop-types';
 import classNames from 'classnames';
 
 import typography from '../../src/Typography';
@@ -25,24 +25,18 @@ const propsToClassNames = props => {
     [`skin${capitalize(props.skin)}`]: !!props.skin,
     link: !!props.link,
     light: !!props.light,
-    secondary: !!props.secondary
+    secondary: !!props.secondary,
   };
-  return Object.entries(names)
-    .reduce(
-      (acc, entry) => {
-        if (entry[1]) {
-          acc.push(entry[0]);
-        }
-        return acc;
-      },
-      []
-    );
+  return Object.entries(names).reduce((acc, entry) => {
+    if (entry[1]) {
+      acc.push(entry[0]);
+    }
+    return acc;
+  }, []);
 };
 
 const textClasses = props => {
-  return classNames(
-    propsToClassNames(props).map(name => typography[name])
-  );
+  return classNames(propsToClassNames(props).map(name => typography[name]));
 };
 
 const TextSizeWeightExample = props => {
@@ -53,9 +47,7 @@ const TextSizeWeightExample = props => {
       <td>{props.weight ? props.weight : `[${DEFAULT_WEIGHT}]`}</td>
       <td>{propsToClassNames(props).join(' ')}</td>
       <td>
-        <span className={classes}>
-        This is a text
-        </span>
+        <span className={classes}>This is a text</span>
       </td>
     </tr>
   );
@@ -63,11 +55,12 @@ const TextSizeWeightExample = props => {
 
 TextSizeWeightExample.propTypes = {
   size: string,
-  weight: string
+  weight: string,
 };
 
 const TextColorExample = props => {
-  const boolLabel = val => val === undefined ? `[false]` : val ? 'true' : 'false';
+  const boolLabel = val =>
+    val === undefined ? `[false]` : val ? 'true' : 'false';
   const link = boolLabel(props.link);
   const light = boolLabel(props.light);
   const secondary = boolLabel(props.secondary);
@@ -78,14 +71,10 @@ const TextColorExample = props => {
       <td>{light}</td>
       <td>{secondary}</td>
       <td>{propsToClassNames(props).join(' ')}</td>
-      <td style={{backgroundColor: props.light ? 'black' : 'white'}}>
-        <span className={textClasses(props)}>
-        This is a text
-        </span>
+      <td style={{ backgroundColor: props.light ? 'black' : 'white' }}>
+        <span className={textClasses(props)}>This is a text</span>
       </td>
-      <td>
-        {props.note}
-      </td>
+      <td>{props.note}</td>
     </tr>
   );
 };
@@ -95,7 +84,7 @@ TextColorExample.propTypes = {
   link: bool,
   light: bool,
   secondary: bool,
-  note: string
+  note: string,
 };
 
 export function renderSizeAndWeightTable() {
@@ -109,28 +98,28 @@ export function renderSizeAndWeightTable() {
           <th>Example</th>
         </tr>
       </thead>
-      <TextSizeWeightExample/>
+      <TextSizeWeightExample />
 
       {/* size & weight*/}
-      <TextSizeWeightExample size="medium"/>
-      <TextSizeWeightExample size="small"/>
-      <TextSizeWeightExample size="tiny"/>
+      <TextSizeWeightExample size="medium" />
+      <TextSizeWeightExample size="small" />
+      <TextSizeWeightExample size="tiny" />
 
-      <TextSizeWeightExample weight="thin"/>
-      <TextSizeWeightExample weight="normal"/>
-      <TextSizeWeightExample weight="bold"/>
+      <TextSizeWeightExample weight="thin" />
+      <TextSizeWeightExample weight="normal" />
+      <TextSizeWeightExample weight="bold" />
 
-      <TextSizeWeightExample weight="thin" size="tiny"/>
-      <TextSizeWeightExample weight="normal" size="tiny"/>
-      <TextSizeWeightExample weight="bold" size="tiny"/>
+      <TextSizeWeightExample weight="thin" size="tiny" />
+      <TextSizeWeightExample weight="normal" size="tiny" />
+      <TextSizeWeightExample weight="bold" size="tiny" />
 
-      <TextSizeWeightExample weight="thin" size="small"/>
-      <TextSizeWeightExample weight="normal" size="small"/>
-      <TextSizeWeightExample weight="bold" size="small"/>
+      <TextSizeWeightExample weight="thin" size="small" />
+      <TextSizeWeightExample weight="normal" size="small" />
+      <TextSizeWeightExample weight="bold" size="small" />
 
-      <TextSizeWeightExample weight="thin" size="medium"/>
-      <TextSizeWeightExample weight="normal" size="medium"/>
-      <TextSizeWeightExample weight="bold" size="medium"/>
+      <TextSizeWeightExample weight="thin" size="medium" />
+      <TextSizeWeightExample weight="normal" size="medium" />
+      <TextSizeWeightExample weight="bold" size="medium" />
     </table>
   );
 }
@@ -149,23 +138,23 @@ export function renderColorTable() {
           <th>Notes</th>
         </tr>
       </thead>
-      <TextColorExample/>
+      <TextColorExample />
 
       {/* color */}
-      <TextColorExample skin="standard"/>
-      <TextColorExample skin="success"/>
-      <TextColorExample skin="error"/>
-      <TextColorExample skin="premium"/>
+      <TextColorExample skin="standard" />
+      <TextColorExample skin="success" />
+      <TextColorExample skin="error" />
+      <TextColorExample skin="premium" />
 
-      <TextColorExample link/>
-      <TextColorExample light/>
-      <TextColorExample secondary/>
-      <TextColorExample secondary light/>
+      <TextColorExample link />
+      <TextColorExample light />
+      <TextColorExample secondary />
+      <TextColorExample secondary light />
 
       {/* skin takes precedence */}
-      <TextColorExample skin="success" link note="skin takes precedence"/>
-      <TextColorExample skin="success" light note="skin takes precedence"/>
-      <TextColorExample skin="success" secondary note="skin takes precedence"/>
+      <TextColorExample skin="success" link note="skin takes precedence" />
+      <TextColorExample skin="success" light note="skin takes precedence" />
+      <TextColorExample skin="success" secondary note="skin takes precedence" />
     </table>
   );
 }

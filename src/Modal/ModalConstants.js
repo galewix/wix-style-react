@@ -1,13 +1,13 @@
 export const flexPositions = {
   start: 'flex-start',
   center: 'center',
-  end: 'flex-end'
+  end: 'flex-end',
 };
 
 export const colors = {
   blue: 'blue',
   red: 'red',
-  green: 'green'
+  green: 'green',
 };
 
 export const positions = {
@@ -15,5 +15,5 @@ export const positions = {
   relative: 'relative',
   absolute: 'absolute',
   fixed: 'fixed',
-  sticky: 'sticky'
+  sticky: 'sticky',
 };

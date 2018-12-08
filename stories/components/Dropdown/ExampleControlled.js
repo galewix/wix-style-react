@@ -7,15 +7,15 @@ const style = {
   padding: '0 5px 0',
   width: '200px',
   lineHeight: '22px',
-  marginBottom: '160px'
+  marginBottom: '160px',
 };
 
 const options = [
-  {id: 1, value: 'Option 1'},
-  {id: 2, value: 'Option 2'},
-  {id: 3, value: 'Option 3'},
-  {id: 4, value: 'Option 4', disabled: true},
-  {id: 5, value: 'Option 5'}
+  { id: 1, value: 'Option 1' },
+  { id: 2, value: 'Option 2' },
+  { id: 3, value: 'Option 3' },
+  { id: 4, value: 'Option 4', disabled: true },
+  { id: 5, value: 'Option 5' },
 ];
 
 class ControlledDropdown extends React.Component {
@@ -35,12 +35,13 @@ class ControlledDropdown extends React.Component {
         options={options}
         onSelect={this.onSelect}
         placeholder={'Choose an option'}
-        />
+      />
     );
   }
 }
 
-export default () =>
+export default () => (
   <div style={style}>
-    <ControlledDropdown/>
-  </div>;
+    <ControlledDropdown />
+  </div>
+);

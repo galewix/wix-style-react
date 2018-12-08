@@ -5,7 +5,7 @@ const filePickerDriverFactory = component => ({
   getMainLabel: () => component.$(`[data-hook="main-label"]`).getText(),
   hasError: () => !!component.$(`[data-hook="filePicker-error"]`),
   errorMessage: () => component.$(`[data-hook="filePicker-error"]`).getText(),
-  element: () => component
+  element: () => component,
 });
 
 export default filePickerDriverFactory;

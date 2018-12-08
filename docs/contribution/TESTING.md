@@ -96,7 +96,9 @@ storiesOf(kind, module)
 
 1. single run: `npm run test:unit`
 
-1. watch mode: `npm start`
+1. watch mode: `npm run test:watch`
+
+1. watch mode + storybook: `npm start` (This runs also storybook)
 
 #### Debugging
 
@@ -108,15 +110,15 @@ storiesOf(kind, module)
 1. single run: `npm run build && npm run test:e2e`.
     - Running `npm run build` between tests is required only if making changes to the component. Changing the tests doesn't require building again.
 
-1. watch mode:
+1. Watch mode:
+    - open a terminal console
+    - `npm run storybook` - serve storybook with hot reload
+    - open another terminal console
+    - `npm run test:e2e-only` - run just e2e tests
 
-    - `npm run storybook` - serve storybook in watch
+#### Running a single test (focused test)
 
-    - `npm run test:e2e-only` - run just e2e tests in separate terminal instance
-
-#### Running a single test
-
-1. use `eyes.it` instead of `it` or `eyes.fit` to focus one test.
+1. To make a focused test (only it runs) use `fit` instead of `it` or use `eyes.fit` instead of `eyes.it`.
 
 #### Debugging
 

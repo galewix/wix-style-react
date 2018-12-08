@@ -1,1 +1,1 @@
-export {default} from './DragDropContextProvider';
+export { default } from './DragDropContextProvider';

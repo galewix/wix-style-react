@@ -1,0 +1,78 @@
+@import '../colors.scss';
+@import '../common';
+
+.placeholderLine {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 11px;
+  overflow: hidden;
+  background: $D80;
+
+  &:after {
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent 50%);
+    height: 11px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    animation: moveRight 1s linear infinite;
+    transform: translateX(-100%);
+    content: ' ';
+  }
+
+  &.middle {
+    justify-content: center;
+  }
+  &.small {
+    margin-bottom: 10px;
+  }
+  &.medium {
+    margin-bottom: 16px;
+  }
+  &.large {
+    margin-bottom: 22px;
+  }
+
+  &:first-child {
+    &.small {
+      margin-bottom: 23px;
+    }
+    &.medium {
+      margin-bottom: 36px;
+    }
+    &.large {
+      margin-bottom: 50px;
+    }
+  }
+}
+
+.chunk {
+  height: 100%;
+  background: $D60;
+  border-radius: 30px;
+
+  &.small {
+    width: 30%;
+  }
+  &.medium {
+    width: 45%;
+  }
+  &.large {
+    width: 75%;
+  }
+  &.full {
+    width: 100%;
+  }
+}
+
+@include withRTL {
+  .placeholderLine:after {
+    animation-direction: reverse;
+  }
+}
+
+@keyframes moveRight {
+  to { transform: translateX(100%); }
+}

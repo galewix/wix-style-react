@@ -1,5 +1,5 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 
 import AutoDocs from 'wix-storybook-utils/AutoDocs';
 import TabbedView from 'wix-storybook-utils/TabbedView';
@@ -15,22 +15,29 @@ import CardWithEditableSelectorExampleRaw from '!raw-loader!./CardWithEditableSe
 import PopoverWithEditableSelectorExample from './PopoverWithEditableSelector';
 import PopoverhEditableSelectorExampleRaw from '!raw-loader!./PopoverWithEditableSelector';
 
-storiesOf('11. Pickers and Selectors', module)
-  .add('11.2 EditableSelector', () =>
+storiesOf('11. Pickers and Selectors', module).add(
+  '11.2 EditableSelector',
+  () => (
     <TabbedView tabs={['API', 'TestKits']}>
       <div>
-        <AutoDocs source={EditableSelectorSource}/>
+        <AutoDocs source={EditableSelectorSource} />
 
-        <CodeExample title="Card With Editable Selector" code={CardWithEditableSelectorExampleRaw}>
-          <CardWithEditableSelectorExample/>
+        <CodeExample
+          title="Card With Editable Selector"
+          code={CardWithEditableSelectorExampleRaw}
+        >
+          <CardWithEditableSelectorExample />
         </CodeExample>
 
-        <CodeExample title="Popover With Editable Selector" code={PopoverhEditableSelectorExampleRaw}>
-          <PopoverWithEditableSelectorExample/>
+        <CodeExample
+          title="Popover With Editable Selector"
+          code={PopoverhEditableSelectorExampleRaw}
+        >
+          <PopoverWithEditableSelectorExample />
         </CodeExample>
-
       </div>
 
-      <Markdown source={TestKitReadme}/>
+      <Markdown source={TestKitReadme} />
     </TabbedView>
-  );
+  ),
+);

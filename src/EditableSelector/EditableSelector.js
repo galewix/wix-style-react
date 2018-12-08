@@ -20,48 +20,48 @@ class EditableSelector extends WixComponent {
     onOptionEdit: PropTypes.func,
     onOptionDelete: PropTypes.func,
     onOptionToggle: PropTypes.func,
-    options: PropTypes.array
+    options: PropTypes.array,
   };
 
   static defaultProps = {
     toggleType: 'checkbox',
     newRowLabel: 'New Row',
-    editButtonText: 'Edit'
+    editButtonText: 'Edit',
   };
 
   state = {
     addingNewRow: false,
-    editingRow: null
+    editingRow: null,
   };
 
   addNewRow = () => {
-    this.setState({addingNewRow: true, editingRow: false});
+    this.setState({ addingNewRow: true, editingRow: false });
   };
 
   editItem = index => {
-    this.setState({editingRow: index, addingNewRow: false});
+    this.setState({ editingRow: index, addingNewRow: false });
   };
 
   deleteItem = index => {
-    this.props.onOptionDelete && this.props.onOptionDelete({index});
+    this.props.onOptionDelete && this.props.onOptionDelete({ index });
   };
 
-  onNewOptionApprove = ({newTitle, index}) => {
+  onNewOptionApprove = ({ newTitle, index }) => {
     if (this.state.addingNewRow) {
-      this.props.onOptionAdded && this.props.onOptionAdded({newTitle});
+      this.props.onOptionAdded && this.props.onOptionAdded({ newTitle });
     } else {
-      this.props.onOptionEdit && this.props.onOptionEdit({newTitle, index});
+      this.props.onOptionEdit && this.props.onOptionEdit({ newTitle, index });
     }
     this.setState({
       addingNewRow: false,
-      editingRow: null
+      editingRow: null,
     });
   };
 
   onNewOptionCancel = () => {
     this.setState({
       addingNewRow: false,
-      editingRow: null
+      editingRow: null,
     });
   };
 
@@ -74,61 +74,79 @@ class EditableSelector extends WixComponent {
       <EditableRow
         key={index}
         dataHook="edit-row-wrapper"
-        onApprove={newTitle => this.onNewOptionApprove({newTitle, index})}
+        onApprove={newTitle => this.onNewOptionApprove({ newTitle, index })}
         onCancel={() => this.onNewOptionCancel()}
         newOption={title}
-        />
+      />
     );
   };
 
   render() {
-    const {
-      title,
-      newRowLabel,
-      editButtonText,
-      toggleType
-    } = this.props;
-    let {options} = this.props;
+    const { title, newRowLabel, editButtonText, toggleType } = this.props;
+    let { options } = this.props;
     options = options || [];
     return (
       <div>
-        {title && <div className={styles.title} data-hook="editable-selector-title"><Text weight="normal">{title}</Text></div>}
+        {title && (
+          <div className={styles.title} data-hook="editable-selector-title">
+            <Text weight="normal">{title}</Text>
+          </div>
+        )}
         <div>
           {options.map((option, index) =>
-            this.state.editingRow === index ? this.renderInput(option.title, index) :
-            <div data-hook="editable-selector-row" className={styles.row} key={index}>
-              <Selector
-                dataHook="editable-selector-item"
-                id={index}
-                title={option.title}
-                isSelected={option.isSelected}
-                toggleType={toggleType}
-                onToggle={id => this.onOptionToggle(id)}
+            this.state.editingRow === index ? (
+              this.renderInput(option.title, index)
+            ) : (
+              <div
+                data-hook="editable-selector-row"
+                className={styles.row}
+                key={index}
+              >
+                <Selector
+                  dataHook="editable-selector-item"
+                  id={index}
+                  title={option.title}
+                  isSelected={option.isSelected}
+                  toggleType={toggleType}
+                  onToggle={id => this.onOptionToggle(id)}
                 />
-              <div className={styles.optionMenu}>
-                <ButtonWithOptions.Button onClick={() => this.deleteItem(index)} dataHook="delete-item" type="button" height="small" theme="icon-greybackground">
-                  <Delete/>
-                </ButtonWithOptions.Button>
-                <div className={styles.editRow}>
+                <div className={styles.optionMenu}>
                   <ButtonWithOptions.Button
-                    onClick={() => this.editItem(index)}
-                    dataHook="edit-item"
+                    onClick={() => this.deleteItem(index)}
+                    dataHook="delete-item"
+                    type="button"
                     height="small"
-                    theme="fullblue"
-                    >
-                    {editButtonText}
+                    theme="icon-greybackground"
+                  >
+                    <Delete />
                   </ButtonWithOptions.Button>
+                  <div className={styles.editRow}>
+                    <ButtonWithOptions.Button
+                      onClick={() => this.editItem(index)}
+                      dataHook="edit-item"
+                      height="small"
+                      theme="fullblue"
+                    >
+                      {editButtonText}
+                    </ButtonWithOptions.Button>
+                  </div>
                 </div>
               </div>
-            </div>
+            ),
           )}
         </div>
         {this.state.addingNewRow && this.renderInput()}
         <div className={styles.newRowButton}>
-          <TextLink underlineStyle="never" onClick={() => this.addNewRow()} dataHook="new-row-button">
+          <TextLink
+            underlineStyle="never"
+            onClick={() => this.addNewRow()}
+            dataHook="new-row-button"
+          >
             <span className={styles.textLinkWithPrefix}>
-              <Add className={styles.icon}/>
-              <span className={styles.text} data-hook="new-row-button-text">{newRowLabel}</span>
+              <Add className={styles.icon} />
+              <span className={styles.text} data-hook="new-row-button-text">
+                {newRowLabel}
+              </span>
             </span>
           </TextLink>
         </div>

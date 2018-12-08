@@ -3,32 +3,32 @@ import DataTable from 'wix-style-react/DataTable';
 import './Example.scss';
 
 const style = {
-  width: '966px'
+  width: '966px',
 };
 
 const baseData = [
-  {firstName: 'Meghan', lastName: 'Bishop'},
-  {firstName: 'Sara', lastName: 'Porter'},
-  {firstName: 'Deborah', lastName: 'Rhodes'},
-  {firstName: 'Walter', lastName: 'Jenning'},
-  {firstName: 'Amanda', lastName: 'Woods'}
+  { firstName: 'Meghan', lastName: 'Bishop' },
+  { firstName: 'Sara', lastName: 'Porter' },
+  { firstName: 'Deborah', lastName: 'Rhodes' },
+  { firstName: 'Walter', lastName: 'Jenning' },
+  { firstName: 'Amanda', lastName: 'Woods' },
 ];
 
 class DataTableSortableOldDesignExample extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {sort: {}, data: baseData};
+    this.state = { sort: {}, data: baseData };
   }
 
   handleSortClick(colNum) {
     const desc = !this.state.sort[colNum];
-    const sort = Object.assign({}, this.state.sort, {[colNum]: desc});
+    const sort = Object.assign({}, this.state.sort, { [colNum]: desc });
     const filelds = {
       1: 'firstName',
-      2: 'lastName'
+      2: 'lastName',
     };
     const sortedData = this.sortDataByField(filelds[colNum], desc);
-    this.setState({sort, data: sortedData});
+    this.setState({ sort, data: sortedData });
   }
 
   sortDataByField(field, desc) {
@@ -44,11 +44,31 @@ class DataTableSortableOldDesignExample extends React.Component {
           onSortClick={(col, colNum) => this.handleSortClick(colNum)}
           itemsPerPage={20}
           columns={[
-            {title: 'Row Number', render: (row, rowNum) => '#' + (rowNum + 1), width: '20%', minWidth: '75px', important: true},
-            {title: 'First Name', sortable: true, sortDescending: !!this.state.sort[1], render: row => <span>{row.firstName}</span>, width: '40%', minWidth: '100px'},
-            {title: 'Last Name', sortable: true, sortDescending: !!this.state.sort[2], render: row => <span>{row.lastName}</span>, width: '40%', minWidth: '100px'}
+            {
+              title: 'Row Number',
+              render: (row, rowNum) => '#' + (rowNum + 1),
+              width: '20%',
+              minWidth: '75px',
+              important: true,
+            },
+            {
+              title: 'First Name',
+              sortable: true,
+              sortDescending: !!this.state.sort[1],
+              render: row => <span>{row.firstName}</span>,
+              width: '40%',
+              minWidth: '100px',
+            },
+            {
+              title: 'Last Name',
+              sortable: true,
+              sortDescending: !!this.state.sort[2],
+              render: row => <span>{row.lastName}</span>,
+              width: '40%',
+              minWidth: '100px',
+            },
           ]}
-          />
+        />
       </div>
     );
   }

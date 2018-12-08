@@ -3,14 +3,18 @@ import ReactTestUtils from 'react-dom/test-utils';
 import ReactDOM from 'react-dom';
 import styles from './Input.scss';
 
-const inputDriverFactory = ({element, wrapper, component}) => {
+const inputDriverFactory = ({ element, wrapper, component }) => {
   const input = element && element.querySelector('input');
-  const clearButton = element && element.querySelector(`[data-hook=input-clear-button]`);
+  const clearButton =
+    element && element.querySelector(`[data-hook=input-clear-button]`);
   const suffixNode = element && element.querySelector(`.${styles.suffix}`);
   const unitNode = element && element.querySelector(`.${styles.unit}`);
-  const magnifyingGlassNode = element && element.querySelector(`.${styles.magnifyingGlass}`);
-  const menuArrowNode = element && element.querySelector(`.${styles.menuArrow}`);
+  const magnifyingGlassNode =
+    element && element.querySelector(`.${styles.magnifyingGlass}`);
+  const menuArrowNode =
+    element && element.querySelector(`.${styles.menuArrow}`);
   const [name, type] = [input.getAttribute('name'), input.getAttribute('type')];
+
   const driver = {
     trigger: (trigger, event) => ReactTestUtils.Simulate[trigger](input, event),
     focus: options => {
@@ -23,17 +27,19 @@ const inputDriverFactory = ({element, wrapper, component}) => {
     },
     getName: () => name,
     getType: () => type,
-    keyDown: key => ReactTestUtils.Simulate.keyDown(input, {key}),
+    keyDown: key => ReactTestUtils.Simulate.keyDown(input, { key }),
     click: () => ReactTestUtils.Simulate.click(input),
     clickSuffix: () => ReactTestUtils.Simulate.click(suffixNode),
     clickClear: () => ReactTestUtils.Simulate.click(clearButton),
     clickUnit: () => ReactTestUtils.Simulate.click(unitNode),
-    clickMagnifyingGlass: () => ReactTestUtils.Simulate.click(magnifyingGlassNode),
+    clickMagnifyingGlass: () =>
+      ReactTestUtils.Simulate.click(magnifyingGlassNode),
     clickMenuArrow: () => ReactTestUtils.Simulate.click(menuArrowNode),
     mouseOver: () => ReactTestUtils.Simulate.mouseOver(input),
     mouseOut: () => ReactTestUtils.Simulate.mouseOut(input),
     clearText: () => driver.enterText(''),
-    enterText: text => ReactTestUtils.Simulate.change(input, {target: {name, type, value: text}}),
+    enterText: text => 
+      ReactTestUtils.Simulate.change(input, {target: {name, type, value: text}}),
     getValue: () => input.value,
     getPlaceholder: () => input.placeholder,
     getDefaultValue: () => input.defaultValue,
@@ -46,13 +52,26 @@ const inputDriverFactory = ({element, wrapper, component}) => {
     getAutocomplete: () => input.getAttribute('autocomplete'),
     getRequired: () => input.required,
     hasPrefix: () => element.querySelectorAll(`.${styles.prefix}`).length === 1,
-    hasPrefixClass: () => element.querySelectorAll(`.${styles.input}.${styles.withPrefix}`).length === 1,
+    hasPrefixClass: () =>
+      element.querySelectorAll(`.${styles.input}.${styles.withPrefix}`)
+        .length === 1,
     hasSuffix: () => !!suffixNode,
-    hasSuffixClass: () => element.querySelectorAll(`.${styles.input}.${styles.withSuffix}`).length === 1,
-    hasSuffixesClass: () => element.querySelectorAll(`.${styles.input}.${styles.withSuffixes}`).length === 1,
-    prefixComponentExists: style => !!element.querySelector(`.${styles.prefix} ${style}`),
-    suffixComponentExists: style => !!element.querySelector(`.${styles.suffix} ${style}`),
-    isMenuArrowLast: () => element.querySelectorAll(`.${styles.suffixes} .${styles.suffix}:last-child > .${styles.menuArrow}`).length === 1,
+    hasSuffixClass: () =>
+      element.querySelectorAll(`.${styles.input}.${styles.withSuffix}`)
+        .length === 1,
+    hasSuffixesClass: () =>
+      element.querySelectorAll(`.${styles.input}.${styles.withSuffixes}`)
+        .length === 1,
+    prefixComponentExists: style =>
+      !!element.querySelector(`.${styles.prefix} ${style}`),
+    suffixComponentExists: style =>
+      !!element.querySelector(`.${styles.suffix} ${style}`),
+    isMenuArrowLast: () =>
+      element.querySelectorAll(
+        `.${styles.suffixes} .${styles.suffix}:last-child > .${
+          styles.menuArrow
+        }`,
+      ).length === 1,
     hasExclamation: () => !!element.querySelector(`.${styles.exclamation}`),
     isNarrowError: () => !!element.querySelector(`.${styles.narrow}`),
     hasHelp: () => !!element.querySelector(`.${styles.help}`),
@@ -78,12 +97,21 @@ const inputDriverFactory = ({element, wrapper, component}) => {
     getCursorLocation: () => input.selectionStart,
     getRootElementClasses: () => element.classList,
     getInputElementClasses: () => input.classList,
-    hasRightBorderRadius: () => !element.classList.contains(styles.noRightBorderRadius),
-    hasLeftBorderRadius: () => !element.classList.contains(styles.noLeftBorderRadius),
+    hasRightBorderRadius: () =>
+      !element.classList.contains(styles.noRightBorderRadius),
+    hasLeftBorderRadius: () =>
+      !element.classList.contains(styles.noLeftBorderRadius),
     setProps: props => {
-      const ClonedWithProps = React.cloneElement(component, Object.assign({}, component.props, props), ...(component.props.children || []));
-      ReactDOM.render(<div ref={r => element = r}>{ClonedWithProps}</div>, wrapper);
-    }
+      const ClonedWithProps = React.cloneElement(
+        component,
+        Object.assign({}, component.props, props),
+        ...(component.props.children || []),
+      );
+      ReactDOM.render(
+        <div ref={r => (element = r)}>{ClonedWithProps}</div>,
+        wrapper,
+      );
+    },
   };
 
   return driver;

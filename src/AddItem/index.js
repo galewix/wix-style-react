@@ -1,1 +1,1 @@
-export {default} from './AddItem';
+export { default } from './AddItem';

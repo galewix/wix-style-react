@@ -4,5 +4,5 @@ export default {
   dataHookExampleCheckbox: 'story-field-with-selection-example',
   dataHookExampleDropdown: 'story-field-with-selection-dropdown',
   dataHookCheckbox: 'example-checkbox',
-  dataHookDropdown: 'example-dropdown'
+  dataHookDropdown: 'example-dropdown',
 };

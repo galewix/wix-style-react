@@ -33,51 +33,52 @@ import ExampleSizesRaw from '!raw-loader!./ExampleSizes';
 import ExampleRoundInput from './ExampleRoundInput';
 import ExampleRoundInputRaw from '!raw-loader!./ExampleRoundInput';
 
-const Examples = ({theme}) =>
+const Examples = ({ theme }) => (
   <div>
     <CodeExample title="Standard" code={ExampleStandardRaw}>
-      <ExampleStandard theme={theme}/>
+      <ExampleStandard theme={theme} />
     </CodeExample>
 
     <CodeExample title="Error" code={ExampleErrorRaw}>
-      <ExampleError theme={theme}/>
+      <ExampleError theme={theme} />
     </CodeExample>
 
     <CodeExample title="Loader" code={ExampleLoaderRaw}>
-      <ExampleLoader theme={theme}/>
+      <ExampleLoader theme={theme} />
     </CodeExample>
 
     <CodeExample title="Unit" code={ExampleUnitRaw}>
-      <ExampleUnit theme={theme}/>
+      <ExampleUnit theme={theme} />
     </CodeExample>
 
     <CodeExample title="MagnifyingGlass" code={ExampleMagnifyingGlassRaw}>
-      <ExampleMagnifyingGlass theme={theme}/>
+      <ExampleMagnifyingGlass theme={theme} />
     </CodeExample>
 
     <CodeExample title="Clear button" code={ExampleClearButtonRaw}>
-      <ExampleClearButton theme={theme}/>
+      <ExampleClearButton theme={theme} />
     </CodeExample>
 
     <CodeExample title="Controlled input" code={ExampleControlledRaw}>
-      <ExampleControlled theme={theme}/>
+      <ExampleControlled theme={theme} />
     </CodeExample>
 
     <CodeExample title="Sizes" code={ExampleSizesRaw}>
-      <ExampleSizes theme={theme}/>
+      <ExampleSizes theme={theme} />
     </CodeExample>
 
     <CodeExample title="Rounded input" code={ExampleRoundInputRaw}>
-      <ExampleRoundInput theme={theme}/>
+      <ExampleRoundInput theme={theme} />
     </CodeExample>
 
     <CodeExample title="Commands test" code={ExampleRefsRaw}>
-      <ExampleRefs theme={theme}/>
+      <ExampleRefs theme={theme} />
     </CodeExample>
-  </div>;
+  </div>
+);
 
 Examples.propTypes = {
-  theme: PropTypes.string
+  theme: PropTypes.string,
 };
 
 export default Examples;

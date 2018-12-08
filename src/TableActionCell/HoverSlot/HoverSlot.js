@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import style from '../TableActionCell.st.css';
 
-const HoverSlot = ({display, children, ...props}) => (
+const HoverSlot = ({ display, children, ...props }) => (
   <span className={classNames(style.hoverSlot, style[display])} {...props}>
     {children}
   </span>
@@ -11,7 +11,7 @@ const HoverSlot = ({display, children, ...props}) => (
 
 HoverSlot.propTypes = {
   display: PropTypes.oneOf(['always', 'onHover', 'notOnHover']),
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default HoverSlot;

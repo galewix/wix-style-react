@@ -1,2 +1,3 @@
-import {Label} from 'wix-ui-backoffice/Label';
+import { Label } from 'wix-ui-backoffice/Label';
+
 export default Label;

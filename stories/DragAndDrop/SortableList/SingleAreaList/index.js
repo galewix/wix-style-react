@@ -17,12 +17,15 @@ ${SingleAreaListScssRaw}
 
 export default () => (
   <div>
-    <Markdown source={SingleAreaListReadme}/>
+    <Markdown source={SingleAreaListReadme} />
     <CodeExample title="SortableList" code={SingleAreaListRawCombined}>
-      <SingleAreaList/>
+      <SingleAreaList />
     </CodeExample>
-    <CodeExample title="SortableList with handle" code={SingleAreaListRawCombined}>
-      <SingleAreaList withHandle/>
+    <CodeExample
+      title="SortableList with handle"
+      code={SingleAreaListRawCombined}
+    >
+      <SingleAreaList withHandle />
     </CodeExample>
   </div>
 );

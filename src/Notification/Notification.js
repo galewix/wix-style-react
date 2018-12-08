@@ -1,10 +1,10 @@
-import React, {Children} from 'react';
+import React, { Children } from 'react';
 import PropTypes from 'prop-types';
-import {TransitionGroup, CSSTransition} from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 
 import WixComponent from '../BaseComponents/WixComponent';
-import {children, once, optional} from '../../src/Composite';
+import { children, once, optional } from '../Composite';
 import CloseButton from '../CloseButton';
 import TextLabel from './TextLabel';
 import ActionButton from './ActionButton';
@@ -18,12 +18,12 @@ export const DEFAULT_TIMEOUT = 6000;
 export const notificationTypeToPosition = {
   [LOCAL_NOTIFICATION]: 'absolute',
   [GLOBAL_NOTIFICATION]: 'relative',
-  [STICKY_NOTIFICATION]: 'fixed'
+  [STICKY_NOTIFICATION]: 'fixed',
 };
 
 const animationsTimeouts = {
   enter: 500,
-  exit: 350
+  exit: 350,
 };
 
 function FirstChild(props) {
@@ -38,12 +38,12 @@ function mapChildren(children) {
     return {
       label: childrenArray[0],
       ctaButton: childrenArray[1],
-      closeButton: React.cloneElement(childrenArray[2], {size: 'small'})
+      closeButton: React.cloneElement(childrenArray[2], { size: 'small' }),
     };
   } else {
     return {
       label: childrenArray[0],
-      closeButton: React.cloneElement(childrenArray[1], {size: 'small'})
+      closeButton: React.cloneElement(childrenArray[1], { size: 'small' }),
     };
   }
 }
@@ -55,17 +55,20 @@ class Notification extends WixComponent {
     super(props);
     this.state = {
       hideByCloseClick: false,
-      hideByTimer: false
+      hideByTimer: false,
     };
 
     this.startCloseTimer(props);
   }
 
-  startCloseTimer({type, timeout}) {
-    if (type !== GLOBAL_NOTIFICATION || (type === GLOBAL_NOTIFICATION && timeout)) {
+  startCloseTimer({ type, timeout }) {
+    if (
+      type !== GLOBAL_NOTIFICATION ||
+      (type === GLOBAL_NOTIFICATION && timeout)
+    ) {
       this.closeTimeout = setTimeout(
         () => this.hideNotificationOnTimeout(),
-        timeout || DEFAULT_TIMEOUT
+        timeout || DEFAULT_TIMEOUT,
       );
     }
   }
@@ -78,27 +81,27 @@ class Notification extends WixComponent {
   }
 
   hideNotificationOnCloseClick = () => {
-    this.setState({hideByCloseClick: true});
+    this.setState({ hideByCloseClick: true });
 
     setTimeout(
       () => this.props.onClose && this.props.onClose('hide-by-close-click'),
-      animationsTimeouts.exit + 100
+      animationsTimeouts.exit + 100,
     );
-  }
+  };
 
   hideNotificationOnTimeout = () => {
-    this.setState({hideByTimer: true});
+    this.setState({ hideByTimer: true });
 
     setTimeout(
       () => this.props.onClose && this.props.onClose('hide-by-timer'),
-      animationsTimeouts.exit + 100
+      animationsTimeouts.exit + 100,
     );
-  }
+  };
 
   bypassCloseFlags() {
     this.setState({
       hideByCloseClick: false,
-      hideByTimer: false
+      hideByTimer: false,
     });
   }
 
@@ -115,11 +118,13 @@ class Notification extends WixComponent {
   }
 
   shouldShowNotification() {
-    return this.props.show && !this.state.hideByCloseClick && !this.state.hideByTimer;
+    return (
+      this.props.show && !this.state.hideByCloseClick && !this.state.hideByTimer
+    );
   }
 
   renderNotification() {
-    const {zIndex, children, type, theme} = this.props;
+    const { zIndex, children, type, theme } = this.props;
     const childrenComponents = mapChildren(children);
 
     return (
@@ -128,41 +133,41 @@ class Notification extends WixComponent {
           enter: css.notificationAnimationEnter,
           enterActive: css.notificationAnimationEnterActive,
           exit: css.notificationAnimationExit,
-          exitActive: css.notificationAnimationExitActive
+          exitActive: css.notificationAnimationExitActive,
         }}
         timeout={animationsTimeouts}
-        >
+      >
         <div
           data-hook="notification-wrapper"
-          style={{zIndex}}
+          style={{ zIndex }}
           className={classNames(
             css.notification,
             css[`${theme}Theme`],
-            css[`${notificationTypeToPosition[type]}Position`]
+            css[`${notificationTypeToPosition[type]}Position`],
           )}
           role="alert"
           aria-labelledby="notification-label"
           aria-live="polite"
-          >
+        >
           <div
             id="notification-label"
             className={css.label}
             children={childrenComponents.label}
-            />
+          />
 
-          { childrenComponents.ctaButton &&
+          {childrenComponents.ctaButton && (
             <div
               className={css.button}
               children={childrenComponents.ctaButton}
-              />
-          }
+            />
+          )}
 
           <div
             data-hook="notification-close-button"
             className={css.closeButton}
             onClick={this.hideNotificationOnCloseClick}
             children={childrenComponents.closeButton}
-            />
+          />
         </div>
       </CSSTransition>
     );
@@ -181,18 +186,32 @@ class Notification extends WixComponent {
 
 Notification.propTypes = {
   show: PropTypes.bool,
-  theme: PropTypes.oneOf(['standard', 'error', 'success', 'warning', 'premium']),
-  type: PropTypes.oneOf([GLOBAL_NOTIFICATION, LOCAL_NOTIFICATION, STICKY_NOTIFICATION]),
+  theme: PropTypes.oneOf([
+    'standard',
+    'error',
+    'success',
+    'warning',
+    'premium',
+  ]),
+  type: PropTypes.oneOf([
+    GLOBAL_NOTIFICATION,
+    LOCAL_NOTIFICATION,
+    STICKY_NOTIFICATION,
+  ]),
   timeout: PropTypes.number,
   zIndex: PropTypes.number,
   onClose: PropTypes.func,
-  children: children(once(TextLabel), optional(ActionButton), optional(CloseButton))
+  children: children(
+    once(TextLabel),
+    optional(ActionButton),
+    optional(CloseButton),
+  ),
 };
 
 Notification.defaultProps = {
   theme: 'standard',
   type: GLOBAL_NOTIFICATION,
-  onClose: null
+  onClose: null,
 };
 
 Notification.CloseButton = CloseButton;

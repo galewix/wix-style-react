@@ -1,20 +1,22 @@
 import React from 'react';
 import WixComponent from '../../../BaseComponents/WixComponent';
 import PropTypes from 'prop-types';
-import {DropTarget} from 'react-dnd';
+import { DropTarget } from 'react-dnd';
 
-import {dragCoordinates} from './../DragUtils';
-import {ItemTypes} from './../types';
+import { dragCoordinates } from '../DragUtils';
+import { ItemTypes } from '../types';
 
 /* eslint-disable new-cap */
 
 const getRelativePositions = (child, parent) => {
-  const topPositionOfChild = child.getBoundingClientRect().top - parent.getBoundingClientRect().top;
-  const bottomPositionOfChild = topPositionOfChild + child.getBoundingClientRect().height;
+  const topPositionOfChild =
+    child.getBoundingClientRect().top - parent.getBoundingClientRect().top;
+  const bottomPositionOfChild =
+    topPositionOfChild + child.getBoundingClientRect().height;
 
   return {
     top: topPositionOfChild,
-    bottom: bottomPositionOfChild
+    bottom: bottomPositionOfChild,
   };
 };
 
@@ -26,7 +28,7 @@ const target = {
     }
     return {
       containerId: props.containerId,
-      index: monitor.getItem().index
+      index: monitor.getItem().index,
     };
   },
   hover(props, monitor, component) {
@@ -37,9 +39,13 @@ const target = {
       in this block we check that user dragging item over container empty pars
       and not over other draggable(sortable items)
     */
-    const {top, bottom} = getRelativePositions(component.childNode, component.rootNode);
-    const {hoverClientY} = dragCoordinates({monitor, component});
-    const isHoverInBannedArea = (hoverClientY > top && hoverClientY < bottom) || !monitor.isOver();
+    const { top, bottom } = getRelativePositions(
+      component.childNode,
+      component.rootNode,
+    );
+    const { hoverClientY } = dragCoordinates({ monitor, component });
+    const isHoverInBannedArea =
+      (hoverClientY > top && hoverClientY < bottom) || !monitor.isOver();
     if (isHoverInBannedArea) {
       return;
     }
@@ -50,14 +56,18 @@ const target = {
       over container with same group
     */
     const monitorItem = monitor.getItem();
-    const isSameGroup = props.groupName && monitorItem.groupName && props.groupName === monitorItem.groupName;
+    const isSameGroup =
+      props.groupName &&
+      monitorItem.groupName &&
+      props.groupName === monitorItem.groupName;
     if (!isSameGroup || !component) {
       return;
     }
     /** end of block */
     const dragIndex = monitorItem.index; // position of item that we drag in items array
     const hoverIndex = hoverClientY < top ? 0 : props.total; // if user drag item above other items - add to the top, otherwise - add to the bottom
-    const isSameContainer = props.containerId === monitorItem.realTime.containerId; // check do we hover over same container(from which item is)
+    const isSameContainer =
+      props.containerId === monitorItem.realTime.containerId; // check do we hover over same container(from which item is)
 
     /** in case that we hover over itself - do nothing */
     if (!component || (hoverIndex === dragIndex && isSameContainer)) {
@@ -85,19 +95,19 @@ const target = {
     */
     props.onHover(dragIndex, hoverIndex, {
       id: monitorItem.id,
-      item: monitorItem.originalItem
+      item: monitorItem.originalItem,
     });
     /** set new index for item */
     monitor.getItem().index = hoverIndex;
-  }
+  },
 };
 
 @DropTarget(ItemTypes.DRAGGABLE, target, connect => ({
-  connectDropTarget: connect.dropTarget()
+  connectDropTarget: connect.dropTarget(),
 }))
 class Container extends WixComponent {
-  setRootRef = node => this.rootNode = node;
-  setChildRef = node => this.childNode = node;
+  setRootRef = node => (this.rootNode = node);
+  setChildRef = node => (this.childNode = node);
 
   render() {
     if (!this.props.connectDropTarget) {
@@ -105,8 +115,8 @@ class Container extends WixComponent {
     }
     return this.props.connectDropTarget(
       <div className={this.props.className} ref={this.setRootRef}>
-        {React.cloneElement(this.props.children, {ref: this.setChildRef})}
-      </div>
+        {React.cloneElement(this.props.children, { ref: this.setChildRef })}
+      </div>,
     );
   }
 }
@@ -118,7 +128,7 @@ Container.propTypes = {
   groupName: PropTypes.string,
   index: PropTypes.number,
   onMoveOut: PropTypes.func,
-  onHover: PropTypes.func
+  onHover: PropTypes.func,
 };
 
 export default Container;

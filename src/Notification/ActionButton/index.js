@@ -1,1 +1,1 @@
-export {default} from './ActionButton.js';
+export { default } from './ActionButton.js';

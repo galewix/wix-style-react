@@ -4,14 +4,14 @@ import waitForCond from 'wait-for-cond';
 import popoverMenuDriverFactory from './PopoverMenu.driver';
 import PopoverMenu from './PopoverMenu';
 import PopoverMenuItem from '../PopoverMenuItem/PopoverMenuItem';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
 import {
   isTestkitExists,
-  isEnzymeTestkitExists
+  isEnzymeTestkitExists,
 } from '../../test/utils/testkit-sanity';
-import {popoverMenuTestkitFactory} from '../../testkit';
-import {popoverMenuTestkitFactory as enzymePopoverMenuTestkitFactory} from '../../testkit/enzyme';
-import {mount} from 'enzyme';
+import { popoverMenuTestkitFactory } from '../../testkit';
+import { popoverMenuTestkitFactory as enzymePopoverMenuTestkitFactory } from '../../testkit/enzyme';
+import { mount } from 'enzyme';
 
 const waitFor = fn => waitForCond.assert(fn, 5000);
 
@@ -27,9 +27,7 @@ describe('PopoverMenu', () => {
   const createDriver = createDriverFactory(popoverMenuDriverFactory);
 
   it('should render trigger button', () => {
-    const driver = createDriver(
-      <PopoverMenu/>
-    );
+    const driver = createDriver(<PopoverMenu />);
 
     expect(driver.exists()).toBe(true);
   });
@@ -44,12 +42,9 @@ describe('PopoverMenu', () => {
           dataHook={menuItemDataHook}
           text={menuItem1Text}
           onClick={menuItem1Listener}
-          />
-        <PopoverMenuItem
-          dataHook={menuItemDataHook}
-          text="Menu Item #2"
-          />
-      </PopoverMenu>
+        />
+        <PopoverMenuItem dataHook={menuItemDataHook} text="Menu Item #2" />
+      </PopoverMenu>,
     ).init.menuItemDataHook(menuItemDataHook);
 
     driver.click();
@@ -72,17 +67,11 @@ describe('PopoverMenu', () => {
   it('should not render non-existing items', async () => {
     const driver = createDriver(
       <PopoverMenu>
-        <PopoverMenuItem
-          dataHook={menuItemDataHook}
-          text="Menu Item #1"
-          />
+        <PopoverMenuItem dataHook={menuItemDataHook} text="Menu Item #1" />
         {false && (
-          <PopoverMenuItem
-            dataHook={menuItemDataHook}
-            text="Menu Item #2"
-            />
+          <PopoverMenuItem dataHook={menuItemDataHook} text="Menu Item #2" />
         )}
-      </PopoverMenu>
+      </PopoverMenu>,
     ).init.menuItemDataHook(menuItemDataHook);
 
     driver.click();
@@ -102,8 +91,8 @@ describe('PopoverMenu', () => {
           dataHook={menuItemDataHook}
           onClick={menuItem1Listener}
           disabled
-          />
-      </PopoverMenu>
+        />
+      </PopoverMenu>,
     ).init.menuItemDataHook(menuItemDataHook);
 
     driver.click();
@@ -120,20 +109,24 @@ describe('PopoverMenu', () => {
 describe('Testkits', () => {
   const genPopoverMenuElement = () => (
     <PopoverMenu>
-      <PopoverMenuItem
-        text="Menu Item #1"
-        />
-      <PopoverMenuItem
-        text="Menu Item #2"
-        />
+      <PopoverMenuItem text="Menu Item #1" />
+      <PopoverMenuItem text="Menu Item #2" />
     </PopoverMenu>
   );
 
   it('Using ReactTestUtils testkit', () => {
-    expect(isTestkitExists(genPopoverMenuElement(), popoverMenuTestkitFactory)).toBe(true);
+    expect(
+      isTestkitExists(genPopoverMenuElement(), popoverMenuTestkitFactory),
+    ).toBe(true);
   });
 
   it('Using Enzyme testkit', () => {
-    expect(isEnzymeTestkitExists(genPopoverMenuElement(), enzymePopoverMenuTestkitFactory, mount)).toBe(true);
+    expect(
+      isEnzymeTestkitExists(
+        genPopoverMenuElement(),
+        enzymePopoverMenuTestkitFactory,
+        mount,
+      ),
+    ).toBe(true);
   });
 });

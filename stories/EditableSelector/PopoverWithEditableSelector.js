@@ -5,29 +5,30 @@ import EditableSelector from 'wix-style-react/EditableSelector';
 import Button from 'wix-style-react/Button';
 
 class PopoverWithEditableSelector extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       options: [
-        {title: 'Marc Banks'},
-        {title: 'Bernard Park'},
-        {title: 'Carlos Dunn'},
-        {title: 'Norman Reeves'},
-        {title: 'Richard Medina'}
-      ]
+        { title: 'Marc Banks' },
+        { title: 'Bernard Park' },
+        { title: 'Carlos Dunn' },
+        { title: 'Norman Reeves' },
+        { title: 'Richard Medina' },
+      ],
     };
   }
 
-  onOptionAdded = ({newTitle}) => {
+  onOptionAdded = ({ newTitle }) => {
     this.setState({
-      options: [...this.state.options, {title: newTitle, isSelected: true}]
+      options: [...this.state.options, { title: newTitle, isSelected: true }],
     });
   };
 
-  onOptionEdit = ({newTitle, index}) => {
+  onOptionEdit = ({ newTitle, index }) => {
     this.setState({
-      options: this.state.options.map((option, i) => index === i ? {title: newTitle} : option)
+      options: this.state.options.map((option, i) =>
+        index === i ? { title: newTitle } : option,
+      ),
     });
   };
 
@@ -40,13 +41,13 @@ class PopoverWithEditableSelector extends React.Component {
         } else {
           return option;
         }
-      })
+      }),
     });
   };
 
-  onOptionDelete = ({index}) => {
+  onOptionDelete = ({ index }) => {
     this.setState({
-      options: this.state.options.filter((option, i) => index !== i)
+      options: this.state.options.filter((option, i) => index !== i),
     });
   };
 
@@ -58,12 +59,24 @@ class PopoverWithEditableSelector extends React.Component {
         onOptionDelete={params => this.onOptionDelete(params)}
         onOptionToggle={params => this.onOptionToggle(params)}
         options={this.state.options}
-        />
+      />
     );
 
     return (
-      <div style={{backgroundColor: '#f0f4f7', minHeight: '300px', padding: '20px'}}>
-        <Tooltip textAlign="start" placement="bottom" content={content} showTrigger="click" hideTrigger="click">
+      <div
+        style={{
+          backgroundColor: '#f0f4f7',
+          minHeight: '300px',
+          padding: '20px',
+        }}
+      >
+        <Tooltip
+          textAlign="start"
+          placement="bottom"
+          content={content}
+          showTrigger="click"
+          hideTrigger="click"
+        >
           <Button>click me</Button>
         </Tooltip>
       </div>

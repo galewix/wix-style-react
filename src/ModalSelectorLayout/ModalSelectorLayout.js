@@ -1,5 +1,5 @@
 import React from 'react';
-import {bool, func, node, number, oneOf, string} from 'prop-types';
+import { bool, func, node, number, oneOf, string } from 'prop-types';
 
 import WixComponent from '../BaseComponents/WixComponent';
 import Loader from '../Loader/Loader';
@@ -9,20 +9,16 @@ import Selector from '../Selector/Selector';
 import Search from '../Search/Search';
 import InfiniteScroll from '../DataTable/InfiniteScroll';
 import Text from '../Text';
-import {dataHooks} from './ModalSelectorLayout.helpers';
+import { dataHooks } from './ModalSelectorLayout.helpers';
 import Checkbox from '../Checkbox';
 
 import css from './ModalSelectorLayout.scss';
 
-
 const DEFAULT_EMPTY = (
   <div className={css.defaultEmptyStateWrapper}>
-    <Text>
-      {'You don\'t have any items'}
-    </Text>
+    <Text>{"You don't have any items"}</Text>
   </div>
 );
-
 
 /**
  * Use this component when needed to select one / multiple items having complex descriptions.
@@ -76,21 +72,22 @@ export default class ModalSelectorLayout extends WixComponent {
     okButtonText: string,
 
     /** Image icon size */
-    imageSize: oneOf([
-      'tiny',
-      'small',
-      'portrait',
-      'large',
-      'cinema'
-    ]),
+    imageSize: oneOf(['tiny', 'small', 'portrait', 'large', 'cinema']),
 
     /**
      * Image icon shape, `rectangular` or `circle`.<br>
      * NOTE: `circle` is not compatible with `imageSize` of `portrait` or `cinema`
      * */
     imageShape: (props, propName, componentName) => {
-      if (['portrait', 'cinema'].includes(props.imageSize) && props[propName] === 'circle') {
-        return new Error(`${componentName}: prop "imageSize" with value of "${props.imageSize}" is incompatible with prop imageShape with value of "circle" — use "rectangular" instead.`);
+      if (
+        ['portrait', 'cinema'].includes(props.imageSize) &&
+        props[propName] === 'circle'
+      ) {
+        return new Error(
+          `${componentName}: prop "imageSize" with value of "${
+            props.imageSize
+          }" is incompatible with prop imageShape with value of "circle" — use "rectangular" instead.`,
+        );
       }
     },
 
@@ -123,7 +120,7 @@ export default class ModalSelectorLayout extends WixComponent {
     selectAllText: string,
 
     /** string to be displayed in footer when `multiple` prop is used and some or all items ar selected */
-    deselectAllText: string
+    deselectAllText: string,
   };
 
   static defaultProps = {
@@ -137,10 +134,13 @@ export default class ModalSelectorLayout extends WixComponent {
     withSearch: true,
     height: '100%',
     emptyState: DEFAULT_EMPTY,
-    noResultsFoundStateFactory: searchValue =>
-      <div className={css.defaultNoResultsFoundStateWrapper}><Text>No items matched your search {`"${searchValue}"`}</Text></div>,
+    noResultsFoundStateFactory: searchValue => (
+      <div className={css.defaultNoResultsFoundStateWrapper}>
+        <Text>No items matched your search {`"${searchValue}"`}</Text>
+      </div>
+    ),
     selectAllText: 'Select All',
-    deselectAllText: 'Deselect All'
+    deselectAllText: 'Deselect All',
   };
 
   state = {
@@ -150,7 +150,7 @@ export default class ModalSelectorLayout extends WixComponent {
     searchValue: '',
     selectedItems: [],
     shouldShowNoResultsFoundState: false,
-    isEmpty: false
+    isEmpty: false,
   };
 
   render() {
@@ -162,7 +162,7 @@ export default class ModalSelectorLayout extends WixComponent {
       emptyState,
       noResultsFoundStateFactory,
       withSearch,
-      height
+      height,
     } = this.props;
 
     const {
@@ -171,77 +171,73 @@ export default class ModalSelectorLayout extends WixComponent {
       isEmpty,
       isSearching,
       searchValue,
-      shouldShowNoResultsFoundState
+      shouldShowNoResultsFoundState,
     } = this.state;
 
     return (
-      <div className={css.modalContent} style={{height}}>
-        <HeaderLayout title={title} onCancel={onClose}/>
+      <div className={css.modalContent} style={{ height }}>
+        <HeaderLayout title={title} onCancel={onClose} />
 
-        { isLoaded && !isEmpty &&
+        {isLoaded && !isEmpty && (
           <div className={css.subheaderWrapper}>
-            {subtitle &&
+            {subtitle && (
               <div className={css.subtitleWrapper}>
                 <Text dataHook={dataHooks.subtitle}>{subtitle}</Text>
               </div>
-            }
+            )}
 
-            {withSearch &&
+            {withSearch && (
               <div className={css.searchWrapper}>
                 <Search
                   dataHook={dataHooks.search}
                   placeholder={searchPlaceholder}
                   value={searchValue}
                   onChange={e => this._onSearchChange(e)}
-                  />
+                />
               </div>
-            }
+            )}
           </div>
-        }
+        )}
 
         <div className={css.modalBody} data-hook={dataHooks.modalBody}>
-          {
-            ((items.length === 0 && !isLoaded) || isSearching) &&
+          {((items.length === 0 && !isLoaded) || isSearching) && (
             <div className={css.mainLoaderWrapper}>
-              <Loader
-                size="medium"
-                dataHook={dataHooks.mainLoader}
-                />
+              <Loader size="medium" dataHook={dataHooks.mainLoader} />
             </div>
-          }
+          )}
 
-          {isEmpty &&
+          {isEmpty && (
             <div
               data-hook={dataHooks.emptyState}
               className={css.emptyStateWrapper}
               children={emptyState}
-              />
-          }
+            />
+          )}
 
-          {((!isLoaded || items.length > 0) || isSearching) &&
+          {(!isLoaded || items.length > 0 || isSearching) && (
             <InfiniteScroll
               key={searchValue}
               loadMore={() => this._loadMore()}
               hasMore={this._hasMore()}
               useWindow={false}
               children={this._renderItems()}
-              loader={items.length > 0 &&
-                <div className={css.nextPageLoaderWrapper}>
-                  <Loader
-                    size="small"
-                    dataHook={dataHooks.nextPageLoader}
-                    />
-                </div>}
-              />
-          }
+              loader={
+                items.length > 0 && (
+                  <div className={css.nextPageLoaderWrapper}>
+                    <Loader size="small" dataHook={dataHooks.nextPageLoader} />
+                  </div>
+                )
+              }
+            />
+          )}
 
-          {shouldShowNoResultsFoundState &&
+          {shouldShowNoResultsFoundState && (
             <div
               data-hook={dataHooks.noResultsFoundState}
               className={css.noResultsFoundStateWrapper}
               children={noResultsFoundStateFactory(searchValue)}
-              />
-          }
+            />
+          )}
         </div>
 
         {this._renderFooter()}
@@ -250,19 +246,18 @@ export default class ModalSelectorLayout extends WixComponent {
   }
 
   _renderItems() {
-    const {items, selectedItems} = this.state;
-    const {imageSize, imageShape, multiple} = this.props;
+    const { items, selectedItems } = this.state;
+    const { imageSize, imageShape, multiple } = this.props;
 
-    const isSelected = item => !!selectedItems.find(({id}) => item.id === id);
+    const isSelected = item => !!selectedItems.find(({ id }) => item.id === id);
 
     const onToggle = item =>
       this.setState({
-        selectedItems:
-          multiple ?
-            isSelected(item) ?
-              selectedItems.filter(({id}) => item.id !== id) :
-              selectedItems.concat(item) :
-            [item]
+        selectedItems: multiple
+          ? isSelected(item)
+            ? selectedItems.filter(({ id }) => item.id !== id)
+            : selectedItems.concat(item)
+          : [item],
       });
 
     if (items.length > 0) {
@@ -279,11 +274,17 @@ export default class ModalSelectorLayout extends WixComponent {
               image={item.image}
               title={item.title}
               subtitle={item.subtitle}
-              extraNode={item.extraNode ? item.extraNode : <Text secondary>{item.extraText}</Text>}
+              extraNode={
+                item.extraNode ? (
+                  item.extraNode
+                ) : (
+                  <Text secondary>{item.extraText}</Text>
+                )
+              }
               isSelected={isSelected(item)}
               isDisabled={item.disabled}
               onToggle={() => !item.disabled && onToggle(item)}
-              />
+            />
           ))}
         </ul>
       );
@@ -294,24 +295,26 @@ export default class ModalSelectorLayout extends WixComponent {
     this.setState({
       searchValue: e.target.value,
       isSearching: true,
-      items: []
+      items: [],
     });
   }
 
   _loadMore() {
-    const {dataSource, itemsPerPage} = this.props;
-    const {items, searchValue} = this.state;
+    const { dataSource, itemsPerPage } = this.props;
+    const { items, searchValue } = this.state;
 
-    dataSource(searchValue, items.length, itemsPerPage)
-      .then(({items: itemsFromNextPage, totalCount}) => {
-        if (this.state.searchValue === searchValue) { // react only to the resolve of the relevant search
+    dataSource(searchValue, items.length, itemsPerPage).then(
+      ({ items: itemsFromNextPage, totalCount }) => {
+        if (this.state.searchValue === searchValue) {
+          // react only to the resolve of the relevant search
           const newItems = [...items, ...itemsFromNextPage];
           const selectedItems = this.state.selectedItems.concat(
-            itemsFromNextPage.filter(({selected}) => selected)
+            itemsFromNextPage.filter(({ selected }) => selected),
           );
 
-          const shouldShowNoResultsFoundState = (newItems.length === 0) && searchValue;
-          const isEmpty = (newItems.length === 0) && !searchValue;
+          const shouldShowNoResultsFoundState =
+            newItems.length === 0 && searchValue;
+          const isEmpty = newItems.length === 0 && !searchValue;
 
           this.setState({
             items: newItems,
@@ -320,29 +323,33 @@ export default class ModalSelectorLayout extends WixComponent {
             isEmpty,
             isSearching: false,
             totalCount,
-            shouldShowNoResultsFoundState
+            shouldShowNoResultsFoundState,
           });
         }
-      });
+      },
+    );
   }
 
   _hasMore() {
-    const {items, isLoaded, totalCount, isSearching} = this.state;
-    return (items.length === 0 && !isLoaded) || (items.length < totalCount) || isSearching;
+    const { items, isLoaded, totalCount, isSearching } = this.state;
+    return (
+      (items.length === 0 && !isLoaded) ||
+      items.length < totalCount ||
+      isSearching
+    );
   }
 
-  _getEnabledItems = items =>
-    items.filter(({disabled}) => !disabled);
+  _getEnabledItems = items => items.filter(({ disabled }) => !disabled);
 
   _renderFooter = () => {
-    const {selectedItems} = this.state;
+    const { selectedItems } = this.state;
 
     const {
       onCancel,
       onOk,
       cancelButtonText,
       okButtonText,
-      multiple
+      multiple,
     } = this.props;
 
     const enabledItems = this._getEnabledItems(selectedItems);
@@ -355,33 +362,37 @@ export default class ModalSelectorLayout extends WixComponent {
         confirmText={okButtonText}
         enableOk={!!selectedItems.length}
         children={multiple && this._renderFooterSelector()}
-        />
+      />
     );
   };
 
   _renderFooterSelector = () => {
-    const {selectAllText, deselectAllText} = this.props;
-    const {selectedItems, items} = this.state;
+    const { selectAllText, deselectAllText } = this.props;
+    const { selectedItems, items } = this.state;
 
     const enabledItems = this._getEnabledItems(items);
-    const selectedEnabled = selectedItems.filter(({disabled}) => !disabled);
+    const selectedEnabled = selectedItems.filter(({ disabled }) => !disabled);
 
     const cases = {
       select: {
         text: selectAllText,
         number: enabledItems.length,
-        onChange: () => this.setState({selectedItems: selectedItems.concat(enabledItems)}),
+        onChange: () =>
+          this.setState({ selectedItems: selectedItems.concat(enabledItems) }),
         indeterminate: false,
-        checked: false
+        checked: false,
       },
 
       deselect: {
         text: deselectAllText,
         number: selectedEnabled.length,
-        onChange: () => this.setState({selectedItems: selectedItems.filter(({disabled}) => disabled)}),
+        onChange: () =>
+          this.setState({
+            selectedItems: selectedItems.filter(({ disabled }) => disabled),
+          }),
         indeterminate: selectedEnabled.length < enabledItems.length,
-        checked: true
-      }
+        checked: true,
+      },
     };
 
     const {
@@ -389,7 +400,7 @@ export default class ModalSelectorLayout extends WixComponent {
       number,
       onChange,
       checked,
-      indeterminate
+      indeterminate,
     } = selectedEnabled.length ? cases.deselect : cases.select;
 
     return (
@@ -398,11 +409,9 @@ export default class ModalSelectorLayout extends WixComponent {
         checked={checked}
         onChange={onChange}
         indeterminate={indeterminate}
-        >
-        <Text weight="normal">
-          {` ${text} (${number})`}
-        </Text>
+      >
+        <Text weight="normal">{` ${text} (${number})`}</Text>
       </Checkbox>
     );
-  }
+  };
 }

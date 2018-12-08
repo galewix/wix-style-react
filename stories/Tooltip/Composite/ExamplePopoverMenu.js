@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import RadioGroup from 'wix-style-react/RadioGroup';
@@ -11,64 +11,77 @@ import styles from './Example.scss';
 
 class ExamplePopoverMenu extends Component {
   static propTypes = {
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
   };
 
   state = {
     size: 'normal',
     placement: 'top',
     menuItems: [
-      {iconName: 'Edit', text: 'Edit'},
-      {iconName: 'Hidden', text: 'Hide'},
-      {iconName: 'Delete', text: 'Delete'}
+      { iconName: 'Edit', text: 'Edit' },
+      { iconName: 'Hidden', text: 'Hide' },
+      { iconName: 'Delete', text: 'Delete' },
     ],
     buttonTheme: 'icon-greybackground',
-    maxWidth: '378px'
+    maxWidth: '378px',
   };
 
   addRow = () =>
-    this.setState({menuItems: [...this.state.menuItems, {iconName: '', text: ''}]});
+    this.setState({
+      menuItems: [...this.state.menuItems, { iconName: '', text: '' }],
+    });
 
   updateRowIcon = (iconName, i) =>
     this.setState({
       menuItems: [
-        ...(this.state.menuItems.slice(0, i).map(obj => Object.assign({}, obj))),
-        {iconName, text: this.state.menuItems[i].text, disabled: this.state.menuItems[i].disabled},
-        ...(this.state.menuItems.slice(i + 1).map(obj => Object.assign({}, obj)))
-      ]
+        ...this.state.menuItems.slice(0, i).map(obj => Object.assign({}, obj)),
+        {
+          iconName,
+          text: this.state.menuItems[i].text,
+          disabled: this.state.menuItems[i].disabled,
+        },
+        ...this.state.menuItems.slice(i + 1).map(obj => Object.assign({}, obj)),
+      ],
     });
 
   updateRowText = (text, i) =>
     this.setState({
       menuItems: [
-        ...(this.state.menuItems.slice(0, i).map(obj => Object.assign({}, obj))),
-        {iconName: this.state.menuItems[i].iconName, text, disabled: this.state.menuItems[i].disabled},
-        ...(this.state.menuItems.slice(i + 1).map(obj => Object.assign({}, obj)))
-      ]
+        ...this.state.menuItems.slice(0, i).map(obj => Object.assign({}, obj)),
+        {
+          iconName: this.state.menuItems[i].iconName,
+          text,
+          disabled: this.state.menuItems[i].disabled,
+        },
+        ...this.state.menuItems.slice(i + 1).map(obj => Object.assign({}, obj)),
+      ],
     });
 
   updateRowDisabled = (disabled, i) =>
     this.setState({
       menuItems: [
-        ...(this.state.menuItems.slice(0, i).map(obj => Object.assign({}, obj))),
-        {iconName: this.state.menuItems[i].iconName, text: this.state.menuItems[i].text, disabled},
-        ...(this.state.menuItems.slice(i + 1).map(obj => Object.assign({}, obj)))
-      ]
+        ...this.state.menuItems.slice(0, i).map(obj => Object.assign({}, obj)),
+        {
+          iconName: this.state.menuItems[i].iconName,
+          text: this.state.menuItems[i].text,
+          disabled,
+        },
+        ...this.state.menuItems.slice(i + 1).map(obj => Object.assign({}, obj)),
+      ],
     });
 
   render() {
     return (
       <form className={styles.form}>
         <div className={styles.input}>
-
           <div className={styles.option}>
             <Label>Size</Label>
             <div className={styles.flex}>
               <RadioGroup
                 display="horizontal"
                 value={this.state.size}
-                onChange={size => this.setState({size})}
-                >
+                onChange={size => this.setState({ size })}
+              >
                 <RadioGroup.Radio value="normal">Normal</RadioGroup.Radio>
                 <RadioGroup.Radio value="large">Large</RadioGroup.Radio>
               </RadioGroup>
@@ -81,8 +94,8 @@ class ExamplePopoverMenu extends Component {
               <RadioGroup
                 display="horizontal"
                 value={this.state.placement}
-                onChange={placement => this.setState({placement})}
-                >
+                onChange={placement => this.setState({ placement })}
+              >
                 <RadioGroup.Radio value="top">Top</RadioGroup.Radio>
                 <RadioGroup.Radio value="right">Right</RadioGroup.Radio>
                 <RadioGroup.Radio value="bottom">Bottom</RadioGroup.Radio>
@@ -97,13 +110,23 @@ class ExamplePopoverMenu extends Component {
               <RadioGroup
                 display="vertical"
                 value={this.state.buttonTheme}
-                onChange={buttonTheme => this.setState({buttonTheme})}
-                >
-                <RadioGroup.Radio value="icon-greybackground">Icon Grey Background</RadioGroup.Radio>
-                <RadioGroup.Radio value="icon-standard">Icon Blue</RadioGroup.Radio>
-                <RadioGroup.Radio value="icon-standardsecondary">Icon Blue Secondary</RadioGroup.Radio>
-                <RadioGroup.Radio value="icon-white">Icon White</RadioGroup.Radio>
-                <RadioGroup.Radio value="icon-whitesecondary">Icon White Secondary</RadioGroup.Radio>
+                onChange={buttonTheme => this.setState({ buttonTheme })}
+              >
+                <RadioGroup.Radio value="icon-greybackground">
+                  Icon Grey Background
+                </RadioGroup.Radio>
+                <RadioGroup.Radio value="icon-standard">
+                  Icon Blue
+                </RadioGroup.Radio>
+                <RadioGroup.Radio value="icon-standardsecondary">
+                  Icon Blue Secondary
+                </RadioGroup.Radio>
+                <RadioGroup.Radio value="icon-white">
+                  Icon White
+                </RadioGroup.Radio>
+                <RadioGroup.Radio value="icon-whitesecondary">
+                  Icon White Secondary
+                </RadioGroup.Radio>
               </RadioGroup>
             </div>
           </div>
@@ -114,8 +137,8 @@ class ExamplePopoverMenu extends Component {
               <Input
                 size="small"
                 value={this.state.maxWidth}
-                onChange={e => this.setState({maxWidth: e.target.value})}
-                />
+                onChange={e => this.setState({ maxWidth: e.target.value })}
+              />
             </div>
           </div>
 
@@ -128,10 +151,9 @@ class ExamplePopoverMenu extends Component {
                 addRow={this.addRow}
                 updateRowIcon={this.updateRowIcon}
                 updateRowDisabled={this.updateRowDisabled}
-                />
+              />
             </div>
           </div>
-
         </div>
 
         <div className={styles.output}>
@@ -143,7 +165,7 @@ class ExamplePopoverMenu extends Component {
               onChange={this.props.onChange}
               buttonTheme={this.state.buttonTheme}
               maxWidth={this.state.maxWidth}
-              />
+            />
           </div>
         </div>
       </form>

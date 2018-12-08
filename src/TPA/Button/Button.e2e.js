@@ -1,7 +1,7 @@
 import eyes from 'eyes.it';
-import {tpaButtonTestkitFactory} from '../../../testkit/protractor';
-import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {getStoryUrl} from '../../../test/utils/storybook-helpers';
+import { tpaButtonTestkitFactory } from '../../../testkit/protractor';
+import { waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import { getStoryUrl } from '../../../test/utils/storybook-helpers';
 
 describe('TPA Button', () => {
   const storyUrl = getStoryUrl('TPA', 'Button');
@@ -14,23 +14,29 @@ describe('TPA Button', () => {
 
   eyes.it('should click a button', () => {
     const dataHook = 'story-button-enabled';
-    const driver = tpaButtonTestkitFactory({dataHook});
+    const driver = tpaButtonTestkitFactory({ dataHook });
 
-    waitForVisibilityOf(driver.element(), 'Cannot find Button')
-      .then(() => {
-        expect(driver.getButtonTextContent()).toBe(beforeClickState);
-        driver.click();
-        expect(driver.getButtonTextContent()).toBe(clickedState);
-      });
+    waitForVisibilityOf(driver.element(), 'Cannot find Button').then(() => {
+      expect(driver.getButtonTextContent()).toBe(beforeClickState);
+      driver.click();
+      expect(driver.getButtonTextContent()).toBe(clickedState);
+    });
   });
 
-  eyes.it('should render disabled, suffixIcon, prefixIcon buttons correctly', () => {
-    const dataHookDisabled = 'story-button-disabled';
-    const driverDisabled = tpaButtonTestkitFactory({dataHook: dataHookDisabled});
+  eyes.it(
+    'should render disabled, suffixIcon, prefixIcon buttons correctly',
+    () => {
+      const dataHookDisabled = 'story-button-disabled';
+      const driverDisabled = tpaButtonTestkitFactory({
+        dataHook: dataHookDisabled,
+      });
 
-    waitForVisibilityOf([driverDisabled.element()], 'Cannot find Button')
-      .then(() => {
+      waitForVisibilityOf(
+        [driverDisabled.element()],
+        'Cannot find Button',
+      ).then(() => {
         expect(driverDisabled.isButtonDisabled()).toBe(true);
       });
-  });
+    },
+  );
 });

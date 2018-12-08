@@ -10,7 +10,10 @@ const messageBoxFunctionalLayoutDriverFactory = component => {
       return bodyClassNames.includes(styles.footerBorder);
     },
     scrollBodyDown: async offset =>
-      browser.executeScript(`arguments[0].scrollTop = ${offset};`, await body().getWebElement())
+      browser.executeScript(
+        `arguments[0].scrollTop = ${offset};`,
+        await body().getWebElement(),
+      ),
   };
 };
 

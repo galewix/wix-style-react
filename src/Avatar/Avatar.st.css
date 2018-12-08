@@ -1,0 +1,13 @@
+@namespace "WSRAvatar";
+
+:import {
+  -st-from: "wix-ui-backoffice/dist/src/colors.st.css";
+  -st-named: F00;
+}
+
+.placeholder {
+  fill: value(F00);
+  height: inherit;
+  width: inherit;
+  border-radius: inherit;
+}

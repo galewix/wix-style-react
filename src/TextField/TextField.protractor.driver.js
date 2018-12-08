@@ -2,7 +2,7 @@ import inputAreaWithLabelCompositeDriverFactory from '../Composite/InputAreaWith
 
 const textFieldDriverFactory = component => ({
   ...inputAreaWithLabelCompositeDriverFactory(component),
-  getInput: () => component.find('input')
+  getInput: () => component.find('input'),
 });
 
 export default textFieldDriverFactory;

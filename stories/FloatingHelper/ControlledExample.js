@@ -2,14 +2,19 @@ import * as React from 'react';
 import FloatingHelper from 'wix-style-react/FloatingHelper';
 
 export class ControlledExample extends React.Component {
-  state= {open: true};
+  state = { open: true };
 
   render() {
     return (
       <div>
         <div>
-          <button onClick={() => this.setState({open: true})}>Click to open</button><br/>
-          <button onClick={() => this.setState({open: false})}>Click to close</button>
+          <button onClick={() => this.setState({ open: true })}>
+            Click to open
+          </button>
+          <br />
+          <button onClick={() => this.setState({ open: false })}>
+            Click to close
+          </button>
         </div>
         <FloatingHelper
           opened={this.state.open}
@@ -18,10 +23,10 @@ export class ControlledExample extends React.Component {
             <FloatingHelper.Content
               title="Don’t forget to setup payments"
               body="In order to sell your music you need to choose a payment method."
-              />
+            />
           }
           placement="right"
-          />
+        />
       </div>
     );
   }

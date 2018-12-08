@@ -1,1 +1,1 @@
-export {default} from './EmptyState.js';
+export { default } from './EmptyState.js';

@@ -1,35 +1,34 @@
 import React from 'react';
-import {any, string} from 'prop-types';
+import { any, string } from 'prop-types';
 import classNames from 'classnames';
 import WixComponent from '../../BaseComponents/WixComponent';
 import Button from '../Button/Button';
 import tpaStyleInjector from '../TpaStyleInjector';
 
-let styles = {locals: {}};
+let styles = { locals: {} };
 try {
   styles = require('!css-loader?modules&camelCase&localIdentName="[path][name]__[local]__[hash:base64:5]"!sass-loader!./FloatingTabs.scss');
-} catch (e) {
-}
+} catch (e) {}
 
 class FloatingTabs extends WixComponent {
   static propTypes = {
     children: any,
     tabClassName: string,
     contentClassName: string,
-    activeTabClassName: string
+    activeTabClassName: string,
   };
 
   static defaultProps = {
     tabClassName: '',
     contentClassName: '',
-    activeTabClassName: ''
+    activeTabClassName: '',
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedTabIndex: null
+      selectedTabIndex: null,
     };
   }
 
@@ -42,40 +41,56 @@ class FloatingTabs extends WixComponent {
   }
 
   renderButtons() {
-    const {children, activeId, tabClassName, activeTabClassName} = this.props;
+    const { children, activeId, tabClassName, activeTabClassName } = this.props;
     const childrenArray = React.Children.toArray(children);
     const tabButtons = childrenArray.map(child => {
       const _activeId = this.getActiveId(activeId, children);
-      const theme = (_activeId === child.props.id) ? 'fill' : 'outline';
-      const isActiveClass = (_activeId === child.props.id) ? activeTabClassName : '';
+      const theme = _activeId === child.props.id ? 'fill' : 'outline';
+      const isActiveClass =
+        _activeId === child.props.id ? activeTabClassName : '';
       return (
         <Button
           key={child.props.id}
           onClick={() => this.handleTabClick(child.props.id)}
-          className={classNames(styles.locals['wix-style-react-floating-tabs-button'], styles.locals['wix-style-react-floating-tabs-buttons-item'], isActiveClass, tabClassName)}
+          className={classNames(
+            styles.locals['wix-style-react-floating-tabs-button'],
+            styles.locals['wix-style-react-floating-tabs-buttons-item'],
+            isActiveClass,
+            tabClassName,
+          )}
           dataHook={`floating-tab-item-button-${child.props.id}`}
           theme={theme}
-          >
+        >
           {child.props.title}
         </Button>
       );
     });
-    return (<div
-      className={styles.locals['wix-style-react-floating-tabs-buttons']}
-      data-hook="floating-tab-item-buttons"
+    return (
+      <div
+        className={styles.locals['wix-style-react-floating-tabs-buttons']}
+        data-hook="floating-tab-item-buttons"
       >
-      {tabButtons}
-    </div>);
+        {tabButtons}
+      </div>
+    );
   }
 
   renderContent() {
-    const {children, activeId, contentClassName} = this.props;
+    const { children, activeId, contentClassName } = this.props;
     return React.Children.map(children, child => {
       const _activeId = this.getActiveId(activeId, children);
       const className = child.props.id === _activeId ? 'active' : '';
-      return (<div
-        className={classNames(className, styles.locals['wix-style-react-floating-tab-item'], contentClassName)}
-        >{child}</div>);
+      return (
+        <div
+          className={classNames(
+            className,
+            styles.locals['wix-style-react-floating-tab-item'],
+            contentClassName,
+          )}
+        >
+          {child}
+        </div>
+      );
     });
   }
   render() {

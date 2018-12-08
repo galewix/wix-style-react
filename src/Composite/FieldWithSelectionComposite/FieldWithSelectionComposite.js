@@ -1,6 +1,6 @@
-import React, {Children} from 'react';
-import {any} from 'prop-types';
-import WixComponent from '../../../src/BaseComponents/WixComponent';
+import React, { Children } from 'react';
+import { any } from 'prop-types';
+import WixComponent from '../../BaseComponents/WixComponent';
 import styles from './FieldWithSelectionComposite.scss';
 import classNames from 'classnames';
 import FieldLabelAttributes from '../../FieldLabelAttributes/FieldLabelAttributes';
@@ -15,7 +15,7 @@ class FieldWithSelectionComposite extends WixComponent {
 
     this.state = {
       hasFocusFirst: false,
-      hasFocusLast: false
+      hasFocusLast: false,
     };
   }
 
@@ -25,34 +25,39 @@ class FieldWithSelectionComposite extends WixComponent {
   }
 
   getDisplayName(selectionInput) {
-    return selectionInput.type.displayName || this.getPrototypeDisplayName(selectionInput);
+    return (
+      selectionInput.type.displayName ||
+      this.getPrototypeDisplayName(selectionInput)
+    );
   }
 
   _getTextInput() {
-    return (this.props.children.length === 3) ? this.props.children[1] : this.props.children[0];
+    return this.props.children.length === 3
+      ? this.props.children[1]
+      : this.props.children[0];
   }
 
   _onFocusFirst() {
-    this.setState({hasFocusFirst: true});
+    this.setState({ hasFocusFirst: true });
   }
 
   _onBlurFirst(e) {
     const textInput = this._getTextInput();
-    this.setState({hasFocusFirst: false}, () => {
+    this.setState({ hasFocusFirst: false }, () => {
       textInput.props.onBlur && textInput.props.onBlur(e);
     });
   }
 
   _onFocusLast() {
-    this.setState({hasFocusLast: true});
+    this.setState({ hasFocusLast: true });
   }
 
   _onBlurLast() {
-    this.setState({hasFocusLast: false});
+    this.setState({ hasFocusLast: false });
   }
 
   withBorderWrapper(checkboxSelectionInput) {
-    const checkboxWrapperClassNames = {[styles.borderWrapper]: true};
+    const checkboxWrapperClassNames = { [styles.borderWrapper]: true };
     checkboxWrapperClassNames[styles.error] = this.props.error;
     checkboxWrapperClassNames[styles.disabled] = this.props.disabled;
     return (
@@ -71,11 +76,12 @@ class FieldWithSelectionComposite extends WixComponent {
       disabled: this.props.disabled,
       [errorPropName]: this.props.error,
       onFocus: this._onFocusLast,
-      onBlur: this._onBlurLast
+      onBlur: this._onBlurLast,
     });
 
-    return isCheckbox ?
-      this.withBorderWrapper(clonedSelectionInput) : clonedSelectionInput;
+    return isCheckbox
+      ? this.withBorderWrapper(clonedSelectionInput)
+      : clonedSelectionInput;
   }
 
   getSelectionInputType(selectionInputChild) {
@@ -89,25 +95,26 @@ class FieldWithSelectionComposite extends WixComponent {
 
   render() {
     const children = Children.toArray(this.props.children);
-    const label = children.length === 3 ? (
-      <div className={styles.label}>
-        {children[0]}
-        {
-          this.props.required || this.props.info || this.props.tooltip ? (
+    const label =
+      children.length === 3 ? (
+        <div className={styles.label}>
+          {children[0]}
+          {this.props.required || this.props.info || this.props.tooltip ? (
             <FieldLabelAttributes
               required={this.props.required}
               info={this.props.info}
               tooltip={this.props.tooltip}
               appendToParent={this.props.appendToParent}
-              />
-          ) : null
-        }
-      </div>
-    ) : null;
+            />
+          ) : null}
+        </div>
+      ) : null;
     const textInput = this._getTextInput();
     const originalSelectionInput = label ? children[2] : children[1];
-    const inputsWrapperClassNames = {[styles.inputs]: true};
-    const selectionInputType = this.getSelectionInputType(originalSelectionInput);
+    const inputsWrapperClassNames = { [styles.inputs]: true };
+    const selectionInputType = this.getSelectionInputType(
+      originalSelectionInput,
+    );
 
     if (selectionInputType) {
       inputsWrapperClassNames[styles[selectionInputType.toLowerCase()]] = true;
@@ -119,16 +126,19 @@ class FieldWithSelectionComposite extends WixComponent {
     inputsWrapperClassNames[styles.disabled] = this.props.disabled;
 
     return (
-      <div className={styles.wrapper} >
+      <div className={styles.wrapper}>
         {label}
-        <div className={classNames(inputsWrapperClassNames)} data-hook="input-wrappers">
+        <div
+          className={classNames(inputsWrapperClassNames)}
+          data-hook="input-wrappers"
+        >
           {React.cloneElement(textInput, {
             noRightBorderRadius: true,
             onFocus: this._onFocusFirst,
             onBlur: this._onBlurFirst,
             error: this.props.error,
             disabled: this.props.disabled,
-            withSelection: true
+            withSelection: true,
           })}
           {this.cloneSelectionInput(originalSelectionInput, selectionInputType)}
         </div>
@@ -138,11 +148,11 @@ class FieldWithSelectionComposite extends WixComponent {
 }
 
 FieldWithSelectionComposite.propTypes = {
-  children: any
+  children: any,
 };
 
 FieldWithSelectionComposite.defaultProps = {
-  appendToParent: false
+  appendToParent: false,
 };
 
 FieldWithSelectionComposite.displayName = 'FieldWithSelectionComposite';

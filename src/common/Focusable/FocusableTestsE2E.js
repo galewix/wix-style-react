@@ -1,5 +1,5 @@
-import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {flattenInternalDriver} from '../../../test/utils/private-drivers';
+import { waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import { flattenInternalDriver } from '../../../test/utils/private-drivers';
 import autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
 
 /**
@@ -26,7 +26,7 @@ function runFocusTestsImpl(driver, storyUrl) {
       browser
         .actions()
         .sendKeys(
-          protractor.Key.chord(protractor.Key.SHIFT, protractor.Key.TAB)
+          protractor.Key.chord(protractor.Key.SHIFT, protractor.Key.TAB),
         )
         .perform();
     const pressSpace = () =>
@@ -40,7 +40,7 @@ function runFocusTestsImpl(driver, storyUrl) {
       expect(await driver.hasFocusState()).toBe(true, `${prefix}hasFocusState`);
       expect(await driver.hasFocusVisibleState()).toBe(
         true,
-        `${prefix}hasFocusVisibleState`
+        `${prefix}hasFocusVisibleState`,
       );
     };
 
@@ -48,11 +48,11 @@ function runFocusTestsImpl(driver, storyUrl) {
       const prefix = msg ? `${msg} - ` : '';
       expect(await driver.hasFocusState()).toBe(
         false,
-        `${prefix}hasFocusState`
+        `${prefix}hasFocusState`,
       );
       expect(await driver.hasFocusVisibleState()).toBe(
         false,
-        `${prefix}hasFocusVisibleState`
+        `${prefix}hasFocusVisibleState`,
       );
     };
 
@@ -61,7 +61,7 @@ function runFocusTestsImpl(driver, storyUrl) {
       expect(await driver.hasFocusState()).toBe(true, `${prefix}hasFocusState`);
       expect(await driver.hasFocusVisibleState()).toBe(
         false,
-        `${prefix}hasFocusVisibleState`
+        `${prefix}hasFocusVisibleState`,
       );
     };
 

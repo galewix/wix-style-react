@@ -1,2 +1,2 @@
-export {default} from './ProxyHeading';
-export {APPEARANCES} from './Heading';
+export { default } from './ProxyHeading';
+export { APPEARANCES } from './Heading';

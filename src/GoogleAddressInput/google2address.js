@@ -27,31 +27,36 @@ const getFormattedStreetAddress = address => {
 
 export function google2address(google) {
   const components = {};
-  google.address_components.forEach(({types, long_name, short_name}) => {
+  google.address_components.forEach(({ types, long_name, short_name }) => {
     types.forEach(type => {
-      components[type] = {long_name, short_name};
+      components[type] = { long_name, short_name };
     });
   });
 
-  const locality = components.locality || components.sublocality || components.postal_town;
-  const {lat, lng} = google.geometry.location;
+  const locality =
+    components.locality || components.sublocality || components.postal_town;
+  const { lat, lng } = google.geometry.location;
 
   const result = {
     formatted: google.formatted_address,
     formattedStreetAddress: getFormattedStreetAddress(google.adr_address),
     latLng: {
       lat: locationFuncOrValue(lat),
-      lng: locationFuncOrValue(lng)
+      lng: locationFuncOrValue(lng),
     },
-    approximate: (!includes(google.types, 'street_address') && (!includes(google.types, 'premise'))),
+    approximate:
+      !includes(google.types, 'street_address') &&
+      !includes(google.types, 'premise'),
     city: locality && locality.long_name,
-    state: components.administrative_area_level_1 && components.administrative_area_level_1.short_name,
+    state:
+      components.administrative_area_level_1 &&
+      components.administrative_area_level_1.short_name,
     country: components.country && components.country.long_name,
     countryCode: components.country && components.country.short_name,
     street: components.route && components.route.long_name,
     number: components.street_number && components.street_number.long_name,
     postalCode: components.postal_code && components.postal_code.long_name,
-    subpremise: components.subpremise && components.subpremise.long_name
+    subpremise: components.subpremise && components.subpremise.long_name,
   };
 
   for (const key in result) {
@@ -65,14 +70,16 @@ export function google2address(google) {
 
 export const trySetStreetNumberIfNotReceived = (google, inputValue) => {
   const addressParts = inputValue.match(/^\d+[ -/]*\d*[^\D]/);
-  const hasStreetNumber = google.address_components.some(address => address.types.some(t => t === 'street_number'));
+  const hasStreetNumber = google.address_components.some(address =>
+    address.types.some(t => t === 'street_number'),
+  );
   if (hasStreetNumber || !addressParts) {
     return google;
   }
   google.address_components.unshift({
     long_name: addressParts.join(),
     short_name: addressParts.join(),
-    types: ['street_number']
+    types: ['street_number'],
   });
   return google;
 };

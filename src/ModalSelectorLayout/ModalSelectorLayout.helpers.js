@@ -8,5 +8,5 @@ export const dataHooks = {
   nextPageLoader: 'modal-selector-next-page-loader',
   noResultsFoundState: 'modal-selector-no-results-found-state',
   selector: 'modal-selector-selector',
-  list: 'modal-selector-list'
+  list: 'modal-selector-list',
 };

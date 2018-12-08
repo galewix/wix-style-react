@@ -1,1 +1,1 @@
-export {default} from './LinearProgressBar.js';
+export { default } from './LinearProgressBar.js';

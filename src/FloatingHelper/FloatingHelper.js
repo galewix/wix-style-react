@@ -1,2 +1,3 @@
-import {FloatingHelper} from 'wix-ui-backoffice/FloatingHelper';
+import { FloatingHelper } from 'wix-ui-backoffice/FloatingHelper';
+
 export default FloatingHelper;

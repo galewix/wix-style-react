@@ -23,8 +23,17 @@ const findInstance = (wrapper, cb) => {
   return itemInstance;
 };
 
-export const getInstanceOfDraggableProvider = wrapper => findInstance(wrapper, ins => ins instanceof DragDropContextProvider);
+export const getInstanceOfDraggableProvider = wrapper =>
+  findInstance(wrapper, ins => ins instanceof DragDropContextProvider);
 
-export const getInstanceOfDraggableSource = (wrapper, itemId) => findInstance(wrapper, ins => ins instanceof DraggableSource && ins.props.id === itemId);
+export const getInstanceOfDraggableSource = (wrapper, itemId) =>
+  findInstance(
+    wrapper,
+    ins => ins instanceof DraggableSource && ins.props.id === itemId,
+  );
 
-export const getInstanceOfDraggableTarget = (wrapper, itemId) => findInstance(wrapper, ins => ins instanceof DraggableTarget && ins.props.id === itemId);
+export const getInstanceOfDraggableTarget = (wrapper, itemId) =>
+  findInstance(
+    wrapper,
+    ins => ins instanceof DraggableTarget && ins.props.id === itemId,
+  );

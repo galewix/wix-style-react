@@ -1,1 +1,1 @@
-export {default as SlideAnimation} from './SlideAnimation.js';
+export { default as SlideAnimation } from './SlideAnimation.js';

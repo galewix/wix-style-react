@@ -1,1 +1,1 @@
-export {default} from './FloatingTabs';
+export { default } from './FloatingTabs';

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import FieldWithSelectionTemplate from './FieldWithSelectionTemplate';
@@ -11,9 +11,8 @@ import styles from './ExampleStandard.scss';
 import StorySettings from './StorySettings';
 
 class ExampleStandard extends Component {
-
   static propTypes = {
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
   };
 
   state = {
@@ -28,45 +27,59 @@ class ExampleStandard extends Component {
     selectionInput: 'checkbox',
     label: {
       appearance: 'T1.1',
-      children: 'Field With Selection Label'
+      children: 'Field With Selection Label',
     },
     firstInput: {
       placeholder: '0',
       resizable: false,
-      borderRadius: 0
+      borderRadius: 0,
     },
     lastInput: {
       placeholder: '0',
-      resizable: false
+      resizable: false,
     },
     firstButtonLabel: 'Yes',
     secondButtonLabel: 'No',
     required: false,
-    info: ''
+    info: '',
   };
 
   setComponentState(componentName, obj) {
     this.setState(prevState => {
-      prevState[componentName] = {...this.state[componentName], ...obj};
-      Object.keys(prevState[componentName])
-        .forEach(k => !prevState[componentName][k] && delete prevState[componentName][k]);
+      prevState[componentName] = { ...this.state[componentName], ...obj };
+      Object.keys(prevState[componentName]).forEach(
+        k => !prevState[componentName][k] && delete prevState[componentName][k],
+      );
       return prevState;
     });
   }
 
   render() {
-    const maybeButtonLabelInputs = this.state.selectionInput !== 'buttons' ? null : (
-      <div className={styles.controlGroup}>
-        <div className={styles.option}>
-          <Label>First Button</Label>
-          <Input size="small" value={this.state.firstButtonLabel} onChange={e => this.setState({firstButtonLabel: e.target.value})}/>
+    const maybeButtonLabelInputs =
+      this.state.selectionInput !== 'buttons' ? null : (
+        <div className={styles.controlGroup}>
+          <div className={styles.option}>
+            <Label>First Button</Label>
+            <Input
+              size="small"
+              value={this.state.firstButtonLabel}
+              onChange={e =>
+                this.setState({ firstButtonLabel: e.target.value })
+              }
+            />
+          </div>
+          <div className={styles.option}>
+            <Label>Second Button</Label>
+            <Input
+              size="small"
+              value={this.state.secondButtonLabel}
+              onChange={e =>
+                this.setState({ secondButtonLabel: e.target.value })
+              }
+            />
+          </div>
         </div>
-        <div className={styles.option}>
-          <Label>Second Button</Label>
-          <Input size="small" value={this.state.secondButtonLabel} onChange={e => this.setState({secondButtonLabel: e.target.value})}/>
-        </div>
-      </div>
-    );
+      );
 
     return (
       <from className={styles.form}>
@@ -78,13 +91,20 @@ class ExampleStandard extends Component {
                 <Input
                   size="small"
                   value={this.state.label.children}
-                  onChange={e => this.setComponentState('label', {children: e.target.value})}
-                  />&nbsp;
+                  onChange={e =>
+                    this.setComponentState('label', {
+                      children: e.target.value,
+                    })
+                  }
+                />
+                &nbsp;
                 <ToggleSwitch
                   size="medium"
                   checked={this.state.withLabel}
-                  onChange={() => this.setState({withLabel: !this.state.withLabel})}
-                  />
+                  onChange={() =>
+                    this.setState({ withLabel: !this.state.withLabel })
+                  }
+                />
               </div>
             </div>
           </div>
@@ -94,23 +114,23 @@ class ExampleStandard extends Component {
               <RadioGroup
                 display="horizontal"
                 value={this.state.selectionInput}
-                onChange={selectionInput => this.setState({selectionInput})}
-                >
+                onChange={selectionInput => this.setState({ selectionInput })}
+              >
                 <RadioGroup.Radio value={'checkbox'}>Checkbox</RadioGroup.Radio>
                 <RadioGroup.Radio value={'dropdown'}>Dropdown</RadioGroup.Radio>
                 <RadioGroup.Radio value={'buttons'}>Buttons</RadioGroup.Radio>
               </RadioGroup>
             </div>
           </div>
-          { maybeButtonLabelInputs }
+          {maybeButtonLabelInputs}
           <div className={styles.controlGroup}>
             <Label>Error</Label>
             <div className={styles.radioGroup}>
               <RadioGroup
                 display="horizontal"
                 value={this.state.error}
-                onChange={error => this.setState({error})}
-                >
+                onChange={error => this.setState({ error })}
+              >
                 <RadioGroup.Radio value={false}>False</RadioGroup.Radio>
                 <RadioGroup.Radio value>True</RadioGroup.Radio>
               </RadioGroup>
@@ -122,8 +142,8 @@ class ExampleStandard extends Component {
               <RadioGroup
                 display="horizontal"
                 value={this.state.disabled}
-                onChange={disabled => this.setState({disabled})}
-                >
+                onChange={disabled => this.setState({ disabled })}
+              >
                 <RadioGroup.Radio value={false}>False</RadioGroup.Radio>
                 <RadioGroup.Radio value>True</RadioGroup.Radio>
               </RadioGroup>
@@ -132,12 +152,16 @@ class ExampleStandard extends Component {
 
           <div className={styles.option}>
             <div className={styles.flex}>
-              <div className={styles.paddRight}><Label>Required Field:</Label></div>
+              <div className={styles.paddRight}>
+                <Label>Required Field:</Label>
+              </div>
               <ToggleSwitch
                 size="medium"
                 checked={this.state.required}
-                onChange={() => this.setState({required: !this.state.required})}
-                />
+                onChange={() =>
+                  this.setState({ required: !this.state.required })
+                }
+              />
             </div>
           </div>
 
@@ -147,8 +171,8 @@ class ExampleStandard extends Component {
               <Input
                 size="small"
                 value={this.state.info}
-                onChange={e => this.setState({info: e.target.value})}
-                />
+                onChange={e => this.setState({ info: e.target.value })}
+              />
             </div>
           </div>
         </div>
@@ -157,7 +181,7 @@ class ExampleStandard extends Component {
             dataHook={StorySettings.dataHookExampleCheckbox}
             {...this.state}
             onChange={this.props.onChange}
-            />
+          />
         </div>
       </from>
     );

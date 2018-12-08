@@ -19,9 +19,9 @@ class InputLoaderSuffix extends React.Component {
         maxWidth="230px"
         hideDelay={150}
         zIndex={10000}
-        >
+      >
         <div className={styles.loaderContainer}>
-          <Loader size={'tiny'}/>
+          <Loader size={'tiny'} />
         </div>
       </Tooltip>
     );
@@ -30,7 +30,7 @@ class InputLoaderSuffix extends React.Component {
 
 InputLoaderSuffix.propTypes = {
   tooltipMessage: PropTypes.string.isRequired,
-  tooltipPlacement: PropTypes.string
+  tooltipPlacement: PropTypes.string,
 };
 
 export default InputLoaderSuffix;

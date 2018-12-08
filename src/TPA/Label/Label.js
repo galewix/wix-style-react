@@ -1,22 +1,21 @@
 import React from 'react';
-import {string} from 'prop-types';
+import { string } from 'prop-types';
 import classNames from 'classnames';
 import WixComponent from '../../BaseComponents/WixComponent';
 import tpaStyleInjector from '../TpaStyleInjector';
 
-let styles = {locals: {}};
+let styles = { locals: {} };
 try {
   styles = require('!css-loader?modules&camelCase&localIdentName="[path][name]__[local]__[hash:base64:5]"!sass-loader!./Label.scss');
-} catch (e) {
-}
+} catch (e) {}
 
 class Label extends WixComponent {
   static propTypes = {
-    LabelClassName: string
+    LabelClassName: string,
   };
 
   static defaultProps = {
-    LabelClassName: ''
+    LabelClassName: '',
   };
 
   constructor(props) {
@@ -27,7 +26,14 @@ class Label extends WixComponent {
   }
 
   render() {
-    return <label className={classNames(styles.locals.label, this.props.labelClassName)} htmlFor={this.props.for}>{this.props.children}</label>;
+    return (
+      <label
+        className={classNames(styles.locals.label, this.props.labelClassName)}
+        htmlFor={this.props.for}
+      >
+        {this.props.children}
+      </label>
+    );
   }
 }
 

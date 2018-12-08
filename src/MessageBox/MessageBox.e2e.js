@@ -1,7 +1,13 @@
 import eyes from 'eyes.it';
-import {buttonTestkitFactory, messageBoxFunctionalLayoutTestkitFactory} from '../../testkit/protractor';
-import {waitForVisibilityOf, scrollToElement} from 'wix-ui-test-utils/protractor';
-import {createStoryUrl} from '../../test/utils/storybook-helpers';
+import {
+  buttonTestkitFactory,
+  messageBoxFunctionalLayoutTestkitFactory,
+} from '../../testkit/protractor';
+import {
+  waitForVisibilityOf,
+  scrollToElement,
+} from 'wix-ui-test-utils/protractor';
+import { createStoryUrl } from '../../test/utils/storybook-helpers';
 
 const byDataHook = dataHook => $(`[data-hook="${dataHook}"]`);
 
@@ -24,7 +30,10 @@ describe('MessageBox', () => {
     const imageWithActions = 'alert-image-actions';
 
     eyes.it('should not break design', async () => {
-      const storyUrl = createStoryUrl({kind: '9. Modals', story: '9.1 Alert'});
+      const storyUrl = createStoryUrl({
+        kind: '9. Modals',
+        story: '9.1 Alert',
+      });
       await browser.get(storyUrl);
       await verifyItem(standard);
       await verifyItem(secondary);
@@ -36,23 +45,31 @@ describe('MessageBox', () => {
       await verifyItem(imageWithActions);
     });
 
-    eyes.it('should show footer border for scrollable modal and hide the border when scroll is on the bottom', async () => {
-      const storyUrl = createStoryUrl({kind: '9. Modals', story: '9.1 Alert'});
-      await browser.get(storyUrl);
-      await verifyItem(scrollable);
+    eyes.it(
+      'should show footer border for scrollable modal and hide the border when scroll is on the bottom',
+      async () => {
+        const storyUrl = createStoryUrl({
+          kind: '9. Modals',
+          story: '9.1 Alert',
+        });
+        await browser.get(storyUrl);
+        await verifyItem(scrollable);
 
-      const driver = messageBoxFunctionalLayoutTestkitFactory({dataHook: scrollable});
-      const SMALL_SCROLL_OFFSET = 50;
-      const MAX_SCROLL_OFFSET = 500;
+        const driver = messageBoxFunctionalLayoutTestkitFactory({
+          dataHook: scrollable,
+        });
+        const SMALL_SCROLL_OFFSET = 50;
+        const MAX_SCROLL_OFFSET = 500;
 
-      expect(await driver.toHaveFooterBorder()).toBe(true);
+        expect(await driver.toHaveFooterBorder()).toBe(true);
 
-      await (driver.scrollBodyDown(SMALL_SCROLL_OFFSET));
-      expect(await driver.toHaveFooterBorder()).toBe(true);
+        await driver.scrollBodyDown(SMALL_SCROLL_OFFSET);
+        expect(await driver.toHaveFooterBorder()).toBe(true);
 
-      await (driver.scrollBodyDown(MAX_SCROLL_OFFSET));
-      expect(await driver.toHaveFooterBorder()).toBe(false);
-    });
+        await driver.scrollBodyDown(MAX_SCROLL_OFFSET);
+        expect(await driver.toHaveFooterBorder()).toBe(false);
+      },
+    );
   });
 
   describe('Destructive Alert', () => {
@@ -60,7 +77,10 @@ describe('MessageBox', () => {
     const secondary = 'destructive-alert-secondary';
 
     eyes.it('should not break design', async () => {
-      const storyUrl = createStoryUrl({kind: '9. Modals', story: '9.2 Destructive Alert'});
+      const storyUrl = createStoryUrl({
+        kind: '9. Modals',
+        story: '9.2 Destructive Alert',
+      });
       await browser.get(storyUrl);
       await verifyItem(standard);
       await verifyItem(secondary);
@@ -69,9 +89,14 @@ describe('MessageBox', () => {
 
   describe('Custom Modal', () => {
     eyes.it('should open full screen modal', async () => {
-      const storyUrl = createStoryUrl({kind: '9. Modals', story: '9.3 Custom Modal'});
+      const storyUrl = createStoryUrl({
+        kind: '9. Modals',
+        story: '9.3 Custom Modal',
+      });
       await browser.get(storyUrl);
-      const button = buttonTestkitFactory({dataHook: 'open-full-screen-modal-button'});
+      const button = buttonTestkitFactory({
+        dataHook: 'open-full-screen-modal-button',
+      });
       button.click();
       await verifyItem('fullscreen-modal');
     });
@@ -79,12 +104,19 @@ describe('MessageBox', () => {
 
   describe('Announcement', () => {
     eyes.it('should not break design', async () => {
-      const storyUrl = createStoryUrl({kind: '9. Modals', story: '9.4 Announcement'});
+      const storyUrl = createStoryUrl({
+        kind: '9. Modals',
+        story: '9.4 Announcement',
+      });
       const standard = 'announcement-standard';
       const primaryTheme = 'announcement-primary-theme';
+      const footnote = 'announcement-footnote';
+      const disabledAction = 'announctement-disabled-action';
       await browser.get(storyUrl);
       await verifyItem(standard);
       await verifyItem(primaryTheme);
+      await verifyItem(footnote);
+      await verifyItem(disabledAction);
     });
   });
 });

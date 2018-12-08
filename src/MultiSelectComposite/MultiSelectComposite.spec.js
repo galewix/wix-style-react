@@ -2,9 +2,9 @@ import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import MultiSelectComposite from './MultiSelectComposite';
 import MultiSelect from '../MultiSelect';
-import {multiSelectCompositeTestkitFactory} from '../../testkit';
-import {multiSelectCompositeTestkitFactory as enzymeMultiSelectCompositeTestkitFactory} from '../../testkit/enzyme';
-import {mount} from 'enzyme';
+import { multiSelectCompositeTestkitFactory } from '../../testkit';
+import { multiSelectCompositeTestkitFactory as enzymeMultiSelectCompositeTestkitFactory } from '../../testkit/enzyme';
+import { mount } from 'enzyme';
 
 describe('MultiSelectComposite', () => {
   describe('testkit', () => {
@@ -15,12 +15,15 @@ describe('MultiSelectComposite', () => {
         ReactTestUtils.renderIntoDocument(
           <div>
             <MultiSelectComposite dataHook={dataHook}>
-              <MultiSelect/>
+              <MultiSelect />
             </MultiSelectComposite>
-          </div>
-        )
+          </div>,
+        ),
       );
-      const multiSelectCompositeTestkit = multiSelectCompositeTestkitFactory({wrapper, dataHook});
+      const multiSelectCompositeTestkit = multiSelectCompositeTestkitFactory({
+        wrapper,
+        dataHook,
+      });
       expect(multiSelectCompositeTestkit.exists()).toBeTruthy();
     });
 
@@ -29,13 +32,15 @@ describe('MultiSelectComposite', () => {
         const dataHook = 'myDataHook';
         const wrapper = mount(
           <MultiSelectComposite dataHook={dataHook}>
-            <MultiSelect/>
-          </MultiSelectComposite>
+            <MultiSelect />
+          </MultiSelectComposite>,
         );
-        const multiSelectCompositeTestkit = enzymeMultiSelectCompositeTestkitFactory({
-          wrapper,
-          dataHook
-        });
+        const multiSelectCompositeTestkit = enzymeMultiSelectCompositeTestkitFactory(
+          {
+            wrapper,
+            dataHook,
+          },
+        );
         expect(multiSelectCompositeTestkit.exists()).toBeTruthy();
       });
     });

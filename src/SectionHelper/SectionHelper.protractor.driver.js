@@ -1,5 +1,5 @@
 const SectionHelperDriverFactory = component => ({
-  element: () => component
+  element: () => component,
 });
 
 export default SectionHelperDriverFactory;

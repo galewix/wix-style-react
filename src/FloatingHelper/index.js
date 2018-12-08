@@ -1,1 +1,1 @@
-export {default} from './FloatingHelper.js';
+export { default } from './FloatingHelper.js';

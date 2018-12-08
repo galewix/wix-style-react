@@ -16,7 +16,7 @@ const multiSelectDriverFactory = component => ({
     return component.getSize().then(size => {
       return size.width;
     });
-  }
+  },
 });
 
 export default multiSelectDriverFactory;

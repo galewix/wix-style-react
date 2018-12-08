@@ -1,4 +1,4 @@
-@import '../colors.scss';
+@import '../common.scss';
 
 .root {
   box-sizing: border-box;
@@ -158,13 +158,91 @@
   color: $D30;
 }
 
-//Ellipsis - TODO, should replace with Text ellipsis once the display-inline is solved
-.tagEllipsis {
-  overflow: hidden;
-}
+@include withRTL() {
+  .tinySize {
+    padding: 0;
+    padding: 0 9px;
 
-.tagTextEllipsis {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+    &.withThumb {
+      padding-right: 3px;
+    }
+
+    &.withRemoveButton {
+      padding-left: 3px;
+    }
+
+    .thumb {
+      margin-left: 6px;
+      margin-right: 0px;
+    }
+  }
+
+  .smallSize {
+    padding: 0;
+    padding: 0 12px;
+
+    &.withThumb {
+      padding-right: 3px;
+    }
+
+    &.withRemoveButton {
+      padding-left: 3px;
+    }
+
+    .thumb {
+      margin-left: 6px;
+      margin-right: 0px;
+    }
+
+    .removeButton {
+      margin-left: 0px;
+      margin-right: 6px;
+    }
+  }
+
+  .mediumSize {
+    padding: 0;
+    padding: 0 12px;
+
+    &.withThumb {
+      padding-right: 6px;
+    }
+
+    &.withRemoveButton {
+      padding-left: 6px;
+    }
+
+    .thumb {
+      margin-left: 12px;
+      margin-right: 0px;
+    }
+
+    .removeButton {
+      margin-left: 0px;
+      margin-right: 6px;
+    }
+  }
+
+  .largeSize {
+    padding: 0;
+    padding: 0 18px;
+
+    &.withThumb {
+      padding-right: 6px;
+    }
+
+    &.withRemoveButton {
+      padding-left: 6px;
+    }
+
+    .thumb {
+      margin-left: 12px;
+      margin-right: 0px;
+    }
+
+    .removeButton {
+      margin-left: 0px;
+      margin-right: 12px;
+    }
+  }
 }

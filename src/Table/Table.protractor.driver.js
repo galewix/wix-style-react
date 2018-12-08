@@ -1,6 +1,6 @@
-import {mouseEnter} from 'wix-ui-test-utils/protractor';
+import { mouseEnter } from 'wix-ui-test-utils/protractor';
 import dataTableDriverFactory from '../DataTable/DataTable.protractor.driver';
-import {INTERNAL_DRIVER_SYMBOL} from '../../test/utils/private-drivers';
+import { INTERNAL_DRIVER_SYMBOL } from '../../test/utils/private-drivers';
 
 const rowByIndex = (component, index) => component.$$('tbody tr').get(index);
 
@@ -14,9 +14,8 @@ const tableDriverFactory = component => ({
   /** Private driver */
   [INTERNAL_DRIVER_SYMBOL]: {
     /** Get a row element */
-    getRow: index => rowByIndex(component, index)
-  }
+    getRow: index => rowByIndex(component, index),
+  },
 });
 
 export default tableDriverFactory;
-

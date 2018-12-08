@@ -1,1 +1,1 @@
-export {default} from './TableActionCell.js';
+export { default } from './TableActionCell.js';

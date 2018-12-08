@@ -1,22 +1,29 @@
 import React from 'react';
-import {mount} from 'enzyme';
-import {BulkSelectionConsumer} from './BulkSelectionConsumer';
-import {BulkSelection} from './BulkSelection';
+import { mount } from 'enzyme';
+import { BulkSelectionConsumer } from './BulkSelectionConsumer';
+import { BulkSelection } from './BulkSelection';
 
 describe('BulkSelection', () => {
   describe('BulkSelectionConsumer error', () => {
     it('should throw error when consumer is not within a BulkSelection', () => {
-      const create = () => mount(<BulkSelectionConsumer>{() => null}</BulkSelectionConsumer>);
+      const create = () =>
+        mount(<BulkSelectionConsumer>{() => null}</BulkSelectionConsumer>);
       expect(create).toThrow();
     });
 
     it('should throw custom error when consumer is not within a BulkSelection', () => {
-      const create = () => mount(
-        <BulkSelectionConsumer consumerCompName="Consumer" providerCompName="Provider">
-          {() => null}
-        </BulkSelectionConsumer>
+      const create = () =>
+        mount(
+          <BulkSelectionConsumer
+            consumerCompName="Consumer"
+            providerCompName="Provider"
+          >
+            {() => null}
+          </BulkSelectionConsumer>,
+        );
+      expect(create).toThrow(
+        'Consumer cannot be rendered outside the Provider component',
       );
-      expect(create).toThrow('Consumer cannot be rendered outside the Provider component');
     });
   });
 
@@ -25,15 +32,13 @@ describe('BulkSelection', () => {
     mount(
       <BulkSelection allIds={[1, 2, 3]}>
         <BulkSelectionConsumer>
-          {({setSelectedIds, isSelected}) => {
+          {({ setSelectedIds, isSelected }) => {
             _setSelectedIds = setSelectedIds;
             _isSelected = isSelected;
-            return (
-              <div/>
-            );
+            return <div />;
           }}
         </BulkSelectionConsumer>
-      </BulkSelection>
+      </BulkSelection>,
     );
     expect(_isSelected(1)).toBeFalsy();
     expect(_isSelected(2)).toBeFalsy();
@@ -44,4 +49,3 @@ describe('BulkSelection', () => {
     expect(_isSelected(3)).toBeFalsy();
   });
 });
-

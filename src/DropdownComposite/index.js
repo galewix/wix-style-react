@@ -1,1 +1,1 @@
-export {default} from './DropdownComposite.js';
+export { default } from './DropdownComposite.js';

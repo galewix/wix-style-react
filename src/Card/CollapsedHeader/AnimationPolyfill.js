@@ -1,6 +1,8 @@
 import deprecationLog from '../../utils/deprecationLog';
 
-deprecationLog(`Using "Card/CollapsedHeader/AnimationPolyfill.js" is deprecated. Please use the newer polyfills in "testkit/polyfills"`);
+deprecationLog(
+  `Using "Card/CollapsedHeader/AnimationPolyfill.js" is deprecated. Please use the newer polyfills in "testkit/polyfills"`,
+);
 
 export default function animationPolyfills(window, global) {
   let lastTime = 0;
@@ -14,7 +16,7 @@ export default function animationPolyfills(window, global) {
   }
 
   if (!global.requestAnimationFrame) {
-    global.requestAnimationFrame = function (callback) {
+    global.requestAnimationFrame = function(callback) {
       const currTime = new Date().getTime();
       const timeToCall = Math.max(0, 16 - (currTime - lastTime));
       const id = window.setTimeout(() => {
@@ -26,7 +28,7 @@ export default function animationPolyfills(window, global) {
   }
 
   if (!window.cancelAnimationFrame) {
-    window.cancelAnimationFrame = function (id) {
+    window.cancelAnimationFrame = function(id) {
       clearTimeout(id);
     };
   }

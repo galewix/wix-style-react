@@ -6,7 +6,7 @@ const inputDriverFactory = async (component, page) => {
       await input.focus();
       await input.type(text);
     },
-    getText: () => page.evaluate(_input => _input.value, input)
+    getText: () => page.evaluate(_input => _input.value, input),
   };
 };
 

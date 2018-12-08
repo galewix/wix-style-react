@@ -4,7 +4,7 @@ import CodeExample from 'wix-storybook-utils/CodeExample';
 import ExampleBadgesRaw from '!raw-loader!./ExampleBadges';
 import ExampleBadges from './ExampleBadges';
 
-import {SIZE, SKIN, TYPE, default as Badge} from '../../src/Badge';
+import { SIZE, SKIN, TYPE, default as Badge } from '../../src/Badge';
 
 import Facebook from 'wix-ui-icons-common/Facebook';
 import ChevronDown from 'wix-ui-icons-common/ChevronDown';
@@ -16,34 +16,28 @@ export default {
   componentPath: '../../src/Badge/Badge.js',
 
   componentProps: {
-    children: 'I\'m a badge!',
+    children: "I'm a badge!",
     skin: 'general',
     type: 'solid',
     size: 'medium',
     uppercase: true,
-    dataHook: 'storybook-badge'
+    dataHook: 'storybook-badge',
   },
 
   exampleProps: {
     skin: Object.keys(SKIN),
     type: Object.keys(TYPE),
     size: Object.keys(SIZE),
-    prefixIcon: [
-      <ChevronDown key="0"/>,
-      <Facebook key="1"/>
-    ],
-    suffixIcon: [
-      <ChevronDown key="2"/>,
-      <Facebook key="3"/>
-    ],
-    onClick: () => alert('Badge Clicked')
+    prefixIcon: [<ChevronDown key="0" />, <Facebook key="1" />],
+    suffixIcon: [<ChevronDown key="2" />, <Facebook key="3" />],
+    onClick: () => alert('Badge Clicked'),
   },
 
   examples: (
     <div>
       <CodeExample title="Variations" code={ExampleBadgesRaw}>
-        <ExampleBadges/>
+        <ExampleBadges />
       </CodeExample>
     </div>
-  )
+  ),
 };

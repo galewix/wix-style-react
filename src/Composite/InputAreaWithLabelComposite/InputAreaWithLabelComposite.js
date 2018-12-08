@@ -1,5 +1,5 @@
-import React, {Children} from 'react';
-import {any, bool, node} from 'prop-types';
+import React, { Children } from 'react';
+import { any, bool, node } from 'prop-types';
 import last from 'lodash/last';
 import WixComponent from '../../BaseComponents/WixComponent';
 import styles from './InputAreaWithLabelComposite.scss';
@@ -7,12 +7,14 @@ import FieldLabelAttributes from '../../FieldLabelAttributes/FieldLabelAttribute
 
 class InputAreaWithLabelComposite extends WixComponent {
   getFieldLabelAttributesComponent() {
-    return (<FieldLabelAttributes
-      appendToParent={this.props.appendToParent}
-      required={this.props.required}
-      info={this.props.info}
-      tooltip={this.props.tooltip}
-      />);
+    return (
+      <FieldLabelAttributes
+        appendToParent={this.props.appendToParent}
+        required={this.props.required}
+        info={this.props.info}
+        tooltip={this.props.tooltip}
+      />
+    );
   }
 
   shouldShowFieldLabelAttributesComponent() {
@@ -23,24 +25,23 @@ class InputAreaWithLabelComposite extends WixComponent {
     const children = Children.toArray(this.props.children);
     return (
       <div>
-        { children.length === 2 ?
+        {children.length === 2 ? (
           <div className={styles.label}>
             {children[0]}
-            { this.shouldShowFieldLabelAttributesComponent() ? this.getFieldLabelAttributesComponent() : null }
-          </div> : null
-        }
-        { children.length === 1 && this.shouldShowFieldLabelAttributesComponent() ?
-          (
-            <div className={styles.withLabelAttributes}>
-              <div className={styles.inputWrapper}>
-                { last(children) }
-              </div>
-              {this.getFieldLabelAttributesComponent()}
-            </div>
-          ) : (
-            last(children)
-          )
-        }
+            {this.shouldShowFieldLabelAttributesComponent()
+              ? this.getFieldLabelAttributesComponent()
+              : null}
+          </div>
+        ) : null}
+        {children.length === 1 &&
+        this.shouldShowFieldLabelAttributesComponent() ? (
+          <div className={styles.withLabelAttributes}>
+            <div className={styles.inputWrapper}>{last(children)}</div>
+            {this.getFieldLabelAttributesComponent()}
+          </div>
+        ) : (
+          last(children)
+        )}
       </div>
     );
   }
@@ -51,11 +52,11 @@ InputAreaWithLabelComposite.propTypes = {
   required: bool,
   appendToParent: bool,
   info: node,
-  tooltip: node
+  tooltip: node,
 };
 
 InputAreaWithLabelComposite.defaultProps = {
-  appendToParent: false
+  appendToParent: false,
 };
 
 InputAreaWithLabelComposite.displayName = 'InputAreaWithLabelComposite';

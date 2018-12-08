@@ -1,15 +1,20 @@
-const emptyStateDriverFactory = ({element}) => {
-  const byDataHook = dataHook => element.querySelector(`[data-hook="${dataHook}"]`);
+const emptyStateDriverFactory = ({ element }) => {
+  const byDataHook = dataHook =>
+    element.querySelector(`[data-hook="${dataHook}"]`);
 
   const getTitleContainer = () => byDataHook('empty-state-title-container');
-  const getSubtitleContainer = () => byDataHook('empty-state-subtitle-container');
+  const getSubtitleContainer = () =>
+    byDataHook('empty-state-subtitle-container');
   const getImageContainer = () => byDataHook('empty-state-image-container');
-  const getChildrenContainer = () => byDataHook('empty-state-children-container');
+  const getChildrenContainer = () =>
+    byDataHook('empty-state-children-container');
 
   const getTitle = () => getTitleContainer().firstChild;
   const getSubtitle = () => getSubtitleContainer().firstChild;
-  const getImageElement = () => getImageContainer().querySelector('[data-hook="image-element"]');
-  const getImageNode = () => getImageContainer().querySelector('[data-hook="image-node"]');
+  const getImageElement = () =>
+    getImageContainer().querySelector('[data-hook="image-element"]');
+  const getImageNode = () =>
+    getImageContainer().querySelector('[data-hook="image-node"]');
 
   return {
     /** Returns `true` wheter the elemnt exists or not */
@@ -31,9 +36,8 @@ const emptyStateDriverFactory = ({element}) => {
     imageNodeExists: () => !!getImageNode(),
 
     /** Returns `true` if children content exists */
-    childrenContentExists: () => !!getChildrenContainer()
+    childrenContentExists: () => !!getChildrenContainer(),
   };
 };
 
 export default emptyStateDriverFactory;
-

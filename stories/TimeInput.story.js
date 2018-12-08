@@ -11,10 +11,10 @@ export default {
 
   componentProps: {
     dashesWhenDisabled: false,
-    disabled: false
+    disabled: false,
   },
 
   exampleProps: {
-    onChange: moment => moment.format('h:mm a')
-  }
+    onChange: moment => moment.format('h:mm a'),
+  },
 };

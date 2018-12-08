@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Template from './Template';
@@ -13,13 +13,12 @@ import styles from './ExampleButton.scss';
 
 const nodeStyle = {
   background: 'azure',
-  paddingLeft: '25px'
+  paddingLeft: '25px',
 };
 
 class ButtonWithOptionsStandard extends Component {
-
   static propTypes = {
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
   };
 
   state = {
@@ -28,9 +27,9 @@ class ButtonWithOptionsStandard extends Component {
     text: 'Click On Me',
     height: 'medium',
     withArrow: false,
-    style: {padding: '0 5px'},
+    style: { padding: '0 5px' },
     re: true,
-    hasFixedFooter: false
+    hasFixedFooter: false,
   };
 
   render() {
@@ -44,11 +43,21 @@ class ButtonWithOptionsStandard extends Component {
               <RadioGroup
                 display="horizontal"
                 value={this.state.theme}
-                onChange={theme => this.setState({theme, iconOnly: false, restrainDropdownSize: true})}
-                >
+                onChange={theme =>
+                  this.setState({
+                    theme,
+                    iconOnly: false,
+                    restrainDropdownSize: true,
+                  })
+                }
+              >
                 <RadioGroup.Radio value="fullblue">Primary</RadioGroup.Radio>
-                <RadioGroup.Radio value="transparentblue">Secondary</RadioGroup.Radio>
-                <RadioGroup.Radio value="whiteblue">Secondary on grey</RadioGroup.Radio>
+                <RadioGroup.Radio value="transparentblue">
+                  Secondary
+                </RadioGroup.Radio>
+                <RadioGroup.Radio value="whiteblue">
+                  Secondary on grey
+                </RadioGroup.Radio>
               </RadioGroup>
             </div>
           </div>
@@ -58,13 +67,29 @@ class ButtonWithOptionsStandard extends Component {
             <div className={styles.flex}>
               <RadioGroup
                 value={this.state.theme}
-                onChange={theme => this.setState({theme, iconOnly: true, restrainDropdownSize: false})}
-                >
-                <RadioGroup.Radio value="icon-greybackground">Grey Background</RadioGroup.Radio>
-                <RadioGroup.Radio value="icon-standard">Standard Primary</RadioGroup.Radio>
-                <RadioGroup.Radio value="icon-standardsecondary">Standard Secondary</RadioGroup.Radio>
-                <RadioGroup.Radio value="icon-white">White Primary</RadioGroup.Radio>
-                <RadioGroup.Radio value="icon-whitesecondary">White Secondary</RadioGroup.Radio>
+                onChange={theme =>
+                  this.setState({
+                    theme,
+                    iconOnly: true,
+                    restrainDropdownSize: false,
+                  })
+                }
+              >
+                <RadioGroup.Radio value="icon-greybackground">
+                  Grey Background
+                </RadioGroup.Radio>
+                <RadioGroup.Radio value="icon-standard">
+                  Standard Primary
+                </RadioGroup.Radio>
+                <RadioGroup.Radio value="icon-standardsecondary">
+                  Standard Secondary
+                </RadioGroup.Radio>
+                <RadioGroup.Radio value="icon-white">
+                  White Primary
+                </RadioGroup.Radio>
+                <RadioGroup.Radio value="icon-whitesecondary">
+                  White Secondary
+                </RadioGroup.Radio>
               </RadioGroup>
             </div>
           </div>
@@ -75,8 +100,10 @@ class ButtonWithOptionsStandard extends Component {
               <ToggleSwitch
                 size="small"
                 checked={this.state.disabled}
-                onChange={() => this.setState({disabled: !this.state.disabled})}
-                />
+                onChange={() =>
+                  this.setState({ disabled: !this.state.disabled })
+                }
+              />
             </div>
           </div>
 
@@ -84,8 +111,12 @@ class ButtonWithOptionsStandard extends Component {
             <Label>Prefix Icon</Label>
             <div className={styles.flex}>
               <IconChooser
-                onSelect={option => this.setState({prefixIcon: React.createElement(Icons[option.id])})}
-                />
+                onSelect={option =>
+                  this.setState({
+                    prefixIcon: React.createElement(Icons[option.id]),
+                  })
+                }
+              />
             </div>
           </div>
 
@@ -93,8 +124,12 @@ class ButtonWithOptionsStandard extends Component {
             <Label>Suffix Icon</Label>
             <div className={styles.flex}>
               <IconChooser
-                onSelect={option => this.setState({suffixIcon: React.createElement(Icons[option.id])})}
-                />
+                onSelect={option =>
+                  this.setState({
+                    suffixIcon: React.createElement(Icons[option.id]),
+                  })
+                }
+              />
             </div>
           </div>
 
@@ -104,8 +139,8 @@ class ButtonWithOptionsStandard extends Component {
               <Input
                 size="small"
                 value={this.state.text}
-                onChange={e => this.setState({text: e.target.value})}
-                />
+                onChange={e => this.setState({ text: e.target.value })}
+              />
             </div>
           </div>
 
@@ -115,8 +150,8 @@ class ButtonWithOptionsStandard extends Component {
               <RadioGroup
                 display="horizontal"
                 value={this.state.height}
-                onChange={height => this.setState({height})}
-                >
+                onChange={height => this.setState({ height })}
+              >
                 <RadioGroup.Radio value="small">Small</RadioGroup.Radio>
                 <RadioGroup.Radio value="medium">Regular</RadioGroup.Radio>
                 <RadioGroup.Radio value="large">Large</RadioGroup.Radio>
@@ -134,8 +169,8 @@ class ButtonWithOptionsStandard extends Component {
               <RadioGroup
                 display="horizontal"
                 value={this.state.dropdownTheme}
-                onChange={dropdownTheme => this.setState({dropdownTheme})}
-                >
+                onChange={dropdownTheme => this.setState({ dropdownTheme })}
+              >
                 <RadioGroup.Radio value="none">No Theme</RadioGroup.Radio>
                 <RadioGroup.Radio value="b2b">b2b</RadioGroup.Radio>
               </RadioGroup>
@@ -148,8 +183,10 @@ class ButtonWithOptionsStandard extends Component {
               <ToggleSwitch
                 size="small"
                 checked={this.state.withArrow}
-                onChange={() => this.setState({withArrow: !this.state.withArrow})}
-                />
+                onChange={() =>
+                  this.setState({ withArrow: !this.state.withArrow })
+                }
+              />
             </div>
           </div>
 
@@ -160,8 +197,14 @@ class ButtonWithOptionsStandard extends Component {
                 size="small"
                 checked={this.state.hasFixedFooter}
                 onChange={() =>
-                  this.setState({hasFixedFooter: !this.state.hasFixedFooter, fixedFooter: this.state.hasFixedFooter ? null : <div style={nodeStyle}>I am a footer</div>})}
-                />
+                  this.setState({
+                    hasFixedFooter: !this.state.hasFixedFooter,
+                    fixedFooter: this.state.hasFixedFooter ? null : (
+                      <div style={nodeStyle}>I am a footer</div>
+                    ),
+                  })
+                }
+              />
             </div>
           </div>
 
@@ -171,26 +214,40 @@ class ButtonWithOptionsStandard extends Component {
               <ToggleSwitch
                 size="small"
                 checked={this.state.restrainDropdownSize}
-                onChange={() => this.setState({restrainDropdownSize: !this.state.restrainDropdownSize})}
-                />
+                onChange={() =>
+                  this.setState({
+                    restrainDropdownSize: !this.state.restrainDropdownSize,
+                  })
+                }
+              />
             </div>
           </div>
           <div className={styles.flex}>
             <RadioGroup
               display="horizontal"
               value={this.state.theme}
-              onChange={theme => this.setState({theme})}
-              >
+              onChange={theme => this.setState({ theme })}
+            >
               <RadioGroup.Radio value="">No Theme</RadioGroup.Radio>
               <RadioGroup.Radio value="no-border">No Border</RadioGroup.Radio>
-              <RadioGroup.Radio value="dark-no-border">Dark No Border</RadioGroup.Radio>
+              <RadioGroup.Radio value="dark-no-border">
+                Dark No Border
+              </RadioGroup.Radio>
             </RadioGroup>
           </div>
         </div>
 
-        <div className={styles[this.state.theme === 'whiteblue' ? 'output-lightblue' : 'output']}>
-          <div className={`${styles[this.state.theme]} ${styles.exampleWrapper}`}>
-            <Template {...this.state} onChange={this.props.onChange}/>
+        <div
+          className={
+            styles[
+              this.state.theme === 'whiteblue' ? 'output-lightblue' : 'output'
+            ]
+          }
+        >
+          <div
+            className={`${styles[this.state.theme]} ${styles.exampleWrapper}`}
+          >
+            <Template {...this.state} onChange={this.props.onChange} />
           </div>
         </div>
       </from>

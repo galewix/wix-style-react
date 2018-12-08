@@ -1,19 +1,19 @@
 import React from 'react';
-import {string, number, arrayOf, oneOfType, func, any} from 'prop-types';
-import isEqual from 'lodash/isEqual';
+import { string, number, arrayOf, oneOfType, func, any } from 'prop-types';
 import createReactContext from 'create-react-context';
+
 export const BulkSelectionContext = createReactContext();
 
 export const BulkSelectionState = Object.freeze({
   ALL: 'ALL',
   NONE: 'NONE',
-  SOME: 'SOME'
+  SOME: 'SOME',
 });
 
 export const ChangeType = Object.freeze({
   ALL: 'ALL',
   NONE: 'NONE',
-  SINGLE_TOGGLE: 'SINGLE_TOGGLE'
+  SINGLE_TOGGLE: 'SINGLE_TOGGLE',
 });
 
 /** Helper for PropTypes for componenst which consume the BulkSelection context */
@@ -26,7 +26,7 @@ export const BulkSelectionContextPropTypes = {
   toggleAll: func,
   selectAll: func,
   deselectAll: func,
-  setSelectedIds: func
+  setSelectedIds: func,
 };
 
 /**
@@ -37,29 +37,31 @@ export const BulkSelectionContextPropTypes = {
  * toggleBulkSelection(): changes the bulk state according to these state changes: ALL->NONE, SOME->ALL, NONE->ALL
  */
 export class BulkSelection extends React.Component {
-
   constructor(props) {
     super(props);
     const selectedIds = (props.selectedIds || []).slice();
     this.state = {
       selectedIds, // not exposed to context consumers
-      helpers: this.createHelpers(selectedIds)
+      helpers: this.createHelpers({ ...props, selectedIds }),
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedIds && !isEqual(nextProps.selectedIds, this.state.selectedIds)) {
-      this.setSelectedIds(nextProps.selectedIds.slice());
+    if (
+      nextProps.selectedIds &&
+      !this.areSelectedIdsEqual(nextProps.selectedIds, this.state.selectedIds)
+    ) {
+      this.setSelectedIds(nextProps.selectedIds.slice(), undefined, nextProps);
     }
   }
 
   toggleAll = enable => {
     if (enable) {
-      this.setSelectedIds(this.props.allIds, {type: ChangeType.ALL});
+      this.setSelectedIds(this.props.allIds, { type: ChangeType.ALL });
     } else {
-      this.setSelectedIds([], {type: ChangeType.NONE});
+      this.setSelectedIds([], { type: ChangeType.NONE });
     }
-  }
+  };
 
   toggleBulkSelection = () => {
     const bulkSelectionState = this.state.helpers.bulkSelectionState;
@@ -70,36 +72,63 @@ export class BulkSelection extends React.Component {
     } else {
       this.toggleAll(true);
     }
-  }
+  };
 
   toggleSelectionById = id => {
     const newSelectionValue = !this.state.helpers.isSelected(id);
     this.setSelectedIds(
-      newSelectionValue ?
-      this.state.selectedIds.concat(id) :
-      this.state.selectedIds.filter(_id => _id !== id),
+      newSelectionValue
+        ? this.state.selectedIds.concat(id)
+        : this.state.selectedIds.filter(_id => _id !== id),
       {
         type: ChangeType.SINGLE_TOGGLE,
         id,
-        value: newSelectionValue
-      }
+        value: newSelectionValue,
+      },
     );
-  }
+  };
 
-  setSelectedIds = (selectedIds, change) => {
+  setSelectedIds = (selectedIds, change, props) => {
     if (!Array.isArray(selectedIds)) {
       throw new Error('selectedIds must be an array');
     }
-    this.setState({selectedIds, helpers: this.createHelpers(selectedIds)}, () => {
-      this.props.onSelectionChanged && this.props.onSelectionChanged(selectedIds.slice(), change);
-    });
-  }
+    if (!props) {
+      props = this.props;
+    }
+    this.setState(
+      { selectedIds, helpers: this.createHelpers({ ...props, selectedIds }) },
+      () => {
+        this.props.onSelectionChanged &&
+          this.props.onSelectionChanged(selectedIds.slice(), change);
+      },
+    );
+  };
 
-  createHelpers(selectedIds) {
-    const totalCount = this.props.allIds.length;
+  areSelectedIdsEqual = (selectedIds1, selectedIds2) => {
+    if (
+      (selectedIds1 === undefined && selectedIds2 === undefined) ||
+      (selectedIds1 === null && selectedIds2 === null)
+    ) {
+      return true;
+    }
+
+    return (
+      Array.isArray(selectedIds1) &&
+      Array.isArray(selectedIds2) &&
+      selectedIds1.length === selectedIds2.length &&
+      selectedIds1.every((item, index) => item === selectedIds2[index])
+    );
+  };
+  createHelpers(props) {
+    const { selectedIds, allIds } = props;
+    const totalCount = allIds.length;
     const selectedCount = selectedIds.length;
-    const bulkSelectionState = selectedCount === 0 ? BulkSelectionState.NONE :
-      selectedCount === totalCount ? BulkSelectionState.ALL : BulkSelectionState.SOME;
+    const bulkSelectionState =
+      selectedCount === 0
+        ? BulkSelectionState.NONE
+        : selectedCount === totalCount
+        ? BulkSelectionState.ALL
+        : BulkSelectionState.SOME;
 
     return {
       // Getters
@@ -110,8 +139,8 @@ export class BulkSelection extends React.Component {
       /** Get a copy (array) of selected ids */
       getSelectedIds: () => selectedIds.slice(),
       /** A string representing the BulkSelection state (not a React state).
-      * Possible values: ALL, SOME, NONE
-      */
+       * Possible values: ALL, SOME, NONE
+       */
       bulkSelectionState,
 
       // Modifiers
@@ -124,17 +153,15 @@ export class BulkSelection extends React.Component {
       /** Deselect all items (clear selection) */
       deselectAll: () => this.toggleAll(false),
       /** Set the selection.
-      * An optional `change` argument will be passed "as is" to the Table's onSelectionChanged callback.
-      */
-      setSelectedIds: this.setSelectedIds
+       * An optional `change` argument will be passed "as is" to the Table's onSelectionChanged callback.
+       */
+      setSelectedIds: this.setSelectedIds,
     };
   }
 
   render() {
     return (
-      <BulkSelectionContext.Provider
-        value={this.state.helpers}
-        >
+      <BulkSelectionContext.Provider value={this.state.helpers}>
         {this.props.children}
       </BulkSelectionContext.Provider>
     );
@@ -153,8 +180,5 @@ BulkSelection.propTypes = {
    * and a `value` prop with the new boolean selection state of the item. */
   onSelectionChanged: func,
   /** Any - can consume the BulkSelectionProvider context */
-  children: any
+  children: any,
 };
-
-
-

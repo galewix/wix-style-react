@@ -10,10 +10,10 @@ export class SimpleExample extends React.Component {
           <FloatingHelper.Content
             title="Don’t forget to setup payments"
             body="In order to sell your music you need to choose a payment method."
-            />
+          />
         }
         placement="right"
-        />
+      />
     );
   }
 }

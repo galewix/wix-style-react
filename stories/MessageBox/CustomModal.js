@@ -12,24 +12,24 @@ import FullScreenModalRaw from '!raw-loader!./CustomModalExamples/FullScreenModa
 const introduction = `# Custom modal (\`<MessageBoxFunctionalLayout/>\`)`;
 
 const layoutStyles = {
-  margin: '0 30px'
+  margin: '0 30px',
 };
 
 export default () => (
   <TabbedView tabs={['Usage', 'API', 'TestKits']}>
     <div>
-      <Markdown source={introduction}/>
+      <Markdown source={introduction} />
       <div style={layoutStyles}>
         <CodeExample
           title="fullscreen"
           code={FullScreenModalRaw}
-          children={<FullScreenModal/>}
-          />
+          children={<FullScreenModal />}
+        />
       </div>
     </div>
 
-    <Markdown source={Readme}/>
+    <Markdown source={Readme} />
 
-    <Markdown source={ReadmeTestKit}/>
+    <Markdown source={ReadmeTestKit} />
   </TabbedView>
 );

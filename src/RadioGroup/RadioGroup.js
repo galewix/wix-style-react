@@ -19,9 +19,23 @@ class RadioGroup extends WixComponent {
   }
 
   render() {
-    const {onChange, disabled, disabledRadios, value, vAlign, display, type, spacing, lineHeight} = this.props;
+    const {
+      onChange,
+      disabled,
+      disabledRadios,
+      value,
+      vAlign,
+      display,
+      type,
+      spacing,
+      lineHeight,
+    } = this.props;
     return (
-      <div className={classNames(styles[display], {[styles.buttonType]: type === 'button'})}>
+      <div
+        className={classNames(styles[display], {
+          [styles.buttonType]: type === 'button',
+        })}
+      >
         {React.Children.map(this.props.children, (radio, index) => (
           <RadioGroup.Radio
             dataHook={radio.props.dataHook}
@@ -30,13 +44,17 @@ class RadioGroup extends WixComponent {
             onChange={onChange}
             vAlign={vAlign}
             type={type}
-            disabled={disabled || disabledRadios.indexOf(radio.props.value) !== -1}
+            disabled={
+              disabled || disabledRadios.indexOf(radio.props.value) !== -1
+            }
             checked={radio.props.value === value}
-            style={display === 'vertical' && index > 0 ? {marginTop: spacing} : {}}
+            style={
+              display === 'vertical' && index > 0 ? { marginTop: spacing } : {}
+            }
             icon={radio.props.icon}
             lineHeight={lineHeight}
             content={radio.props.content}
-            >
+          >
             {radio.props.children}
           </RadioGroup.Radio>
         ))}
@@ -53,7 +71,9 @@ RadioGroup.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /** the values of the disabled radio buttons */
-  disabledRadios: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  disabledRadios: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  ),
 
   /** Positioning of the radio bottom compared to the label */
   vAlign: PropTypes.oneOf(['center', 'top']),
@@ -69,14 +89,16 @@ RadioGroup.propTypes = {
 
   children: PropTypes.arrayOf((propValue, key) => {
     if (propValue[key].type.displayName !== RadioButton.displayName) {
-      return new Error(`RadioGroup: Invalid Prop children was given. Validation failed on child number ${key}`);
+      return new Error(
+        `RadioGroup: Invalid Prop children was given. Validation failed on child number ${key}`,
+      );
     }
   }),
 
   /** Vertical spacing between radio buttons */
   spacing: PropTypes.string,
 
-  lineHeight: PropTypes.string
+  lineHeight: PropTypes.string,
 };
 
 RadioGroup.defaultProps = {
@@ -87,7 +109,7 @@ RadioGroup.defaultProps = {
   display: 'vertical',
   spacing: '12px',
   lineHeight: '24px',
-  type: 'default'
+  type: 'default',
 };
 
 RadioGroup.Radio = RadioButton;

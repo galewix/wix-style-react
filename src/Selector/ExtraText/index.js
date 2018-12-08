@@ -1,1 +1,1 @@
-export {default} from './ExtraText.js';
+export { default } from './ExtraText.js';

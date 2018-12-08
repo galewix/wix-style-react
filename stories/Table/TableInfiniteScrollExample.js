@@ -1,10 +1,10 @@
-import {Table} from 'wix-style-react/Table';
+import { Table } from 'wix-style-react/Table';
 import React from 'react';
 import {
   TableToolbar,
   ItemGroup,
   Item,
-  Label
+  Label,
 } from 'wix-style-react/TableToolbar';
 
 import Loader from 'wix-style-react/Loader';
@@ -19,7 +19,7 @@ const baseDataSet = [
     SKU: '111222',
     price: '$2.00',
     inventory: 'In stock',
-    collectionId: 1
+    collectionId: 1,
   },
   {
     id: `2`,
@@ -28,7 +28,7 @@ const baseDataSet = [
     price: '$2.00',
     inventory: 'In stock',
     collectionId: 1,
-    filterId: 2
+    filterId: 2,
   },
   {
     id: `3`,
@@ -36,7 +36,7 @@ const baseDataSet = [
     SKU: '333444',
     price: '$14.00',
     inventory: 'In stock',
-    collectionId: 2
+    collectionId: 2,
   },
   {
     id: `4`,
@@ -45,8 +45,8 @@ const baseDataSet = [
     price: '$14.00',
     inventory: 'Out of stock',
     collectionId: 2,
-    filterId: 1
-  }
+    filterId: 1,
+  },
 ];
 
 const generateData = count => {
@@ -63,7 +63,7 @@ export class TableInfiniteScrollExample extends React.Component {
     this.state = {
       scrollableContentRef: null,
       hasMore: true,
-      count: 5
+      count: 5,
     };
     this.loadMore = this.loadMore.bind(this);
   }
@@ -90,19 +90,19 @@ export class TableInfiniteScrollExample extends React.Component {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '25px 0'
+          padding: '25px 0',
         }}
-        >
-        <Loader/>
+      >
+        <Loader />
       </div>
     );
   }
 
   loadMore() {
     const loadMoreData = () => {
-      this.setState({count: this.state.count + 5});
+      this.setState({ count: this.state.count + 5 });
       if (this.state.count > 20) {
-        this.setState({hasMore: false});
+        this.setState({ hasMore: false });
       }
     };
     setTimeout(loadMoreData, 1000);
@@ -116,9 +116,9 @@ export class TableInfiniteScrollExample extends React.Component {
           paddingBottom: '16px',
           display: 'flex',
           flexFlow: 'column',
-          minWidth: '966px'
+          minWidth: '966px',
         }}
-        >
+      >
         <Table
           withWrapper={false}
           dataHook="story-table-infinite-example"
@@ -134,38 +134,39 @@ export class TableInfiniteScrollExample extends React.Component {
               title: 'Name',
               render: row => row.name,
               width: '30%',
-              minWidth: '150px'
+              minWidth: '150px',
             },
             {
               title: 'SKU',
               render: row => row.SKU,
               width: '20%',
-              minWidth: '100px'
+              minWidth: '100px',
             },
             {
               title: 'Price',
               render: row => row.price,
               width: '20%',
-              minWidth: '100px'
+              minWidth: '100px',
             },
             {
               title: 'Inventory',
               render: row => row.inventory,
               width: '20%',
-              minWidth: '100px'
-            }
+              minWidth: '100px',
+            },
           ]}
           showLastRowDivider
-          >
+        >
           <Page
             scrollableContentRef={scrollableContentRef =>
-              !this.state.scrollableContentRef && this.setState({scrollableContentRef})
+              !this.state.scrollableContentRef &&
+              this.setState({ scrollableContentRef })
             }
-            >
-            <Page.Header title="My Table Title"/>
+          >
+            <Page.Header title="My Table Title" />
             <Page.Content>
               <Card>
-                <Table.Content titleBarVisible={false}/>
+                <Table.Content titleBarVisible={false} />
               </Card>
             </Page.Content>
           </Page>

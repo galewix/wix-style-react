@@ -12,10 +12,10 @@ export default {
   componentProps: {
     children: 'Some label',
     size: 'medium',
-    dataHook: 'storybook-label'
+    dataHook: 'storybook-label',
   },
 
   exampleProps: {
-    size: SIZES
-  }
+    size: SIZES,
+  },
 };

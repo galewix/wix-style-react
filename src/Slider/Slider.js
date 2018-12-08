@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Range} from 'rc-slider';
+import { Range } from 'rc-slider';
 import uniqueId from 'lodash/uniqueId';
 import SliderHandle from './SliderHandle';
 import classNames from 'classnames';
 import './Slider.scss';
 
 /**
-  * A slider component with multi-range support
-  */
+ * A slider component with multi-range support
+ */
 export default class Slider extends Component {
   getRange() {
-    const {min, max, step} = this.props;
+    const { min, max, step } = this.props;
     const range = [];
 
     for (let i = min; i <= max; i += step) {
@@ -22,15 +22,13 @@ export default class Slider extends Component {
   }
 
   renderLabel(value) {
-    const {min, max} = this.props;
+    const { min, max } = this.props;
 
     return (
       <div className="mark">
-        <div className="mark-line"/>
+        <div className="mark-line" />
         <div className="mark-value">
-          {(value === min || value === max) && (
-            <div>{value}</div>
-          )}
+          {(value === min || value === max) && <div>{value}</div>}
         </div>
       </div>
     );
@@ -39,7 +37,7 @@ export default class Slider extends Component {
   getMarks() {
     return this.getRange().reduce((acc, cur) => {
       acc[cur] = {
-        label: this.renderLabel(cur)
+        label: this.renderLabel(cur),
       };
 
       return acc;
@@ -48,11 +46,21 @@ export default class Slider extends Component {
 
   render() {
     const marks = this.props.displayMarks ? this.getMarks() : {};
-    const {dataHook} = this.props;
+    const { dataHook } = this.props;
     return (
-      <div className={classNames('wix-slider', {rtl: this.props.rtl})} id={this.props.id} data-hook={dataHook}>
+      <div
+        className={classNames('wix-slider', { rtl: this.props.rtl })}
+        id={this.props.id}
+        data-hook={dataHook}
+      >
         <Range
-          handle={props => (<SliderHandle key={props.index} displayTooltip={this.props.displayTooltip} {...props}/>)}
+          handle={props => (
+            <SliderHandle
+              key={props.index}
+              displayTooltip={this.props.displayTooltip}
+              {...props}
+            />
+          )}
           min={this.props.min}
           max={this.props.max}
           value={this.props.value}
@@ -62,7 +70,7 @@ export default class Slider extends Component {
           onChange={this.props.onChange}
           onAfterChange={this.props.onAfterChange}
           allowCross={this.props.allowCross}
-          />
+        />
       </div>
     );
   }
@@ -104,7 +112,7 @@ Slider.propTypes = {
   pushable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 
   /** The slider's selected range */
-  value: PropTypes.arrayOf(PropTypes.number)
+  value: PropTypes.arrayOf(PropTypes.number),
 };
 
 Slider.defaultProps = {
@@ -116,5 +124,5 @@ Slider.defaultProps = {
   id: uniqueId(),
   displayTooltip: true,
   displayMarks: true,
-  rtl: false
+  rtl: false,
 };

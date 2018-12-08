@@ -6,7 +6,7 @@ const dropdownCompositeDriverFactory = component => {
 
   return {
     ...inputAreaWithLabelCompositeDriverFactory(component),
-    ...dropdownDriverFactory(dropdown)
+    ...dropdownDriverFactory(dropdown),
   };
 };
 

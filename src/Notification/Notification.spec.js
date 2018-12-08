@@ -1,21 +1,22 @@
 import React from 'react';
-import {mount} from 'enzyme';
-import {isTestkitExists} from '../../test/utils/testkit-sanity';
+import { mount } from 'enzyme';
+import { isTestkitExists } from '../../test/utils/testkit-sanity';
 import notificationDriverFactory from './Notification.driver';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import {notificationTestkitFactory} from '../../testkit';
-import {notificationTestkitFactory as enzymeNotificationTestkitFactory, buttonTestkitFactory as enzymeButtonTestkitFactory} from '../../testkit/enzyme';
+import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
+import { notificationTestkitFactory } from '../../testkit';
+import {
+  notificationTestkitFactory as enzymeNotificationTestkitFactory,
+  buttonTestkitFactory as enzymeButtonTestkitFactory,
+} from '../../testkit/enzyme';
 
 import Notification from './Notification';
-import Button from '../../src/Button';
+import Button from '../Button';
 import TextLink from '../TextLink';
 
 const renderNotificationWithProps = (props = {}) => (
   <Notification {...props}>
-    <Notification.TextLabel>
-      label
-    </Notification.TextLabel>
-    <Notification.CloseButton/>
+    <Notification.TextLabel>label</Notification.TextLabel>
+    <Notification.CloseButton />
   </Notification>
 );
 
@@ -29,45 +30,55 @@ describe('Notification', () => {
     });
 
     it('should be visible', () => {
-      const driver = createDriver(renderNotificationWithProps({show: true}));
+      const driver = createDriver(renderNotificationWithProps({ show: true }));
       expect(driver.visible()).toBeTruthy();
     });
 
     it('should not be visible', () => {
-      const driver = createDriver(renderNotificationWithProps({show: false}));
+      const driver = createDriver(renderNotificationWithProps({ show: false }));
       expect(driver.visible()).toBeFalsy();
     });
   });
 
   describe('Themes', () => {
     it('should support default theme', () => {
-      const driver = createDriver(renderNotificationWithProps({show: true}));
+      const driver = createDriver(renderNotificationWithProps({ show: true }));
       expect(driver.isStandardNotification()).toBeTruthy();
       expect(driver.hasTheme('standard')).toBeTruthy();
     });
 
     it('should support standard theme', () => {
-      const driver = createDriver(renderNotificationWithProps({show: true, theme: 'standard'}));
+      const driver = createDriver(
+        renderNotificationWithProps({ show: true, theme: 'standard' }),
+      );
       expect(driver.isStandardNotification()).toBeTruthy();
     });
 
     it('should support error theme', () => {
-      const driver = createDriver(renderNotificationWithProps({show: true, theme: 'error'}));
+      const driver = createDriver(
+        renderNotificationWithProps({ show: true, theme: 'error' }),
+      );
       expect(driver.isErrorNotification()).toBeTruthy();
     });
 
     it('should support success theme', () => {
-      const driver = createDriver(renderNotificationWithProps({show: true, theme: 'success'}));
+      const driver = createDriver(
+        renderNotificationWithProps({ show: true, theme: 'success' }),
+      );
       expect(driver.isSuccessNotification()).toBeTruthy();
     });
 
     it('should support warning theme', () => {
-      const driver = createDriver(renderNotificationWithProps({show: true, theme: 'warning'}));
+      const driver = createDriver(
+        renderNotificationWithProps({ show: true, theme: 'warning' }),
+      );
       expect(driver.isWarningNotification()).toBeTruthy();
     });
 
     it('should support premium theme', () => {
-      const driver = createDriver(renderNotificationWithProps({show: true, theme: 'premium'}));
+      const driver = createDriver(
+        renderNotificationWithProps({ show: true, theme: 'premium' }),
+      );
       expect(driver.isPremiumNotification()).toBeTruthy();
     });
   });
@@ -78,11 +89,9 @@ describe('Notification', () => {
         const labelText = 'Label Text';
         const driver = createDriver(
           <Notification show>
-            <Notification.TextLabel>
-              {labelText}
-            </Notification.TextLabel>
-            <Notification.CloseButton/>
-          </Notification>
+            <Notification.TextLabel>{labelText}</Notification.TextLabel>
+            <Notification.CloseButton />
+          </Notification>,
         );
         expect(driver.getLabelText()).toEqual(labelText);
       });
@@ -93,20 +102,20 @@ describe('Notification', () => {
         const actionButtonText = 'Action Button Text';
         const driver = createDriver(
           <Notification show>
-            <Notification.TextLabel>
-              label
-            </Notification.TextLabel>
+            <Notification.TextLabel>label</Notification.TextLabel>
             <Notification.ActionButton>
               {actionButtonText}
             </Notification.ActionButton>
-            <Notification.CloseButton/>
-          </Notification>
+            <Notification.CloseButton />
+          </Notification>,
         );
         expect(driver.getActionButtonText()).toEqual(actionButtonText);
       });
 
       it('should not have an action button', () => {
-        const driver = createDriver(renderNotificationWithProps({show: true}));
+        const driver = createDriver(
+          renderNotificationWithProps({ show: true }),
+        );
         expect(driver.hasActionButton()).toBeFalsy();
       });
 
@@ -115,14 +124,12 @@ describe('Notification', () => {
 
         const driver = createDriver(
           <Notification show>
-            <Notification.TextLabel>
-              label
-            </Notification.TextLabel>
+            <Notification.TextLabel>label</Notification.TextLabel>
             <Notification.ActionButton onClick={onClickMock}>
               action
             </Notification.ActionButton>
-            <Notification.CloseButton/>
-          </Notification>
+            <Notification.CloseButton />
+          </Notification>,
         );
 
         driver.clickOnActionButton();
@@ -133,12 +140,16 @@ describe('Notification', () => {
 
     describe('Close Button', () => {
       it('should have a close button (with action button)', () => {
-        const driver = createDriver(renderNotificationWithProps({show: true}));
+        const driver = createDriver(
+          renderNotificationWithProps({ show: true }),
+        );
         expect(driver.hasCloseButton()).toBeTruthy();
       });
 
       it('should have a close button (without action button)', () => {
-        const driver = createDriver(renderNotificationWithProps({show: true}));
+        const driver = createDriver(
+          renderNotificationWithProps({ show: true }),
+        );
         expect(driver.hasActionButton()).toBeFalsy();
         expect(driver.hasCloseButton()).toBeTruthy();
       });
@@ -147,22 +158,28 @@ describe('Notification', () => {
 
   describe('Type', () => {
     it('should set default type to global and position relative', () => {
-      const driver = createDriver(renderNotificationWithProps({show: true}));
+      const driver = createDriver(renderNotificationWithProps({ show: true }));
       expect(driver.isRelativelyPositioned()).toBeTruthy();
     });
 
     it('should set the type to global and position relative', () => {
-      const driver = createDriver(renderNotificationWithProps({show: true, type: 'global'}));
+      const driver = createDriver(
+        renderNotificationWithProps({ show: true, type: 'global' }),
+      );
       expect(driver.isRelativelyPositioned()).toBeTruthy();
     });
 
     it('should set the type to local and position absolute', () => {
-      const driver = createDriver(renderNotificationWithProps({show: true, type: 'local'}));
+      const driver = createDriver(
+        renderNotificationWithProps({ show: true, type: 'local' }),
+      );
       expect(driver.isAbsolutePositioned()).toBeTruthy();
     });
 
     it('should set the type to sticky and position fixed', () => {
-      const driver = createDriver(renderNotificationWithProps({show: true, type: 'sticky'}));
+      const driver = createDriver(
+        renderNotificationWithProps({ show: true, type: 'sticky' }),
+      );
       expect(driver.isFixedPositioned()).toBeTruthy();
     });
   });
@@ -175,9 +192,8 @@ describe('Notification', () => {
     });
 
     describe('Closing when clicking on close button', () => {
-
       beforeEach(() => {
-        driver = createDriver(renderNotificationWithProps({show: true}));
+        driver = createDriver(renderNotificationWithProps({ show: true }));
         driver.clickOnCloseButton();
       });
 
@@ -190,7 +206,7 @@ describe('Notification', () => {
       });
 
       it('should allow reopening the notification after closed by close button', () => {
-        driver.setProps({show: true});
+        driver.setProps({ show: true });
         expect(driver.visible()).toBeTruthy();
       });
     });
@@ -202,15 +218,21 @@ describe('Notification', () => {
         if (type !== 'global') {
           it('should close after default timeout (6s)', () => {
             const defaultTimeout = 6000;
-            driver = createDriver(renderNotificationWithProps({show: true, type}));
+            driver = createDriver(
+              renderNotificationWithProps({ show: true, type }),
+            );
             jest.runAllTimers();
 
             expect(driver.visible()).toBeFalsy();
-            expect(setTimeout.mock.calls.find(call => call[1] === defaultTimeout)).toBeTruthy();
+            expect(
+              setTimeout.mock.calls.find(call => call[1] === defaultTimeout),
+            ).toBeTruthy();
           });
         } else {
           it(`should not close after default timeout (6s) for ${type} Notification`, () => {
-            driver = createDriver(renderNotificationWithProps({show: true, type}));
+            driver = createDriver(
+              renderNotificationWithProps({ show: true, type }),
+            );
             jest.runAllTimers();
 
             expect(driver.visible()).toBeTruthy();
@@ -219,37 +241,61 @@ describe('Notification', () => {
         }
 
         it('should close after a given timeout', () => {
-          driver = createDriver(renderNotificationWithProps({show: true, type, timeout: someTimeout}));
+          driver = createDriver(
+            renderNotificationWithProps({
+              show: true,
+              type,
+              timeout: someTimeout,
+            }),
+          );
 
           jest.runAllTimers();
 
           expect(driver.visible()).toBeFalsy();
-          expect(setTimeout.mock.calls.find(call => call[1] === someTimeout)).toBeTruthy();
+          expect(
+            setTimeout.mock.calls.find(call => call[1] === someTimeout),
+          ).toBeTruthy();
         });
 
         it('should be able to show notification again after timeout', () => {
-          driver = createDriver(renderNotificationWithProps({show: true, type, timeout: someTimeout}));
+          driver = createDriver(
+            renderNotificationWithProps({
+              show: true,
+              type,
+              timeout: someTimeout,
+            }),
+          );
 
           jest.runAllTimers();
           expect(driver.visible()).toBeFalsy();
-          expect(setTimeout.mock.calls.find(call => call[1] === someTimeout)).toBeTruthy();
+          expect(
+            setTimeout.mock.calls.find(call => call[1] === someTimeout),
+          ).toBeTruthy();
           jest.clearAllTimers();
 
-          driver.setProps({show: true});
+          driver.setProps({ show: true });
           expect(driver.visible()).toBeTruthy();
         });
 
         it('should close after starting from a closed status', () => {
-          driver = createDriver(renderNotificationWithProps({show: false, type, timeout: someTimeout}));
+          driver = createDriver(
+            renderNotificationWithProps({
+              show: false,
+              type,
+              timeout: someTimeout,
+            }),
+          );
 
           jest.runAllTimers();
           expect(driver.visible()).toBeFalsy();
-          driver.setProps({show: true});
+          driver.setProps({ show: true });
           expect(driver.visible()).toBeTruthy();
           jest.runAllTimers();
           expect(driver.visible()).toBeFalsy();
 
-          expect(setTimeout.mock.calls.find(call => call[1] === someTimeout)).toBeTruthy();
+          expect(
+            setTimeout.mock.calls.find(call => call[1] === someTimeout),
+          ).toBeTruthy();
         });
       });
     });
@@ -262,24 +308,34 @@ describe('Notification', () => {
   describe('Style', () => {
     it('should accept a z-index', () => {
       const zIndex = 999;
-      const driver = createDriver(renderNotificationWithProps({show: true, zIndex}));
+      const driver = createDriver(
+        renderNotificationWithProps({ show: true, zIndex }),
+      );
       expect(driver.getZIndex()).toEqual(zIndex);
     });
   });
 
   describe('testkit', () => {
     it('should exist', () => {
-      const component = renderNotificationWithProps({show: true});
-      expect(isTestkitExists(component, notificationTestkitFactory)).toBeTruthy();
+      const component = renderNotificationWithProps({ show: true });
+      expect(
+        isTestkitExists(component, notificationTestkitFactory),
+      ).toBeTruthy();
     });
   });
 
   describe('enzyme testkit', () => {
     it('should exist', () => {
-      const component = mount(<ControlledNotification/>);
+      const component = mount(<ControlledNotification />);
 
-      const enzymeNotificationTestkit = enzymeNotificationTestkitFactory({wrapper: component, dataHook: 'notification_dh'});
-      const enzymeButtonTestkit = enzymeButtonTestkitFactory({wrapper: component, dataHook: 'button_dh'});
+      const enzymeNotificationTestkit = enzymeNotificationTestkitFactory({
+        wrapper: component,
+        dataHook: 'notification_dh',
+      });
+      const enzymeButtonTestkit = enzymeButtonTestkitFactory({
+        wrapper: component,
+        dataHook: 'button_dh',
+      });
 
       expect(enzymeNotificationTestkit.visible()).toBeFalsy();
       expect(enzymeButtonTestkit.exists()).toBeTruthy();
@@ -293,32 +349,30 @@ describe('Notification', () => {
   describe('Notification.ActionButton', () => {
     it('should display a Button when passing by default', () => {
       const component = mount(
-        <Notification.ActionButton>
-          Action Button
-        </Notification.ActionButton>
+        <Notification.ActionButton>Action Button</Notification.ActionButton>,
       );
 
-      expect(component.find('Button').length).toEqual(1);
+      expect(component.find('Button')).toHaveLength(1);
     });
 
     it('should display a Button when explicitly required', () => {
       const component = mount(
         <Notification.ActionButton type="button">
           Action Button
-        </Notification.ActionButton>
+        </Notification.ActionButton>,
       );
 
-      expect(component.find('Button').length).toEqual(1);
+      expect(component.find('Button')).toHaveLength(1);
     });
 
     it('should display a TextLink explicitly required', () => {
       const component = mount(
         <Notification.ActionButton type="textLink" link="some link">
           Action Button
-        </Notification.ActionButton>
+        </Notification.ActionButton>,
       );
 
-      expect(component.find(TextLink).length).toEqual(1);
+      expect(component.find(TextLink)).toHaveLength(1);
     });
   });
 });
@@ -327,20 +381,26 @@ class ControlledNotification extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {showNotification: false};
+    this.state = { showNotification: false };
   }
 
   render() {
     return (
       <div>
-        <Button dataHook="button_dh" onClick={() => this.setState({showNotification: !this.state.showNotification})}>
+        <Button
+          dataHook="button_dh"
+          onClick={() =>
+            this.setState({ showNotification: !this.state.showNotification })
+          }
+        >
           button
         </Button>
-        <Notification dataHook="notification_dh" show={this.state.showNotification}>
-          <Notification.TextLabel>
-            label
-          </Notification.TextLabel>
-          <Notification.CloseButton/>
+        <Notification
+          dataHook="notification_dh"
+          show={this.state.showNotification}
+        >
+          <Notification.TextLabel>label</Notification.TextLabel>
+          <Notification.CloseButton />
         </Notification>
       </div>
     );

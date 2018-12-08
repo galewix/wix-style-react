@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 import CodeExample from 'wix-storybook-utils/CodeExample';
 
 import storySettings from './story-settings';
@@ -19,24 +19,24 @@ import HolyGrailRaw from '!raw-loader!./examples/HolyGrail';
 storiesOf(storySettings.examplesCategory, module)
   .add(storySettings.holyGrailLayout, () => (
     <CodeExample title="Holy Grail Layout" code={HolyGrailRaw}>
-      <HolyGrail/>
+      <HolyGrail />
     </CodeExample>
   ))
 
   .add(storySettings.listOfCards, () => (
     <CodeExample title="List of Cards" code={ListOfCardsRaw}>
-      <ListOfCards/>
+      <ListOfCards />
     </CodeExample>
   ))
 
   .add(storySettings.mainAndSide, () => (
     <CodeExample title="Main and Side" code={MainAndSideRaw}>
-      <MainAndSide/>
+      <MainAndSide />
     </CodeExample>
   ))
 
   .add(storySettings.form, () => (
     <CodeExample title=" Form" code={FormRaw}>
-      <Form/>
+      <Form />
     </CodeExample>
   ));

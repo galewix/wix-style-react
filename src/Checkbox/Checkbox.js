@@ -1,13 +1,14 @@
 import React from 'react';
-import {node, bool, func, oneOf, string} from 'prop-types';
-import uniqueId from 'lodash/uniqueId';
+import { node, bool, func, oneOf, string } from 'prop-types';
 import classNames from 'classnames';
 import CheckboxChecked from 'wix-ui-icons-common/system/CheckboxChecked';
 import CheckboxIndeterminate from 'wix-ui-icons-common/system/CheckboxIndeterminate';
 import Label from '../Label';
 import styles from './Checkbox.scss';
 import WixComponent from '../BaseComponents/WixComponent';
-import {withFocusable, focusableStates} from '../common/Focusable';
+import { withFocusable, focusableStates } from '../common/Focusable';
+
+import { generateID } from '../utils/generateId';
 
 /** a simple WixStyle checkbox */
 class Checkbox extends WixComponent {
@@ -16,7 +17,7 @@ class Checkbox extends WixComponent {
   constructor(props) {
     super(props);
 
-    this.state = {isFocused: false};
+    this.state = { isFocused: false };
   }
 
   static propTypes = {
@@ -31,7 +32,7 @@ class Checkbox extends WixComponent {
     /** used for automatic testing */
     hover: bool,
     size: oneOf(['medium']),
-    onChange: func
+    onChange: func,
   };
 
   static defaultProps = {
@@ -39,10 +40,11 @@ class Checkbox extends WixComponent {
     size: 'medium',
     onChange: e => {
       e.stopPropagation();
-    }
+    },
   };
 
-  _id = `${Checkbox.displayName}-${uniqueId()}`;
+  //TODO fix me please. We need to get away from ids.
+  _id = `${Checkbox.displayName}-${generateID()}`;
 
   render() {
     const {
@@ -54,19 +56,21 @@ class Checkbox extends WixComponent {
       hover,
       size,
       onChange,
-      children
+      children,
     } = this.props;
 
     const classname = classNames(
       styles.root,
-      indeterminate ? styles.indeterminate :
-        checked ? styles.checked :
-          styles.unchecked,
+      indeterminate
+        ? styles.indeterminate
+        : checked
+        ? styles.checked
+        : styles.unchecked,
       {
         [styles.hover]: hover,
         [styles.disabled]: disabled,
-        [styles.hasError]: hasError
-      }
+        [styles.hasError]: hasError,
+      },
     );
 
     /*
@@ -80,37 +84,31 @@ class Checkbox extends WixComponent {
         onBlur={this.props.focusableOnBlur}
         {...focusableStates(this.props)}
         tabIndex={disabled ? null : 0}
-        >
+      >
         <input
           type="checkbox"
           id={id}
           checked={checked}
           disabled={disabled}
           onChange={disabled ? null : onChange}
-          style={{display: 'none'}}
-          />
+          style={{ display: 'none' }}
+        />
 
-        <Label
-          for={id}
-          dataHook="checkbox-label"
-          >
+        <Label for={id} dataHook="checkbox-label">
           <div
             data-hook="checkbox-box"
             className={classNames(styles.checkbox, styles[size])}
-            >
-            <div
-              className={styles.inner}
-              onClick={e => e.stopPropagation()}
-              >
-              {indeterminate ? <CheckboxIndeterminate/> : <CheckboxChecked/>}
+          >
+            <div className={styles.inner} onClick={e => e.stopPropagation()}>
+              {indeterminate ? <CheckboxIndeterminate /> : <CheckboxChecked />}
             </div>
           </div>
 
-          { children &&
+          {children && (
             <div className={styles.children} data-hook="checkbox-children">
               {children}
             </div>
-          }
+          )}
         </Label>
       </div>
     );

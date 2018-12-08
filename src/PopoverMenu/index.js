@@ -1,1 +1,1 @@
-export {default} from './PopoverMenu';
+export { default } from './PopoverMenu';

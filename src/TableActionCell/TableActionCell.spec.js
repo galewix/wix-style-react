@@ -1,44 +1,46 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
-import {mount} from 'enzyme';
+import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
+import { mount } from 'enzyme';
 import eventually from 'wix-eventually';
 
 import TableActionCell from './TableActionCell';
 import tableActionCellDriverFactory from './TableActionCell.driver';
-import {tableActionCellTestkitFactory} from '../../testkit';
-import {tableActionCellTestkitFactory as enzymeTableActionCellTestkitFactory} from '../../testkit/enzyme';
-import {flattenInternalDriver} from '../../test/utils/private-drivers';
+import { tableActionCellTestkitFactory } from '../../testkit';
+import { tableActionCellTestkitFactory as enzymeTableActionCellTestkitFactory } from '../../testkit/enzyme';
+import { flattenInternalDriver } from '../../test/utils/private-drivers';
 
 const primaryActionProps = (actionTrigger = () => {}) => ({
   primaryAction: {
     text: 'primary action',
     theme: 'whiteblue',
-    onClick: actionTrigger
-  }
+    onClick: actionTrigger,
+  },
 });
 
 const secondaryActionsProps = (actionTriggers = []) => {
   const createAction = n => ({
     text: `Action ${n}`,
     icon: <span>{`Icon ${n}`}</span>, // simulate the icon as <span> elements
-    onClick: actionTriggers[n] || (() => {})
+    onClick: actionTriggers[n] || (() => {}),
   });
 
   return {
-    secondaryActions: Array(4).fill().map((val, idx) => createAction(idx)),
-    numOfVisibleSecondaryActions: 2
+    secondaryActions: Array(4)
+      .fill()
+      .map((val, idx) => createAction(idx)),
+    numOfVisibleSecondaryActions: 2,
   };
 };
 
-
 describe('Table Action Cell', () => {
-  const createDriver = (...args) => flattenInternalDriver(
-    createDriverFactory(tableActionCellDriverFactory)(...args)
-  );
+  const createDriver = (...args) =>
+    flattenInternalDriver(
+      createDriverFactory(tableActionCellDriverFactory)(...args),
+    );
 
-  it('should have a placeholder when there\'s only a primary action', () => {
-    const driver = createDriver(<TableActionCell {...primaryActionProps()}/>);
+  it("should have a placeholder when there's only a primary action", () => {
+    const driver = createDriver(<TableActionCell {...primaryActionProps()} />);
     expect(driver.primaryActionPlaceholderExists()).toBeTruthy();
   });
 
@@ -46,22 +48,20 @@ describe('Table Action Cell', () => {
     const onPrimaryActionTrigger = jest.fn();
 
     const driver = createDriver(
-      <TableActionCell
-        {...primaryActionProps(onPrimaryActionTrigger)}
-        />
+      <TableActionCell {...primaryActionProps(onPrimaryActionTrigger)} />,
     );
 
     expect(driver.getPrimaryActionButtonDriver().exists()).toBeTruthy();
-    expect(driver.getPrimaryActionButtonDriver().getButtonTextContent()).toEqual('primary action');
+    expect(
+      driver.getPrimaryActionButtonDriver().getButtonTextContent(),
+    ).toEqual('primary action');
   });
 
   it('should trigger the primary action on primary button click', () => {
     const onPrimaryActionTrigger = jest.fn();
 
     const driver = createDriver(
-      <TableActionCell
-        {...primaryActionProps(onPrimaryActionTrigger)}
-        />
+      <TableActionCell {...primaryActionProps(onPrimaryActionTrigger)} />,
     );
 
     driver.clickPrimaryActionButton();
@@ -73,7 +73,7 @@ describe('Table Action Cell', () => {
       <TableActionCell
         {...primaryActionProps()}
         {...secondaryActionsProps()}
-        />
+      />,
     );
 
     expect(driver.primaryActionPlaceholderExists()).toBeFalsy();
@@ -84,23 +84,31 @@ describe('Table Action Cell', () => {
       <TableActionCell
         {...primaryActionProps()}
         {...secondaryActionsProps()}
-        />
+      />,
     );
 
     expect(driver.getVisibleActionsCount()).toEqual(2);
 
-    expect(driver.getVisibleActionButtonDriver(0).getButtonTextContent()).toEqual('Icon 0');
-    expect(driver.getVisibleActionButtonDriver(1).getButtonTextContent()).toEqual('Icon 1');
+    expect(
+      driver.getVisibleActionButtonDriver(0).getButtonTextContent(),
+    ).toEqual('Icon 0');
+    expect(
+      driver.getVisibleActionButtonDriver(1).getButtonTextContent(),
+    ).toEqual('Icon 1');
 
     const tooltipDriver1 = driver.getVisibleActionTooltipDriver(0);
     const tooltipDriver2 = driver.getVisibleActionTooltipDriver(1);
 
     tooltipDriver1.mouseEnter();
-    await eventually(() => expect(tooltipDriver1.getContent()).toEqual('Action 0'));
+    await eventually(() =>
+      expect(tooltipDriver1.getContent()).toEqual('Action 0'),
+    );
     tooltipDriver1.mouseLeave();
 
     tooltipDriver2.mouseEnter();
-    await eventually(() => expect(tooltipDriver2.getContent()).toEqual('Action 1'));
+    await eventually(() =>
+      expect(tooltipDriver2.getContent()).toEqual('Action 1'),
+    );
     tooltipDriver2.mouseLeave();
   });
 
@@ -109,7 +117,7 @@ describe('Table Action Cell', () => {
       <TableActionCell
         {...primaryActionProps()}
         {...secondaryActionsProps()}
-        />
+      />,
     );
 
     const popoverMenuDriver = driver.getHiddenActionsPopoverMenuDriver(0);
@@ -126,13 +134,15 @@ describe('Table Action Cell', () => {
   });
 
   it('should trigger secondary action on click', async () => {
-    const actionTriggers = Array(4).fill().map(() => jest.fn());
+    const actionTriggers = Array(4)
+      .fill()
+      .map(() => jest.fn());
 
     const driver = createDriver(
       <TableActionCell
         {...primaryActionProps()}
         {...secondaryActionsProps(actionTriggers)}
-        />
+      />,
     );
 
     driver.clickVisibleAction(0);
@@ -155,14 +165,14 @@ describe('Table Action Cell', () => {
       text: `Disabled Action`,
       icon: <span>Icon</span>,
       onClick: actionTrigger,
-      disabled: true
+      disabled: true,
     };
     const driver = createDriver(
       <TableActionCell
         {...primaryActionProps()}
         secondaryActions={[disabledAction]}
         numOfVisibleSecondaryActions={0}
-        />
+      />,
     );
 
     driver.clickPopoverMenu();
@@ -178,7 +188,7 @@ describe('Table Action Cell', () => {
         {...primaryActionProps()}
         {...secondaryActionsProps()}
         numOfVisibleSecondaryActions={3}
-        />
+      />,
     );
 
     expect(driver.getVisibleActionsCount()).toEqual(3);
@@ -193,14 +203,18 @@ describe('testkit', () => {
     const div = document.createElement('div');
     const dataHook = 'table-action-cell';
 
-    const wrapper = div.appendChild(ReactTestUtils.renderIntoDocument(<div>
-      <TableActionCell
-        dataHook={dataHook}
-        {...primaryActionProps()}
-        />
-    </div>));
+    const wrapper = div.appendChild(
+      ReactTestUtils.renderIntoDocument(
+        <div>
+          <TableActionCell dataHook={dataHook} {...primaryActionProps()} />
+        </div>,
+      ),
+    );
 
-    const actionCellTextkit = tableActionCellTestkitFactory({wrapper, dataHook});
+    const actionCellTextkit = tableActionCellTestkitFactory({
+      wrapper,
+      dataHook,
+    });
     expect(actionCellTextkit.getPrimaryActionButtonDriver()).toBeTruthy();
   });
 });
@@ -208,8 +222,13 @@ describe('testkit', () => {
 describe('enzyme testkit', () => {
   it('should exist', () => {
     const dataHook = 'table-action-cell';
-    const wrapper = mount(<TableActionCell dataHook={dataHook} {...primaryActionProps()}/>);
-    const actionCellTextkit = enzymeTableActionCellTestkitFactory({wrapper, dataHook});
+    const wrapper = mount(
+      <TableActionCell dataHook={dataHook} {...primaryActionProps()} />,
+    );
+    const actionCellTextkit = enzymeTableActionCellTestkitFactory({
+      wrapper,
+      dataHook,
+    });
     expect(actionCellTextkit.getPrimaryActionButtonDriver()).toBeTruthy();
   });
 });

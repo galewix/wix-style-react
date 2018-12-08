@@ -1,44 +1,48 @@
-import React from 'react';
-import {func, oneOf, string} from 'prop-types';
-import Button from '../Button';
+import React, { Component } from 'react';
+import { ButtonNext } from 'wix-ui-core/button-next';
+import cx from 'classnames';
+
+import { string, oneOf, bool } from 'prop-types';
 import Close from '../new-icons/system/Close';
 import CloseLarge from '../new-icons/system/CloseLarge';
 
-/*
-  For internal usage,
-  TODO should be refactored later, together with buttons cleanup
-*/
+import { closeButton } from 'wix-ui-core/themes/backoffice';
 
-const CloseButton = ({arialLabel, dataHook, size, theme, onClick, className}) => {
-  return (
-    <Button
-      className={className}
-      aria-label={arialLabel}
-      dataHook={dataHook}
-      height={size === 'small' ? 'medium' : 'large'}
-      theme={theme}
-      onClick={onClick}
-      >
-      {size === 'small' ? <Close/> : <CloseLarge/>}
-    </Button>
-  );
-};
+class CloseButton extends Component {
+  static displayName = 'CloseButton';
 
-CloseButton.propTypes = {
-  className: string,
-  arialLabel: string,
-  dataHook: string,
-  size: oneOf(['small', 'large']),
-  theme: string,
-  onClick: func
-};
+  static propTypes = {
+    /** additional css classes */
+    className: string,
+    /** skins of closebutton */
+    skin: oneOf(['standard', 'standardFilled', 'light', 'lightFilled', 'dark']),
+    /** size of closebutton */
+    size: oneOf(['small', 'medium']),
+    /** applies disabled styles */
+    disabled: bool,
+    /** string based data hook for testing */
+    dataHook: string,
+  };
 
-CloseButton.defaultProps = {
-  arialLabel: 'close button',
-  theme: 'close-transparent',
-  size: 'large'
-};
+  static defaultProps = {
+    skin: 'standard',
+    size: 'small',
+    disabled: false,
+  };
 
-CloseButton.displayName = 'CloseButton';
+  render() {
+    const { skin, size, className, dataHook, ...rest } = this.props;
+
+    const classNames = cx(className, closeButton(skin, size));
+    const CloseIcon = <Close data-hook="close" />;
+    const CloseLargeIcon = <CloseLarge data-hook="close-large" />;
+
+    return (
+      <ButtonNext {...rest} data-hook={dataHook} className={classNames}>
+        {size === 'small' ? CloseIcon : CloseLargeIcon}
+      </ButtonNext>
+    );
+  }
+}
 
 export default CloseButton;

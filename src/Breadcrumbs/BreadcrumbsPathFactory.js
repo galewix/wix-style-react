@@ -1,11 +1,15 @@
-export default (path, baseUrlLink = '', baseUrlValue = null, pathSeparator = '/') => {
-
+export default (
+  path,
+  baseUrlLink = '',
+  baseUrlValue = null,
+  pathSeparator = '/',
+) => {
   const trimPath = (path, pathSeparator) => {
     const escapedString = pathSeparator.replace(/[[\](){}?*+^$\\.|-]/g, '\\$&');
 
     return path.replace(
       new RegExp(`^[ ${escapedString}]+|[ ${escapedString}]+$`, 'g'),
-      ''
+      '',
     );
   };
 
@@ -25,12 +29,12 @@ export default (path, baseUrlLink = '', baseUrlValue = null, pathSeparator = '/'
   const idOffset = baseUrlValue ? 1 : 0;
 
   if (baseUrlValue) {
-    options.push({id: 0, value: baseUrlValue, link});
+    options.push({ id: 0, value: baseUrlValue, link });
   }
 
   pathArr.map((segment, id) => {
     link += `/${segment}`;
-    options.push({id: idOffset + id, value: segment, link});
+    options.push({ id: idOffset + id, value: segment, link });
     return options;
   });
   return options;

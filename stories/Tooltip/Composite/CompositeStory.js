@@ -1,5 +1,5 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 
 import InteractiveCodeExample from 'wix-storybook-utils/InteractiveCodeExample';
 import TabbedView from 'wix-storybook-utils/TabbedView';
@@ -12,7 +12,6 @@ import ExamplePopover from './ExamplePopover';
 import ExamplePopoverMenu from './ExamplePopoverMenu';
 import PopoverReadmeTestKit from '../../../src/PopoverMenu/README.TESTKIT.md';
 import TooltipReadmeTestKit from '../../../src/Tooltip/README.TESTKIT.md';
-
 
 import ExamplePlacement from '../Core/ExamplePlacement';
 import ExamplePlacementRaw from '!raw-loader!../Core/ExamplePlacement';
@@ -35,35 +34,38 @@ storiesOf('7. Tooltips', module)
       <div>
         <h1>Tooltip</h1>
         <InteractiveCodeExample title="Customize a <Tooltip/>">
-          <ExampleTooltip/>
+          <ExampleTooltip />
         </InteractiveCodeExample>
       </div>
 
       <div>
-        <AutoDocs source={TooltipSource}/>
+        <AutoDocs source={TooltipSource} />
 
         <CodeExample title="Tooltip Placement" code={ExamplePlacementRaw}>
-          <ExamplePlacement/>
+          <ExamplePlacement />
         </CodeExample>
 
         <CodeExample title="Tooltip Bounce" code={ExampleBounceRaw}>
-          <ExampleBounce/>
+          <ExampleBounce />
         </CodeExample>
 
         <CodeExample title="Tooltip Theme" code={ExampleThemeRaw}>
-          <ExampleTheme/>
+          <ExampleTheme />
         </CodeExample>
 
-        <CodeExample title="Tooltip Custom Content" code={ExampleCustomContentRaw}>
-          <ExampleCustomContent/>
+        <CodeExample
+          title="Tooltip Custom Content"
+          code={ExampleCustomContentRaw}
+        >
+          <ExampleCustomContent />
         </CodeExample>
 
         <CodeExample title="Custom tooltip adjustment" code={ExampleMoveRaw}>
-          <ExampleMove/>
+          <ExampleMove />
         </CodeExample>
       </div>
 
-      <Markdown source={TooltipReadmeTestKit}/>
+      <Markdown source={TooltipReadmeTestKit} />
     </TabbedView>
   ))
 
@@ -71,11 +73,14 @@ storiesOf('7. Tooltips', module)
     <div>
       <h1>Popover</h1>
       <InteractiveCodeExample title="Customize a <Tooltip/>">
-        <ExamplePopover/>
+        <ExamplePopover />
       </InteractiveCodeExample>
 
-      <CodeExample title="Popover with EmptyState" code={ExamplePopoverEmptyStateRaw}>
-        <ExamplePopoverEmptyState/>
+      <CodeExample
+        title="Popover with EmptyState"
+        code={ExamplePopoverEmptyStateRaw}
+      >
+        <ExamplePopoverEmptyState />
       </CodeExample>
     </div>
   ))
@@ -86,12 +91,12 @@ storiesOf('7. Tooltips', module)
         <h1>Popover Menu</h1>
         <InteractiveCodeExample title="Customize a <PopoverMenu/>">
           <a href="?selectedKind=Core&selectedStory=PopoverMenu&full=0&down=0&left=1&panelRight=0">
-          Testkits API reference
+            Testkits API reference
           </a>
-          <ExamplePopoverMenu/>
+          <ExamplePopoverMenu />
         </InteractiveCodeExample>
       </div>
 
-      <Markdown source={PopoverReadmeTestKit}/>
+      <Markdown source={PopoverReadmeTestKit} />
     </TabbedView>
   ));

@@ -1,1 +1,1 @@
-export {default} from './InputArea.js';
+export { default } from './InputArea.js';

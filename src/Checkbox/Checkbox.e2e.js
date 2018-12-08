@@ -1,20 +1,26 @@
 import eyes from 'eyes.it';
-import {checkboxTestkitFactory} from '../../testkit/protractor';
-import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {getStoryUrl} from '../../test/utils/storybook-helpers';
+import { checkboxTestkitFactory } from '../../testkit/protractor';
+import { waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import { getStoryUrl } from '../../test/utils/storybook-helpers';
 import autoExampleDriver from 'wix-storybook-utils/AutoExampleDriver';
-import {runFocusTests} from '../common/Focusable/FocusableTestsE2E';
+import { runFocusTests } from '../common/Focusable/FocusableTestsE2E';
 
 const NO_DESCRIPTION = '';
 
 describe('Checkbox', () => {
   const storyUrl = getStoryUrl('4. Selection', '4.2 Checkbox');
-  const checkboxDriver = checkboxTestkitFactory({dataHook: 'storybook-checkbox'});
-
+  const checkboxDriver = checkboxTestkitFactory({
+    dataHook: 'storybook-checkbox',
+  });
 
   describe(NO_DESCRIPTION, () => {
-    const waitForCheckbox = () => waitForVisibilityOf(checkboxDriver.element(), 'Cannot find Checkbox');
-    const clickTab = () => browser.actions().sendKeys(protractor.Key.TAB).perform();
+    const waitForCheckbox = () =>
+      waitForVisibilityOf(checkboxDriver.element(), 'Cannot find Checkbox');
+    const clickTab = () =>
+      browser
+        .actions()
+        .sendKeys(protractor.Key.TAB)
+        .perform();
 
     beforeEach(async () => {
       // TODO: We do browser.get() before EACH test in order to reset the focus.
@@ -48,9 +54,8 @@ describe('Checkbox', () => {
     });
 
     describe('has error', () => {
-
       beforeEach(async () => {
-        await autoExampleDriver.setProps({hasError: true});
+        await autoExampleDriver.setProps({ hasError: true });
       });
 
       eyes.it('should show error styles', async () => {
@@ -66,9 +71,8 @@ describe('Checkbox', () => {
     });
 
     describe('is disabled', () => {
-
       beforeEach(async () => {
-        await autoExampleDriver.setProps({disabled: true});
+        await autoExampleDriver.setProps({ disabled: true });
       });
 
       eyes.it('should be disabled', async () => {
@@ -88,4 +92,3 @@ describe('Checkbox', () => {
     runFocusTests(checkboxDriver, storyUrl);
   });
 });
-

@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
-import Tooltip from 'wix-style-react/Tooltip';
-import Button from 'wix-style-react/Button';
+import React, { Component } from 'react';
+import Tooltip from '../../../src/Tooltip';
+import Button from '../../../src/Button';
 
-export const SHORT_CONTENT = 'Hello World';
-export const LONG_CONTENT = 'Hello World, Hello World, Hello World, Hello World';
+import { SHORT_CONTENT, LONG_CONTENT } from '../content';
 
 export default class TooltipForEyesOnly extends Component {
   static displayName = 'TooltipForEyesOnly';
@@ -17,12 +16,12 @@ export default class TooltipForEyesOnly extends Component {
     this.state = {
       content: SHORT_CONTENT,
       style: {},
-      popover: false
+      popover: false,
     };
   }
 
   render() {
-    const {style, content} = this.state;
+    const { style, content } = this.state;
     const isE2e = global.self === global.top;
 
     return isE2e ? (
@@ -36,23 +35,29 @@ export default class TooltipForEyesOnly extends Component {
           hideTrigger={'custom'}
           appendToParent
           content={<div data-hook="tooltip-e2e-tooltip">{content}</div>}
-          >
-          <div style={style} data-hook="tooltip-anchor">My Father is a Tooltip</div>
+        >
+          <div style={style} data-hook="tooltip-anchor">
+            My Father is a Tooltip
+          </div>
         </Tooltip>
-        <Button dataHook="long-text-button" onClick={() => this._onClick()}>Change State</Button>
-        <Button dataHook="popover-button" onClick={() => this.togglePopover()}>Toggle popover</Button>
+        <Button dataHook="long-text-button" onClick={() => this._onClick()}>
+          Change State
+        </Button>
+        <Button dataHook="popover-button" onClick={() => this.togglePopover()}>
+          Toggle popover
+        </Button>
       </div>
     ) : null;
   }
 
   togglePopover() {
-    this.setState({popover: !this.state.popover});
+    this.setState({ popover: !this.state.popover });
   }
 
   _onClick() {
     this.setState({
-      style: {position: 'relative', left: '20px'},
-      content: LONG_CONTENT
+      style: { position: 'relative', left: '20px' },
+      content: LONG_CONTENT,
     });
   }
 }

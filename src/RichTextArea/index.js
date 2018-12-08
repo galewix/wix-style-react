@@ -1,1 +1,1 @@
-export {default} from './RichTextArea';
+export { default } from './RichTextArea';

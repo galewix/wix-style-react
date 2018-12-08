@@ -8,7 +8,8 @@ export default {
   componentPath: '../src/Highlighter',
 
   componentProps: () => ({
-    children: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consequuntur earum eius eum fugiat',
-    dataHook: 'story-highlighter'
-  })
+    children:
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consequuntur earum eius eum fugiat',
+    dataHook: 'story-highlighter',
+  }),
 };

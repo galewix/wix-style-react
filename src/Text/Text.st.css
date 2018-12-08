@@ -6,6 +6,7 @@
 :import {
   -st-from: "wix-ui-backoffice/dist/src/colors.st.css";
   -st-named: 
+  B10, B20,
   D10, D20, D40,
   G10, P10, R10, WHITE;
 }
@@ -96,6 +97,15 @@
 
 .root:size(tiny):weight(thin) {
   font-family: value(fontRoman);
+}
+
+.root a {
+  color: value(B10);
+  text-decoration: none;
+}
+
+.root a:hover {
+  color: value(B20);
 }
 
 /* Deprecated */

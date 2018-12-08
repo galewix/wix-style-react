@@ -1,1 +1,1 @@
-export {default} from './FloatingTabItem';
+export { default } from './FloatingTabItem';

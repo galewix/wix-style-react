@@ -4,7 +4,6 @@ import WixComponent from '../BaseComponents/WixComponent';
 import TextLinkLayout from '../BaseComponents/TextLinkLayout';
 
 export default class TextLink extends WixComponent {
-
   static propTypes = {
     ...TextLinkLayout.propTypes,
     link: PropTypes.string,
@@ -15,7 +14,7 @@ export default class TextLink extends WixComponent {
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onClick: PropTypes.func,
-    ellipsis: PropTypes.bool
+    ellipsis: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -24,11 +23,11 @@ export default class TextLink extends WixComponent {
     rel: null,
     target: null,
     onClick: () => {},
-    ellipsis: false
+    ellipsis: false,
   };
 
   _handleOnClick = event => {
-    const {link, disabled} = this.props;
+    const { link, disabled } = this.props;
 
     if (!link || disabled) {
       event.preventDefault();
@@ -40,7 +39,18 @@ export default class TextLink extends WixComponent {
   };
 
   render() {
-    const {ariaLabel, disabled, link, children, download, rel, target, onMouseEnter, onMouseLeave, ellipsis} = this.props;
+    const {
+      ariaLabel,
+      disabled,
+      link,
+      children,
+      download,
+      rel,
+      target,
+      onMouseEnter,
+      onMouseLeave,
+      ellipsis,
+    } = this.props;
 
     const props = {
       download,
@@ -50,13 +60,13 @@ export default class TextLink extends WixComponent {
       style: {
         textDecoration: 'inherit',
         tabIndex: 0,
-        display: ellipsis ? 'inline' : 'inline-block'
+        display: ellipsis ? 'inline' : 'inline-block',
       },
       disabled,
       rel,
       target,
       onMouseEnter,
-      onMouseLeave
+      onMouseLeave,
     };
 
     if (ariaLabel) {
@@ -65,9 +75,7 @@ export default class TextLink extends WixComponent {
 
     return (
       <a {...props}>
-        <TextLinkLayout {...this.props}>
-          {children}
-        </TextLinkLayout>
+        <TextLinkLayout {...this.props}>{children}</TextLinkLayout>
       </a>
     );
   }

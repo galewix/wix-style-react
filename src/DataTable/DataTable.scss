@@ -40,9 +40,20 @@ $rowShadow: inset 0 1px 0 0 $D70;
 
   .th-container {
 
-    &.withNodes {
-      display: flex;
-      align-items: center;
+    display: flex;
+    align-items: center;
+
+    // Support for alignment within flex
+    &.alignStart {
+      justify-content: flex-start;
+    }
+
+    &.alignCenter {
+      justify-content: center;
+    }
+
+    &.alignEnd {
+      justify-content: flex-end;
     }
 
     .infoTooltipWrapper {
@@ -67,6 +78,21 @@ $rowShadow: inset 0 1px 0 0 $D70;
   &.mediumVerticalPadding {
     padding-top: 18px;
     padding-bottom: 18px;
+  }
+
+  // Cells alignment
+  &.alignStart {
+    text-align: left;
+    text-align: start; // not supported in IE11 & Edge; 'left' as fallback
+  }
+
+  &.alignCenter {
+    text-align: center;
+  }
+
+  &.alignEnd {
+    text-align: right;
+    text-align: end; // not supported in IE11 & Edge; 'right' as fallback
   }
 }
 
@@ -130,18 +156,4 @@ $rowShadow: inset 0 1px 0 0 $D70;
       box-shadow: $rowShadow;
     }
   }
-}
-
-.alignStart {
-  text-align: left;
-  text-align: start; // not supported in IE11 & Edge; 'left' as fallback
-}
-
-.alignCenter {
-  text-align: center;
-}
-
-.alignEnd {
-  text-align: right;
-  text-align: end; // not supported in IE11 & Edge; 'right' as fallback
 }

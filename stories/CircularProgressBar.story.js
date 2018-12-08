@@ -14,10 +14,10 @@ export default {
     light: false,
     error: false,
     errorLabel: '',
-    showProgressIndication: false
+    showProgressIndication: false,
   },
 
   exampleProps: {
-    size: ['small', 'medium', 'large']
-  }
+    size: ['small', 'medium', 'large'],
+  },
 };

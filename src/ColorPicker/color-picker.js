@@ -1,6 +1,6 @@
 import React from 'react';
 import color from 'color';
-import {object, string, func, bool, oneOfType, node} from 'prop-types';
+import { object, string, func, bool, oneOfType, node } from 'prop-types';
 
 import WixComponent from '../BaseComponents/WixComponent';
 import ColorPickerHsb from './color-picker-hsb';
@@ -21,7 +21,6 @@ const FALLBACK_COLOR = color('#86c6e5');
  * The callbacks always respond with color `object` format.
  */
 export default class ColorPicker extends WixComponent {
-
   static displayName = 'ColorPicker';
 
   static propTypes = {
@@ -46,14 +45,14 @@ export default class ColorPicker extends WixComponent {
     /** Handle confirm button click */
     onConfirm: func.isRequired,
     /** Children would be rendered above action buttons */
-    children: node
-  }
+    children: node,
+  };
 
   static defaultProps = {
     showHistory: false,
     showConverter: true,
-    showInput: true
-  }
+    showInput: true,
+  };
 
   constructor(props) {
     super(props);
@@ -63,27 +62,30 @@ export default class ColorPicker extends WixComponent {
     this.cancel = this.cancel.bind(this);
 
     const color = safeColor(props.value) || FALLBACK_COLOR;
-    this.state = {current: color, previous: color};
+    this.state = { current: color, previous: color };
   }
 
   render() {
-    const {showHistory, showInput, showConverter, children} = this.props;
-    const {current, previous} = this.state;
+    const { showHistory, showInput, showConverter, children } = this.props;
+    const { current, previous } = this.state;
     return (
       <div className={css.root}>
-        <ColorPickerHsb current={current} onChange={this.change}/>
-        <ColorPickerHue current={current} onChange={this.change}/>
+        <ColorPickerHsb current={current} onChange={this.change} />
+        <ColorPickerHue current={current} onChange={this.change} />
         <ColorPickerHistory
           show={showHistory}
           current={current}
           previous={previous}
           onClick={this.change}
-          />
-        <ColorPickerConverter showConverter={showConverter} showInput={showInput} current={current} onChange={this.change}/>
-        {children && (
-          <div className={css.children}>{children}</div>
-        )}
-        <ColorPickerActions onConfirm={this.confirm} onCancel={this.cancel}/>
+        />
+        <ColorPickerConverter
+          showConverter={showConverter}
+          showInput={showInput}
+          current={current}
+          onChange={this.change}
+        />
+        {children && <div className={css.children}>{children}</div>}
+        <ColorPickerActions onConfirm={this.confirm} onCancel={this.cancel} />
       </div>
     );
   }
@@ -91,18 +93,18 @@ export default class ColorPicker extends WixComponent {
   componentWillReceiveProps(props) {
     const color = safeColor(props.value);
     if (color && !equal(color, this.state.current)) {
-      this.setState({current: color});
+      this.setState({ current: color });
     }
   }
 
   change(color) {
-    this.setState({current: color}, () => {
+    this.setState({ current: color }, () => {
       this.props.onChange(color);
     });
   }
 
   confirm() {
-    this.setState({previous: this.state.current});
+    this.setState({ previous: this.state.current });
     this.props.onConfirm(this.state.current);
   }
 

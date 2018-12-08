@@ -1,39 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import omit from 'lodash/omit';
 import defaultTo from 'lodash/defaultTo';
 import classNames from 'classnames';
 
 import style from './Table.st.css';
 import DataTable from '../DataTable';
 import Checkbox from '../Checkbox';
-import {TableContext} from './TableContext';
-import {BulkSelection, BulkSelectionState} from './BulkSelection';
+import { TableContext } from './TableContext';
+import { BulkSelection, BulkSelectionState } from './BulkSelection';
 import Tooltip from '../Tooltip/Tooltip';
 import {
   TableToolbarToggler,
   TableToolbarContainer,
   TableTitleBar,
   TableContent,
-  TableEmptyState
+  TableEmptyState,
 } from './components';
 
-export function createColumns({tableProps, bulkSelectionContext}) {
-  const createCheckboxColumn = (
-    {
-      toggleAll,
-      bulkSelectionState,
-      toggleSelectionById,
-      isSelected
-    }
-  ) => {
+export function createColumns({ tableProps, bulkSelectionContext }) {
+  const createCheckboxColumn = ({
+    toggleAll,
+    bulkSelectionState,
+    toggleSelectionById,
+    isSelected,
+  }) => {
     return {
-      title: <Checkbox
-        dataHook="table-select"
-        checked={bulkSelectionState === BulkSelectionState.ALL}
-        indeterminate={bulkSelectionState === BulkSelectionState.SOME}
-        onChange={() => toggleAll()}
-        />,
+      title: (
+        <Checkbox
+          dataHook="table-select"
+          checked={bulkSelectionState === BulkSelectionState.ALL}
+          indeterminate={bulkSelectionState === BulkSelectionState.SOME}
+          onChange={() => toggleAll()}
+        />
+      ),
       render: (row, rowNum) => {
         const id = defaultTo(row.id, rowNum);
         return (
@@ -42,33 +41,34 @@ export function createColumns({tableProps, bulkSelectionContext}) {
               dataHook="row-select"
               checked={isSelected(id)}
               onChange={() => toggleSelectionById(id)}
-              />
+            />
           </div>
         );
       },
-      width: '12px'
+      width: '12px',
     };
   };
 
-  return tableProps.showSelection ?
-    [createCheckboxColumn(bulkSelectionContext), ...tableProps.columns] :
-    tableProps.columns;
+  return tableProps.showSelection
+    ? [createCheckboxColumn(bulkSelectionContext), ...tableProps.columns]
+    : tableProps.columns;
 }
 
-
 export function getDataTableProps(tableProps) {
-
+  /* eslint-disable no-unused-vars */
+  const {
+    showSelection,
+    selectedIds,
+    onSelectionChanged,
+    dataHook,
+    newDesign,
+    hideHeader,
+    ...props
+  } = tableProps;
   return {
-    ...omit(tableProps,
-          'showSelection',
-          'selectedIds',
-          'onSelectionChanged',
-          'dataHook',
-          'newDesign',
-          'hideHeader',
-        ),
+    ...props,
     newDesign: true,
-    rowClass: classNames(tableProps.rowClass, style.tableRow)
+    rowClass: classNames(tableProps.rowClass, style.tableRow),
   };
 }
 
@@ -77,7 +77,6 @@ export function getDataTableProps(tableProps) {
  * It is a context provider, and thus the Table.Consumer, Table.TitleBar and Table.Content can be rendered separatly.
  */
 export class Table extends React.Component {
-
   static ToolbarContainer = TableToolbarContainer;
   static Titlebar = TableTitleBar;
   static Content = TableContent;
@@ -97,28 +96,38 @@ export class Table extends React.Component {
   renderChildren() {
     const children = this.props.children;
     return this.props.withWrapper ? (
-      <div data-hook={this.props.dataHook} {...style('root', {isRowClickable: !!this.props.onRowClick}, this.props)}>
+      <div
+        data-hook={this.props.dataHook}
+        {...style(
+          'root',
+          { isRowClickable: !!this.props.onRowClick },
+          this.props,
+        )}
+      >
         {children}
-      </div>) :
-      children;
+      </div>
+    ) : (
+      children
+    );
   }
 
   render() {
     return (
       <TableContext.Provider value={this.props}>
-        {this.props.showSelection ?
-        (
+        {this.props.showSelection ? (
           <BulkSelection
-            ref={_ref => this.bulkSelection = _ref}
+            ref={_ref => (this.bulkSelection = _ref)}
             selectedIds={this.props.selectedIds}
-            allIds={this.props.data.map((rowData, rowIndex) => defaultTo(rowData.id, rowIndex))}
+            allIds={this.props.data.map((rowData, rowIndex) =>
+              defaultTo(rowData.id, rowIndex),
+            )}
             onSelectionChanged={this.props.onSelectionChanged}
-            >
+          >
             {this.renderChildren()}
           </BulkSelection>
-        ) :
-        this.renderChildren()
-        }
+        ) : (
+          this.renderChildren()
+        )}
       </TableContext.Provider>
     );
   }
@@ -129,12 +138,9 @@ Table.displayName = 'Table';
 Table.defaultProps = {
   ...DataTable.defaultProps,
   showSelection: false,
-  children:
-  [
-    <Table.Content key="content"/>
-  ],
+  children: [<Table.Content key="content" />],
   withWrapper: true,
-  showLastRowDivider: false
+  showLastRowDivider: false,
 };
 
 Table.propTypes = {
@@ -147,17 +153,16 @@ Table.propTypes = {
   /** The data to display. (If data.id exists then it will be used as the React key value for each row, otherwise, the rowIndex will be used) */
   data: PropTypes.array, // Not performing any shape validation to not hurt performance.
   /** Configuration of the table's columns. See table below */
-  columns: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.string
-    ]).isRequired,
-    render: PropTypes.func.isRequired,
-    sortable: PropTypes.bool,
-    infoTooltipProps: PropTypes.shape(Tooltip.propTypes),
-    sortDescending: PropTypes.bool,
-    align: PropTypes.oneOf(['start', 'center', 'end'])
-  })).isRequired,
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
+      render: PropTypes.func.isRequired,
+      sortable: PropTypes.bool,
+      infoTooltipProps: PropTypes.shape(Tooltip.propTypes),
+      sortDescending: PropTypes.bool,
+      align: PropTypes.oneOf(['start', 'center', 'end']),
+    }),
+  ).isRequired,
   /** A func that gets row data and returns a class(es) to apply to that specific row */
   dynamicRowClass: PropTypes.func,
   /** Whether there are more items to be loaded. Event listeners are removed if false. */
@@ -186,17 +191,11 @@ Table.propTypes = {
   /** Add scroll listeners to specified DOM Object. */
   scrollElement: PropTypes.object,
   /** Table cell vertical padding. should be 'medium' or 'large'  */
-  rowVerticalPadding: PropTypes.oneOf([
-    'medium',
-    'large'
-  ]),
+  rowVerticalPadding: PropTypes.oneOf(['medium', 'large']),
   /** Function that returns React component that will be rendered in row details section. Example: `rowDetails={(row, rowNum) => <MyRowDetailsComponent {...row} />}` */
   rowDetails: PropTypes.func,
   /** A string data-hook to apply to all table body rows. or a func which calculates the data-hook for each row  - Signature: `(rowData, rowNum) => string` */
-  rowDataHook: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.string
-  ]),
+  rowDataHook: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   /** A class to apply to all table body rows */
   rowClass: PropTypes.string,
 
@@ -217,13 +216,16 @@ Table.propTypes = {
   /** Array of selected row ids.
    *  Idealy, id should be a property on the data row object.
    *  If data objects do not have id property, then the data row's index would be used as an id. */
-  selectedIds: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.arrayOf(PropTypes.number)]),
+  selectedIds: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(PropTypes.number),
+  ]),
   /** The width of the fixed table. Can be in percentages or pixels. */
   width: PropTypes.string,
   /**
    *  When false then Table would not create a `<div/>` wrapper around it's children.
    *  Useful when using `<Table/>` to wrap a `<Page/>` component, in that case we use the `<Table/>` only as a context provider and it doesn't render anything to the DOM by itself.*/
-  withWrapper: PropTypes.bool
+  withWrapper: PropTypes.bool,
 };
 
 // export default Table;

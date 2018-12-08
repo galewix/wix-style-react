@@ -2,14 +2,14 @@ import browserLogs from 'protractor-browser-logs';
 import eyes from 'eyes.it';
 import {
   POPOVER_MENU_DATA_HOOK,
-  POPOVER_MENU_ITEM_DATA_HOOK
+  POPOVER_MENU_ITEM_DATA_HOOK,
 } from '../../stories/Tooltip/Composite/PopoverMenuTemplate.helpers';
 
 const EC = protractor.ExpectedConditions;
 
-import {popoverMenuTestkitFactory} from '../../testkit/protractor';
-import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {getStoryUrl} from '../../test/utils/storybook-helpers';
+import { popoverMenuTestkitFactory } from '../../testkit/protractor';
+import { waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import { getStoryUrl } from '../../test/utils/storybook-helpers';
 
 describe('PopoverMenu', () => {
   const storyUrl = getStoryUrl('7. Tooltips', '7.3. Popover Menu');
@@ -20,13 +20,17 @@ describe('PopoverMenu', () => {
     logs.reset();
     logs.ignore(message => message.message.indexOf('Uncaught') === -1);
 
-    driver = popoverMenuTestkitFactory({dataHook: POPOVER_MENU_DATA_HOOK})
-      .init.menuItemDataHook(POPOVER_MENU_ITEM_DATA_HOOK);
+    driver = popoverMenuTestkitFactory({
+      dataHook: POPOVER_MENU_DATA_HOOK,
+    }).init.menuItemDataHook(POPOVER_MENU_ITEM_DATA_HOOK);
     await browser.get(storyUrl);
   });
 
   eyes.it('should show popover menu', async () => {
-    await waitForVisibilityOf(driver.element(), 'Can not find PopoverMenu trigger element');
+    await waitForVisibilityOf(
+      driver.element(),
+      'Can not find PopoverMenu trigger element',
+    );
     await driver.click();
 
     waitForVisibilityOf(driver.menu.element(), 'Can not find PopoverMenu menu');
@@ -51,8 +55,9 @@ describe('PopoverMenu', () => {
       const storyUrl = getStoryUrl('Tests/7. Tooltip', '7.3. Popover Menu');
       await browser.get(storyUrl);
 
-      driver = popoverMenuTestkitFactory({dataHook: 'popover-0'})
-        .init.menuItemDataHook('popover-item-0');
+      driver = popoverMenuTestkitFactory({
+        dataHook: 'popover-0',
+      }).init.menuItemDataHook('popover-item-0');
 
       await waitForVisibilityOf(driver.element());
 
@@ -74,8 +79,11 @@ describe('PopoverMenu', () => {
         'PopoverMenu has not been removed after menu item click',
       );
 
-      logs.expect(/Uncaught TypeError: Cannot read property 'parentElement' of null/);
-      await logs.verify()
+      logs.expect(
+        /Uncaught TypeError: Cannot read property 'parentElement' of null/,
+      );
+      await logs
+        .verify()
         .then(() => {
           fail('Expected error occurred');
         })

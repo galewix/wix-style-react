@@ -8,12 +8,12 @@ export default {
 
   componentProps: setProps => ({
     value: '#3899eb',
-    onChange: value => setProps({value: value.hex()})
+    onChange: value => setProps({ value: value.hex() }),
   }),
 
   exampleProps: {
     onChange: ev => ev.hex(),
     onCancel: () => 'Cancelled',
-    onConfirm: () => 'Confirmed'
-  }
+    onConfirm: () => 'Confirmed',
+  },
 };

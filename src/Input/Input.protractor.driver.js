@@ -1,4 +1,4 @@
-import {isFocused} from 'wix-ui-test-utils/protractor';
+import { isFocused } from 'wix-ui-test-utils/protractor';
 
 const inputDriverFactory = component => {
   const input = component.$('input');
@@ -11,7 +11,7 @@ const inputDriverFactory = component => {
     hasClearButton: () => clearButton.isPresent(),
     clickClear: () => clearButton.isPresent() && clearButton.click(),
     click: () => input.click(),
-    isFocused: () => isFocused(input)
+    isFocused: () => isFocused(input),
   };
 };
 

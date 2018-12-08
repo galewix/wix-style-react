@@ -1,5 +1,4 @@
-# TextField component
-
+# TextField component (Deprecated)
 
 ## Properties
 

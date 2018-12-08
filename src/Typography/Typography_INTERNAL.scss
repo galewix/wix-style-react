@@ -1,0 +1,8 @@
+/* 
+ * DO NOT import this from out-side Wix-Style-React !
+ * It will be removed soon.
+ */
+ 
+@import './Typography_old.scss';
+@import './heading.scss'; // This overrides the h1, h2,... classes with tsimilar implementation
+@import './text.scss';

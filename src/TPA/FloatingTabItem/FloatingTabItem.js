@@ -1,17 +1,17 @@
 import React from 'react';
-import {any, bool} from 'prop-types';
+import { any, bool } from 'prop-types';
 import WixComponent from '../../BaseComponents/WixComponent';
 import tpaStyleInjector from '../TpaStyleInjector';
 
-let styles = {locals: {}};
+let styles = { locals: {} };
 try {
   styles = require('!css-loader?modules&camelCase&localIdentName="[path][name]__[local]__[hash:base64:5]"!sass-loader!./FloatingTabItem.scss');
-} catch (e) { }
+} catch (e) {}
 
 class FloatingTabItem extends WixComponent {
   static propTypes = {
     active: bool,
-    children: any
+    children: any,
   };
 
   static defaultProps = {
@@ -19,11 +19,7 @@ class FloatingTabItem extends WixComponent {
   };
 
   render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
+    return <div>{this.props.children}</div>;
   }
 }
 

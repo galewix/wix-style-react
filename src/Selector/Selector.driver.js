@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
-import {testkitFactoryCreator} from 'wix-ui-test-utils/vanilla';
-import {isClassExists} from '../../test/utils';
+import { testkitFactoryCreator } from 'wix-ui-test-utils/vanilla';
+import { isClassExists } from '../../test/utils';
 import textDriverFactory from '../Text/Text.driver';
 
 const textTestkitFactory = testkitFactoryCreator(textDriverFactory);
 
-const selectorDriverFactory = ({element, wrapper, component}) => {
-  const toggleInput = () => element.querySelector('[data-hook="toggle"] > input');
+const selectorDriverFactory = ({ element, wrapper, component }) => {
+  const toggleInput = () =>
+    element.querySelector('[data-hook="toggle"] > input');
   const image = () => element.querySelector('[data-hook="selector-image"]');
-  const titleTextDriver = () => textTestkitFactory({wrapper: element, dataHook: 'selector-title'});
-  const subtitleTextDriver = () => textTestkitFactory({wrapper: element, dataHook: 'selector-subtitle'});
-  const extraNode = () => element.querySelector('[data-hook="selector-extra-node"]');
+  const titleTextDriver = () =>
+    textTestkitFactory({ wrapper: element, dataHook: 'selector-title' });
+  const subtitleTextDriver = () =>
+    textTestkitFactory({ wrapper: element, dataHook: 'selector-subtitle' });
+  const extraNode = () =>
+    element.querySelector('[data-hook="selector-extra-node"]');
 
   return {
     exists: () => !!element,
@@ -34,11 +38,17 @@ const selectorDriverFactory = ({element, wrapper, component}) => {
     getExtraNode: () => extraNode().childNodes[0],
     toggle: () => ReactTestUtils.Simulate.click(element),
     setProps: props => {
-      const ClonedWithProps = React.cloneElement(component, Object.assign({}, component.props, props), ...(component.props.children || []));
-      ReactDOM.render(<div ref={r => element = r}>{ClonedWithProps}</div>, wrapper);
-    }
+      const ClonedWithProps = React.cloneElement(
+        component,
+        Object.assign({}, component.props, props),
+        ...(component.props.children || []),
+      );
+      ReactDOM.render(
+        <div ref={r => (element = r)}>{ClonedWithProps}</div>,
+        wrapper,
+      );
+    },
   };
 };
 
 export default selectorDriverFactory;
-

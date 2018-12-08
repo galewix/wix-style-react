@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // This is a copy of https://github.com/CassetteRocks/react-infinite-scroller with https://github.com/CassetteRocks/react-infinite-scroller/pull/38/files merged
@@ -13,7 +13,7 @@ export default class InfiniteScroll extends Component {
     isReverse: PropTypes.bool,
     scrollElement: PropTypes.object,
     children: PropTypes.node,
-    loader: PropTypes.node
+    loader: PropTypes.node,
   };
 
   static defaultProps = {
@@ -23,7 +23,7 @@ export default class InfiniteScroll extends Component {
     threshold: 250,
     useWindow: true,
     isReverse: false,
-    scrollElement: null
+    scrollElement: null,
   };
 
   constructor(props) {
@@ -45,21 +45,21 @@ export default class InfiniteScroll extends Component {
   }
 
   render() {
-    const {
-      children,
-      hasMore,
-      loader,
-      scrollElement
-    } = this.props;
+    const { children, hasMore, loader, scrollElement } = this.props;
     let ref;
 
     if (scrollElement) {
-      ref = () => this.scrollComponent = scrollElement;
+      ref = () => (this.scrollComponent = scrollElement);
     } else {
-      ref = node => this.scrollComponent = node;
+      ref = node => (this.scrollComponent = node);
     }
 
-    return React.createElement('div', {ref}, children, hasMore && (loader || this._defaultLoader));
+    return React.createElement(
+      'div',
+      { ref },
+      children,
+      hasMore && (loader || this._defaultLoader),
+    );
   }
 
   calculateTopPosition(el) {
@@ -80,23 +80,35 @@ export default class InfiniteScroll extends Component {
         offset = el.scrollHeight - el.scrollTop - el.clientHeight;
       }
     } else if (this.props.useWindow) {
-      const scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+      const scrollTop =
+        window.pageYOffset !== undefined
+          ? window.pageYOffset
+          : (
+              document.documentElement ||
+              document.body.parentNode ||
+              document.body
+            ).scrollTop;
       if (this.props.isReverse) {
         offset = scrollTop;
       } else {
-        offset = this.calculateTopPosition(el) + el.offsetHeight - scrollTop - window.innerHeight;
+        offset =
+          this.calculateTopPosition(el) +
+          el.offsetHeight -
+          scrollTop -
+          window.innerHeight;
       }
     } else if (this.props.isReverse) {
       offset = el.parentNode.scrollTop;
     } else {
-      offset = el.scrollHeight - el.parentNode.scrollTop - el.parentNode.clientHeight;
+      offset =
+        el.scrollHeight - el.parentNode.scrollTop - el.parentNode.clientHeight;
     }
 
     if (offset < Number(this.props.threshold)) {
       this.detachScrollListener();
       // Call loadMore after detachScrollListener to allow for non-async loadMore functions
       if (typeof this.props.loadMore === 'function') {
-        this.props.loadMore(this.pageLoaded += 1);
+        this.props.loadMore((this.pageLoaded += 1));
       }
     }
   }

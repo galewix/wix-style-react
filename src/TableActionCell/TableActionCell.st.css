@@ -1,9 +1,18 @@
+:import {
+  -st-from: "../Text/Text.st.css";
+  -st-default: Text;
+}
+
 .root {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   height: 36px;
   position: relative;
+}
+
+.popoverMenu Text {
+  white-space: nowrap;
 }
 
 .hoverSlot > button {

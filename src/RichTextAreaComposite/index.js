@@ -1,1 +1,1 @@
-export {default} from './RichTextAreaComposite.js';
+export { default } from './RichTextAreaComposite.js';

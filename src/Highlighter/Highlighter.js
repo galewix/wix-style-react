@@ -19,7 +19,7 @@ const childKeyGenerator = () => {
 const ELEM_TYPES = {
   STRING: 'string',
   ARRAY: 'array',
-  REACT_ELEMENT: 'React_element'
+  REACT_ELEMENT: 'React_element',
 };
 
 const getElementType = element => {
@@ -42,27 +42,34 @@ const highlight = (element, match, nextChildKey) => {
   }
   const elementType = getElementType(element);
   const elementTypesMap = {
-    [ELEM_TYPES.STRING]: (elem, match) => (<HighlightedItem key={nextChildKey()} match={match}>{elem}</HighlightedItem>),
+    [ELEM_TYPES.STRING]: (elem, match) => (
+      <HighlightedItem key={nextChildKey()} match={match}>
+        {elem}
+      </HighlightedItem>
+    ),
     [ELEM_TYPES.REACT_ELEMENT]: elem => {
       if (elem.props.children) {
         return React.cloneElement(
           elem,
-          {...elem.props, key: nextChildKey()},
-          highlight(elem.props.children, match, nextChildKey)
+          { ...elem.props, key: nextChildKey() },
+          highlight(elem.props.children, match, nextChildKey),
         );
       }
       return elem;
     },
-    [ELEM_TYPES.ARRAY]: elem => elem.map(el => highlight(el, match, nextChildKey))
+    [ELEM_TYPES.ARRAY]: elem =>
+      elem.map(el => highlight(el, match, nextChildKey)),
   };
 
-  return elementTypesMap[elementType] ? elementTypesMap[elementType](element, match) : element;
+  return elementTypesMap[elementType]
+    ? elementTypesMap[elementType](element, match)
+    : element;
 };
 
 class Highlighter extends WixComponent {
   static propTypes = {
     /** match to highlight */
-    match: PropTypes.string
+    match: PropTypes.string,
   };
 
   constructor(props) {

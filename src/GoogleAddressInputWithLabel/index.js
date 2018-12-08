@@ -1,1 +1,1 @@
-export {default} from './GoogleAddressInputWithLabel.js';
+export { default } from './GoogleAddressInputWithLabel.js';

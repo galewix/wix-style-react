@@ -1,25 +1,23 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'wix-style-react/Slider';
 
 class ControlledSlider extends Component {
-
   static propTypes = {
-    value: PropTypes.arrayOf(PropTypes.number)
-  }
+    value: PropTypes.arrayOf(PropTypes.number),
+  };
 
-  constructor({value}) {
+  constructor({ value }) {
     super();
-    this.state = {value};
+    this.state = { value };
   }
 
   render() {
-    const onChange = value => this.setState({value});
+    const onChange = value => this.setState({ value });
     return (
-      <Slider {...this.props} value={this.state.value} onChange={onChange}/>
+      <Slider {...this.props} value={this.state.value} onChange={onChange} />
     );
   }
-
 }
 
 export default ControlledSlider;

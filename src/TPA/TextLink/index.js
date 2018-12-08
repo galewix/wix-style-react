@@ -1,1 +1,1 @@
-export {default} from './TextLink.js';
+export { default } from './TextLink.js';

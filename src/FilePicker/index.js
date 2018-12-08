@@ -1,1 +1,1 @@
-export {default} from './FilePicker';
+export { default } from './FilePicker';

@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Label from '../../src/Label';
-import TextField from '../../src/TextField';
+import FormField from '../../src/FormField';
 import TextArea from '../../src/TextArea';
 import Input from '../../src/Input';
 import InputArea from '../../src/InputArea';
@@ -22,11 +22,12 @@ class RichTextAreaExample extends Component {
       callback(src);
     },
     placeholder: 'Rich placeholder',
-    value: '<p>$$$ Rich text area</p><strong>bold text here</strong><ul><li>The amazing fox lives in <a href="wix.com">Lithuania</a></li></ul>'
+    value:
+      '<p>$$$ Rich text area</p><strong>bold text here</strong><ul><li>The amazing fox lives in <a href="wix.com">Lithuania</a></li></ul>',
   };
 
   handleRichTextAreaChange = value => {
-    this.setState({value});
+    this.setState({ value });
   };
 
   render() {
@@ -41,8 +42,10 @@ class RichTextAreaExample extends Component {
                 size="normal"
                 theme="normal"
                 value={this.state.placeholder}
-                onChange={event => this.setState({placeholder: event.target.value})}
-                />
+                onChange={event =>
+                  this.setState({ placeholder: event.target.value })
+                }
+              />
             </div>
           </div>
           <div className={styles.option}>
@@ -50,8 +53,8 @@ class RichTextAreaExample extends Component {
             <ToggleSwitch
               size="small"
               checked={this.state.error}
-              onChange={() => this.setState({error: !this.state.error})}
-              />
+              onChange={() => this.setState({ error: !this.state.error })}
+            />
           </div>
           {this.renderErrorMessageInput()}
           <div className={styles.option}>
@@ -59,16 +62,18 @@ class RichTextAreaExample extends Component {
             <ToggleSwitch
               size="small"
               checked={this.state.disabled}
-              onChange={() => this.setState({disabled: !this.state.disabled})}
-              />
+              onChange={() => this.setState({ disabled: !this.state.disabled })}
+            />
           </div>
           <div className={styles.option}>
             <Label>Resizable: </Label>
             <ToggleSwitch
               size="small"
               checked={this.state.resizable}
-              onChange={() => this.setState({resizable: !this.state.resizable})}
-              />
+              onChange={() =>
+                this.setState({ resizable: !this.state.resizable })
+              }
+            />
           </div>
         </div>
         <div className={styles.output}>
@@ -77,7 +82,7 @@ class RichTextAreaExample extends Component {
             onChange={this.handleRichTextAreaChange}
             disabled={this.state.disabled}
             {...this.state}
-            />
+          />
           <div className={styles.output}>
             <TextArea>
               <Label for="placeholderInput">Output value</Label>
@@ -88,7 +93,7 @@ class RichTextAreaExample extends Component {
                 value={this.state.value}
                 resizable
                 readOnly
-                />
+              />
             </TextArea>
           </div>
         </div>
@@ -97,7 +102,7 @@ class RichTextAreaExample extends Component {
   }
 
   renderErrorMessageInput() {
-    const {error, errorMessage} = this.state;
+    const { error, errorMessage } = this.state;
 
     if (!error) {
       return null;
@@ -105,24 +110,24 @@ class RichTextAreaExample extends Component {
 
     return (
       <div className={styles.output}>
-        <TextField>
-          <Label for="errorMessageInput">Error message</Label>
+        <FormField label="Error message">
           <Input
             id="errorMessageInput"
             size="normal"
             theme="normal"
             value={errorMessage}
-            onChange={event => this.setState({errorMessage: event.target.value})}
-            />
-        </TextField>
+            onChange={event =>
+              this.setState({ errorMessage: event.target.value })
+            }
+          />
+        </FormField>
       </div>
     );
   }
 }
 
 RichTextAreaExample.propTypes = {
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 export default RichTextAreaExample;
-

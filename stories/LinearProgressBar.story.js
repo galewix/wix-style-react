@@ -12,6 +12,6 @@ export default {
     value: 20,
     light: false,
     error: false,
-    showProgressIndication: false
-  }
+    showProgressIndication: false,
+  },
 };

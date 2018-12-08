@@ -1,8 +1,10 @@
 export {
   Container,
   RawContainer,
-  Columns, Columns as Row,
-  AutoAdjustedColumns, AutoAdjustedColumns as AutoAdjustedRow,
+  Columns,
+  Columns as Row,
+  AutoAdjustedColumns,
+  AutoAdjustedColumns as AutoAdjustedRow,
   Col,
-  Card
+  Card,
 } from './Grid';

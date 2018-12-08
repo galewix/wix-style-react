@@ -1,5 +1,5 @@
 const TagDriverFactory = component => ({
-  element: () => component
+  element: () => component,
 });
 
 export default TagDriverFactory;

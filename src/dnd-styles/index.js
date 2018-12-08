@@ -1,1 +1,1 @@
-export {default} from './dnd-styles';
+export { default } from './dnd-styles';

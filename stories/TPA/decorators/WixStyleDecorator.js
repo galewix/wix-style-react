@@ -1,6 +1,8 @@
 export default function WixStyleDecorator(storyFn) {
   requestAnimationFrame(() => {
-    const styleElements = Array.from(document.querySelectorAll('style[wix-style]'));
+    const styleElements = Array.from(
+      document.querySelectorAll('style[wix-style]'),
+    );
 
     styleElements.forEach(styleElement => {
       styleElement.innerText = styleElement.innerText

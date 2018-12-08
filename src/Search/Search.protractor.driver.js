@@ -14,6 +14,6 @@ export default component => {
     getSearchDropdown: dropdownDriver.getDropdown,
     getSearchOptionAt: dropdownDriver.getDropdownItem,
     clickSearchOptionAt: index => dropdownDriver.getDropdownItem(index).click(),
-    getSearchOptionsCount: dropdownDriver.getDropdownItemsCount
+    getSearchOptionsCount: dropdownDriver.getDropdownItemsCount,
   };
 };

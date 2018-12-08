@@ -9,7 +9,7 @@ import setDate from 'date-fns/set_date';
 
 import WixComponent from '../BaseComponents/WixComponent';
 import CalendarIcon from '../new-icons/Date';
-import {formatDate} from '../LocaleUtils';
+import { formatDate } from '../LocaleUtils';
 import Calendar from '../Calendar';
 import Input from '../Input';
 
@@ -38,7 +38,8 @@ export default class DatePicker extends WixComponent {
     dateFormat: 'MM/DD/YYYY',
     filterDate: () => true,
     rtl: false,
-    width: 150
+    width: 150,
+    zIndex: 1,
   };
 
   constructor(props) {
@@ -47,7 +48,7 @@ export default class DatePicker extends WixComponent {
     this.state = {
       value: props.value || new Date(),
       isOpen: props.isOpen || false,
-      isDateInputFocusable: !props.isOpen
+      isDateInputFocusable: !props.isOpen,
     };
   }
 
@@ -55,7 +56,7 @@ export default class DatePicker extends WixComponent {
     super.componentDidMount();
 
     this._popper = new Popper(this.inputRef, this.calendarRef, {
-      placement: 'top-start'
+      placement: 'top-start',
     });
   }
 
@@ -70,15 +71,15 @@ export default class DatePicker extends WixComponent {
         {
           isOpen: true,
           isDateInputFocusable: false,
-          value: this.props.value || new Date()
+          value: this.props.value || new Date(),
         },
-        () => this._popper.scheduleUpdate()
+        () => this._popper.scheduleUpdate(),
       );
     }
   };
 
   closeCalendar = () => {
-    this.setState({isOpen: false}, () => {
+    this.setState({ isOpen: false }, () => {
       if (this.props.onClose) {
         this.props.onClose();
       }
@@ -98,7 +99,7 @@ export default class DatePicker extends WixComponent {
     setTimeout(() => this.makeInputFocusable());
   };
 
-  makeInputFocusable = () => this.setState({isDateInputFocusable: true});
+  makeInputFocusable = () => this.setState({ isDateInputFocusable: true });
 
   _saveNewValue = (value, modifiers = {}) => {
     if (modifiers.disabled) {
@@ -111,10 +112,13 @@ export default class DatePicker extends WixComponent {
       const newValue = [
         [value.getFullYear(), setYear],
         [value.getMonth(), setMonth],
-        [value.getDate(), setDate]
-      ].reduce((value, [datePart, setter]) => setter(value, datePart), this.props.value);
+        [value.getDate(), setDate],
+      ].reduce(
+        (value, [datePart, setter]) => setter(value, datePart),
+        this.props.value,
+      );
 
-      this.setState({value: newValue}, () => this.props.onChange(newValue));
+      this.setState({ value: newValue }, () => this.props.onChange(newValue));
     }
   };
 
@@ -136,11 +140,23 @@ export default class DatePicker extends WixComponent {
     this.closeCalendar();
   }
 
+  _formatDateValue = () => {
+    const { value, dateFormat, locale } = this.props;
+
+    if (!value) {
+      return '';
+    }
+
+    if (typeof dateFormat === 'function') {
+      return dateFormat(value);
+    }
+
+    return formatDate(value, dateFormat, locale);
+  };
+
   _renderInput = () => {
     const {
       inputDataHook,
-      dateFormat,
-      locale,
       disabled,
       placeholderText,
       readOnly,
@@ -148,19 +164,19 @@ export default class DatePicker extends WixComponent {
       error,
       errorMessage,
       customInput,
-      inputProps
+      inputProps,
     } = this.props;
 
     const _inputProps = {
       dataHook: inputDataHook,
-      value: (initialValue && formatDate(initialValue, dateFormat, locale)) || '',
+      value: this._formatDateValue(initialValue),
       onInputClicked: this.openCalendar,
       disabled,
       readOnly,
       placeholder: placeholderText,
       prefix: (
         <span className={styles.icon}>
-          <CalendarIcon/>
+          <CalendarIcon />
         </span>
       ),
       onFocus: this.openCalendar,
@@ -170,10 +186,10 @@ export default class DatePicker extends WixComponent {
       errorMessage,
       autoSelect: false,
       ...(customInput ? customInput.props : {}),
-      ...inputProps
+      ...inputProps,
     };
 
-    return React.cloneElement(customInput || <Input/>, _inputProps);
+    return React.cloneElement(customInput || <Input />, _inputProps);
   };
 
   _setInputRef = ref => (this.inputRef = ref);
@@ -191,10 +207,11 @@ export default class DatePicker extends WixComponent {
       width,
       calendarDataHook,
       twoMonths,
-      locale
+      locale,
+      zIndex,
     } = this.props;
 
-    const {isOpen, value} = this.state;
+    const { isOpen, value } = this.state;
 
     const calendarProps = {
       locale,
@@ -207,21 +224,26 @@ export default class DatePicker extends WixComponent {
       onClose: this.closeCalendar,
       value,
       shouldCloseOnSelect,
-      twoMonths
+      twoMonths,
     };
 
     return (
-      <div style={{width}} className={styles.root}>
+      <div style={{ width }} className={styles.root}>
         <div ref={this._setInputRef}>
-          <DayPickerInput component={this._renderInput} keepFocus={false}/>
+          <DayPickerInput component={this._renderInput} keepFocus={false} />
         </div>
 
         <div
           ref={this._setCalendarRef}
           data-hook={calendarDataHook}
-          className={styles.calendarRoot}
-          >
-          {isOpen && <Calendar className={styles.datePickerCalendar} {...calendarProps}/>}
+          style={{ zIndex }}
+        >
+          {isOpen && (
+            <Calendar
+              className={styles.datePickerCalendar}
+              {...calendarProps}
+            />
+          )}
         </div>
       </div>
     );
@@ -237,8 +259,11 @@ DatePicker.propTypes = {
   /** Properties appended to the default Input component or the custom Input component. */
   inputProps: PropTypes.object,
 
-  /** Custom date format */
-  dateFormat: PropTypes.string,
+  /** Custom date format, can be either:
+   * * `string` of tokens (see [`date-fns` docs](https://date-fns.org/v1.29.0/docs/format) for list of supported tokens)
+   * * `function` of signature `Date -> String`
+   */
+  dateFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
   /** DatePicker instance locale */
   locale: PropTypes.oneOfType([
@@ -257,12 +282,12 @@ DatePicker.propTypes = {
       'sv',
       'no',
       'nl',
-      'da'
+      'da',
     ]),
     PropTypes.shape({
       distanceInWords: PropTypes.object,
-      format: PropTypes.object
-    })
+      format: PropTypes.object,
+    }),
   ]),
 
   /** Is the DatePicker disabled */
@@ -293,5 +318,8 @@ DatePicker.propTypes = {
   errorMessage: PropTypes.node,
 
   /** set desired width of DatePicker input */
-  width: PropTypes.number
+  width: PropTypes.number,
+
+  /** set desired z-index of DatePicker popover */
+  zIndex: PropTypes.number,
 };

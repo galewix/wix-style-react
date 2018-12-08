@@ -6,7 +6,7 @@
 
 `wix-style-react` is a collection of [React](https://facebook.github.io/react/) components that conform to Wix Style created by Wix UX guild.
 
-#### [Demo](https://wix-wix-style-react.surge.sh/) | [Source](https://github.com/wix/wix-style-react) | [Playground](https://codesandbox.io/s/mymk2zn1mp)
+#### [Demo](https://wix-wix-style-react.surge.sh/) | [Source](https://github.com/wix/wix-style-react) | [Playground](https://codesandbox.io/s/7w8m804o5j)
 
 ## Setup
 
@@ -23,10 +23,11 @@ yarn add wix-style-react
 import React from 'react';
 import Button from 'wix-style-react/Button';
 
-const MyComponent = () =>
-  <Button onClick={() => console.log('thanks for clicking :)')}>
-    Click me!
-  </Button>;
+const App = () => (
+    <Button onClick={() => console.log('thanks for clicking :)')}>
+      Click me!
+    </Button>
+);
 ```
 
 ## Requirements
@@ -49,7 +50,7 @@ const MyComponent = () =>
 * Use [demo pages](https://wix-wix-style-react.surge.sh/) to find all available components with examples.
 
 ## Contributing
-Please refer to the [Contribution page](https://github.com/wix/wix-style-react/blob/master/CONTRIBUTION.md)
+Please refer to the [Contributing page](https://github.com/wix/wix-style-react/blob/master/CONTRIBUTING.md)
 
 ## Tests
 Please refer to the [Testing page](https://github.com/wix/wix-style-react/blob/master/docs/contribution/TESTING.md)

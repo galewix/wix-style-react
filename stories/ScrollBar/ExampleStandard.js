@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './ScrollBar.scss';
 
@@ -33,17 +33,11 @@ const bigContent = `
 class ExampleStandard extends Component {
   static propTypes = {
     onChange: PropTypes.func,
-    theme: PropTypes.string
+    theme: PropTypes.string,
   };
 
   render() {
-    return (
-      <div
-        className={styles.root}
-        >
-        {bigContent}
-      </div>
-    );
+    return <div className={styles.root}>{bigContent}</div>;
   }
 }
 

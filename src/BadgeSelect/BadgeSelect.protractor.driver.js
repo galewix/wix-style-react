@@ -1,6 +1,8 @@
 const badgeSelectDriverFactory = component => {
-  const getBadgeElement = () => component.$(`[data-hook="badgeSelect-badge-wrapper"] div`);
-  const getDropdownItem = index => component.$$(`[data-hook="dropdown-layout-options"] div`).get(index);
+  const getBadgeElement = () =>
+    component.$(`[data-hook="badgeSelect-badge-wrapper"] div`);
+  const getDropdownItem = index =>
+    component.$$(`[data-hook="dropdown-layout-options"] div`).get(index);
 
   return {
     /** Returns the element */
@@ -13,8 +15,7 @@ const badgeSelectDriverFactory = component => {
     async selectOption(index) {
       await this.clickBadge();
       await getDropdownItem(index).click();
-    }
+    },
   };
-
 };
 export default badgeSelectDriverFactory;

@@ -1,6 +1,6 @@
 const highlighterDriverFactory = component => ({
   getElement: () => component,
-  html: () => component.getAttribute('innerHTML')
+  html: () => component.getAttribute('innerHTML'),
 });
 
 export default highlighterDriverFactory;

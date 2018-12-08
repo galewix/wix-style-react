@@ -1,1 +1,1 @@
-export {default} from './DropdownLayout.js';
+export { default } from './DropdownLayout.js';

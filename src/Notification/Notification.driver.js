@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 
-const notificationDriverFactory = ({element, wrapper, component}) => {
+const notificationDriverFactory = ({ element, wrapper, component }) => {
   const notificationWrapperSelector = '[data-hook="notification-wrapper"]';
   const labelTextSelector = '[data-hook="notification-label"]';
   const actionButtonSelector = '[data-hook="notification-cta-button"]';
   const closeButtonSelector = '[data-hook="notification-close-button"]';
 
-  const classExists = className => element.querySelector(notificationWrapperSelector).classList.contains(className);
+  const classExists = className =>
+    element
+      .querySelector(notificationWrapperSelector)
+      .classList.contains(className);
 
   return {
     exists: () => !!element,
@@ -23,18 +26,34 @@ const notificationDriverFactory = ({element, wrapper, component}) => {
     isBigSize: () => classExists('bigSize'),
     getLabelText: () => element.querySelector(labelTextSelector).textContent,
     hasActionButton: () => !!element.querySelector(actionButtonSelector),
-    getActionButtonText: () => element.querySelector(actionButtonSelector).textContent,
-    hasCloseButton: () => !!element.querySelector('[data-hook="notification-close-button"]'),
+    getActionButtonText: () =>
+      element.querySelector(actionButtonSelector).textContent,
+    hasCloseButton: () =>
+      !!element.querySelector('[data-hook="notification-close-button"]'),
     isRelativelyPositioned: () => classExists('relativePosition'),
     isFixedPositioned: () => classExists('fixedPosition'),
     isAbsolutePositioned: () => classExists('absolutePosition'),
-    clickOnCloseButton: () => ReactTestUtils.Simulate.click(element.querySelector(closeButtonSelector)),
-    clickOnActionButton: () => ReactTestUtils.Simulate.click(element.querySelector(actionButtonSelector)),
-    getZIndex: () => Number(element.querySelector(notificationWrapperSelector).style['z-index']),
+    clickOnCloseButton: () =>
+      ReactTestUtils.Simulate.click(element.querySelector(closeButtonSelector)),
+    clickOnActionButton: () =>
+      ReactTestUtils.Simulate.click(
+        element.querySelector(actionButtonSelector),
+      ),
+    getZIndex: () =>
+      Number(
+        element.querySelector(notificationWrapperSelector).style['z-index'],
+      ),
     setProps: props => {
-      const ClonedWithProps = React.cloneElement(component, Object.assign({}, component.props, props), ...(component.props.children || []));
-      ReactDOM.render(<div ref={r => element = r}>{ClonedWithProps}</div>, wrapper);
-    }
+      const ClonedWithProps = React.cloneElement(
+        component,
+        Object.assign({}, component.props, props),
+        ...(component.props.children || []),
+      );
+      ReactDOM.render(
+        <div ref={r => (element = r)}>{ClonedWithProps}</div>,
+        wrapper,
+      );
+    },
   };
 };
 

@@ -16,32 +16,41 @@ class RichTextAreaToolbar extends WixComponent {
         {this.renderLinkButton()}
         {this.renderButton('block', 'unordered-list')}
         {this.renderButton('block', 'ordered-list')}
-        {this.props.onImageButtonClick ? this.renderImageButton() : null }
+        {this.props.onImageButtonClick ? this.renderImageButton() : null}
       </div>
     );
   }
 
   renderButton(action, type) {
-    const {onClick, hasMark, hasListBlock, disabled} = this.props;
-    const isActive = (action === 'mark') ? hasMark : hasListBlock;
+    const { onClick, hasMark, hasListBlock, disabled } = this.props;
+    const isActive = action === 'mark' ? hasMark : hasListBlock;
 
     return (
-      <div className={classNames(styles.button, {[styles.disabled]: disabled})}>
+      <div
+        className={classNames(styles.button, { [styles.disabled]: disabled })}
+      >
         <RichTextAreaButton
           disabled={disabled}
           onClick={() => onClick(action, type)}
           type={type}
           isActive={isActive(type)}
-          />
+        />
       </div>
     );
   }
 
   renderLinkButton() {
-    const {onLinkButtonClick, hasLink, disabled, isSelectionExpanded} = this.props;
+    const {
+      onLinkButtonClick,
+      hasLink,
+      disabled,
+      isSelectionExpanded,
+    } = this.props;
 
     return (
-      <div className={classNames(styles.button, {[styles.disabled]: disabled})}>
+      <div
+        className={classNames(styles.button, { [styles.disabled]: disabled })}
+      >
         <RichTextAreaLinkButton
           selection={this.props.selection}
           disabled={disabled}
@@ -49,22 +58,24 @@ class RichTextAreaToolbar extends WixComponent {
           type="link"
           isActive={hasLink()}
           isSelectionExpanded={!isSelectionExpanded}
-          />
+        />
       </div>
     );
   }
 
   renderImageButton() {
-    const {onImageButtonClick, disabled} = this.props;
+    const { onImageButtonClick, disabled } = this.props;
 
     return (
-      <div className={classNames(styles.button, {[styles.disabled]: disabled})}>
+      <div
+        className={classNames(styles.button, { [styles.disabled]: disabled })}
+      >
         <RichTextAreaButton
           disabled={disabled}
           onClick={onImageButtonClick}
           type="image"
           isActive={false}
-          />
+        />
       </div>
     );
   }
@@ -79,7 +90,7 @@ RichTextAreaToolbar.propTypes = {
   hasListBlock: PropTypes.func.isRequired,
   hasLink: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
-  isSelectionExpanded: PropTypes.bool
+  isSelectionExpanded: PropTypes.bool,
 };
 
 export default RichTextAreaToolbar;

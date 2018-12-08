@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 const MOUSE_EVENTS_SUPPORTED = ['mouseup', 'touchend'];
 
 class WixComponent extends React.PureComponent {
-
   constructor(params) {
     super(params);
     this._addDataHook = this._addDataHook.bind(this);
@@ -60,7 +59,7 @@ class WixComponent extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {dataHook} = this.props;
+    const { dataHook } = this.props;
     if (dataHook) {
       this._addDataHook(dataHook);
     }
@@ -70,10 +69,20 @@ class WixComponent extends React.PureComponent {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.dataHook !== this.props.dataHook) {
+      this._addDataHook(this.props.dataHook);
+    }
+  }
+
   componentWillUnmount() {
     if (this._boundEvents && typeof document !== 'undefined') {
       this._boundEvents.forEach(eventName => {
-        document.removeEventListener(eventName, this._onMouseEventsHandler, true);
+        document.removeEventListener(
+          eventName,
+          this._onMouseEventsHandler,
+          true,
+        );
       });
     }
   }
@@ -81,7 +90,7 @@ class WixComponent extends React.PureComponent {
 
 WixComponent.propTypes = {
   dataHook: PropTypes.string,
-  styles: PropTypes.string
+  styles: PropTypes.string,
 };
 
 export default WixComponent;

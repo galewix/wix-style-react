@@ -1,19 +1,19 @@
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 
 import {
   buttonHeaderTestkitFactory,
-  buttonTestkitFactory
+  buttonTestkitFactory,
 } from '../../../testkit';
-import {buttonHeaderTestkitFactory as enzymeButtonHeaderTestkitFactory} from '../../../testkit/enzyme';
-import {createDriverFactory} from 'wix-ui-test-utils/driver-factory';
+import { buttonHeaderTestkitFactory as enzymeButtonHeaderTestkitFactory } from '../../../testkit/enzyme';
+import { createDriverFactory } from 'wix-ui-test-utils/driver-factory';
 
 import ButtonHeader from './ButtonHeader';
 import buttonHeaderDriverFactory from './ButtonHeader.driver';
 import {
   isTestkitExists,
-  isEnzymeTestkitExists
+  isEnzymeTestkitExists,
 } from '../../../test/utils/testkit-sanity';
 
 describe('ButtonHeader', () => {
@@ -25,7 +25,7 @@ describe('ButtonHeader', () => {
         buttonOnClick={() => {}}
         buttonTitle="Click me"
         title="Header Title"
-        />
+      />,
     );
     expect(driver.title()).toBe('Header Title');
   });
@@ -37,7 +37,7 @@ describe('ButtonHeader', () => {
         buttonTitle="Click me"
         subtitle="Header Subtitle"
         title="Header Title"
-        />
+      />,
     );
     expect(driver.subtitle()).toBe('Header Subtitle');
   });
@@ -49,11 +49,11 @@ describe('ButtonHeader', () => {
         buttonTitle="Click me"
         subtitle="Header Subtitle"
         title="Header Title"
-        />
+      />,
     );
     const buttonDriverTestkit = buttonTestkitFactory({
       wrapper: driver.element(),
-      dataHook: driver.buttonDataHook()
+      dataHook: driver.buttonDataHook(),
     });
     expect(buttonDriverTestkit.getButtonTextContent()).toBe('Click me');
   });
@@ -67,7 +67,7 @@ describe('ButtonHeader', () => {
         buttonTitle="Click me"
         subtitle="Header Subtitle"
         title="Header Title"
-        />
+      />,
     );
 
     driver.click();
@@ -84,9 +84,9 @@ describe('ButtonHeader', () => {
             subtitle="Header Subtitle"
             title="Header Title"
             buttonOnClick={() => {}}
-            />,
-          buttonHeaderTestkitFactory
-        )
+          />,
+          buttonHeaderTestkitFactory,
+        ),
       ).toBe(true);
     });
 
@@ -98,10 +98,10 @@ describe('ButtonHeader', () => {
             subtitle="Header Subtitle"
             title="Header Title"
             buttonOnClick={() => {}}
-            />,
+          />,
           enzymeButtonHeaderTestkitFactory,
-          mount
-        )
+          mount,
+        ),
       ).toBe(true);
     });
   });

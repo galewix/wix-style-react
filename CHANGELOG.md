@@ -15,19 +15,181 @@ Types of changes:
 
 ## Next
 
+### Added
+
+- `<CloseButton>` - new component [#2480](https://github.com/wix/wix-style-react/pull/2480)
+
+## 5.15.1 - 2018-12-03
+
+### Fixed
+
+- `<Dropdownlayout/>` - Fix update of hovered index [#2530](https://github.com/wix/wix-style-react/pull/2530)
+
+## 5.15.0 - 2018-12-02
+
+### Added
+
+- `<Avatar/>` - Improve story: props and examples [#2514](https://github.com/wix/wix-style-react/pull/2514)
+
+### Fixed
+
+- `<Checkbox/>` - protractor driver - fix click [#2525](https://github.com/wix/wix-style-react/pull/2525)
+- `<Table/>` - Fix bulkSelectionState when data changes [#2500](https://github.com/wix/wix-style-react/pull/2500)
+- `<Table/>` - testkit - Add ability to use Table driver when using Table in Page [#2515](https://github.com/wix/wix-style-react/pull/2515)
+
+### Docs
+
+- `<Modal/>` - Component Test & Docs - Do proper cleanup of document.body between tests [#2516](https://github.com/wix/wix-style-react/pull/2516)
+
+## 5.14.0 - 2018-11-26
+
+### Added
+
+- `<TextButton/>` - Add new component [#2434](https://github.com/wix/wix-style-react/pull/2434)
+- `<IconButton/>` - Add new component [#2445](https://github.com/wix/wix-style-react/pull/2445)
+
+### Changed
+- `<DropdownLayout/>` - support controlled mode selection and fix keyboard marking [#2466](https://github.com/wix/wix-style-react/pull/2466)
+
+### Fixed
+
+- `<BadgeSelect/>` - add a z-index to the dropdown container [#2478](https://github.com/wix/wix-style-react/pull/2478)
+
+## 5.13.0 - 2018-11-15
+
+### Added
+- `<Skeleton/>` - new component to be used as visual placeholder for async tasks [#2467](https://github.com/wix/wix-style-react/pull/2467)
+
+## 5.12.0 - 2018-11-14
+
+### Added
+- `<StatsWidget/>` - support negative trends colors [#2453](https://github.com/wix/wix-style-react/pull/2453)
+- `<Collapse/>` - add new component and revise `<Card/>` implementation [#2251](https://github.com/wix/wix-style-react/pull/2251)
+
+### Fixed
+- `<TimePicker/>` - add missing classname [#2457](https://github.com/wix/wix-style-react/pull/2457)
+- `<ButtonLayout/>` - fix prefix/suffix margin for RTL [#2465](https://github.com/wix/wix-style-react/pull/2465)
+- `<Checkbox/>`- generates proper internal id. [#2464](https://github.com/wix/wix-style-react/pull/2464)
+- `<Button/>` - increased margin for x-small prefix and suffix icons. [#2470](https://github.com/wix/wix-style-react/pull/2470)
+
+## 5.11.0 - 2018-11-12
+
+### Added
+- `<InputArea>` - add name prop to inputarea component [#2449](https://github.com/wix/wix-style-react/pull/2449)
+- `<GenericModalLayout/>` - add new component [#2439](https://github.com/wix/wix-style-react/pull/2439)
+
+### Changed
+- `<TableActionCell>` - allow passing `PopoverMenu` props [#2417](https://github.com/wix/wix-style-react/pull/2417)
+- `<BadgeSelect/>` - make component controlled [#2452](https://github.com/wix/wix-style-react/pull/2452)
+
+## 5.10.0 - 2018-11-11
+
+### Changed
+- `<Tag>`- add bo tooltip instead of native title for Tag [#2431](https://github.com/wix/wix-style-react/pull/2431)
+
+### Fixed
+- removed unnecessary console.log in deprecation logger.
+
+## 5.9.1 - 2018-11-07
+
+### Deprecated
+- `fonts` - Removed fonts from main index file [#2419](https://github.com/wix/wix-style-react/pull/2419)
+
+### Changed
+- `<Input>` - change placeholder color for the Input component [#2402](https://github.com/wix/wix-style-react/pull/2402)
+
+- `<MessageBoxMarketerialLayout/>` - update typography [#2411](https://github.com/wix/wix-style-react/pull/2411)
+
+
+## 5.9.0 - 2018-11-05
+### Added
+- Added tree shaking - [#2407](https://github.com/wix/wix-style-react/pull/2407)
+
+### Fixed
+
+- `<DropdownLayout/>` - Reserve hovered state when the selected id is 0 [#2405](https://github.com/wix/wix-style-react/pull/2405)
+
+## 5.8.1 - 2018-11-04
+
+### Deprecated
+
+- `<TextArea>` - deprecate and add a snippet story using `<FormField/>` and `<InputArea/>` [#2383](https://github.com/wix/wix-style-react/pull/2383)
+
+### Fixed
+
+- `<Tooltip/>` - Fix potential null dereferencing that happens in React 16 [2391](https://github.com/wix/wix-style-react/pull/2391)
+- `<BadgeSelect/>` - fix word wrapping and eyes issues [#2397](https://github.com/wix/wix-style-react/pull/2397)
+
+## 5.8.0 - 2018-10-31
+
+### Added
+
+- `<SideMenu/>`(styling hack) - add data-link-active DOM attribute to allow styling [#2392](https://github.com/wix/wix-style-react/pull/2392)
+- `<Text>` - Support anchors inside text component [2384](https://github.com/wix/wix-style-react/pull/2384)
+
+### Changed
+
+- `<BadgeSelect/>` - updated icon size [#2372](https://github.com/wix/wix-style-react/pull/2372)
+- `<InputWithOptions/>` - update keyboard navigation to match the a11y guidelines [#2310](https://github.com/wix/wix-style-react/pull/2310)
+
+### Fixed
+
+- `<DropdownLayout/>` - fixed scroll behaviour [#2365](https://github.com/wix/wix-style-react/pull/2365)
+- `<Table/>` - Fix column alignment when using a tooltip [#2360](https://github.com/wix/wix-style-react/pull/2360)
+
+### Deprecated
+
+- `<DataTable/>` - deprecate `infoTooltip` in favor of `infoTooltipProps` [#2367](https://github.com/wix/wix-style-react/pull/2367)
+
+### Docs
+
+- `<TextField/>` - deprecated component, and add snippet story using `<FormField/>` [#2361](https://github.com/wix/wix-style-react/pull/2361)
+
+
+## 5.7.2 - 2018-10-24
+
+### Fixes
+
+- Hot-Fix! Typography deprecationLog - no proxy in production [#2370](https://github.com/wix/wix-style-react/pull/2370)
+
+## 5.7.1 - 2018-10-23
+
+### Added
+
+- `<DatePicker/>` - add `zIndex` prop for popup [#2352](https://github.com/wix/wix-style-react/pull/2352)
+
+### Changed
+
+- `<DatePicker/>` - support custom function in `dateFormat` prop [#2354](https://github.com/wix/wix-style-react/pull/2354)
+
+### Fixed
+
+- `<DropdownLayout/>` - Revert scroll behaviour [#2362](https://github.com/wix/wix-style-react/pull/2362)
+
+## 5.7.0 - 2018-10-22
+
+### Added
+
+- `<Table/>` - support column alignments [#2333](https://github.com/wix/wix-style-react/pull/2333)
+
 ### Changed
 
 - `<Tag/>` - add tiny and medium sizes [#2322](https://github.com/wix/wix-style-react/pull/2322)
 - `<SortableList/>` - Add draggable item to onDragStart and onDragEnd [#2343](https://github.com/wix/wix-style-react/pull/2343)
 - `<DropdownLayout/>` - update the scroll behaviour [#2327](https://github.com/wix/wix-style-react/pull/2327)
+- `<Page/>` - make the page's contents expand to full size [#2342](https://github.com/wix/wix-style-react/pull/2342)
+
+### Deprecated
+
+- Typography - Add deprecation log for old classes [#2315](https://github.com/wix/wix-style-react/pull/2315)
+
+### Fixed
+
+- `<ButtonLayout/>` - fix broken text colors for outline theme [#2350](https://github.com/wix/wix-style-react/pull/2350)
 
 ### Docs
 
 - Add Dropdown Snippet story using FormField [#2276](https://github.com/wix/wix-style-react/pull/2276)
-
-### Added
-
-- `<Table/>` - support column alignments [#2333](https://github.com/wix/wix-style-react/pull/2333)
 
 ## 5.6.1 - 2018-10-16
 

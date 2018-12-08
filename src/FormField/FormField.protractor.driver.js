@@ -5,7 +5,7 @@ const fieldDriverFactory = component => {
     element: () => component,
     getLabel: () => byHook('formfield-label'),
     isRequired: () => !!byHook('formfield-asterisk'),
-    isInfoIconVisible: () => !!byHook('formfield-infoicon')
+    isInfoIconVisible: () => !!byHook('formfield-infoicon'),
   };
 };
 

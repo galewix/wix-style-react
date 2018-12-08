@@ -1,7 +1,7 @@
 import React from 'react';
-import {node, string} from 'prop-types';
+import { node, string } from 'prop-types';
 import TextLink from '../../TextLink';
-import WixComponent from '../../../src/BaseComponents/WixComponent';
+import WixComponent from '../../BaseComponents/WixComponent';
 import Header from '../Header';
 import deprecationLog from '../../utils/deprecationLog';
 
@@ -10,7 +10,7 @@ class LinkHeader extends WixComponent {
 
   componentDidMount() {
     deprecationLog(
-      'Card.LinkHeader is deprecated, please use <Card.Header suffix={<TextLink/>}/> instead.'
+      'Card.LinkHeader is deprecated, please use <Card.Header suffix={<TextLink/>}/> instead.',
     );
   }
 
@@ -19,11 +19,11 @@ class LinkHeader extends WixComponent {
     linkTitle: string.isRequired,
     linkTo: string.isRequired,
     tooltip: node,
-    dataHook: string
+    dataHook: string,
   };
 
   static defaultProps = {
-    tooltip: null
+    tooltip: null,
   };
 
   render() {
@@ -34,18 +34,18 @@ class LinkHeader extends WixComponent {
       linkTo,
       withoutDivider,
       tooltip,
-      dataHook
+      dataHook,
     } = this.props;
 
     const linkElement = (
       <div>
-        <TextLink dataHook="link" link={linkTo} children={linkTitle}/>
+        <TextLink dataHook="link" link={linkTo} children={linkTitle} />
       </div>
     );
 
-    const tooltipElement = tooltip ?
-      React.cloneElement(tooltip, {}, linkElement) :
-      null;
+    const tooltipElement = tooltip
+      ? React.cloneElement(tooltip, {}, linkElement)
+      : null;
 
     return (
       <Header
@@ -54,7 +54,7 @@ class LinkHeader extends WixComponent {
         subtitle={subtitle}
         suffix={tooltipElement ? tooltipElement : linkElement}
         withoutDivider={withoutDivider}
-        />
+      />
     );
   }
 }

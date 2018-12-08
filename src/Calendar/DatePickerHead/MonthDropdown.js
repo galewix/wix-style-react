@@ -5,11 +5,11 @@ import setMonth from 'date-fns/set_month';
 import DatePickerDropdown from '../DatePickerDropdown';
 
 const optionsOf = items =>
-  items.map((item, index) => ({value: item, id: index}));
+  items.map((item, index) => ({ value: item, id: index }));
 
-const MonthDropdown = ({months, date, onChange}) => {
+const MonthDropdown = ({ months, date, onChange }) => {
   const options = optionsOf(months);
-  const selectedMonth = options.find(({id}) => id === date.getMonth());
+  const selectedMonth = options.find(({ id }) => id === date.getMonth());
 
   return (
     <DatePickerDropdown
@@ -17,15 +17,15 @@ const MonthDropdown = ({months, date, onChange}) => {
       caption={selectedMonth.value}
       options={options}
       selectedId={selectedMonth.id}
-      onChange={({id}) => onChange(setMonth(date, id))}
-      />
+      onChange={({ id }) => onChange(setMonth(date, id))}
+    />
   );
 };
 
 MonthDropdown.propTypes = {
   months: PropTypes.arrayOf(PropTypes.string).isRequired,
   date: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default MonthDropdown;

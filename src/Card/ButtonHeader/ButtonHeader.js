@@ -1,7 +1,7 @@
 import React from 'react';
-import {func, node, oneOf, string} from 'prop-types';
+import { func, node, oneOf, string } from 'prop-types';
 
-import Button from '../../../src/Backoffice/Button';
+import Button from '../../Backoffice/Button';
 import WixComponent from '../../BaseComponents/WixComponent';
 import Header from '../Header';
 import deprecationLog from '../../utils/deprecationLog';
@@ -9,7 +9,7 @@ import deprecationLog from '../../utils/deprecationLog';
 const buttonThemes = {
   standard: 'whiteblueprimary',
   emptyblue: 'emptyblue',
-  fullblue: 'fullblue'
+  fullblue: 'fullblue',
 };
 
 class ButtonHeader extends WixComponent {
@@ -17,7 +17,7 @@ class ButtonHeader extends WixComponent {
 
   componentDidMount() {
     deprecationLog(
-      'Card.ButtonHeader is deprecated, please use <Card.Header suffix={<Button/>}/> instead.'
+      'Card.ButtonHeader is deprecated, please use <Card.Header suffix={<Button/>}/> instead.',
     );
   }
 
@@ -30,7 +30,7 @@ class ButtonHeader extends WixComponent {
     buttonSuffix: node,
     tooltip: node,
     theme: oneOf(['standard', 'fullblue', 'emptyblue']),
-    dataHook: string
+    dataHook: string,
   };
 
   static defaultProps = {
@@ -39,7 +39,7 @@ class ButtonHeader extends WixComponent {
     buttonPrefix: null,
     tooltip: null,
     theme: 'standard',
-    buttonSuffix: null
+    buttonSuffix: null,
   };
 
   render() {
@@ -53,7 +53,7 @@ class ButtonHeader extends WixComponent {
       withoutDivider,
       tooltip,
       theme,
-      dataHook
+      dataHook,
     } = this.props;
 
     const buttonElement = (
@@ -66,13 +66,13 @@ class ButtonHeader extends WixComponent {
           onClick={buttonOnClick}
           theme={buttonThemes[theme] || buttonThemes.standard}
           children={buttonTitle}
-          />
+        />
       </div>
     );
 
-    const tooltipElement = tooltip ?
-      React.cloneElement(tooltip, {children: buttonElement}) :
-      null;
+    const tooltipElement = tooltip
+      ? React.cloneElement(tooltip, { children: buttonElement })
+      : null;
 
     return (
       <Header
@@ -81,7 +81,7 @@ class ButtonHeader extends WixComponent {
         suffix={tooltipElement || buttonElement}
         withoutDivider={withoutDivider}
         dataHook={dataHook}
-        />
+      />
     );
   }
 }

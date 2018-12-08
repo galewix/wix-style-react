@@ -5,7 +5,7 @@ import Button from 'wix-style-react/Button';
 import SomeContentComponent from './SomeContentComponent';
 import SomeTailComponent from './SomeTailComponent';
 
-export const header = breadcrumbs =>
+export const header = breadcrumbs => (
   <Page.Header
     breadcrumbs={breadcrumbs}
     title="Page Title"
@@ -13,21 +13,25 @@ export const header = breadcrumbs =>
     showBackButton
     onBackClicked={() => {}}
     actionsBar={<Button>Action</Button>}
-    />;
+  />
+);
 
-export const content = showScss =>
+export const content = showScss => (
   <Page.Content>
-    <SomeContentComponent showScss={showScss}/>
-  </Page.Content>;
+    <SomeContentComponent showScss={showScss} />
+  </Page.Content>
+);
 
 export const tail = (
   <Page.Tail>
-    <SomeTailComponent/>
+    <SomeTailComponent />
   </Page.Tail>
 );
 
 export const fixedContent = (
   <Page.FixedContent>
-    <div style={{padding: '10px 0px', backgroundColor: 'white'}}>This is a fixedContent</div>
+    <div style={{ padding: '10px 0px', backgroundColor: 'white' }}>
+      This is a fixedContent
+    </div>
   </Page.FixedContent>
 );

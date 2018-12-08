@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import omit from 'lodash/omit';
 
 import Ticker from './Ticker';
 import Unit from './Unit';
 import Group from './Group';
-import InputSuffix, {getVisibleSuffixCount} from './InputSuffix';
+import InputSuffix, { getVisibleSuffixCount } from './InputSuffix';
 
 import styles from './Input.scss';
 
@@ -20,14 +19,11 @@ class Input extends Component {
   static StatusLoading = 'loading';
 
   state = {
-    focus: false
+    focus: false,
   };
 
   componentDidMount() {
-    const {
-      autoFocus,
-      value
-    } = this.props;
+    const { autoFocus, value } = this.props;
 
     if (autoFocus) {
       this._onFocus();
@@ -78,7 +74,7 @@ class Input extends Component {
       autocomplete,
       required,
       error,
-      errorMessage
+      errorMessage,
     } = this.props;
 
     const onIconClicked = e => {
@@ -90,7 +86,8 @@ class Input extends Component {
     };
 
     let suffixStatus = status;
-    let suffixStatusMessage = statusMessage && statusMessage !== '' ? statusMessage : '';
+    let suffixStatusMessage =
+      statusMessage && statusMessage !== '' ? statusMessage : '';
 
     // Check for deprecated fields and use them if provided
     if (error) {
@@ -100,25 +97,44 @@ class Input extends Component {
 
     const hasErrors = suffixStatus === Input.StatusError;
 
-    const isClearButtonVisible = (!!clearButton || !!onClear) && !!value && !hasErrors && !disabled;
+    const isClearButtonVisible =
+      (!!clearButton || !!onClear) && !!value && !hasErrors && !disabled;
 
     const visibleSuffixCount = getVisibleSuffixCount({
-      status: suffixStatus, statusMessage: suffixStatusMessage, disabled, help, magnifyingGlass, isClearButtonVisible, menuArrow, unit, suffix
+      status: suffixStatus,
+      statusMessage: suffixStatusMessage,
+      disabled,
+      help,
+      magnifyingGlass,
+      isClearButtonVisible,
+      menuArrow,
+      unit,
+      suffix,
     });
 
     const inputClassNames = classNames(styles.input, {
       [styles.withPrefix]: !!prefix,
       [styles.withSuffix]: visibleSuffixCount,
-      [styles.withSuffixes]: visibleSuffixCount > 1
+      [styles.withSuffixes]: visibleSuffixCount > 1,
     });
 
     const ariaAttribute = {};
-    Object.keys(this.props).filter(key => key.startsWith('aria')).map(key => ariaAttribute['aria-' + key.substr(4).toLowerCase()] = this.props[key]);
+    Object.keys(this.props)
+      .filter(key => key.startsWith('aria'))
+      .map(
+        key =>
+          (ariaAttribute['aria-' + key.substr(4).toLowerCase()] = this.props[
+            key
+          ]),
+      );
+
+    /* eslint-disable no-unused-vars */
+    const { className, ...inputElementProps } = props;
 
     const inputElement = (
       <input
-        style={{textOverflow}}
-        ref={input => this.input = input}
+        style={{ textOverflow }}
+        ref={input => (this.input = input)}
         className={inputClassNames}
         id={id}
         name={name}
@@ -145,35 +161,46 @@ class Input extends Component {
         onCompositionStart={() => this.onCompositionChange(true)}
         onCompositionEnd={() => this.onCompositionChange(false)}
         {...ariaAttribute}
-        {...omit(props, 'className')}
-        />);
+        {...inputElementProps}
+      />
+    );
 
     //needs additional wrapper with class .prefixSuffixWrapper to fix inputs with prefix in ie11
     //https://github.com/wix/wix-style-react/issues/1693
     //https://github.com/wix/wix-style-react/issues/1691
-    return (<div className={styles.inputWrapper}>
-      {prefix && <div className={styles.prefixSuffixWrapper}><div className={styles.prefix}>{prefix}</div></div>}
+    return (
+      <div className={styles.inputWrapper}>
+        {prefix && (
+          <div className={styles.prefixSuffixWrapper}>
+            <div className={styles.prefix}>{prefix}</div>
+          </div>
+        )}
 
-      { inputElement }
-      { visibleSuffixCount > 0 && <div className={styles.prefixSuffixWrapper}><InputSuffix
-        status={suffixStatus}
-        statusMessage={suffixStatusMessage}
-        theme={theme}
-        disabled={disabled}
-        help={help}
-        helpMessage={helpMessage}
-        onIconClicked={onIconClicked}
-        magnifyingGlass={magnifyingGlass}
-        isClearButtonVisible={isClearButtonVisible}
-        onClear={this._onClear}
-        menuArrow={menuArrow}
-        unit={unit}
-        focused={this.state.focus}
-        suffix={suffix}
-        tooltipPlacement={tooltipPlacement}
-        onTooltipShow={onTooltipShow}
-        /></div> }
-    </div>);
+        {inputElement}
+        {visibleSuffixCount > 0 && (
+          <div className={styles.prefixSuffixWrapper}>
+            <InputSuffix
+              status={suffixStatus}
+              statusMessage={suffixStatusMessage}
+              theme={theme}
+              disabled={disabled}
+              help={help}
+              helpMessage={helpMessage}
+              onIconClicked={onIconClicked}
+              magnifyingGlass={magnifyingGlass}
+              isClearButtonVisible={isClearButtonVisible}
+              onClear={this._onClear}
+              menuArrow={menuArrow}
+              unit={unit}
+              focused={this.state.focus}
+              suffix={suffix}
+              tooltipPlacement={tooltipPlacement}
+              onTooltipShow={onTooltipShow}
+            />
+          </div>
+        )}
+      </div>
+    );
   }
 
   focus = (options = {}) => {
@@ -190,7 +217,7 @@ class Input extends Component {
   };
 
   _onFocus = e => {
-    this.setState({focus: true});
+    this.setState({ focus: true });
     this.props.onFocus && this.props.onFocus(e);
 
     if (this.props.autoSelect) {
@@ -214,7 +241,7 @@ class Input extends Component {
   };
 
   _onBlur = e => {
-    this.setState({focus: false});
+    this.setState({ focus: false });
     if (this.props.onBlur) {
       this.props.onBlur(e);
     }
@@ -238,7 +265,8 @@ class Input extends Component {
     }
   };
 
-  _isInvalidNumber = value => this.props.type === 'number' && !(/^[\d.,\-+]*$/.test(value));
+  _isInvalidNumber = value =>
+    this.props.type === 'number' && !/^[\d.,\-+]*$/.test(value);
 
   _onChange = e => {
     if (this._isInvalidNumber(e.target.value)) {
@@ -246,30 +274,28 @@ class Input extends Component {
     }
 
     this.props.onChange && this.props.onChange(e);
-  }
+  };
 
   _onKeyPress = e => {
     if (this._isInvalidNumber(e.key)) {
       e.preventDefault();
     }
-  }
+  };
 
   _onClear = e => {
-    const {
-      onClear
-    } = this.props;
+    const { onClear } = this.props;
 
     this.input.value = '';
 
     e.target = {
       ...e.target,
-      value: ''
+      value: '',
     };
     this._onChange(e);
     this.focus();
 
     onClear && onClear();
-  }
+  };
 }
 
 Input.displayName = 'Input';
@@ -285,13 +311,15 @@ Input.defaultProps = {
   textOverflow: 'clip',
   maxLength: 524288,
   withSelection: false,
-  clearButton: false
+  clearButton: false,
 };
 
 const borderRadiusValidator = (props, propName) => {
   const value = props[propName];
   if (typeof value === 'string') {
-    throw new Error('Passing a string (for className) is deprecated. Use new className prop.');
+    throw new Error(
+      'Passing a string (for className) is deprecated. Use new className prop.',
+    );
   } else if (typeof value === 'undefined' || typeof value === 'boolean') {
     return null;
   } else {
@@ -433,7 +461,15 @@ Input.propTypes = {
   textOverflow: PropTypes.string,
 
   /** The theme of the input */
-  theme: PropTypes.oneOf(['normal', 'tags', 'paneltitle', 'material', 'amaterial', 'flat', 'flatdark']),
+  theme: PropTypes.oneOf([
+    'normal',
+    'tags',
+    'paneltitle',
+    'material',
+    'amaterial',
+    'flat',
+    'flatdark',
+  ]),
 
   /** The material design style floating label for input (supported only for amaterial theme for now) */
   title: PropTypes.string,
@@ -446,7 +482,7 @@ Input.propTypes = {
   /** Inputs value */
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   withSelection: PropTypes.bool,
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 export default Input;

@@ -1,6 +1,6 @@
 const addImageDriverFactory = component => ({
   click: () => component.click(),
-  element: () => component
+  element: () => component,
 });
 
 export default addImageDriverFactory;

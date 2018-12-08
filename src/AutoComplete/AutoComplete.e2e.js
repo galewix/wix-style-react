@@ -1,7 +1,7 @@
 import eyes from 'eyes.it';
-import {waitForVisibilityOf} from 'wix-ui-test-utils/protractor';
-import {getStoryUrl} from '../../test/utils/storybook-helpers';
-import {autoCompleteTestkitFactory} from '../../testkit/protractor';
+import { waitForVisibilityOf } from 'wix-ui-test-utils/protractor';
+import { getStoryUrl } from '../../test/utils/storybook-helpers';
+import { autoCompleteTestkitFactory } from '../../testkit/protractor';
 import eventually from 'wix-eventually';
 
 describe('AutoComplete', () => {
@@ -9,7 +9,7 @@ describe('AutoComplete', () => {
   const dataHook = 'story-autocomplete';
 
   eyes.it('should open autocomplete when it focused', async () => {
-    const driver = autoCompleteTestkitFactory({dataHook});
+    const driver = autoCompleteTestkitFactory({ dataHook });
 
     await browser.get(storyUrl);
 
@@ -31,7 +31,7 @@ describe('AutoComplete', () => {
   });
 
   eyes.it('should choose one of autocomplete items', async () => {
-    const driver = autoCompleteTestkitFactory({dataHook});
+    const driver = autoCompleteTestkitFactory({ dataHook });
 
     await browser.get(storyUrl);
 

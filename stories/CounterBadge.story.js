@@ -1,7 +1,5 @@
 // Not working yet. use when AutoDocs are supported for these such components
 
-
-
 // import CounterBadge from 'wix-style-react/CounterBadge';
 //
 // export default {

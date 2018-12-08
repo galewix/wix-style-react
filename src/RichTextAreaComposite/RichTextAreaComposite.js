@@ -1,18 +1,17 @@
 import React from 'react';
-import {children, optional, once} from '../Composite';
+import { children, optional, once } from '../Composite';
 import RichTextArea from '../RichTextArea';
 import Label from '../Label';
 import InputAreaWithLabelComposite from '../Composite/InputAreaWithLabelComposite/InputAreaWithLabelComposite';
 
-const RichTextAreaComposite = ({children, ...props}) => (
+const RichTextAreaComposite = ({ children, ...props }) => (
   <InputAreaWithLabelComposite {...props}>
     {children}
   </InputAreaWithLabelComposite>
 );
 
-
 RichTextAreaComposite.propTypes = {
-  children: children(optional(Label), once(RichTextArea))
+  children: children(optional(Label), once(RichTextArea)),
 };
 
 RichTextAreaComposite.displayName = 'RichTextAreaComposite';

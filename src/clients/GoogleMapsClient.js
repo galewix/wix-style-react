@@ -7,50 +7,60 @@ class GoogleMapsClient {
     this._placesServices = new window.google.maps.places.PlacesService(map);
   }
 
-  autocomplete({request}) {
+  autocomplete({ request }) {
     return new Promise((resolve, reject) => {
       try {
         this._autocomplete.getPlacePredictions(request, (results, status) => {
-          if ((status !== window.google.maps.GeocoderStatus.OK) && (status !== window.google.maps.GeocoderStatus.ZERO_RESULTS)) {
-            reject({code: 'internal'});
+          if (
+            status !== window.google.maps.GeocoderStatus.OK &&
+            status !== window.google.maps.GeocoderStatus.ZERO_RESULTS
+          ) {
+            reject({ code: 'internal' });
           } else {
             resolve(results || []);
           }
         });
       } catch (e) {
-        reject({code: 'internal', message: e.message});
+        reject({ code: 'internal', message: e.message });
       }
     });
   }
 
-  geocode({request}) {
+  geocode({ request }) {
     return new Promise((resolve, reject) => {
       try {
         this._geocoder.geocode(request, (results, status) => {
-          if ((status !== window.google.maps.GeocoderStatus.OK) && (status !== window.google.maps.GeocoderStatus.ZERO_RESULTS)) {
-            reject({code: 'internal'});
+          if (
+            status !== window.google.maps.GeocoderStatus.OK &&
+            status !== window.google.maps.GeocoderStatus.ZERO_RESULTS
+          ) {
+            reject({ code: 'internal' });
           } else {
             resolve(results || []);
           }
         });
       } catch (e) {
-        reject({code: 'internal', message: e.message});
+        reject({ code: 'internal', message: e.message });
       }
     });
   }
 
-  placeDetails({request}) {
+  placeDetails({ request }) {
     return new Promise((resolve, reject) => {
       try {
         this._placesServices.getDetails(request, (result, status) => {
-          if ((status !== window.google.maps.places.PlacesServiceStatus.OK) && (status !== window.google.maps.places.PlacesServiceStatus.ZERO_RESULTS)) {
-            reject({code: 'internal'});
+          if (
+            status !== window.google.maps.places.PlacesServiceStatus.OK &&
+            status !==
+              window.google.maps.places.PlacesServiceStatus.ZERO_RESULTS
+          ) {
+            reject({ code: 'internal' });
           } else {
             resolve(result || undefined);
           }
         });
       } catch (e) {
-        reject({code: 'internal', message: e.message});
+        reject({ code: 'internal', message: e.message });
       }
     });
   }

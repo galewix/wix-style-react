@@ -1,6 +1,6 @@
-import {Category} from '../storiesHierarchy';
+import { Category } from '../storiesHierarchy';
 
 export const storySettings = {
   kind: Category.COMPONENTS,
-  storyName: 'Text'
+  storyName: 'Text',
 };

@@ -16,22 +16,25 @@ import Styles from './Styles.md';
 
 export default () => (
   <div>
-    <Markdown source={Styles}/>
+    <Markdown source={Styles} />
 
     <CodeExample title="dndStyles.item" code={ItemExampleRaw}>
-      <ItemExample/>
+      <ItemExample />
     </CodeExample>
 
-    <CodeExample title="dndStyles.itemPlaceholder" code={ItemPlaceholderExampleRaw}>
-      <ItemPlaceholderExample/>
+    <CodeExample
+      title="dndStyles.itemPlaceholder"
+      code={ItemPlaceholderExampleRaw}
+    >
+      <ItemPlaceholderExample />
     </CodeExample>
 
     <CodeExample title="dndStyles.itemPreview" code={ItemPreviewExampleRaw}>
-      <ItemPreviewExample/>
+      <ItemPreviewExample />
     </CodeExample>
 
     <CodeExample title="dndStyles.list" code={ListExampleRaw}>
-      <ListExample/>
+      <ListExample />
     </CodeExample>
   </div>
 );

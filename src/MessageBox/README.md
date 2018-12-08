@@ -9,6 +9,7 @@
 | title	 | Node | - | + | Title for Messag Box |
 | content | Node | - | + | Content of the Message Box |
 | primaryButtonLabel | string | - | + | Primary Button Label |
+| primaryButtonDisabled | bool | false | + | Primary Button disabled state |
 | secondaryButtonLabel | string | - | - | Secondary Button Label |
 | onPrimaryButtonClick | func | - | - | Primary Button Click callback |
 | onSecondaryButtonClick | func | - | - | Secondary Button Click handler |

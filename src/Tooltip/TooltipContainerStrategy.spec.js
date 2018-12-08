@@ -1,6 +1,6 @@
 import React from 'react';
-import {TooltipContainerStrategy} from './TooltipContainerStrategy';
-import {mount} from 'enzyme';
+import { TooltipContainerStrategy } from './TooltipContainerStrategy';
+import { mount } from 'enzyme';
 import Page from '../Page';
 
 describe('TooltipContainerStrategy', () => {
@@ -27,7 +27,11 @@ describe('TooltipContainerStrategy', () => {
   });
 
   it('should return matching ancestor by predicate when appendByPredicate has a value', () => {
-    const tooltipContainerStrategy = new TooltipContainerStrategy(null, null, el => el.getAttribute('some-attr') === 'some-value');
+    const tooltipContainerStrategy = new TooltipContainerStrategy(
+      null,
+      null,
+      el => el.getAttribute('some-attr') === 'some-value',
+    );
     const ancestor = document.createElement('div');
     ancestor.setAttribute('some-attr', 'some-value');
     const parent = document.createElement('div');
@@ -40,7 +44,10 @@ describe('TooltipContainerStrategy', () => {
 
   it('should return appendTo element when provided and appendToParent is true', () => {
     const appendToElement = document.createElement('div');
-    const tooltipContainerStrategy = new TooltipContainerStrategy(appendToElement, true);
+    const tooltipContainerStrategy = new TooltipContainerStrategy(
+      appendToElement,
+      true,
+    );
     const parent = document.createElement('div');
     const element = document.createElement('div');
     parent.appendChild(element);
@@ -50,7 +57,10 @@ describe('TooltipContainerStrategy', () => {
 
   it('should return appendTo element when provided', () => {
     const parent = document.createElement('div');
-    const tooltipContainerStrategy = new TooltipContainerStrategy(parent, false);
+    const tooltipContainerStrategy = new TooltipContainerStrategy(
+      parent,
+      false,
+    );
     const element = document.createElement('div');
     const container = tooltipContainerStrategy.getContainer(element);
     expect(container).toBe(parent);
@@ -62,14 +72,16 @@ describe('TooltipContainerStrategy', () => {
 
     mount(
       <Page>
-        <Page.Header title="title"/>
+        <Page.Header title="title" />
         <Page.Content>
-          <div ref={ref => element = ref}/>
+          <div ref={ref => (element = ref)} />
         </Page.Content>
-      </Page>
+      </Page>,
     );
 
     const container = tooltipContainerStrategy.getContainer(element);
-    expect(container.getAttribute('data-class')).toBe('page-scrollable-content');
+    expect(container.getAttribute('data-class')).toBe(
+      'page-scrollable-content',
+    );
   });
 });

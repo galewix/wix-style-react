@@ -1,6 +1,6 @@
 import ReactTestUtils from 'react-dom/test-utils';
 
-const buttonDriverFactory = ({element}) => {
+const buttonDriverFactory = ({ element }) => {
   return {
     exists: () => !!element,
     click: () => {
@@ -11,9 +11,10 @@ const buttonDriverFactory = ({element}) => {
       }
     },
     hasTheme: theme => element.getAttribute('data-theme') === theme,
-    hasClass: className => element.getAttribute('class').indexOf(className) > -1,
+    hasClass: className =>
+      element.getAttribute('class').indexOf(className) > -1,
     getButtonTextContent: () => element.textContent,
-    isButtonDisabled: () => element.getAttribute('disabled') === ''
+    isButtonDisabled: () => element.getAttribute('disabled') === '',
   };
 };
 

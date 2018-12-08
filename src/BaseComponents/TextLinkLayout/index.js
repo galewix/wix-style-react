@@ -1,1 +1,1 @@
-export {default} from './TextLinkLayout.js';
+export { default } from './TextLinkLayout.js';

@@ -1,16 +1,19 @@
 import 'react';
-import {componentFactory} from './GoogleAddressInput.driver';
+import { componentFactory } from './GoogleAddressInput.driver';
 import _ from 'lodash/fp';
+import eventually from 'wix-eventually';
 import sinon from 'sinon';
-import {GoogleAddressInputHandler} from './GoogleAddressInput';
+import { GoogleAddressInputHandler } from './GoogleAddressInput';
 import InputWithOptions from '../InputWithOptions';
 
-const GEOCODE_RESULT = JSON.parse('{"formatted_address":"_formatted_address_","address_components":[{"types":["street_number"],"long_name":123}]}');
+const GEOCODE_RESULT = JSON.parse(
+  '{"formatted_address":"_formatted_address_","address_components":[{"types":["street_number"],"long_name":123}]}',
+);
 GEOCODE_RESULT.geometry = {
   location: {
     lat: () => 31.12,
-    lng: () => 33.34
-  }
+    lng: () => 33.34,
+  },
 };
 
 const buildResult = originValue => {
@@ -21,69 +24,83 @@ const buildResult = originValue => {
       approximate: true,
       latLng: {
         lat: 31.12,
-        lng: 33.34
+        lng: 33.34,
       },
       number: 123,
-      formatted: '_formatted_address_'
-    }
+      formatted: '_formatted_address_',
+    },
   };
 };
 
 export class GmapsTestClient {
-  autocomplete({request}) {
-
+  autocomplete({ request }) {
     if (request.input === 'dontfind') {
       return Promise.resolve([]);
     }
 
     return Promise.resolve([
-      {description: JSON.stringify(request) + ' - 1', id: 0},
-      {description: JSON.stringify(request) + ' - 2', id: 1}
+      { description: JSON.stringify(request) + ' - 1', id: 0 },
+      { description: JSON.stringify(request) + ' - 2', id: 1 },
     ]);
   }
 
-  geocode({request}) {
-    const {address, placeId} = request;
+  geocode({ request }) {
+    const { address, placeId } = request;
     if (address || placeId) {
-      return Promise.resolve(
-        [_.extend({}, GEOCODE_RESULT, {__called__: JSON.stringify(request)})]
-      );
+      return Promise.resolve([
+        _.extend({}, GEOCODE_RESULT, { __called__: JSON.stringify(request) }),
+      ]);
     }
     throw new Error('geocode() request params are malformed');
   }
 
-  placeDetails({request}) {
-    const {placeId} = request;
+  placeDetails({ request }) {
+    const { placeId } = request;
     if (placeId) {
-      return Promise.resolve(
-        [_.extend({}, GEOCODE_RESULT, {__called__: JSON.stringify(request)})]
-      );
+      return Promise.resolve([
+        _.extend({}, GEOCODE_RESULT, { __called__: JSON.stringify(request) }),
+      ]);
     }
     throw new Error('placeDetails() request params are malformed');
   }
 }
 
 describe('GoogleAddressInput', () => {
-  const {createShallow, createMount} = componentFactory();
+  const { createShallow, createMount } = componentFactory();
 
   describe('appearance', () => {
     it('should show magnifying glass by default', () => {
-      const component = createShallow({Client: GmapsTestClient});
-      expect(component.find('InputWithOptions').props().magnifyingGlass).toEqual(true);
+      const component = createShallow({ Client: GmapsTestClient });
+      expect(
+        component.find('InputWithOptions').props().magnifyingGlass,
+      ).toEqual(true);
     });
 
     it('should allow hiding magnifying glass', () => {
-      const component = createShallow({Client: GmapsTestClient, magnifyingGlass: false});
-      expect(component.find('InputWithOptions').props().magnifyingGlass).toEqual(false);
+      const component = createShallow({
+        Client: GmapsTestClient,
+        magnifyingGlass: false,
+      });
+      expect(
+        component.find('InputWithOptions').props().magnifyingGlass,
+      ).toEqual(false);
     });
 
     it('should allow setting theme for the nested input', () => {
-      const component = createShallow({Client: GmapsTestClient, theme: 'material'});
-      expect(component.find('InputWithOptions').props().theme).toEqual('material');
+      const component = createShallow({
+        Client: GmapsTestClient,
+        theme: 'material',
+      });
+      expect(component.find('InputWithOptions').props().theme).toEqual(
+        'material',
+      );
     });
 
     it('should allow the input to be readOnly', () => {
-      const component = createShallow({Client: GmapsTestClient, readOnly: true});
+      const component = createShallow({
+        Client: GmapsTestClient,
+        readOnly: true,
+      });
       expect(component.find('InputWithOptions').props().readOnly).toEqual(true);
     });
 
@@ -92,61 +109,97 @@ describe('GoogleAddressInput', () => {
         Client: GmapsTestClient,
         readOnly: true,
         footer: 'foo bar',
-        footerOptions: {overrideStyle: true, disabled: true}
+        footerOptions: { overrideStyle: true, disabled: true },
       });
 
-      expect(component.find('InputWithOptions').props().options).toEqual([{
-        id: 0,
-        value: 'foo bar',
-        overrideStyle: true,
-        disabled: true
-      }]);
+      expect(component.find('InputWithOptions').props().options).toEqual([
+        {
+          id: 0,
+          value: 'foo bar',
+          overrideStyle: true,
+          disabled: true,
+        },
+      ]);
     });
 
     it('should not highlight selected option by default', () => {
-      const component = createShallow({Client: GmapsTestClient});
-      expect(component.find('InputWithOptions').props().selectedHighlight).toEqual(false);
+      const component = createShallow({ Client: GmapsTestClient });
+      expect(
+        component.find('InputWithOptions').props().selectedHighlight,
+      ).toEqual(false);
     });
   });
 
   describe('when `props.poweredByGoogle`', () => {
     describe('is `true`', () => {
       it('should show google footer', () => {
-        const component = createMount({Client: GmapsTestClient, poweredByGoogle: true});
-        component.setState({suggestions: ['a', 'b', 'c'].map(s => ({description: s, id: s}))});
-        expect(component.find('[data-hook="google-footer"]').exists()).toEqual(true);
+        const component = createMount({
+          Client: GmapsTestClient,
+          poweredByGoogle: true,
+        });
+        component.setState({
+          suggestions: ['a', 'b', 'c'].map(s => ({ description: s, id: s })),
+        });
+        expect(component.find('[data-hook="google-footer"]').exists()).toEqual(
+          true,
+        );
       });
 
       it('should not show google footer if `state.suggestions.length === 0`', () => {
-        const component = createMount({Client: GmapsTestClient, poweredByGoogle: true});
-        component.setState({suggestions: []});
-        expect(component.find('[data-hook="google-footer"]').exists()).toEqual(false);
+        const component = createMount({
+          Client: GmapsTestClient,
+          poweredByGoogle: true,
+        });
+        component.setState({ suggestions: [] });
+        expect(component.find('[data-hook="google-footer"]').exists()).toEqual(
+          false,
+        );
       });
     });
 
     describe('is falsy', () => {
       it('should not show the powered by google footer', () => {
-        const component = createShallow({Client: GmapsTestClient});
-        expect(component.find('[data-hook="google-footer"]').exists()).toEqual(false);
+        const component = createShallow({ Client: GmapsTestClient });
+        expect(component.find('[data-hook="google-footer"]').exists()).toEqual(
+          false,
+        );
       });
     });
   });
 
   describe('User Interactions', () => {
-    const defaultSuggestions = [JSON.parse('{"description": "my address", "id": "my-id", "place_id": 123}')];
+    const defaultSuggestions = [
+      JSON.parse(
+        '{"description": "my address", "id": "my-id", "place_id": 123}',
+      ),
+    ];
 
     it('should specify autoSelect as default option', () => {
-      const component = createMount({Client: GmapsTestClient, countryCode: 'XX'});
-      expect(component.find('InputWithOptions').props().autoSelect).toEqual(true);
+      const component = createMount({
+        Client: GmapsTestClient,
+        countryCode: 'XX',
+      });
+      expect(component.find('InputWithOptions').props().autoSelect).toEqual(
+        true,
+      );
     });
 
     it('should allow to override autoSelect option', () => {
-      const component = createMount({Client: GmapsTestClient, countryCode: 'XX', autoSelect: false});
-      expect(component.find('InputWithOptions').props().autoSelect).toEqual(false);
+      const component = createMount({
+        Client: GmapsTestClient,
+        countryCode: 'XX',
+        autoSelect: false,
+      });
+      expect(component.find('InputWithOptions').props().autoSelect).toEqual(
+        false,
+      );
     });
 
     it('should allow focusing input', () => {
-      const component = createMount({Client: GmapsTestClient, countryCode: 'XX'});
+      const component = createMount({
+        Client: GmapsTestClient,
+        countryCode: 'XX',
+      });
       const input = component.find('input').instance();
       sinon.spy(input, 'focus');
       component.instance().focus();
@@ -154,146 +207,167 @@ describe('GoogleAddressInput', () => {
     });
 
     it('should allow selecting input', () => {
-      const component = createMount({Client: GmapsTestClient, countryCode: 'XX'});
+      const component = createMount({
+        Client: GmapsTestClient,
+        countryCode: 'XX',
+      });
       const input = component.find('input').instance();
       sinon.spy(input, 'select');
       component.instance().select();
       expect(input.select.calledOnce).toEqual(true);
     });
 
-    it('If user changes the value in the autocomplete box, request suggestions from google.maps', done => {
+    it('If user changes the value in the autocomplete box, request suggestions from google.maps', async () => {
+      const component = createShallow({
+        Client: GmapsTestClient,
+        countryCode: 'XX',
+      });
+      const event = { target: { value: 'Hatomer 49' } };
+      component
+        .find('InputWithOptions')
+        .props()
+        .onInput(event);
 
-      const component = createShallow({Client: GmapsTestClient, countryCode: 'XX'});
-      const event = {target: {value: 'Hatomer 49'}};
-      component.find('InputWithOptions').props().onInput(event);
-
-      // Defer to make sure all promises run
-      _.defer(() => {
-        try {
-          component.update();
-          expect(component.find('InputWithOptions').props().options).toEqual([
-            {id: 0, value: '{"components":"country:XX","input":"Hatomer 49"} - 1'},
-            {id: 1, value: '{"components":"country:XX","input":"Hatomer 49"} - 2'}
-          ]);
-          done();
-        } catch (e) {
-          done.fail(e);
-        }
+      await eventually(() => {
+        component.update();
+        expect(component.find('InputWithOptions').props().options).toEqual([
+          {
+            id: 0,
+            value: '{"components":"country:XX","input":"Hatomer 49"} - 1',
+          },
+          {
+            id: 1,
+            value: '{"components":"country:XX","input":"Hatomer 49"} - 2',
+          },
+        ]);
       });
     });
 
-    it('If user pressed <enter> with a suggested value, geocode the suggested value, and call the onSet callback  (with geocode handler)', done => {
-
-      const onSet = sinon.spy();
-
-      const component = createShallow({Client: GmapsTestClient, countryCode: 'XX', onSet});
-      component.setState({suggestions: defaultSuggestions});
-      component.find('InputWithOptions').props().onSelect({id: 0, value: 'my address'});
-
-      // Defer to make sure all promises run
-      _.defer(() => {
-        try {
-          expect(onSet.args[0][0]).toEqual(buildResult('my address'));
-          done();
-        } catch (e) {
-          done.fail(e);
-        }
-      });
-    });
-
-    it('If user pressed <enter> with a suggested value, geocode the suggested value, and call the onSet callback (with places handler)', done => {
-
+    it('If user pressed <enter> with a suggested value, geocode the suggested value, and call the onSet callback  (with geocode handler)', async () => {
       const onSet = sinon.spy();
 
       const component = createShallow({
         Client: GmapsTestClient,
         countryCode: 'XX',
         onSet,
-        handler: GoogleAddressInputHandler.places
       });
-      component.setState({suggestions: defaultSuggestions});
-      component.find('InputWithOptions').props().onSelect({id: 0, value: 'my address'});
+      component.setState({ suggestions: defaultSuggestions });
+      component
+        .find('InputWithOptions')
+        .props()
+        .onSelect({ id: 0, value: 'my address' });
 
-      // Defer to make sure all promises run
-      _.defer(() => {
-        try {
-          expect(onSet.args[0][0]).toEqual(buildResult('my address'));
-          done();
-        } catch (e) {
-          done.fail(e);
-        }
+      await eventually(() => {
+        expect(onSet.args[0][0]).toEqual(buildResult('my address'));
       });
     });
 
-    it('If user pressed <enter> with a value that is not on the suggestions list, try to suggest it and geocode if successful', done => {
+    it('If user pressed <enter> with a suggested value, geocode the suggested value, and call the onSet callback (with places handler)', async () => {
       const onSet = sinon.spy();
 
-      const component = createShallow({Client: GmapsTestClient, countryCode: 'XX', onSet});
-      component.setState({suggestions: defaultSuggestions});
-      component.find('InputWithOptions').props().onManuallyInput('my addr');
+      const component = createShallow({
+        Client: GmapsTestClient,
+        countryCode: 'XX',
+        onSet,
+        handler: GoogleAddressInputHandler.places,
+      });
+      component.setState({ suggestions: defaultSuggestions });
+      component
+        .find('InputWithOptions')
+        .props()
+        .onSelect({ id: 0, value: 'my address' });
 
-      // Defer to make sure all promises run
-      _.defer(() => {
-        try {
-          expect(onSet.called).toBeFalsy();
-          done();
-        } catch (e) {
-          done.fail(e);
-        }
+      await eventually(() => {
+        expect(onSet.args[0][0]).toEqual(buildResult('my address'));
       });
     });
 
-    it('If user pressed <enter> with a value that is not on the suggestions list, try to suggest it and return null if unsuccessful', done => {
+    it('If user pressed <enter> with a value that is not on the suggestions list, try to suggest it and geocode if successful', async () => {
       const onSet = sinon.spy();
-      const component = createShallow({Client: GmapsTestClient, countryCode: 'YY', onSet});
-      component.setState({suggestions: defaultSuggestions});
-      component.find('InputWithOptions').props().onManuallyInput('dontfind');
 
-      // Defer to make sure all promises run
-      _.defer(() => {
-        try {
-          expect(onSet.called).toBeFalsy();
-          done();
-        } catch (e) {
-          done.fail(e);
-        }
+      const component = createShallow({
+        Client: GmapsTestClient,
+        countryCode: 'XX',
+        onSet,
+      });
+      component.setState({ suggestions: defaultSuggestions });
+      component
+        .find('InputWithOptions')
+        .props()
+        .onManuallyInput('my addr');
+
+      await eventually(() => {
+        expect(onSet.called).toBeFalsy();
       });
     });
 
-    it('If user pressed <enter> and there is no value on the suggestions list and fallbackToManual is set to true, search for the value anyway', done => {
+    it('If user pressed <enter> with a value that is not on the suggestions list, try to suggest it and return null if unsuccessful', async () => {
       const onSet = sinon.spy();
-      const component = createShallow({Client: GmapsTestClient, countryCode: 'YY', onSet, fallbackToManual: true});
-      component.setState({suggestions: []});
-      component.find('InputWithOptions').props().onManuallyInput('dontfind');
+      const component = createShallow({
+        Client: GmapsTestClient,
+        countryCode: 'YY',
+        onSet,
+      });
+      component.setState({ suggestions: defaultSuggestions });
+      component
+        .find('InputWithOptions')
+        .props()
+        .onManuallyInput('dontfind');
 
-      // Defer to make sure all promises run
-      _.defer(() => {
-        try {
-          expect(onSet.args[0][0]).toEqual(buildResult('dontfind'));
-          done();
-        } catch (e) {
-          done.fail(e);
-        }
+      await eventually(() => {
+        expect(onSet.called).toBeFalsy();
+      });
+    });
+
+    it('If user pressed <enter> and there is no value on the suggestions list and fallbackToManual is set to true, search for the value anyway', async () => {
+      const onSet = sinon.spy();
+      const component = createShallow({
+        Client: GmapsTestClient,
+        countryCode: 'YY',
+        onSet,
+        fallbackToManual: true,
+      });
+      component.setState({ suggestions: [] });
+      component
+        .find('InputWithOptions')
+        .props()
+        .onManuallyInput('dontfind');
+
+      await eventually(() => {
+        expect(onSet.args[0][0]).toEqual(buildResult('dontfind'));
       });
     });
 
     it('clear suggestions on blur', () => {
       jest.useFakeTimers();
-      const component = createMount({Client: GmapsTestClient, countryCode: 'XX', clearSuggestionsOnBlur: true});
-      component.setState({suggestions: defaultSuggestions});
+      const component = createMount({
+        Client: GmapsTestClient,
+        countryCode: 'XX',
+        clearSuggestionsOnBlur: true,
+      });
+      component.setState({ suggestions: defaultSuggestions });
       component.find('input').simulate('blur');
       jest.runAllTimers();
       component.update();
       jest.useRealTimers();
-      expect(component.find(InputWithOptions).props().options.length).toEqual(0);
+      expect(component.find(InputWithOptions).props().options).toHaveLength(0);
     });
 
-    it('don\'t clear suggestions if clearSuggestionsOnBlur === false', done => {
-      const component = createShallow({Client: GmapsTestClient, countryCode: 'XX', clearSuggestionsOnBlur: false});
-      component.setState({suggestions: defaultSuggestions});
-      component.find('InputWithOptions').props().onBlur();
+    it("don't clear suggestions if clearSuggestionsOnBlur === false", done => {
+      const component = createShallow({
+        Client: GmapsTestClient,
+        countryCode: 'XX',
+        clearSuggestionsOnBlur: false,
+      });
+      component.setState({ suggestions: defaultSuggestions });
+      component
+        .find('InputWithOptions')
+        .props()
+        .onBlur();
       setTimeout(() => {
-        expect(component.find('InputWithOptions').props().options.length).toEqual(1);
+        expect(component.find('InputWithOptions').props().options).toHaveLength(
+          1,
+        );
         done();
       }, 300);
     });

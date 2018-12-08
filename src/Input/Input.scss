@@ -32,7 +32,7 @@ $material-gap: 8px;
   background: transparent;
   @include BorderRadius(6px);
   @include FontRoman();
-  @include Placeholder($paletteE6);
+  @include Placeholder(getTextColor($light: true, $secondary: true));
   @include Selection($paletteB4);
 
   &[type=number] {

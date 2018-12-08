@@ -1,8 +1,7 @@
 import React from 'react';
-import {oneOf, bool, string, any} from 'prop-types';
+import { oneOf, bool, string, any } from 'prop-types';
 import style from './Text.st.css';
 import deprecationLog from '../utils/deprecationLog';
-import omit from 'lodash/omit';
 
 /*
  * Temporary fix: SIZES, SKINS, WEIGHTS constants are copied here from constants.js
@@ -12,49 +11,60 @@ import omit from 'lodash/omit';
 export const SIZES = {
   tiny: 'tiny',
   small: 'small',
-  medium: 'medium'
+  medium: 'medium',
 };
 
 export const SKINS = {
   standard: 'standard',
   error: 'error',
   success: 'success',
-  premium: 'premium'
+  premium: 'premium',
 };
 
 export const WEIGHTS = {
   thin: 'thin',
   normal: 'normal',
-  bold: 'bold'
+  bold: 'bold',
 };
 
-const Text = ({size, secondary, skin, light, bold, weight, tagName, children, ...rest}) => {
+const Text = ({
+  size,
+  secondary,
+  skin,
+  light,
+  bold,
+  weight,
+  tagName,
+  children,
+  ...rest
+}) => {
   if (bold !== undefined) {
     deprecationLog('Text prop "bold" is deprecated, use "weight" prop instead');
   } else {
     bold = false;
   }
 
-  return (
-    React.createElement(
-      tagName,
-      {
-        ...omit(rest, ['dataHook']),
-        ...style(
-          'root',
-          {
-            size,
-            secondary,
-            skin,
-            light: light && skin === SKINS.standard,
-            weight,
-            bold
-          },
-          rest
-        )
-      },
-      children
-    )
+  /* eslint-disable no-unused-vars */
+  const { dataHook, ...textProps } = rest;
+
+  return React.createElement(
+    tagName,
+    {
+      ...textProps,
+      ...style(
+        'root',
+        {
+          size,
+          secondary,
+          skin,
+          light: light && skin === SKINS.standard,
+          weight,
+          bold,
+        },
+        rest,
+      ),
+    },
+    children,
   );
 };
 
@@ -86,7 +96,7 @@ Text.propTypes = {
   weight: oneOf(Object.keys(WEIGHTS)),
 
   /** is the text bold */
-  bold: bool
+  bold: bool,
 };
 
 Text.defaultProps = {
@@ -95,7 +105,7 @@ Text.defaultProps = {
   skin: SKINS.standard,
   light: false,
   weight: WEIGHTS.thin,
-  tagName: 'span'
+  tagName: 'span',
 };
 
 export default Text;

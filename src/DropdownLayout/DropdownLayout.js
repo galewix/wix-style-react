@@ -3,9 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import WixComponent from '../BaseComponents/WixComponent';
-import isEqual from 'lodash/isEqual';
-import trim from 'lodash/trim';
-import findIndex from 'lodash/findIndex';
+import scrollIntoView from '../utils/scrollIntoView';
 
 const modulu = (n, m) => {
   const remain = n % m;
@@ -16,13 +14,12 @@ const NOT_HOVERED_INDEX = -1;
 export const DIVIDER_OPTION_VALUE = '-';
 
 class DropdownLayout extends WixComponent {
-
   constructor(props) {
     super(props);
 
     this.state = {
       hovered: NOT_HOVERED_INDEX,
-      selectedId: props.selectedId
+      selectedId: props.selectedId,
     };
 
     this._onSelect = this._onSelect.bind(this);
@@ -33,26 +30,36 @@ class DropdownLayout extends WixComponent {
     this.onClickOutside = this.onClickOutside.bind(this);
   }
 
+  _isControlled() {
+    return (
+      typeof this.props.selectedId !== 'undefined' &&
+      typeof this.props.onSelect !== 'undefined'
+    );
+  }
+
   componentDidMount() {
     super.componentDidMount();
     if (this.props.focusOnSelectedOption) {
-      this.focusOnSelectedOption();
+      this._focusOnSelectedOption();
     }
   }
 
-  focusOnSelectedOption() {
+  _focusOnSelectedOption() {
     if (this.selectedOption) {
-      this.selectedOption.focus();
+      this.options.scrollTop = Math.max(
+        this.selectedOption.offsetTop - this.selectedOption.offsetHeight,
+        0,
+      );
     }
   }
 
-  setSelectedOptionNode(optionNode, option) {
+  _setSelectedOptionNode(optionNode, option) {
     if (option.id === this.state.selectedId) {
       this.selectedOption = optionNode;
     }
   }
 
-  isLegalOption(option) {
+  _isLegalOption(option) {
     if (typeof option !== 'object' || typeof option.value === 'undefined') {
       return false;
     }
@@ -61,69 +68,90 @@ class DropdownLayout extends WixComponent {
       return true;
     }
 
-    return typeof option.id !== 'undefined' && trim(option.id).length > 0 && (
-      React.isValidElement(option.value) ||
-      (typeof option.value === 'string' && trim(option.value).length > 0)
+    return (
+      typeof option.id !== 'undefined' &&
+      option.id.toString().trim().length > 0 &&
+      (React.isValidElement(option.value) ||
+        (typeof option.value === 'string' && option.value.trim().length > 0))
     );
   }
 
   onClickOutside(event) {
-    const {visible, onClickOutside} = this.props;
+    const { visible, onClickOutside } = this.props;
     if (visible && onClickOutside) {
       onClickOutside(event);
     }
   }
 
   _onSelect(index) {
-    const {options, onSelect} = this.props;
+    const { options, onSelect } = this.props;
     const chosenOption = options[index];
+    const newState = { hovered: NOT_HOVERED_INDEX };
 
     if (chosenOption) {
       const sameOptionWasPicked = chosenOption.id === this.state.selectedId;
-      this.setState({
-        selectedId: chosenOption.id,
-        hovered: NOT_HOVERED_INDEX
-      });
       if (onSelect) {
         onSelect(chosenOption, sameOptionWasPicked);
       }
-    } else {
-      this.setState({
-        selectedId: undefined,
-        hovered: NOT_HOVERED_INDEX
-      });
     }
+    if (!this._isControlled()) {
+      newState.selectedId = chosenOption && chosenOption.id;
+    }
+    this.setState(newState);
     return !!onSelect && chosenOption;
   }
 
   _onMouseEnter(index) {
-    if (this.isSelectableOption(this.props.options[index])) {
-      this.setState({hovered: index});
+    if (this._isSelectableOption(this.props.options[index])) {
+      this.setState({ hovered: index });
     }
   }
 
   _onMouseLeave() {
     this.setState({
-      hovered: NOT_HOVERED_INDEX
+      hovered: NOT_HOVERED_INDEX,
     });
   }
 
-  hoverNextStep(step) {
-    const {options} = this.props;
+  _getMarkedIndex() {
+    const { options } = this.props;
+    const useHoverIndex = this.state.hovered > NOT_HOVERED_INDEX;
+    const useSelectedIdIndex = typeof this.state.selectedId !== 'undefined';
 
-    if (!options.some(this.isSelectableOption)) {
+    let markedIndex;
+    if (useHoverIndex) {
+      markedIndex = this.state.hovered;
+    } else if (useSelectedIdIndex) {
+      markedIndex = options.findIndex(
+        option => option.id === this.state.selectedId,
+      );
+    } else {
+      markedIndex = NOT_HOVERED_INDEX;
+    }
+
+    return markedIndex;
+  }
+
+  _markNextStep(step) {
+    const { options } = this.props;
+
+    if (!options.some(this._isSelectableOption)) {
       return;
     }
 
-    let newHovered = this.state.hovered;
+    let markedIndex = this._getMarkedIndex();
+
     do {
-      newHovered = Math.abs(modulu(Math.max(newHovered + step, -1), options.length));
-    } while (!this.isSelectableOption(options[newHovered]));
+      markedIndex = Math.abs(
+        modulu(Math.max(markedIndex + step, -1), options.length),
+      );
+    } while (!this._isSelectableOption(options[markedIndex]));
+    this.setState({ hovered: markedIndex });
 
-    this.setState({hovered: newHovered});
+    const menuElement = this.options;
+    const hoveredElement = this.options.childNodes[markedIndex];
 
-    const hoveredElement = this.options.childNodes[newHovered];
-    hoveredElement.focus();
+    scrollIntoView(menuElement, hoveredElement);
   }
 
   /**
@@ -139,12 +167,12 @@ class DropdownLayout extends WixComponent {
 
     switch (event.key) {
       case 'ArrowDown': {
-        this.hoverNextStep(1);
+        this._markNextStep(1);
         break;
       }
 
       case 'ArrowUp': {
-        this.hoverNextStep(-1);
+        this._markNextStep(-1);
         break;
       }
 
@@ -186,7 +214,7 @@ class DropdownLayout extends WixComponent {
 
   _onClose() {
     this.setState({
-      hovered: NOT_HOVERED_INDEX
+      hovered: NOT_HOVERED_INDEX,
     });
 
     if (this.props.onClose) {
@@ -194,46 +222,75 @@ class DropdownLayout extends WixComponent {
     }
   }
 
-  renderNode(node) {
+  _renderNode(node) {
     return node ? <div className={styles.node}>{node}</div> : null;
   }
 
   render() {
-    const {options, visible, dropDirectionUp, tabIndex, fixedHeader, fixedFooter, withArrow, onMouseEnter, onMouseLeave, inContainer} = this.props;
+    const {
+      options,
+      visible,
+      dropDirectionUp,
+      tabIndex,
+      fixedHeader,
+      fixedFooter,
+      withArrow,
+      onMouseEnter,
+      onMouseLeave,
+      inContainer,
+    } = this.props;
     const contentContainerClassName = classNames({
       [styles.contentContainer]: true,
       [styles.shown]: visible,
       [styles.up]: dropDirectionUp,
       [styles.down]: !dropDirectionUp,
       [styles.withArrow]: withArrow,
-      [styles.containerStyles]: !inContainer
+      [styles.containerStyles]: !inContainer,
     });
 
     return (
-      <div tabIndex={tabIndex} className={classNames(styles.wrapper, styles[`theme-${this.props.theme}`])} onKeyDown={this._onKeyDown} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        <div className={contentContainerClassName} style={{maxHeight: this.props.maxHeightPixels + 'px', minWidth: this.props.minWidthPixels ? `${this.props.minWidthPixels}px` : undefined}}>
-          {this.renderNode(fixedHeader)}
-          <div className={styles.options} style={{maxHeight: this.props.maxHeightPixels - 35 + 'px'}} ref={options => this.options = options} data-hook="dropdown-layout-options">
-            {options.map((option, idx) => (
-              this.renderOption({option, idx})
-            ))}
+      <div
+        tabIndex={tabIndex}
+        className={classNames(
+          styles.wrapper,
+          styles[`theme-${this.props.theme}`],
+        )}
+        onKeyDown={this._onKeyDown}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <div
+          className={contentContainerClassName}
+          style={{
+            maxHeight: this.props.maxHeightPixels + 'px',
+            minWidth: this.props.minWidthPixels
+              ? `${this.props.minWidthPixels}px`
+              : undefined,
+          }}
+        >
+          {this._renderNode(fixedHeader)}
+          <div
+            className={styles.options}
+            style={{ maxHeight: this.props.maxHeightPixels - 35 + 'px' }}
+            ref={options => (this.options = options)}
+            data-hook="dropdown-layout-options"
+          >
+            {options.map((option, idx) => this._renderOption({ option, idx }))}
           </div>
-          {this.renderNode(fixedFooter)}
+          {this._renderNode(fixedFooter)}
         </div>
-        {this.renderTopArrow()}
+        {this._renderTopArrow()}
       </div>
     );
   }
 
-  renderOption({option, idx}) {
-    const {value, id, disabled, title, overrideStyle, linkTo} = option;
+  _renderOption({ option, idx }) {
+    const { value, id, disabled, title, overrideStyle, linkTo } = option;
     if (value === DIVIDER_OPTION_VALUE) {
-      return this.renderDivider(idx, `dropdown-divider-${id || idx}`);
+      return this._renderDivider(idx, `dropdown-divider-${id || idx}`);
     }
 
-    const tabIndex = idx === this.state.hovered ? 0 : -1;
-
-    const content = this.renderItem({
+    const content = this._renderItem({
       option,
       idx,
       selected: id === this.state.selectedId,
@@ -242,20 +299,32 @@ class DropdownLayout extends WixComponent {
       title,
       overrideStyle,
       dataHook: `dropdown-item-${id}`,
-      tabIndex
     });
 
     return linkTo ? (
-      <a key={idx} data-hook="link-item" href={linkTo} tabIndex={tabIndex}>{content}</a>
-    ) : content;
+      <a key={idx} data-hook="link-item" href={linkTo}>
+        {content}
+      </a>
+    ) : (
+      content
+    );
   }
 
-  renderDivider(idx, dataHook) {
-    return (<div key={idx} className={styles.divider} data-hook={dataHook}/>);
+  _renderDivider(idx, dataHook) {
+    return <div key={idx} className={styles.divider} data-hook={dataHook} />;
   }
 
-  renderItem({option, idx, selected, hovered, disabled, title, overrideStyle, dataHook, tabIndex}) {
-    const {itemHeight, selectedHighlight} = this.props;
+  _renderItem({
+    option,
+    idx,
+    selected,
+    hovered,
+    disabled,
+    title,
+    overrideStyle,
+    dataHook,
+  }) {
+    const { itemHeight, selectedHighlight } = this.props;
 
     const optionClassName = classNames({
       [styles.option]: !overrideStyle,
@@ -266,63 +335,71 @@ class DropdownLayout extends WixComponent {
       [styles.disabled]: disabled,
       [styles.title]: title,
       [styles.smallHeight]: itemHeight === 'small',
-      [styles.bigHeight]: itemHeight === 'big'
+      [styles.bigHeight]: itemHeight === 'big',
     });
 
     return (
       <div
         className={optionClassName}
-        ref={node => this.setSelectedOptionNode(node, option)}
+        ref={node => this._setSelectedOptionNode(node, option)}
         onMouseDown={!disabled ? () => this._onSelect(idx) : null}
         key={idx}
         onMouseEnter={() => this._onMouseEnter(idx)}
         onMouseLeave={this._onMouseLeave}
         data-hook={dataHook}
-        tabIndex={tabIndex}
-        >
+      >
         {option.value}
       </div>
     );
   }
 
-  renderTopArrow() {
-    const {withArrow, visible, dropDirectionUp} = this.props;
+  _renderTopArrow() {
+    const { withArrow, visible, dropDirectionUp } = this.props;
     const arrowClassName = classNames({
       [styles.arrow]: true,
       [styles.up]: dropDirectionUp,
-      [styles.down]: !dropDirectionUp
+      [styles.down]: !dropDirectionUp,
     });
-    return withArrow && visible ? <div className={arrowClassName}/> : null;
+    return withArrow && visible ? <div className={arrowClassName} /> : null;
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.visible !== nextProps.visible) {
-      let hoverIndex;
-      if (nextProps.visible) {
-        hoverIndex = findIndex(this.props.options, item => item.id === this.state.selectedId);
-      }
-      this.setState({hovered: hoverIndex || NOT_HOVERED_INDEX});
+      this.setState({ hovered: NOT_HOVERED_INDEX });
     }
 
     if (this.props.selectedId !== nextProps.selectedId) {
-      this.setState({selectedId: nextProps.selectedId});
+      this.setState({ selectedId: nextProps.selectedId });
     }
 
-    if (!isEqual(this.props.options, nextProps.options)) {
-      if (nextProps.options.some(option => !this.isLegalOption(option))) {
-        throw new Error(`DropdownLayout: Invalid options provided: ${nextProps.options}`);
-      }
+    if (nextProps.options.some(option => !this._isLegalOption(option))) {
+      throw new Error(
+        `DropdownLayout: Invalid options provided: ${nextProps.options}`,
+      );
+    }
 
-      if (this.state.hovered !== NOT_HOVERED_INDEX) {
-        this.setState({
-          hovered: findIndex(nextProps.options, item => item.id === this.props.options[this.state.hovered].id)
-        });
-      }
+    // make sure the same item is hovered if options changed
+    if (
+      this.state.hovered !== NOT_HOVERED_INDEX &&
+      (!nextProps.options[this.state.hovered] ||
+        this.props.options[this.state.hovered].id !==
+          nextProps.options[this.state.hovered].id)
+    ) {
+      this.setState({
+        hovered: this.findIndex(
+          nextProps.options,
+          item => item.id === this.props.options[this.state.hovered].id,
+        ),
+      });
     }
   }
 
-  isSelectableOption(option) {
-    return option.value !== '-' && !option.disabled && !option.title;
+  findIndex(arr, predicate) {
+    return (Array.isArray(arr) ? arr : []).findIndex(predicate);
+  }
+
+  _isSelectableOption(option) {
+    return option && option.value !== '-' && !option.disabled && !option.title;
   }
 }
 
@@ -334,30 +411,25 @@ DropdownLayout.propTypes = {
   onSelect: PropTypes.func,
   visible: PropTypes.bool,
   /** Array of objects. Objects must have an Id and can can include value and node. If value is '-', a divider will be rendered instead  (dividers do not require and id). */
-  options: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.shape({
-      id: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-      ]).isRequired,
-      value: PropTypes.oneOfType([
-        PropTypes.node,
-        PropTypes.string
-      ]).isRequired,
-      disabled: PropTypes.bool,
-      overrideStyle: PropTypes.bool
-    }),
+  options: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          .isRequired,
+        value: PropTypes.oneOfType([PropTypes.node, PropTypes.string])
+          .isRequired,
+        disabled: PropTypes.bool,
+        overrideStyle: PropTypes.bool,
+      }),
 
-    // A divider option without an id
-    PropTypes.shape({
-      value: PropTypes.oneOf([DIVIDER_OPTION_VALUE])
-    })
-  ])),
+      // A divider option without an id
+      PropTypes.shape({
+        value: PropTypes.oneOf([DIVIDER_OPTION_VALUE]),
+      }),
+    ]),
+  ),
   /** The id of the selected option in the list  */
-  selectedId: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]),
+  selectedId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   tabIndex: PropTypes.number,
   theme: PropTypes.string,
   onClickOutside: PropTypes.func,
@@ -373,18 +445,17 @@ DropdownLayout.propTypes = {
   onMouseLeave: PropTypes.func,
   itemHeight: PropTypes.oneOf(['small', 'big']),
   selectedHighlight: PropTypes.bool,
-  inContainer: PropTypes.bool
+  inContainer: PropTypes.bool,
 };
 
 DropdownLayout.defaultProps = {
   options: [],
   tabIndex: 0,
-  selectedId: NOT_HOVERED_INDEX,
   maxHeightPixels: 260,
   closeOnSelect: true,
   itemHeight: 'small',
   selectedHighlight: true,
-  inContainer: false
+  inContainer: false,
 };
 
 DropdownLayout.NONE_SELECTED_ID = NOT_HOVERED_INDEX;

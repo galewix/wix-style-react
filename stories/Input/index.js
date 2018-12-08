@@ -1,5 +1,5 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 import Markdown from 'wix-storybook-utils/Markdown';
 import AutoDocs from 'wix-storybook-utils/AutoDocs';
 import TabbedView from 'wix-storybook-utils/TabbedView';
@@ -14,27 +14,28 @@ import Examples from './Examples';
 import ExamplePaneltitleStyle from './ExamplePaneltitleStyle';
 import ExamplePaneltitleStyleRaw from '!raw-loader!./ExamplePaneltitleStyle';
 
-storiesOf('3. Inputs', module)
-  .add('3.1 + Input', () => (
-    <TabbedView tabs={['API', 'Themes', 'Testkit']}>
-      <div>
-        <AutoDocs source={InputSource}/>
-        <Markdown source={Readme}/>
+import { storySettings } from './storySettings';
 
-        <h1>Usage examples</h1>
-        <Examples/>
-      </div>
+storiesOf(storySettings.category, module).add(storySettings.storyName, () => (
+  <TabbedView tabs={['API', 'Themes', 'Testkit']}>
+    <div>
+      <AutoDocs source={InputSource} />
+      <Markdown source={Readme} />
 
-      <TabbedView tabs={['normal', 'material', 'amaterial', 'paneltitle']}>
-        <Examples theme="normal"/>
-        <Examples theme="material"/>
-        <Examples theme="amaterial"/>
+      <h1>Usage examples</h1>
+      <Examples />
+    </div>
 
-        <CodeExample title="PaneltitleStyle" code={ExamplePaneltitleStyleRaw}>
-          <ExamplePaneltitleStyle/>
-        </CodeExample>
-      </TabbedView>
+    <TabbedView tabs={['normal', 'material', 'amaterial', 'paneltitle']}>
+      <Examples theme="normal" />
+      <Examples theme="material" />
+      <Examples theme="amaterial" />
 
-      <Markdown source={ReadmeTestkit}/>
+      <CodeExample title="PaneltitleStyle" code={ExamplePaneltitleStyleRaw}>
+        <ExamplePaneltitleStyle />
+      </CodeExample>
     </TabbedView>
-  ));
+
+    <Markdown source={ReadmeTestkit} />
+  </TabbedView>
+));

@@ -1,1 +1,1 @@
-export {default} from './TimeInput.js';
+export { default } from './TimeInput.js';

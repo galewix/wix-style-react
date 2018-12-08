@@ -18,8 +18,10 @@ class InputHelpSuffix extends React.Component {
         hideDelay={100}
         content={this.props.helpMessage}
         overlay=""
-        >
-        <div className={styles.help}><InfoCircle/></div>
+      >
+        <div className={styles.help}>
+          <InfoCircle />
+        </div>
       </Tooltip>
     );
   }
@@ -28,8 +30,7 @@ class InputHelpSuffix extends React.Component {
 InputHelpSuffix.propTypes = {
   theme: PropTypes.oneOf(['normal', 'paneltitle', 'material', 'amaterial']),
   helpMessage: PropTypes.string.isRequired,
-  help: PropTypes.bool
+  help: PropTypes.bool,
 };
-
 
 export default InputHelpSuffix;

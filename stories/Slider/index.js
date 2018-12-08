@@ -1,5 +1,5 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 import AutoDocs from 'wix-storybook-utils/AutoDocs';
 import CodeExample from 'wix-storybook-utils/CodeExample';
 
@@ -13,23 +13,22 @@ import ExampleControlledRaw from '!raw-loader!./ExampleControlled';
 import ExampleRtl from './ExampleRtl';
 import ExampleRtlRaw from '!raw-loader!./ExampleRtl';
 
-storiesOf('4. Selection', module)
-  .add('4.7 Slider', () => (
-    <div>
-      <AutoDocs source={SliderSource}/>
+storiesOf('4. Selection', module).add('4.7 Slider', () => (
+  <div>
+    <AutoDocs source={SliderSource} />
 
-      <h1>Usage examples</h1>
+    <h1>Usage examples</h1>
 
-      <CodeExample title="Standard" code={ExampleStandardRaw}>
-        <ExampleStandard/>
-      </CodeExample>
+    <CodeExample title="Standard" code={ExampleStandardRaw}>
+      <ExampleStandard />
+    </CodeExample>
 
-      <CodeExample title="Standard RTL" code={ExampleRtlRaw}>
-        <ExampleRtl/>
-      </CodeExample>
+    <CodeExample title="Standard RTL" code={ExampleRtlRaw}>
+      <ExampleRtl />
+    </CodeExample>
 
-      <CodeExample title="Controlled input" code={ExampleControlledRaw}>
-        <ExampleControlled/>
-      </CodeExample>
-    </div>
-  ));
+    <CodeExample title="Controlled input" code={ExampleControlledRaw}>
+      <ExampleControlled />
+    </CodeExample>
+  </div>
+));

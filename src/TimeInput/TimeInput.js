@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isUndefined from 'lodash/isUndefined';
 import classNames from 'classnames';
@@ -8,10 +8,10 @@ import Input from '../Input';
 import styles from './TimeInput.scss';
 
 /**
-  * An uncontrolled time input component with a stepper and am/pm support
-  */
-export default class extends Component {
-  static displayName = 'TimePicker'
+ * An uncontrolled time input component with a stepper and am/pm support
+ */
+export default class TimePicker extends Component {
+  static displayName = 'TimePicker';
 
   static propTypes = {
     /** Should time be shown as "--:--" when disabled */
@@ -33,8 +33,8 @@ export default class extends Component {
     /** Display in RTL  */
     rtl: PropTypes.bool,
 
-    style: PropTypes.object
-  }
+    style: PropTypes.object,
+  };
 
   static defaultProps = {
     defaultValue: moment(),
@@ -42,8 +42,8 @@ export default class extends Component {
     style: {},
     disableAmPm: false,
     disabled: false,
-    dashesWhenDisabled: false
-  }
+    dashesWhenDisabled: false,
+  };
 
   constructor(props) {
     super(props);
@@ -52,7 +52,7 @@ export default class extends Component {
       focus: false,
       lastCaretIdx: 0,
       hover: false,
-      ...this.getInitTime(this.props.defaultValue)
+      ...this.getInitTime(this.props.defaultValue),
     };
   }
 
@@ -63,7 +63,12 @@ export default class extends Component {
   }
 
   isAmPmMode() {
-    return !this.props.disableAmPm && moment('2016-04-03 13:14:00').format('LT').indexOf('PM') !== -1;
+    return (
+      !this.props.disableAmPm &&
+      moment('2016-04-03 13:14:00')
+        .format('LT')
+        .indexOf('PM') !== -1
+    );
   }
 
   getInitTime(value) {
@@ -72,20 +77,20 @@ export default class extends Component {
 
     const ampmMode = this.isAmPmMode();
 
-    ({time, am} = this.normalizeTime(am, time, ampmMode));
+    ({ time, am } = this.normalizeTime(am, time, ampmMode));
     const text = this.formatTime(time, ampmMode);
 
-    return {time, am, text, ampmMode};
+    return { time, am, text, ampmMode };
   }
 
   momentizeState(timeSet) {
     let time, am;
-    const {ampmMode} = this.state;
+    const { ampmMode } = this.state;
 
     if (timeSet) {
-      ({time, am} = timeSet);
+      ({ time, am } = timeSet);
     } else {
-      ({time, am} = this.state);
+      ({ time, am } = this.state);
     }
 
     let hours = time.hours();
@@ -116,7 +121,7 @@ export default class extends Component {
     const amount = timeUnit === 'hours' ? 1 : 20;
     time.add(direction * amount, timeUnit);
     const am = time.hours() < 12;
-    this.updateDate({am, time});
+    this.updateDate({ am, time });
   }
 
   formatTime(time, ampmMode = this.state.ampmMode) {
@@ -134,38 +139,37 @@ export default class extends Component {
 
     if (ampmMode) {
       if (hours === 0) {
-        return {time: time.clone().hours(12), am: true};
+        return { time: time.clone().hours(12), am: true };
       }
 
       if (hours > 12) {
-        return {time: time.clone().hours(hours - 12), am: false};
+        return { time: time.clone().hours(hours - 12), am: false };
       }
     }
 
-    return {time: time.clone().hours(hours), am};
+    return { time: time.clone().hours(hours), am };
   }
 
-  updateDate({time, am}) {
+  updateDate({ time, am }) {
     am = isUndefined(am) ? this.state.am : am;
     let newTime = moment(time, 'HH:mm');
     newTime = newTime.isValid() ? newTime : this.state.time;
     const normalizedTime = this.normalizeTime(am, newTime);
-    ({time, am} = normalizedTime);
+    ({ time, am } = normalizedTime);
     const text = this.formatTime(time);
-    this.setState({time, am, text});
-    this.bubbleOnChange({time, am});
+    this.setState({ time, am, text });
+    this.bubbleOnChange({ time, am });
   }
 
   handleAmPmClick = () =>
-    !this.props.disabled && this.updateDate({am: !this.state.am})
+    !this.props.disabled && this.updateDate({ am: !this.state.am });
 
-  handleFocus = input =>
-    this.setState({focus: true, lastFocus: input})
+  handleFocus = input => this.setState({ focus: true, lastFocus: input });
 
   handleBlur = () => {
-    this.setState({focus: false});
-    this.updateDate({time: this.state.text});
-  }
+    this.setState({ focus: false });
+    this.updateDate({ time: this.state.text });
+  };
 
   handleInputChange = e => {
     // thats why cursor is jumping
@@ -177,20 +181,17 @@ export default class extends Component {
       return;
     }
     return this.setState({
-      text: e.target.value
+      text: e.target.value,
     });
-  }
+  };
 
-  handleHover = hover =>
-    this.setState({hover})
+  handleHover = hover => this.setState({ hover });
 
-  handleMinus = () =>
-    this.timeStep(-1)
+  handleMinus = () => this.timeStep(-1);
 
-  handlePlus = () =>
-    this.timeStep(1)
+  handlePlus = () => this.timeStep(1);
 
-  handleInputBlur = ({target}) => {
+  handleInputBlur = ({ target }) => {
     if (this.props.disabled && this.props.dashesWhenDisabled) {
       return;
     }
@@ -202,30 +203,33 @@ export default class extends Component {
       lastFocusedTimeUnit = this.getFocusedTimeUnit(caretIdx, target.value);
     }
 
-    this.setState({lastCaretIdx: caretIdx, lastFocusedTimeUnit});
-    this.updateDate({time: target.value});
-  }
+    this.setState({ lastCaretIdx: caretIdx, lastFocusedTimeUnit });
+    this.updateDate({ time: target.value });
+  };
 
   renderTimeTextbox() {
-    const text = this.props.disabled && this.props.dashesWhenDisabled ? '-- : --' : this.state.text;
+    const text =
+      this.props.disabled && this.props.dashesWhenDisabled
+        ? '-- : --'
+        : this.state.text;
 
     const suffix = (
       <Input.Group>
-        {this.state.ampmMode &&
+        {this.state.ampmMode && (
           <span
             className={styles.ampm}
             onClick={this.handleAmPmClick}
             data-hook="am-pm-indicator"
-            >
+          >
             {this.state.am ? 'am' : 'pm'}
           </span>
-        }
+        )}
         <Input.Ticker
           upDisabled={this.props.disabled}
           downDisabled={this.props.disabled}
           onUp={this.handlePlus}
           onDown={this.handleMinus}
-          />
+        />
       </Input.Group>
     );
 
@@ -240,32 +244,32 @@ export default class extends Component {
           suffix={suffix}
           dataHook="time-input"
           disabled={this.props.disabled}
-          />
+        />
       </div>
     );
   }
 
   render() {
-    const {style, dataHook, rtl, disabled} = this.props;
-    const {focus, hover} = this.state;
+    const { style, dataHook, rtl, disabled } = this.props;
+    const { focus, hover } = this.state;
 
     return (
       <div
         className={classNames(styles.wrapper, {
-          [styles.disabled]: disabled
+          [styles.disabled]: disabled,
         })}
         style={style}
         data-hook={dataHook}
-        >
+      >
         <div
           onMouseOver={() => this.handleHover(true)}
           onMouseOut={() => this.handleHover(false)}
           className={classNames(styles.time, {
             focus,
             hover: hover && !focus,
-            rtl
+            rtl,
           })}
-          >
+        >
           {this.renderTimeTextbox()}
         </div>
       </div>

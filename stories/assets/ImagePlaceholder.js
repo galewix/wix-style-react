@@ -6,7 +6,7 @@ export default () => (
       height: 120,
       width: 120,
       backgroundColor: '#dfe5eb',
-      borderRadius: '50%'
+      borderRadius: '50%',
     }}
-    />
+  />
 );

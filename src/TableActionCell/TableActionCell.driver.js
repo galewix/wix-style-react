@@ -1,33 +1,42 @@
 import popoverMenuDriverFactory from '../PopoverMenu/PopoverMenu.driver';
 import tooltipDriverFactory from '../Tooltip/Tooltip.driver';
 import buttonDriverFactory from '../Backoffice/Button/Button.driver.js';
-import {INTERNAL_DRIVER_SYMBOL} from '../../test/utils/private-drivers';
+import { INTERNAL_DRIVER_SYMBOL } from '../../test/utils/private-drivers';
 
-const tableActionCellDriverFactory = ({element}) => {
-  const getPrimaryActionPlaceholder = () => element.querySelector('[data-hook="table-action-cell-placeholder"]');
-  const getVisibleActionsWrapper = () => element.querySelector('[data-hook="table-action-cell-visible-actions"]');
+const tableActionCellDriverFactory = ({ element }) => {
+  const getPrimaryActionPlaceholder = () =>
+    element.querySelector('[data-hook="table-action-cell-placeholder"]');
+  const getVisibleActionsWrapper = () =>
+    element.querySelector('[data-hook="table-action-cell-visible-actions"]');
 
   const getPrimaryActionButtonDriver = () =>
     buttonDriverFactory({
-      element: element.querySelector('[data-hook="table-action-cell-primary-action"] button')
+      element: element.querySelector(
+        '[data-hook="table-action-cell-primary-action"] button',
+      ),
     });
 
   const getVisibleActionTooltipDriver = actionIndex =>
     tooltipDriverFactory({
-      element: getVisibleActionsWrapper()
-      .querySelectorAll('[data-hook="table-action-cell-visible-action-tooltip"]')[actionIndex]
+      element: getVisibleActionsWrapper().querySelectorAll(
+        '[data-hook="table-action-cell-visible-action-tooltip"]',
+      )[actionIndex],
     });
 
   const getVisibleActionButtonDriver = actionIndex =>
     buttonDriverFactory({
-      element: getVisibleActionsWrapper().querySelectorAll('button')[actionIndex]
+      element: getVisibleActionsWrapper().querySelectorAll('button')[
+        actionIndex
+      ],
     });
 
   const getHiddenActionsPopoverMenuDriver = () =>
     popoverMenuDriverFactory({
-      element: element
-      .querySelector('[data-hook="table-action-cell-popover-menu"]')
-    }).init.menuItemDataHook('table-action-cell-popover-menu-item')
+      element: element.querySelector(
+        '[data-hook="table-action-cell-popover-menu"]',
+      ),
+    })
+      .init.menuItemDataHook('table-action-cell-popover-menu-item')
       .init.parentElement(element);
 
   return {
@@ -42,7 +51,8 @@ const tableActionCellDriverFactory = ({element}) => {
     /** Get the number of the visible secondary actions */
     getVisibleActionsCount: () => getVisibleActionsWrapper().childElementCount,
     /** Get the number of hidden secondary actions (in the <PopoverMenu/>, requires it to be open) */
-    getHiddenActionsCount: () => getHiddenActionsPopoverMenuDriver().menu.itemsLength(),
+    getHiddenActionsCount: () =>
+      getHiddenActionsPopoverMenuDriver().menu.itemsLength(),
     /** Get the driver of a specific visible secondary action <Tooltip/> */
     getVisibleActionTooltipDriver,
     /** Get the driver of a specific visible secondary action <Button/> */
@@ -50,19 +60,20 @@ const tableActionCellDriverFactory = ({element}) => {
     /** Get the driver of the hidden secondary action <PopoverMenu/> */
     getHiddenActionsPopoverMenuDriver,
     /** Click an a visible secondary action */
-    clickVisibleAction: actionIndex => getVisibleActionButtonDriver(actionIndex).click(),
+    clickVisibleAction: actionIndex =>
+      getVisibleActionButtonDriver(actionIndex).click(),
     /** Click on the hidden secondary actions <PopoverMenu/> */
     clickPopoverMenu: () => getHiddenActionsPopoverMenuDriver().click(),
     /** Click on a hidden secondary action (requires the <PopoverMenu/> to be open) */
-    clickHiddenAction: actionIndex => getHiddenActionsPopoverMenuDriver().menu.clickItemAt(actionIndex),
+    clickHiddenAction: actionIndex =>
+      getHiddenActionsPopoverMenuDriver().menu.clickItemAt(actionIndex),
 
     /* Private driver */
     [INTERNAL_DRIVER_SYMBOL]: {
       /** Whether the primary action placeholder exists */
-      primaryActionPlaceholderExists: () => !!getPrimaryActionPlaceholder()
-    }
+      primaryActionPlaceholderExists: () => !!getPrimaryActionPlaceholder(),
+    },
   };
 };
 
 export default tableActionCellDriverFactory;
-

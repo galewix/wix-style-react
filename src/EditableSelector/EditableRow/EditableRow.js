@@ -12,13 +12,13 @@ class EditableRow extends WixComponent {
   static propTypes = {
     newOption: PropTypes.string,
     onApprove: PropTypes.func,
-    onCancel: PropTypes.func
+    onCancel: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      newOption: props.newOption || ''
+      newOption: props.newOption || '',
     };
   }
 
@@ -40,38 +40,41 @@ class EditableRow extends WixComponent {
       <div data-hook="edit-row-wrapper" className={styles.editableRowContainer}>
         <div className={styles.editableRowInputWrap}>
           <Input
-            ref={input => this.input = input}
+            ref={input => (this.input = input)}
             className={styles.editableRowInput}
             dataHook="edit-row-input"
             value={this.state.newOption}
-            onChange={event => this.setState({newOption: event.target.value})}
+            onChange={event => this.setState({ newOption: event.target.value })}
             onEnterPressed={() => this.onApprove()}
             onEscapePressed={() => this.onCancel()}
             size="normal"
             textOverflow="clip"
             theme="normal"
             width="initial"
-            />
+          />
         </div>
 
         <div className={styles.editableRowButtons}>
-          <Tooltip
-            content="Cancel"
-            shouldCloseOnClickOutside
-            theme="dark"
+          <Tooltip content="Cancel" shouldCloseOnClickOutside theme="dark">
+            <Button
+              onClick={() => this.onCancel()}
+              height="medium"
+              theme="icon-standardsecondary"
+              dataHook="edit-row-cancel-button"
             >
-            <Button onClick={() => this.onCancel()} height="medium" theme="icon-standardsecondary" dataHook="edit-row-cancel-button">
-              <X/>
+              <X />
             </Button>
           </Tooltip>
 
-          <Tooltip
-            content="Confirm"
-            shouldCloseOnClickOutside
-            theme="dark"
+          <Tooltip content="Confirm" shouldCloseOnClickOutside theme="dark">
+            <Button
+              onClick={() => this.onApprove()}
+              height="medium"
+              theme="icon-standard"
+              disabled={this.state.newOption.length === 0}
+              dataHook="edit-row-approve-button"
             >
-            <Button onClick={() => this.onApprove()} height="medium" theme="icon-standard" disabled={this.state.newOption.length === 0} dataHook="edit-row-approve-button">
-              <Check/>
+              <Check />
             </Button>
           </Tooltip>
         </div>

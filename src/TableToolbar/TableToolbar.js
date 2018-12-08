@@ -1,19 +1,15 @@
 import React from 'react';
-import {node} from 'prop-types';
-import {Toolbar, ItemGroup, Item, Label, Divider} from './Toolbar';
+import { node } from 'prop-types';
+import { Toolbar, ItemGroup, Item, Label, Divider } from './Toolbar';
 import Heading from '../Heading';
 import Text from '../Text';
 
 export const Title = props => {
-  return (
-    <Heading appearance="H3">
-      {props.children}
-    </Heading>
-  );
+  return <Heading appearance="H3">{props.children}</Heading>;
 };
 Title.displayName = 'TableToolbar.Title';
 Title.propTypes = {
-  children: node
+  children: node,
 };
 
 export const SelectedCount = props => {
@@ -25,7 +21,7 @@ export const SelectedCount = props => {
 };
 SelectedCount.displayName = 'TableToolbar.SelectedCount';
 SelectedCount.propTypes = {
-  children: node
+  children: node,
 };
 
 export const TableToolbar = Toolbar;

@@ -1,14 +1,21 @@
 {
   "name": "wix-style-react",
   "description": "wix-style-react",
-  "version": "5.6.1",
+  "version": "5.15.1",
   "main": "./dist/src/index.js",
+  "module": "./dist/es/src/index.js",
+  "sideEffects": [
+    "./.storybook/**/*.*",
+    "./stories/**/*.*",
+    "./src/**/*.scss"
+  ],
   "files": [
     "dist",
     "src",
     "scripts",
     ".babelrc",
     "testkit",
+    "es",
     "new-icons",
     "*.scss",
     "*.js"
@@ -28,18 +35,14 @@
     "copy-public-styles": "cp src/*.scss .",
     "build": "npm run lint && npm run proxy-wix-ui-icons && npm run copy-public-styles && yoshi build && npm run storybook:build && npm run export-components",
     "pr-postbuild": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
-    "storybook:build": "build-storybook -c ./.storybook/config",
-    "storybook": "start-storybook -p 6006 -c ./.storybook/config",
-    "storybook:offline": "start-storybook -p 6006  -c ./.storybook/config-offline -s ./node_modules/react/dist,./node_modules/react-dom/dist",
+    "storybook:build": "build-storybook",
+    "storybook": "start-storybook -p 6006",
     "postpublish": "npm install teamcity-surge-autorelease@^1.0.0 --no-save && teamcity-surge-autorelease",
     "export-components": "import-path --path src",
     "lint": "yoshi lint",
     "proxy-wix-ui-icons": "node scripts/proxy-wix-ui-icons"
   },
   "yoshi": {
-    "features": {
-      "addStoriesToBaseGlob": true
-    },
     "entry": {
       "app": "index.js"
     },
@@ -76,7 +79,6 @@
     "babel-preset-react": "*",
     "babel-preset-stage-2": "*",
     "concurrently": "^3.4.0",
-    "copy-to-clipboard": "^3.0.5",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "eslint-plugin-react": "^6.8.0",
@@ -87,6 +89,7 @@
     "highlight.js": "^9.8.0",
     "identity-obj-proxy": "^3.0.0",
     "import-path": "^1.0.0",
+    "protractor": "^5.4.1",
     "protractor-browser-logs": "^1.0.351",
     "query-string": "^6.1.0",
     "react": "^15.5.4",
@@ -96,11 +99,13 @@
     "react-element-to-jsx-string": "^13.0.0",
     "react-test-renderer": "^15.5.4",
     "react-test-utils": "^0.0.1",
+    "react-testing-library": "^5.3.1",
     "regenerator-runtime": "^0.11.0",
     "sinon": "^1.17.6",
     "wait-for-cond": "^1.0.3",
-    "wix-storybook-utils": "^2.0.0",
-    "yoshi": "^2.8.3"
+    "wix-storybook-utils": "^2.0.53",
+    "yoshi": "^3.16.1",
+    "yoshi-style-dependencies": "^3.16.0"
   },
   "peerDependencies": {
     "react": "^15.0.0",
@@ -124,7 +129,7 @@
     "is-url": "^1.2.2",
     "jscodeshift": "^0.5.0",
     "lodash": "^4.17.4",
-    "moment": "2.19.2",
+    "moment": "2.22.2",
     "omit": "^1.0.1",
     "popper.js": "^1.10.8",
     "prop-types": "^15.5.8",
@@ -133,7 +138,6 @@
     "react-day-picker": "^7.0.7",
     "react-dnd": "^2.5.1",
     "react-dnd-html5-backend": "^5.0.1",
-    "react-jss": "^8.0.0",
     "react-modal": "^3.3.2",
     "react-motion": "^0.4.7",
     "react-portal": "^4.1.5",
@@ -143,6 +147,7 @@
     "wix-animations": "^1.0.141",
     "wix-eventually": "^2.2.0",
     "wix-ui-backoffice": "^1.0.299",
+    "wix-ui-core": "^1.0.628",
     "wix-ui-icons-common": "^2.0.9",
     "wix-ui-test-utils": "^1.0.115"
   },
@@ -162,7 +167,12 @@
   },
   "babel": {
     "presets": [
-      "es2015",
+      [
+        "es2015",
+        {
+          "modules": false
+        }
+      ],
       "react",
       "stage-2"
     ],
@@ -171,19 +181,17 @@
     ]
   },
   "eslintConfig": {
-    "extends": "wix/react",
+    "extends": "yoshi",
     "env": {
       "jest": true
     },
     "rules": {
+      "import/no-unresolved": 0,
+      "react/forbid-foreign-prop-types": 0,
       "react/jsx-handler-names": 0,
       "react/no-find-dom-node": 0,
       "react/no-string-refs": 0,
       "react/jsx-boolean-value": 2,
-      "comma-dangle": [
-        "error",
-        "never"
-      ],
       "no-restricted-properties": [
         "error",
         {
@@ -205,14 +213,10 @@
       "no-restricted-globals": [
         "error",
         "fdescribe",
-        "fit"
-      ],
-      "indent": 0,
-      "indent-legacy": [
-        2,
-        2,
+        "fit",
         {
-          "SwitchCase": 1
+          "name": "Proxy",
+          "message": "Proxy not supported in IE11."
         }
       ],
       "no-console": "error"

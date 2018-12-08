@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Template from './Template';
@@ -12,22 +12,21 @@ class ExamplePopover extends Component {
   state = {
     placement: 'top',
     text: 'Popover appears on click',
-    maxWidth: ''
+    maxWidth: '',
   };
 
   render() {
     return (
       <form className={styles.form}>
         <div className={styles.input}>
-
           <div className={styles.option}>
             <Label>Direction</Label>
             <div className={styles.flex}>
               <RadioGroup
                 display="horizontal"
                 value={this.state.placement}
-                onChange={placement => this.setState({placement})}
-                >
+                onChange={placement => this.setState({ placement })}
+              >
                 <RadioGroup.Radio value="top">Top</RadioGroup.Radio>
                 <RadioGroup.Radio value="right">Right</RadioGroup.Radio>
                 <RadioGroup.Radio value="bottom">Bottom</RadioGroup.Radio>
@@ -42,8 +41,8 @@ class ExamplePopover extends Component {
               <Input
                 size="small"
                 value={this.state.text}
-                onChange={e => this.setState({text: e.target.value})}
-                />
+                onChange={e => this.setState({ text: e.target.value })}
+              />
             </div>
           </div>
 
@@ -53,8 +52,8 @@ class ExamplePopover extends Component {
               <Input
                 size="small"
                 value={this.state.maxWidth}
-                onChange={e => this.setState({maxWidth: e.target.value})}
-                />
+                onChange={e => this.setState({ maxWidth: e.target.value })}
+              />
             </div>
           </div>
         </div>
@@ -68,7 +67,7 @@ class ExamplePopover extends Component {
               tooltipContent={this.state.text}
               maxWidth={this.state.maxWidth}
               onChange={this.props.onChange}
-              />
+            />
           </div>
         </div>
       </form>
@@ -79,5 +78,5 @@ class ExamplePopover extends Component {
 export default ExamplePopover;
 
 ExamplePopover.propTypes = {
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };

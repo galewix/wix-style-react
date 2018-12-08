@@ -19,3 +19,17 @@
     }
   }
 }
+
+@include withRTL() {
+  .stats-column-wrapper {
+    .stats-column {
+      &:first-child {
+        border-right: none;
+      }
+
+      &:last-child {
+        border-right: 1px solid $D70;
+      }
+    }
+  }
+}

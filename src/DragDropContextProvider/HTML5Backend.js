@@ -1,1 +1,1 @@
-export {default} from 'react-dnd-html5-backend';
+export { default } from 'react-dnd-html5-backend';

@@ -11,7 +11,7 @@ const dataTableDriverFactory = component => ({
   clickRowByIndex: index => rowByIdx(component, index).click(),
   getRowTextByIndex: index => rowByIdx(component, index).getText(),
   scrollToRowByIdx: index => scrollIntoView(rowByIdx(component, index)),
-  element: () => component
+  element: () => component,
 });
 
 export default dataTableDriverFactory;

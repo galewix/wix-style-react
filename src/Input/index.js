@@ -1,1 +1,1 @@
-export {default} from './ThemedInput.js';
+export { default } from './ThemedInput.js';
