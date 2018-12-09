@@ -45,17 +45,6 @@ describe('InputArea', () => {
     });
   });
 
-  describe('name attribute', () => {
-    it('should pass down to the wrapped input', () => {
-      const props = {
-        name: 'hello'
-      };
-
-      const driver = createDriver(<InputAreaForTesting {...props}/>);
-      expect(driver.getName()).toEqual(props.name);
-    });
-  });
-
   describe('defaultValue attribute', () => {
     it('should pass down to the wrapped input', () => {
       const defaultValue = 'hello';
