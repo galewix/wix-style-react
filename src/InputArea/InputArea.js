@@ -52,7 +52,6 @@ class InputArea extends WixComponent {
       resizable,
       hasCounter,
       theme,
-      name,
       errorMessage,
       tooltipPlacement,
       onTooltipShow,
@@ -92,7 +91,6 @@ class InputArea extends WixComponent {
       <div className={styles.wrapper}>
         <div className={classes}>
           <textarea
-            name={name}
             rows={rows}
             maxLength={maxLength}
             ref={ref => (this.textArea = ref)}
